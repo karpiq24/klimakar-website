@@ -10,7 +10,7 @@ const { title, rows, note } = Astro.props;
 
 <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] overflow-hidden shadow-[var(--shadow-sm)]">
   <div class="bg-blue-50 [data-theme='dark']:bg-[var(--bg-accent-subtle)] px-5 py-3.5 border-b border-[var(--border-subtle)]">
-    <h3 class="font-display text-[18px] font-bold text-blue-700">{title}</h3>
+    <h3 class="font-display text-[18px] font-bold text-blue-700 [data-theme='dark']:text-blue-400">{title}</h3>
   </div>
   <div>
     {rows.map((row, i) => (
@@ -22,7 +22,7 @@ const { title, rows, note } = Astro.props;
         ]}
       >
         <span class="text-[14px] font-body text-[var(--text-primary)] leading-[1.4]">{row.service}</span>
-        <span class="text-[14px] font-display font-bold text-blue-700 text-right whitespace-nowrap min-w-[100px]">{row.price}</span>
+        <span class="text-[14px] font-display font-bold text-blue-700 [data-theme='dark']:text-blue-400 text-right whitespace-nowrap min-w-[100px]">{row.price}</span>
       </div>
     ))}
   </div>

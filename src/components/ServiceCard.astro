@@ -15,7 +15,7 @@ const { title, description, price } = Astro.props;
       {price}
     </span>
   )}
-  <div class="w-[44px] h-[44px] bg-blue-50 [data-theme='dark']:bg-[var(--bg-accent-subtle)] rounded-[10px] flex items-center justify-center text-blue-700 group-hover:bg-blue-700 group-hover:text-white transition-all duration-[180ms]">
+  <div class="w-[44px] h-[44px] bg-blue-50 [data-theme='dark']:bg-[var(--bg-accent-subtle)] rounded-[10px] flex items-center justify-center text-blue-700 [data-theme='dark']:text-blue-400 group-hover:bg-blue-700 group-hover:text-white transition-all duration-[180ms]">
     <slot />
   </div>
   <div>

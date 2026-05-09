@@ -8,6 +8,6 @@ const { value, label } = Astro.props;
 ---
 
 <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] py-5 px-4 text-center">
-  <div class="font-display text-[32px] font-bold text-blue-700 leading-none">{value}</div>
+  <div class="font-display text-[32px] font-bold text-blue-700 [data-theme='dark']:text-blue-400 leading-none">{value}</div>
   <div class="text-[12px] text-[var(--text-secondary)] font-body mt-1.5">{label}</div>
 </div>
