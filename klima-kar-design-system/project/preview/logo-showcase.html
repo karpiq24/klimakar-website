@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #fff; font-family: 'Barlow', sans-serif; padding: 18px 20px; display: flex; flex-direction: column; gap: 14px; }
+
+  /* ── SVG class color definitions ── */
+  /* Colored logo (light bg): brand tri-blue palette */
+  .logo-colored .st0 { fill: #1C5EA6; }
+  .logo-colored .st1 { fill: #3388BF; }
+  .logo-colored .st2 { fill: #40B0D9; }
+  /* White logo (dark bg): all fills white */
+  .logo-white .st0,
+  .logo-white .st1,
+  .logo-white .st2 { fill: #ffffff; }
+
+  svg { display: block; }
+
+  .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .chip { display: flex; align-items: center; justify-content: center; padding: 14px 20px; border-radius: 6px; }
+  .chip-light { background: #fff; border: 1px solid #D0DDE5; }
+  .chip-offwhite { background: #F4F7FB; border: 1px solid #D0DDE5; }
+  .chip-dark { background: #0D1B2E; }
+  .chip-blue { background: #1C5EA6; }
+  .meta { font-size: 10px; font-weight: 500; color: #7A94A8; margin-top: 4px; text-align: center; }
+  .label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #A8BEC9; width: 72px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<div class="row" id="row-full-light">
+  <div class="label">Full<br>Light bg</div>
+  <!-- injected by JS -->
+</div>
+
+<div class="row" id="row-full-dark">
+  <div class="label">Full<br>Dark bg</div>
+</div>
+
+<div class="row" id="row-icon">
+  <div class="label">Icon<br>only</div>
+</div>
+
+<div class="row" id="row-round">
+  <div class="label">Round<br>badge</div>
+</div>
+
+<script>
+async function loadSVG(path) {
+  const r = await fetch(path);
+  const text = await r.text();
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(text, 'image/svg+xml');
+  return doc.querySelector('svg');
+}
+
+function wrapChip(svgEl, chipClass, logoClass, svgHeight, label) {
+  svgEl.style.height = svgHeight + 'px';
+  svgEl.style.width = 'auto';
+  svgEl.classList.add(logoClass);
+  const chip = document.createElement('div');
+  chip.className = 'chip ' + chipClass;
+  chip.appendChild(svgEl);
+  const wrap = document.createElement('div');
+  wrap.appendChild(chip);
+  const meta = document.createElement('div');
+  meta.className = 'meta';
+  meta.textContent = label;
+  wrap.appendChild(meta);
+  return wrap;
+}
+
+async function init() {
+  const [svgName, svgNoname, svgRound] = await Promise.all([
+    loadSVG('../assets/logo_name.svg'),
+    loadSVG('../assets/logo_noname.svg'),
+    loadSVG('../assets/logo_round.svg'),
+  ]);
+
+  const rowFullLight = document.getElementById('row-full-light');
+  const rowFullDark  = document.getElementById('row-full-dark');
+  const rowIcon      = document.getElementById('row-icon');
+  const rowRound     = document.getElementById('row-round');
+
+  // Full logo — light backgrounds (colored: st0=navy, st1=blue, st2=steel)
+  rowFullLight.appendChild(wrapChip(svgName.cloneNode(true),   'chip-light',    'logo-colored', 40, 'on white'));
+  rowFullLight.appendChild(wrapChip(svgName.cloneNode(true),   'chip-offwhite', 'logo-colored', 40, 'on off-white'));
+
+  // Full logo — dark backgrounds (all white)
+  rowFullDark.appendChild(wrapChip(svgName.cloneNode(true), 'chip-dark', 'logo-white', 40, 'on dark navy'));
+  rowFullDark.appendChild(wrapChip(svgName.cloneNode(true), 'chip-blue', 'logo-white', 40, 'on brand blue'));
+
+  // Icon only
+  rowIcon.appendChild(wrapChip(svgNoname.cloneNode(true), 'chip-light',    'logo-colored', 44, 'on white'));
+  rowIcon.appendChild(wrapChip(svgNoname.cloneNode(true), 'chip-offwhite', 'logo-colored', 44, 'on off-white'));
+  rowIcon.appendChild(wrapChip(svgNoname.cloneNode(true), 'chip-dark',     'logo-white',   44, 'on dark navy'));
+  rowIcon.appendChild(wrapChip(svgNoname.cloneNode(true), 'chip-blue',     'logo-white',   44, 'on brand blue'));
+
+  // Round badge
+  rowRound.appendChild(wrapChip(svgRound.cloneNode(true), 'chip-light',    'logo-colored', 52, 'on white'));
+  rowRound.appendChild(wrapChip(svgRound.cloneNode(true), 'chip-dark',     'logo-white',   52, 'on dark navy'));
+}
+
+init();
+</script>
+</body></html>

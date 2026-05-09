@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import PageHero from '../components/PageHero.astro';
+import ContactSection from '../components/ContactSection.astro';
+---
+
+<BaseLayout
+  title="Kontakt — Klima-Kar"
+  description="Skontaktuj się z nami. Klima-Kar, ul. Grota Roweckiego 129, 52-232 Wrocław. Tel. 71 337 14 50."
+>
+
+  <Breadcrumb items={[
+    { label: "Strona główna", href: "/" },
+    { label: "Kontakt" },
+  ]} />
+
+  <PageHero
+    label="Kontakt"
+    title="Skontaktuj się<br>z nami"
+    description="Zapraszamy do kontaktu telefonicznego, mailowego lub osobistego. Chętnie odpowiemy na pytania i umówimy wizytę serwisową."
+  />
+
+  <ContactSection />
+
+  <!-- ============================================================
+       DOJAZD / INFORMACJE DODATKOWE
+       ============================================================ -->
+  <section class="bg-[var(--bg-page)] pb-16 px-10 max-[600px]:px-5 transition-colors duration-200">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-8 max-[600px]:p-5 shadow-[var(--shadow-sm)]">
+        <h2 class="font-display text-[24px] font-bold text-[var(--text-primary)] mb-4">Jak do nas dojechać?</h2>
+        <div class="grid grid-cols-1 min-[700px]:grid-cols-2 gap-8">
+          <div>
+            <h4 class="text-[15px] font-semibold text-[var(--text-primary)] font-body mb-2">Dojazd samochodem</h4>
+            <p class="text-[14px] text-[var(--text-secondary)] leading-[1.65] font-body">
+              Nasz serwis znajduje się przy ul. Grota Roweckiego 129 we Wrocławiu, w dzielnicy Grabiszyn-Grabiszynek. Wjazd od strony ul. Grota Roweckiego. Parking dla klientów dostępny na miejscu.
+            </p>
+          </div>
+          <div>
+            <h4 class="text-[15px] font-semibold text-[var(--text-primary)] font-body mb-2">Godziny otwarcia</h4>
+            <ul class="space-y-1.5 text-[14px] text-[var(--text-secondary)] leading-[1.6] font-body">
+              <li class="flex justify-between max-w-[240px]">
+                <span>Poniedziałek - Piątek</span>
+                <span class="font-semibold text-[var(--text-primary)]">8:00 - 16:00</span>
+              </li>
+              <li class="flex justify-between max-w-[240px]">
+                <span>Sobota</span>
+                <span class="font-semibold text-[var(--text-primary)]">nieczynne</span>
+              </li>
+              <li class="flex justify-between max-w-[240px]">
+                <span>Niedziela</span>
+                <span class="font-semibold text-[var(--text-primary)]">nieczynne</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

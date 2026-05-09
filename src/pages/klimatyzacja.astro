@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import PageHero from '../components/PageHero.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { Wind, Search, Settings, ShieldCheck, Zap, Layers } from 'lucide-astro';
+---
+
+<BaseLayout
+  title="Klimatyzacja samochodowa — Klima-Kar"
+  description="Profesjonalny serwis klimatyzacji samochodowej we Wrocławiu. Napełnianie, diagnostyka, regeneracja sprężarek, dezynfekcja, wymiana podzespołów."
+>
+  <Breadcrumb items={[{ label: "Strona główna", href: "/" }, { label: "Klimatyzacja" }]} />
+
+  <PageHero
+    label="Usługi"
+    title="Klimatyzacja<br>samochodowa"
+    description="Wykonujemy wszelkie naprawy: regeneracja sprężarek, naprawa przewodów, wymiana chłodnic i parowników, usuwanie nieprzyjemnych zapachów, dezynfekcja, napełnianie."
+  />
+
+  <section class="bg-[var(--bg-page)] py-14 px-6 sm:px-10">
+    <div class="mx-auto max-w-[1200px]">
+
+      <!-- Service cards grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+
+        <ServiceCard
+          title="Napełnianie i serwis układu"
+          description="Odzysk czynnika, wykonanie próżni, kontrola szczelności, napełnienie czystym czynnikiem R134a, R1234yf lub R12. Kontrola ciśnienia podczas pracy. Uzupełnienie oleju i barwnika UV."
+          price="od 200 zł"
+        >
+          <Wind size={22} />
+        </ServiceCard>
+
+        <ServiceCard
+          title="Diagnostyka i test szczelności"
+          description="Elektroniczne testy szczelności układu z użyciem wykrywacza nieszczelności i barwnika UV. Diagnostyka komputerowa. Diagnostyka kompresora na hamowni."
+          price="200 zł"
+        >
+          <Search size={22} />
+        </ServiceCard>
+
+        <ServiceCard
+          title="Regeneracja sprężarki"
+          description="Naprawa i regeneracja sprężarek klimatyzacji wszystkich marek pojazdów. Uszczelnienie i regeneracja kompletnego sprzęgła. Płukanie układu z opiłków po zatarciu kompresora."
+          price="od 1000 zł"
+        >
+          <Settings size={22} />
+        </ServiceCard>
+
+        <ServiceCard
+          title="Dezynfekcja TUNAP"
+          description="Najskuteczniejsza chemiczna metoda ręczna oczyszczania układu. Eliminacja bakterii, grzybów i nieprzyjemnych zapachów z parownika i kanałów wentylacyjnych."
+          price="250 zł"
+        >
+          <ShieldCheck size={22} />
+        </ServiceCard>
+
+        <ServiceCard
+          title="Dezynfekcja ultradźwiękowa"
+          description="Szybka i skuteczna dezynfekcja chemiczna metodą ultradźwiękową. Zapobieganie i usuwanie nieprzyjemnych zapachów. Idealna jako profilaktyczne odświeżenie układu."
+          price="120 zł"
+        >
+          <Zap size={22} />
+        </ServiceCard>
+
+        <ServiceCard
+          title="Wymiana podzespołów"
+          description="Wymiana skraplacza, parownika, przewodów elastycznych i aluminiowych. Naprawa przewodów aluminiowych i aluminiowo-gumowych. Wymiana filtrów kabinowych."
+          price="od 250 zł"
+        >
+          <Layers size={22} />
+        </ServiceCard>
+
+      </div>
+
+      <!-- CTA Banner -->
+      <CTABanner
+        title="Gotowy na serwis klimatyzacji?"
+        subtitle="Zadzwoń: 71 337 14 50 lub umów się online"
+        primaryText="Umów wizytę"
+        primaryHref="/kontakt/"
+        secondaryText="Zobacz cennik"
+        secondaryHref="/cennik/"
+        variant="blue"
+      />
+
+    </div>
+  </section>
+</BaseLayout>

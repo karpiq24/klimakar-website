@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--color-off-white); font-family: var(--font-body); padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 9999px; letter-spacing: 0.03em; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.7; }
+  .label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-dark-300); width: 70px; flex-shrink: 0; }
+  /* Brand badges */
+  .badge-blue { background: var(--color-blue-100); color: var(--color-blue-800); }
+  .badge-dark { background: var(--color-dark-900); color: #fff; }
+  .badge-outline { background: transparent; color: var(--color-blue-700); border: 1.5px solid var(--color-blue-200); }
+  /* Status badges */
+  .badge-success { background: var(--color-success-bg); color: var(--color-success); }
+  .badge-warning { background: var(--color-warning-bg); color: var(--color-warning); }
+  .badge-error { background: var(--color-error-bg); color: var(--color-error); }
+  /* Partner pills */
+  .pill { background: #fff; border: 1.5px solid var(--color-dark-100); border-radius: 9999px; padding: 4px 12px; font-size: 12px; font-weight: 600; color: var(--color-dark-700); box-shadow: var(--shadow-xs); }
+</style>
+</head><body>
+<div class="row">
+  <div class="label">Brand</div>
+  <span class="badge badge-blue">Klimatyzacja</span>
+  <span class="badge badge-dark">Autoryzowany</span>
+  <span class="badge badge-outline">od 2001</span>
+</div>
+<div class="row">
+  <div class="label">Status</div>
+  <span class="badge badge-success"><span class="dot"></span>Dostępny</span>
+  <span class="badge badge-warning"><span class="dot"></span>W realizacji</span>
+  <span class="badge badge-error"><span class="dot"></span>Niedostępny</span>
+</div>
+<div class="row">
+  <div class="label">Partners</div>
+  <span class="pill">Webasto</span>
+  <span class="pill">Eberspächer</span>
+  <span class="pill">DEFA</span>
+</div>
+</body></html>

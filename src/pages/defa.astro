@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import PageHero from '../components/PageHero.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { Thermometer, Fan, BatteryCharging, Leaf, ShieldCheck, Fuel, Snowflake } from 'lucide-astro';
+
+const modules = [
+  {
+    title: 'Podgrzewacz silnika',
+    description: 'Do większości jednostek napędowych występuje specjalnie dedykowana grzałka silnika. Rozruch wstępnie podgrzanego silnika jest łatwiejszy i oznacza istotne zmniejszenie zużycia paliwa, a także obniżenie zużycia samego silnika w porównaniu do startu „na zimno".',
+    icon: 'thermometer',
+  },
+  {
+    title: 'Ogrzewacz wnętrza',
+    description: 'Ogrzewacz wnętrza zapewnia komfortową temperaturę wnętrza pojazdu. Ciepłe wnętrze pozwala zapomnieć o parowaniu szyb i porannym skrobaniu lodu. Bezpiecznie jest jeździć z czystymi i odlodzonymi szybami.',
+    icon: 'fan',
+  },
+  {
+    title: 'Ładowarka akumulatora',
+    description: 'Elektroniczna ładowarka daje pewność naładowanego do pełna akumulatora. Zaawansowana elektronika zapobiega przeładowaniu, a akumulator jest prawidłowo ładowany niezależnie od temperatury na zewnątrz.',
+    icon: 'battery',
+  },
+];
+
+const benefits = [
+  { text: 'Ograniczenie szkodliwych emisji spalin', icon: 'leaf' },
+  { text: 'Mniejsze zużycie silnika przy rozruchu', icon: 'shield' },
+  { text: 'Oszczędność paliwa na zimnym starcie', icon: 'fuel' },
+  { text: 'Komfortowe warunki od pierwszej chwili', icon: 'snowflake' },
+];
+---
+
+<BaseLayout
+  title="DEFA — Klima-Kar"
+  description="Elektryczne ogrzewanie postojowe DEFA we Wrocławiu. Sprzedaż, montaż i serwis systemów DEFA WarmUp — podgrzewacz silnika, ogrzewacz wnętrza, ładowarka akumulatora."
+>
+  <Breadcrumb items={[
+    { label: "Strona główna", href: "/" },
+    { label: "Ogrzewanie postojowe", href: "/ogrzewanie-postojowe/" },
+    { label: "DEFA" },
+  ]} />
+
+  <PageHero
+    label="DEFA"
+    title="Ogrzewanie elektryczne<br>DEFA"
+    description="Oferujemy sprzedaż części i montaż systemów ogrzewania DEFA, a także obsługę i rozbudowę istniejących instalacji. System DEFA WarmUp wymaga zasilania z sieci 230V."
+  />
+
+  <section class="bg-[var(--bg-page)] py-14 px-6 sm:px-10">
+    <div class="mx-auto max-w-[1200px]">
+
+      <!-- Introduction -->
+      <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-6 sm:p-8 shadow-[var(--shadow-sm)] mb-10">
+        <h2 class="font-display text-[clamp(22px,3vw,28px)] font-bold text-[var(--text-primary)] mb-3">System DEFA WarmUp</h2>
+        <p class="text-[14px] text-[var(--text-secondary)] leading-[1.65] font-body mb-4 max-w-[780px]">
+          Elektryczne ogrzewanie postojowe DEFA do działania wymaga zasilania prądem przemiennym z sieci 230V. Kompletny system DEFA WarmUp składa się z grzałki silnika, ogrzewacza wnętrza, elektronicznej ładowarki akumulatora i jednostki sterującej.
+        </p>
+        <p class="text-[14px] text-[var(--text-secondary)] leading-[1.65] font-body max-w-[780px]">
+          Zaletą systemu DEFA WarmUp jest jego modułowa budowa pozwalająca na dostosowanie systemu do potrzeb i wymagań użytkownika. Nic nie stoi na przeszkodzie, by wyposażyć pojazd wyłącznie w grzałkę silnika.
+        </p>
+      </div>
+
+      <!-- Modules -->
+      <h2 class="font-display text-[clamp(24px,3vw,32px)] font-bold text-[var(--text-primary)] mb-6">Moduły systemu DEFA</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+        {modules.map((mod) => (
+          <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-[22px] shadow-[var(--shadow-xs)] flex flex-col gap-3">
+            <div class="w-[44px] h-[44px] bg-[#006BB4]/10 rounded-[10px] flex items-center justify-center text-[#006BB4]">
+              {mod.icon === 'thermometer' && <Thermometer size={22} />}
+              {mod.icon === 'fan' && <Fan size={22} />}
+              {mod.icon === 'battery' && <BatteryCharging size={22} />}
+            </div>
+            <div>
+              <h3 class="font-display text-[18px] font-bold text-[var(--text-primary)] mb-1.5 leading-[1.2]">{mod.title}</h3>
+              <p class="text-[13px] text-[var(--text-secondary)] leading-relaxed font-body">{mod.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Benefits -->
+      <h2 class="font-display text-[clamp(24px,3vw,32px)] font-bold text-[var(--text-primary)] mb-6">Korzyści</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+        {benefits.map((benefit) => (
+          <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-5 shadow-[var(--shadow-xs)] flex items-center gap-4">
+            <div class="w-[40px] h-[40px] bg-[#006BB4]/10 rounded-[10px] flex items-center justify-center text-[#006BB4] shrink-0">
+              {benefit.icon === 'leaf' && <Leaf size={20} />}
+              {benefit.icon === 'shield' && <ShieldCheck size={20} />}
+              {benefit.icon === 'fuel' && <Fuel size={20} />}
+              {benefit.icon === 'snowflake' && <Snowflake size={20} />}
+            </div>
+            <p class="text-[14px] text-[var(--text-primary)] font-body font-medium">{benefit.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- 230V note -->
+      <div class="bg-blue-50 [data-theme='dark']:bg-[var(--bg-accent-subtle)] border border-blue-200 [data-theme='dark']:border-blue-800 rounded-[6px] p-5 mb-12 flex items-start gap-3">
+        <span class="text-blue-600 font-bold text-[18px] mt-[-1px] shrink-0">&#9889;</span>
+        <p class="text-[14px] text-blue-800 [data-theme='dark']:text-blue-300 font-body leading-relaxed">
+          <strong>Wymaga dostępu do sieci 230V w miejscu postoju.</strong> System DEFA jest idealnym rozwiązaniem dla osób posiadających garaż lub miejsce parkingowe z dostępem do gniazdka elektrycznego.
+        </p>
+      </div>
+
+      <!-- CTA Banner -->
+      <CTABanner
+        title="Zapytaj o montaż systemu DEFA"
+        subtitle="tel. 71 337 14 50 · kom. 605 594 506"
+        primaryText="Umów wizytę"
+        primaryHref="/kontakt/"
+        variant="card"
+      />
+
+    </div>
+  </section>
+</BaseLayout>

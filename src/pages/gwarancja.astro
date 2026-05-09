@@ -1,0 +1,148 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import PageHero from '../components/PageHero.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { Shield, Package, FileText } from 'lucide-astro';
+---
+
+<BaseLayout
+  title="Gwarancja — Klima-Kar"
+  description="Warunki gwarancji na usługi serwisowe i części zamienne w Klima-Kar. 24 miesiące gwarancji na naprawy klimatyzacji samochodowej we Wrocławiu."
+>
+
+  <Breadcrumb items={[
+    { label: "Strona główna", href: "/" },
+    { label: "Gwarancja" },
+  ]} />
+
+  <PageHero
+    label="Informacje"
+    title="Gwarancja"
+    description="Informacje dotyczące warunków gwarancji na usługi i części zamienne."
+  />
+
+  <!-- ============================================================
+       WARRANTY CONTENT
+       ============================================================ -->
+  <section class="bg-[var(--bg-page)] py-14 px-10 max-[600px]:px-5 transition-colors duration-200">
+    <div class="max-w-[1200px] mx-auto">
+
+      <!-- Cards grid -->
+      <div class="grid grid-cols-1 min-[700px]:grid-cols-3 gap-4 mb-12">
+
+        <!-- Card 1: Gwarancja na uslugi -->
+        <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-6 shadow-[var(--shadow-sm)]">
+          <div class="w-10 h-10 rounded-[6px] bg-blue-700/10 flex items-center justify-center mb-4">
+            <Shield size={20} class="text-blue-700" strokeWidth={1.5} />
+          </div>
+          <h3 class="font-display text-[20px] font-bold text-[var(--text-primary)] mb-3">Gwarancja na usługi</h3>
+          <ul class="space-y-2.5 text-[14px] text-[var(--text-secondary)] leading-[1.6] font-body">
+            <li class="flex gap-2 items-start">
+              <span class="text-blue-700 mt-[2px] shrink-0">&bull;</span>
+              <span>24 miesiące gwarancji na wykonane naprawy klimatyzacji</span>
+            </li>
+            <li class="flex gap-2 items-start">
+              <span class="text-blue-700 mt-[2px] shrink-0">&bull;</span>
+              <span>Gwarancja obejmuje poprawność wykonania usługi</span>
+            </li>
+            <li class="flex gap-2 items-start">
+              <span class="text-blue-700 mt-[2px] shrink-0">&bull;</span>
+              <span>W przypadku reklamacji prosimy o kontakt telefoniczny</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Card 2: Gwarancja na czesci -->
+        <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-6 shadow-[var(--shadow-sm)]">
+          <div class="w-10 h-10 rounded-[6px] bg-blue-700/10 flex items-center justify-center mb-4">
+            <Package size={20} class="text-blue-700" strokeWidth={1.5} />
+          </div>
+          <h3 class="font-display text-[20px] font-bold text-[var(--text-primary)] mb-3">Gwarancja na części</h3>
+          <ul class="space-y-2.5 text-[14px] text-[var(--text-secondary)] leading-[1.6] font-body">
+            <li class="flex gap-2 items-start">
+              <span class="text-blue-700 mt-[2px] shrink-0">&bull;</span>
+              <span>Części zamienne objęte gwarancją producenta</span>
+            </li>
+            <li class="flex gap-2 items-start">
+              <span class="text-blue-700 mt-[2px] shrink-0">&bull;</span>
+              <span>Oryginalne części Webasto, Eberspächer, DEFA</span>
+            </li>
+            <li class="flex gap-2 items-start">
+              <span class="text-blue-700 mt-[2px] shrink-0">&bull;</span>
+              <span>Dokumentacja gwarancyjna wydawana przy odbiorze</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Card 3: Warunki gwarancji -->
+        <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-6 shadow-[var(--shadow-sm)]">
+          <div class="w-10 h-10 rounded-[6px] bg-blue-700/10 flex items-center justify-center mb-4">
+            <FileText size={20} class="text-blue-700" strokeWidth={1.5} />
+          </div>
+          <h3 class="font-display text-[20px] font-bold text-[var(--text-primary)] mb-3">Warunki gwarancji</h3>
+          <ul class="space-y-2.5 text-[14px] text-[var(--text-secondary)] leading-[1.6] font-body">
+            <li class="flex gap-2 items-start">
+              <span class="text-blue-700 mt-[2px] shrink-0">&bull;</span>
+              <span>Gwarancja nie obejmuje uszkodzeń mechanicznych</span>
+            </li>
+            <li class="flex gap-2 items-start">
+              <span class="text-blue-700 mt-[2px] shrink-0">&bull;</span>
+              <span>Wymagane jest przestrzeganie zaleceń serwisowych</span>
+            </li>
+            <li class="flex gap-2 items-start">
+              <span class="text-blue-700 mt-[2px] shrink-0">&bull;</span>
+              <span>Utrata gwarancji w przypadku ingerencji osób trzecich</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Detailed warranty info -->
+      <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-8 max-[600px]:p-5 shadow-[var(--shadow-sm)] mb-12">
+        <h2 class="font-display text-[28px] font-bold text-[var(--text-primary)] mb-6">Szczegóły gwarancji</h2>
+
+        <div class="space-y-6">
+          <div>
+            <h4 class="text-[15px] font-semibold text-[var(--text-primary)] font-body mb-2">Okres gwarancji</h4>
+            <p class="text-[14px] text-[var(--text-secondary)] leading-[1.65] font-body">
+              Jeżeli w ciągu 24 miesięcy od regeneracji lub wymiany zawiedzie część, której regeneracja lub wymiana dotyczyła, to gwarantujemy priorytetowe załatwianie sprawy. Klient gwarancyjny obsługiwany jest poza kolejnością i bez oczekiwania na rozpatrzenie gwarancji przez producenta.
+            </p>
+          </div>
+
+          <div class="border-t border-[var(--border-subtle)] pt-6">
+            <h4 class="text-[15px] font-semibold text-[var(--text-primary)] font-body mb-2">Czy gwarancja obejmuje inne podzespoły niż naprawiane?</h4>
+            <p class="text-[14px] text-[var(--text-secondary)] leading-[1.65] font-body">
+              Niestety nie. Gwarancja dotyczy wyłącznie części i podzespołów, które były zregenerowane lub wymienione. Przykładowo, jeśli wymienimy sprężarkę klimatyzacji, a po miesiącu rozszczelni się chłodnica, naprawa chłodnicy nie jest objęta gwarancją.
+            </p>
+          </div>
+
+          <div class="border-t border-[var(--border-subtle)] pt-6">
+            <h4 class="text-[15px] font-semibold text-[var(--text-primary)] font-body mb-2">Naprawa a regeneracja sprężarki</h4>
+            <p class="text-[14px] text-[var(--text-secondary)] leading-[1.65] font-body">
+              Aby gwarancja dotyczyła całej sprężarki, należy zdecydować się na kompleksową regenerację sprężarki. Naprawa sprężarki jest tańsza od regeneracji, ale gwarancja dotyczy tylko naprawionego podzespołu sprężarki.
+            </p>
+          </div>
+
+          <div class="border-t border-[var(--border-subtle)] pt-6">
+            <h4 class="text-[15px] font-semibold text-[var(--text-primary)] font-body mb-2">Części dostarczone przez klienta</h4>
+            <p class="text-[14px] text-[var(--text-secondary)] leading-[1.65] font-body">
+              Gwarancja dotyczy tylko części zakupionych i zamontowanych w naszej firmie. Jeśli część dostarczona przez klienta ulegnie uszkodzeniu, konieczne będzie pokrycie kosztu ponownego demontażu, montażu i ewentualnego napełnienia czynnikiem.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Banner -->
+      <CTABanner
+        variant="card"
+        title="Masz pytania dotyczące gwarancji?"
+        subtitle="Zadzwoń: 71 337 14 50 — chętnie wyjaśnimy szczegóły."
+        primaryText="Skontaktuj się"
+        primaryHref="/kontakt/"
+      />
+
+    </div>
+  </section>
+
+</BaseLayout>

@@ -1,0 +1,161 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import PageHero from '../components/PageHero.astro';
+import CTABanner from '../components/CTABanner.astro';
+
+const galleryImages = [
+  { src: "/images/galeria/war.JPG", alt: "Warsztat Klima-Kar we Wrocławiu" },
+  { src: "/images/galeria/szyld.JPG", alt: "Szyld serwisu Klima-Kar" },
+  { src: "/images/galeria/merc.jpg", alt: "Serwis klimatyzacji w Mercedesie" },
+  { src: "/images/galeria/k2.jpg", alt: "Naprawa klimatyzacji samochodowej" },
+  { src: "/images/galeria/lamb.JPG", alt: "Serwis klimatyzacji w Lamborghini" },
+  { src: "/images/galeria/sub.jpg", alt: "Serwis klimatyzacji w Subaru" },
+  { src: "/images/manometry50p.webp", alt: "Manometry do obsługi klimatyzacji samochodowej" },
+  { src: "/images/webastoauto.jpg", alt: "Montaż ogrzewania postojowego Webasto" },
+  { src: "/images/dron-1-1536x960.webp", alt: "Widok z lotu ptaka na serwis Klima-Kar" },
+  { src: "/images/merc2.jpg", alt: "Realizacja serwisu klimatyzacji w Mercedesie" },
+  { src: "/images/tunap-przedipo.webp", alt: "Czyszczenie klimatyzacji — efekty przed i po" },
+  { src: "/images/us1.JPG", alt: "Stanowisko serwisowe Klima-Kar" },
+];
+---
+
+<BaseLayout
+  title="Galeria — Klima-Kar"
+  description="Zdjęcia z naszego serwisu klimatyzacji i ogrzewań postojowych we Wrocławiu."
+>
+
+  <Breadcrumb items={[
+    { label: "Strona główna", href: "/" },
+    { label: "Galeria" },
+  ]} />
+
+  <PageHero
+    label="Galeria"
+    title="Nasz serwis<br>w obiektywie"
+    description="Zobacz zdjęcia z naszego warsztatu i realizacji."
+  />
+
+  <!-- ============================================================
+       GALLERY GRID
+       ============================================================ -->
+  <section class="bg-[var(--bg-page)] py-14 px-10 max-[600px]:px-5 transition-colors duration-200">
+    <div class="max-w-[1200px] mx-auto">
+
+      <div class="grid grid-cols-1 min-[600px]:grid-cols-2 min-[900px]:grid-cols-3 gap-4">
+        {galleryImages.map((img, i) => (
+          <button
+            type="button"
+            class="gallery-thumb group block rounded-md overflow-hidden border border-[var(--border-subtle)] cursor-pointer bg-transparent p-0 transition-shadow duration-200 hover:shadow-[var(--shadow-lg)]"
+            data-src={img.src}
+            data-alt={img.alt}
+          >
+            <div class="aspect-[4/3] overflow-hidden">
+              <img
+                src={img.src}
+                alt={img.alt}
+                loading={i < 6 ? "eager" : "lazy"}
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            </div>
+          </button>
+        ))}
+      </div>
+
+      <div class="mt-12">
+        <CTABanner
+          variant="card"
+          title="Chcesz zobaczyć nasz serwis na żywo?"
+          subtitle="Umów się na wizytę — chętnie pokażemy Ci nasz warsztat."
+          primaryText="Skontaktuj się"
+          primaryHref="/kontakt/"
+        />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       LIGHTBOX (dialog)
+       ============================================================ -->
+  <dialog
+    id="gallery-lightbox"
+    class="fixed inset-0 z-50 w-full h-full max-w-none max-h-none m-0 p-0 bg-transparent border-none outline-none"
+  >
+    <div
+      id="lightbox-backdrop"
+      class="fixed inset-0 bg-black/90 flex items-center justify-center p-6 max-[600px]:p-3"
+    >
+      <button
+        type="button"
+        id="lightbox-close"
+        class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white text-[24px] font-light transition-colors cursor-pointer border-none"
+        aria-label="Zamknij"
+      >
+        &times;
+      </button>
+      <img
+        id="lightbox-img"
+        src=""
+        alt=""
+        class="max-w-full max-h-[85vh] rounded-md object-contain shadow-2xl"
+      />
+    </div>
+  </dialog>
+
+</BaseLayout>
+
+<script>
+  const dialog = document.getElementById('gallery-lightbox') as HTMLDialogElement;
+  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+  const closeBtn = document.getElementById('lightbox-close') as HTMLButtonElement;
+  const backdrop = document.getElementById('lightbox-backdrop') as HTMLDivElement;
+
+  // Open lightbox
+  document.querySelectorAll<HTMLButtonElement>('.gallery-thumb').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const src = btn.dataset.src || '';
+      const alt = btn.dataset.alt || '';
+      lightboxImg.src = src;
+      lightboxImg.alt = alt;
+      dialog.showModal();
+    });
+  });
+
+  // Close on X button
+  closeBtn.addEventListener('click', () => {
+    dialog.close();
+  });
+
+  // Close on backdrop click (but not on image click)
+  backdrop.addEventListener('click', (e) => {
+    if (e.target === backdrop) {
+      dialog.close();
+    }
+  });
+
+  // Close on Escape (native dialog behavior, but ensure cleanup)
+  dialog.addEventListener('close', () => {
+    lightboxImg.src = '';
+    lightboxImg.alt = '';
+  });
+</script>
+
+<style>
+  dialog::backdrop {
+    background: transparent;
+  }
+
+  dialog[open] {
+    animation: lightbox-fade-in 0.2s ease-out;
+  }
+
+  @keyframes lightbox-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>

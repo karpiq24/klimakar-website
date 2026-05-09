@@ -1,0 +1,97 @@
+---
+import { MapPin, Phone, Mail, Clock } from 'lucide-astro';
+import ContactForm from './ContactForm.astro';
+---
+
+<section id="kontakt" class="bg-[var(--bg-page)] py-[72px] px-[40px] max-[600px]:px-5 max-[600px]:py-12 transition-colors duration-200">
+  <div class="max-w-[1200px] mx-auto grid grid-cols-1 min-[900px]:grid-cols-2 gap-14 items-start">
+
+    <!-- Left column: Contact info + Map -->
+    <div>
+      <div class="text-[11px] font-bold uppercase tracking-[0.1em] text-blue-600 font-body mb-2.5">
+        Kontakt
+      </div>
+      <h2 class="font-display text-[30px] font-bold text-[var(--text-primary)] leading-[1.15] mb-3">
+        Skontaktuj się z nami
+      </h2>
+      <p class="text-[14px] text-[var(--text-secondary)] font-body leading-relaxed mb-7">
+        Zadzwoń, napisz lub odwiedź nas osobiście. Jesteśmy do Twojej dyspozycji.
+      </p>
+
+      <!-- Contact items -->
+      <div class="flex flex-col gap-5 mb-7">
+        <!-- Address -->
+        <div class="flex gap-3.5 items-start">
+          <div class="w-9 h-9 bg-blue-50 [data-theme='dark']:bg-[var(--bg-accent-subtle)] rounded-lg flex items-center justify-center shrink-0 text-blue-700">
+            <MapPin size={18} strokeWidth={1.5} />
+          </div>
+          <div>
+            <div class="text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--text-muted)] font-body mb-0.5">Adres</div>
+            <div class="text-[14px] text-[var(--text-primary)] font-body leading-relaxed">ul. Grota Roweckiego 129</div>
+            <div class="text-[14px] text-[var(--text-primary)] font-body leading-relaxed">52-232 Wrocław</div>
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="flex gap-3.5 items-start">
+          <div class="w-9 h-9 bg-blue-50 [data-theme='dark']:bg-[var(--bg-accent-subtle)] rounded-lg flex items-center justify-center shrink-0 text-blue-700">
+            <Phone size={18} strokeWidth={1.5} />
+          </div>
+          <div>
+            <div class="text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--text-muted)] font-body mb-0.5">Telefon</div>
+            <div class="text-[14px] text-[var(--text-primary)] font-body leading-relaxed">
+              <a href="tel:+48713371450" class="hover:text-blue-700 transition-colors">71 337 14 50</a>
+            </div>
+            <div class="text-[14px] text-[var(--text-primary)] font-body leading-relaxed">
+              <a href="tel:+48605594506" class="hover:text-blue-700 transition-colors">605 594 506</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="flex gap-3.5 items-start">
+          <div class="w-9 h-9 bg-blue-50 [data-theme='dark']:bg-[var(--bg-accent-subtle)] rounded-lg flex items-center justify-center shrink-0 text-blue-700">
+            <Mail size={18} strokeWidth={1.5} />
+          </div>
+          <div>
+            <div class="text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--text-muted)] font-body mb-0.5">E-mail</div>
+            <div class="text-[14px] text-[var(--text-primary)] font-body leading-relaxed">
+              <a href="mailto:serwis@klima-kar.pl" class="hover:text-blue-700 transition-colors">serwis@klima-kar.pl</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hours -->
+        <div class="flex gap-3.5 items-start">
+          <div class="w-9 h-9 bg-blue-50 [data-theme='dark']:bg-[var(--bg-accent-subtle)] rounded-lg flex items-center justify-center shrink-0 text-blue-700">
+            <Clock size={18} strokeWidth={1.5} />
+          </div>
+          <div>
+            <div class="text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--text-muted)] font-body mb-0.5">Godziny otwarcia</div>
+            <div class="text-[14px] text-[var(--text-primary)] font-body leading-relaxed">Pon-Pt: 8:00-16:00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Google Maps -->
+      <div class="rounded-[6px] overflow-hidden border border-[var(--border-subtle)]">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2508.1!2d17.0247!3d51.0678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470fc21c5e8b0c47%3A0x3c4b0a0a0a0a0a0a!2sKlima-Kar!5e0!3m2!1spl!2spl!4v1"
+          width="100%"
+          height="180"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Klima-Kar na mapie Google"
+          class="block w-full"
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- Right column: Form -->
+    <div>
+      <ContactForm />
+    </div>
+  </div>
+</section>

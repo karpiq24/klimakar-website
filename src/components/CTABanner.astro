@@ -1,0 +1,77 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  primaryText: string;
+  primaryHref: string;
+  secondaryText?: string;
+  secondaryHref?: string;
+  variant?: 'card' | 'blue';
+}
+
+const {
+  title,
+  subtitle,
+  primaryText,
+  primaryHref,
+  secondaryText,
+  secondaryHref,
+  variant = 'card',
+} = Astro.props;
+
+const isBlue = variant === 'blue';
+---
+
+<div
+  class:list={[
+    'rounded-[6px] flex justify-between items-center flex-wrap gap-4',
+    isBlue
+      ? 'bg-blue-700 px-8 py-9 text-white'
+      : 'bg-[var(--bg-surface)] border border-[var(--border-subtle)] px-7 py-7 shadow-[var(--shadow-sm)]',
+  ]}
+>
+  <div>
+    <h3
+      class:list={[
+        'font-display text-[22px] font-bold mb-1',
+        isBlue ? 'text-white' : 'text-[var(--text-primary)]',
+      ]}
+    >
+      {title}
+    </h3>
+    <p
+      class:list={[
+        'text-[14px] font-body',
+        isBlue ? 'text-white/75' : 'text-[var(--text-secondary)]',
+      ]}
+    >
+      {subtitle}
+    </p>
+  </div>
+  <div class="flex gap-3 flex-wrap">
+    <a
+      href={primaryHref}
+      class:list={[
+        'inline-block rounded-[4px] px-6 py-2.5 text-[14px] font-semibold font-body transition-colors duration-150 text-center',
+        isBlue
+          ? 'bg-white text-blue-700 hover:bg-blue-50'
+          : 'bg-blue-700 text-white hover:bg-blue-800',
+      ]}
+    >
+      {primaryText}
+    </a>
+    {secondaryText && secondaryHref && (
+      <a
+        href={secondaryHref}
+        class:list={[
+          'inline-block rounded-[4px] px-6 py-2.5 text-[14px] font-semibold font-body transition-colors duration-150 text-center border',
+          isBlue
+            ? 'border-white/40 text-white hover:bg-white/10'
+            : 'border-[var(--border-default)] text-[var(--text-primary)] hover:bg-[var(--bg-page)]',
+        ]}
+      >
+        {secondaryText}
+      </a>
+    )}
+  </div>
+</div>

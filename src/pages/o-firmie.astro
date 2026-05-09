@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import PageHero from '../components/PageHero.astro';
+import Timeline from '../components/Timeline.astro';
+import StatCard from '../components/StatCard.astro';
+---
+
+<BaseLayout
+  title="O firmie — Klima-Kar"
+  description="Klima-Kar — firma rodzinna z dwupokoleniową tradycją w branży chłodnictwa i ogrzewania we Wrocławiu."
+>
+
+  <Breadcrumb items={[
+    { label: "Strona główna", href: "/" },
+    { label: "O firmie" },
+  ]} />
+
+  <PageHero
+    label="O firmie"
+    title="Firma rodzinna<br>z dwupokoleniową tradycją"
+    description="Jesteśmy firmą rodzinną z wieloletnim doświadczeniem w branży chłodnictwa i ogrzewania. Nasza pasja i zaangażowanie sprawiają, że jesteśmy liderem w naprawach klimatyzacji samochodowej we Wrocławiu."
+  />
+
+  <!-- ============================================================
+       TIMELINE SECTION
+       ============================================================ -->
+  <section class="bg-[var(--bg-page)] py-16 px-10 max-[600px]:px-5 transition-colors duration-200">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="text-[11px] font-bold uppercase tracking-[0.1em] text-blue-600 font-body mb-8">Historia firmy</div>
+
+      <Timeline items={[
+        { year: "1989", title: "Początek działalności", description: "Założyciel Krzysztof Karpiński otwiera warsztat zajmujący się serwisem zmechanizowanego sprzętu gospodarstwa domowego. Początki wolnej Polski — i naszej firmy." },
+        { year: "1993", title: "Klimatyzacja samochodowa", description: "Wprowadzamy do oferty pełną obsługę urządzeń klimatyzacyjnych w samochodach osobowych i dostawczych. Nowa specjalizacja, która stała się naszą pasją." },
+        { year: "1999", title: "Klima-Kar — nowa nazwa", description: "Firma przyjmuje nazwę Klima-Kar i przenosi siedzibę na ul. Grota Roweckiego 129 we Wrocławiu. Od tej chwili skupiamy się wyłącznie na klimatyzacjach samochodowych." },
+        { year: "2008", title: "Rozbudowa i ogrzewacze", description: "Rozbudowujemy serwis o dwa stanowiska z podnośnikami. Wprowadzamy naprawy i montaż ogrzewań postojowych Webasto i Eberspächer. Wkrótce zostajemy ich Autoryzowanym Serwisem." },
+        { year: "Dziś", title: "Firma rodzinna z tradycją", description: "Dwupokoleniowa firma rodzinna. Klimatyzacje samochodowe oraz ogrzewania postojowe Webasto, Eberspächer i DEFA. Tysiące skutecznych napraw i zadowolonych klientów we Wrocławiu." },
+      ]} />
+
+      <!-- ============================================================
+           DLACZEGO KLIMA-KAR?
+           ============================================================ -->
+      <div class="mt-16 grid grid-cols-1 min-[900px]:grid-cols-2 gap-12">
+        <!-- Left column: text -->
+        <div>
+          <h2 class="font-display text-[36px] font-bold text-[var(--text-primary)] leading-[1.1] mb-4">Dlaczego Klima-Kar?</h2>
+          <p class="text-[15px] text-[var(--text-secondary)] leading-[1.65] font-body mb-3">
+            Zaufaj ekspertom z wieloletnim doświadczeniem! Nasza wiedza, poparta tysiącami udanych napraw i serwisów, to Twoja gwarancja trafnej diagnozy i skutecznego rozwiązania problemu.
+          </p>
+          <p class="text-[15px] text-[var(--text-secondary)] leading-[1.65] font-body mb-6">
+            Dbamy o Twój komfort i czas — dlatego popularne części zamienne i filtry kabinowe mamy dostępne od ręki.
+          </p>
+          <a
+            href="/kontakt/"
+            class="inline-flex items-center bg-blue-700 text-white border-none rounded-[4px] px-6 py-2.5 text-[14px] font-semibold font-body hover:bg-blue-800 transition-colors"
+          >
+            Skontaktuj się z nami
+          </a>
+        </div>
+
+        <!-- Right column: stat cards 2x2 -->
+        <div class="grid grid-cols-2 gap-3">
+          <StatCard value="35+" label="lat doświadczenia" />
+          <StatCard value="3" label="autoryzacje partnerskie" />
+          <StatCard value="Wrocław" label="siedziba od 1999" />
+          <StatCard value="Rodzinna" label="firma dwupokoleniowa" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--color-off-white, #F4F7FB); font-family: 'Barlow', sans-serif; display: flex; flex-direction: column; gap: 0; }
+
+  /* Logo color classes */
+  .logo-white .st0, .logo-white .st1, .logo-white .st2 { fill: #ffffff; }
+  .logo-colored .st0 { fill: #1C5EA6; }
+  .logo-colored .st1 { fill: #3388BF; }
+  .logo-colored .st2 { fill: #40B0D9; }
+  svg { display: block; }
+
+  /* Top bar */
+  .topbar { background: #1C5EA6; display: flex; align-items: center; justify-content: flex-end; padding: 5px 24px; gap: 20px; }
+  .topbar-item { color: rgba(255,255,255,0.9); font-size: 11px; font-weight: 500; display: flex; align-items: center; gap: 5px; text-decoration: none; }
+
+  /* Desktop nav */
+  .nav { background: #0D1B2E; display: flex; align-items: center; padding: 0 24px; height: 60px; gap: 0; }
+  .nav-logo { display: flex; align-items: center; margin-right: 36px; flex-shrink: 0; }
+  .nav-links { display: flex; gap: 2px; flex: 1; }
+  .nav-link { color: rgba(255,255,255,0.72); font-size: 13px; font-weight: 500; padding: 6px 12px; border-radius: 4px; text-decoration: none; }
+  .nav-link.active { color: #fff; background: rgba(28,94,166,0.45); }
+  .nav-cta { background: #1C5EA6; color: #fff; font-size: 13px; font-weight: 600; padding: 7px 16px; border-radius: 4px; border: none; cursor: pointer; font-family: 'Barlow', sans-serif; flex-shrink: 0; }
+
+  /* Mobile nav */
+  .nav-mobile { background: #0D1B2E; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; height: 52px; margin-top: 4px; }
+  .hamburger { display: flex; flex-direction: column; gap: 4px; cursor: pointer; }
+  .hamburger span { width: 22px; height: 2px; background: rgba(255,255,255,0.8); border-radius: 2px; display: block; }
+</style>
+</head><body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <a class="topbar-item" href="#">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.01 2.18 2 2 0 012 .01h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+    +48 71 000 00 00
+  </a>
+  <span class="topbar-item">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+    Pon–Pt: 8:00–17:00
+  </span>
+</div>
+
+<!-- Desktop nav -->
+<nav class="nav">
+  <div class="nav-logo" id="nav-logo-desktop"></div>
+  <div class="nav-links">
+    <a class="nav-link active" href="#">Strona główna</a>
+    <a class="nav-link" href="#">Usługi</a>
+    <a class="nav-link" href="#">Autoryzacje</a>
+    <a class="nav-link" href="#">O nas</a>
+    <a class="nav-link" href="#">Kontakt</a>
+  </div>
+  <button class="nav-cta">Umów wizytę</button>
+</nav>
+
+<!-- Mobile nav -->
+<nav class="nav-mobile">
+  <div id="nav-logo-mobile"></div>
+  <div class="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<script>
+async function loadSVG(path) {
+  const r = await fetch(path);
+  const text = await r.text();
+  const doc = new DOMParser().parseFromString(text, 'image/svg+xml');
+  return doc.querySelector('svg');
+}
+
+async function init() {
+  const svgName = await loadSVG('../assets/logo_name.svg');
+
+  // Desktop — white logo
+  const desktop = svgName.cloneNode(true);
+  desktop.style.height = '32px';
+  desktop.style.width = 'auto';
+  desktop.classList.add('logo-white');
+  document.getElementById('nav-logo-desktop').appendChild(desktop);
+
+  // Mobile — white logo (smaller)
+  const mobile = svgName.cloneNode(true);
+  mobile.style.height = '26px';
+  mobile.style.width = 'auto';
+  mobile.classList.add('logo-white');
+  document.getElementById('nav-logo-mobile').appendChild(mobile);
+}
+init();
+</script>
+</body></html>

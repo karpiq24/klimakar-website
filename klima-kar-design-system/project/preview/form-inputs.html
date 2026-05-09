@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--color-off-white); font-family: var(--font-body); padding: 16px 20px; display: flex; flex-direction: column; gap: 10px; }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  label { font-size: 12px; font-weight: 600; color: var(--text-primary); letter-spacing: 0.02em; }
+  input, select, textarea { font-family: var(--font-body); font-size: 14px; padding: 8px 12px; border-radius: var(--radius-sm); border: 1.5px solid var(--color-dark-100); background: #fff; color: var(--text-primary); outline: none; transition: border-color 150ms, box-shadow 150ms; width: 100%; }
+  input:focus, select:focus, textarea:focus { border-color: var(--color-blue-700); box-shadow: var(--shadow-focus); }
+  input.error { border-color: var(--color-error); }
+  .hint { font-size: 11px; color: var(--text-secondary); }
+  .error-msg { font-size: 11px; color: var(--color-error); }
+  .row { display: flex; gap: 10px; }
+  .row .field { flex: 1; }
+  textarea { resize: vertical; min-height: 56px; }
+</style>
+</head><body>
+<div class="row">
+  <div class="field">
+    <label for="name">Imię i nazwisko</label>
+    <input type="text" id="name" placeholder="Jan Kowalski" value="Anna Nowak">
+  </div>
+  <div class="field">
+    <label for="phone">Telefon</label>
+    <input type="tel" id="phone" placeholder="+48 000 000 000">
+    <span class="hint">Zadzwonimy, aby potwierdzić termin</span>
+  </div>
+</div>
+<div class="field">
+  <label for="service">Rodzaj usługi</label>
+  <select id="service">
+    <option>Klimatyzacja — przegląd i napełnianie</option>
+    <option>Ogrzewacz postojowy — montaż</option>
+    <option>Serwis Webasto / Eberspächer / DEFA</option>
+    <option>Diagnostyka — inne</option>
+  </select>
+</div>
+<div class="field">
+  <label for="car">Marka i model pojazdu</label>
+  <input type="text" id="car" class="error" value="BMW 320d 2018" placeholder="np. Volkswagen Golf 2020">
+  <span class="error-msg">Podaj pełny model pojazdu</span>
+</div>
+<div class="field">
+  <label for="msg">Uwagi</label>
+  <textarea id="msg" placeholder="Opisz problem lub dodatkowe informacje..."></textarea>
+</div>
+</body></html>

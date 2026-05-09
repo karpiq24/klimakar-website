@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Klima-Kar — Responsive Showcase</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0D1B2E; font-family: 'Barlow', sans-serif; min-height: 100vh; padding: 32px 24px 48px; }
+
+  .toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+  .toolbar-logo { height: 30px; width: auto; }
+  .toolbar-title { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.5); letter-spacing: 0.05em; text-transform: uppercase; }
+  .mode-toggle { display: flex; gap: 4px; background: rgba(255,255,255,0.06); border-radius: 6px; padding: 3px; }
+  .mode-btn { padding: 6px 14px; border-radius: 4px; border: none; cursor: pointer; font-size: 12px; font-weight: 600; font-family: 'Barlow', sans-serif; transition: all 150ms; }
+  .mode-btn.active { background: #1C5EA6; color: #fff; }
+  .mode-btn:not(.active) { background: transparent; color: rgba(255,255,255,0.4); }
+
+  .viewports { display: flex; gap: 28px; align-items: flex-start; justify-content: center; flex-wrap: wrap; }
+
+  .viewport-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .viewport-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.35); display: flex; align-items: center; gap: 8px; }
+  .viewport-label span { font-size: 10px; color: rgba(255,255,255,0.2); font-weight: 400; letter-spacing: 0; text-transform: none; }
+
+  /* Device frames */
+  .frame { border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 1px rgba(255,255,255,0.10), 0 24px 64px rgba(0,0,0,0.5); position: relative; background: #fff; flex-shrink: 0; }
+  .frame-desktop { width: 1024px; height: 640px; }
+  .frame-tablet  { width: 390px;  height: 580px; }
+  .frame-mobile  { width: 280px;  height: 560px; }
+
+  /* Chrome bar */
+  .chrome { background: #1a1a1a; height: 32px; display: flex; align-items: center; padding: 0 12px; gap: 6px; flex-shrink: 0; }
+  .chrome-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .chrome-url { flex: 1; background: rgba(255,255,255,0.08); border-radius: 4px; height: 18px; margin: 0 8px; display: flex; align-items: center; padding: 0 8px; }
+  .chrome-url-text { font-size: 10px; color: rgba(255,255,255,0.4); font-family: monospace; }
+
+  /* Tablet chrome */
+  .tablet-chrome { background: #1a1a1a; height: 28px; display: flex; align-items: center; padding: 0 10px; gap: 5px; flex-shrink: 0; }
+  .tablet-chrome-url { flex: 1; background: rgba(255,255,255,0.08); border-radius: 3px; height: 16px; margin: 0 6px; display: flex; align-items: center; padding: 0 6px; }
+
+  /* Mobile chrome */
+  .mobile-notch { background: #1a1a1a; height: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 0; }
+  .mobile-notch-bar { width: 80px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; }
+  .mobile-status { background: #111; height: 20px; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; flex-shrink: 0; }
+  .mobile-status-text { font-size: 9px; color: rgba(255,255,255,0.5); font-family: monospace; }
+
+  iframe { border: none; display: block; }
+  .scroll-hint { font-size: 10px; color: rgba(255,255,255,0.2); margin-top: 6px; }
+
+  /* Desktop scale wrapper */
+  .scale-container { overflow: hidden; position: relative; }
+  .scaled-iframe { transform-origin: top left; }
+
+  /* Page selector */
+  .page-nav { display: flex; gap: 6px; justify-content: center; margin-bottom: 28px; flex-wrap: wrap; }
+  .page-btn { padding: 6px 14px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.15); cursor: pointer; font-size: 12px; font-weight: 500; font-family: 'Barlow', sans-serif; color: rgba(255,255,255,0.55); background: transparent; transition: all 150ms; }
+  .page-btn:hover { border-color: rgba(255,255,255,0.35); color: rgba(255,255,255,0.8); }
+  .page-btn.active { background: #1C5EA6; border-color: #1C5EA6; color: #fff; }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div id="toolbar-logo" style="height:28px;"></div>
+    <div class="toolbar-title">Responsive Showcase</div>
+  </div>
+  <div class="mode-toggle">
+    <button class="mode-btn active" id="btn-light" onclick="setMode('light')">Jasny</button>
+    <button class="mode-btn" id="btn-dark" onclick="setMode('dark')">Ciemny</button>
+  </div>
+</div>
+
+<!-- Page selector -->
+<div class="page-nav">
+  <button class="page-btn active" onclick="setPage('home', this)">Strona główna</button>
+  <button class="page-btn" onclick="setPage('services', this)">Klimatyzacja</button>
+  <button class="page-btn" onclick="setPage('heating', this)">Ogrzewanie</button>
+  <button class="page-btn" onclick="setPage('about', this)">O firmie</button>
+  <button class="page-btn" onclick="setPage('prices', this)">Cennik</button>
+  <button class="page-btn" onclick="setPage('contact', this)">Kontakt</button>
+</div>
+
+<div class="viewports">
+
+  <!-- Desktop 1280px -->
+  <div class="viewport-wrap">
+    <div class="viewport-label">Desktop <span>1280 × 800</span></div>
+    <div class="frame frame-desktop">
+      <div class="chrome">
+        <div class="chrome-dot" style="background:#FF5F57;"></div>
+        <div class="chrome-dot" style="background:#FFBD2E;"></div>
+        <div class="chrome-dot" style="background:#28CA41;"></div>
+        <div class="chrome-url"><span class="chrome-url-text">klima-kar.wroclaw.pl</span></div>
+      </div>
+      <div class="scale-container" style="width:1024px;height:608px;">
+        <iframe id="iframe-desktop" src="index.html" style="width:1280px;height:760px;" class="scaled-iframe"></iframe>
+      </div>
+    </div>
+    <div class="scroll-hint">Przewijaj wewnątrz ramki</div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:28px;align-items:center;">
+
+    <!-- Tablet 768px -->
+    <div class="viewport-wrap">
+      <div class="viewport-label">Tablet <span>768 × 580</span></div>
+      <div class="frame frame-tablet">
+        <div class="tablet-chrome" style="background:#1a1a1a;">
+          <div class="chrome-dot" style="background:#FF5F57;width:8px;height:8px;"></div>
+          <div class="chrome-dot" style="background:#FFBD2E;width:8px;height:8px;"></div>
+          <div class="chrome-dot" style="background:#28CA41;width:8px;height:8px;"></div>
+          <div class="tablet-chrome-url"><span style="font-size:9px;color:rgba(255,255,255,0.3);font-family:monospace;">klima-kar.wroclaw.pl</span></div>
+        </div>
+        <div class="scale-container" style="width:390px;height:552px;">
+          <iframe id="iframe-tablet" src="index.html" style="width:768px;height:1092px;" class="scaled-iframe"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile 375px -->
+    <div class="viewport-wrap">
+      <div class="viewport-label">Mobile <span>375 × 560</span></div>
+      <div class="frame frame-mobile" style="border-radius:24px;">
+        <div class="mobile-notch"><div class="mobile-notch-bar"></div></div>
+        <div class="mobile-status">
+          <span class="mobile-status-text">9:41</span>
+          <span class="mobile-status-text">●●● WiFi 100%</span>
+        </div>
+        <div class="scale-container" style="width:280px;height:516px;">
+          <iframe id="iframe-mobile" src="index.html" style="width:375px;height:690px;" class="scaled-iframe"></iframe>
+        </div>
+        <div style="background:#1a1a1a;height:20px;display:flex;align-items:center;justify-content:center;">
+          <div style="width:80px;height:3px;background:rgba(255,255,255,0.3);border-radius:2px;"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Scale iframes to fit their containers
+  function scaleIframe(iframe, containerW, sourceW) {
+    const scale = containerW / sourceW;
+    iframe.style.transform = `scale(${scale})`;
+    iframe.style.transformOrigin = 'top left';
+  }
+
+  const desktop = document.getElementById('iframe-desktop');
+  const tablet  = document.getElementById('iframe-tablet');
+  const mobile  = document.getElementById('iframe-mobile');
+
+  scaleIframe(desktop, 1024, 1280);
+  scaleIframe(tablet,  390,  768);
+  scaleIframe(mobile,  280,  375);
+
+  // Sync theme
+  let currentMode = 'light';
+  let currentPage = 'home';
+
+  function setMode(mode) {
+    currentMode = mode;
+    document.getElementById('btn-light').classList.toggle('active', mode === 'light');
+    document.getElementById('btn-dark').classList.toggle('active', mode === 'dark');
+    syncAllFrames();
+  }
+
+  function setPage(page, btn) {
+    currentPage = page;
+    document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    syncAllFrames();
+  }
+
+  function syncFrame(iframe) {
+    try {
+      const win = iframe.contentWindow;
+      // Set theme
+      const theme = currentMode;
+      win.localStorage.setItem('kk-theme', theme);
+      // Navigate via React state if possible, else reload
+      if (win.__setPage && win.__setTheme) {
+        win.__setPage(currentPage);
+        win.__setTheme(theme);
+      } else {
+        // Reload — React app reads localStorage on init
+        iframe.src = 'index.html';
+      }
+    } catch(e) {}
+  }
+
+  function syncAllFrames() {
+    [desktop, tablet, mobile].forEach(syncFrame);
+  }
+
+  // Expose setters from iframe apps
+  [desktop, tablet, mobile].forEach(iframe => {
+    iframe.addEventListener('load', () => {
+      try {
+        const win = iframe.contentWindow;
+        // Inject theme immediately
+        win.localStorage.setItem('kk-theme', currentMode);
+        // After React mounts, try to navigate
+        setTimeout(() => {
+          try {
+            if (win.__setPage) win.__setPage(currentPage);
+            if (win.__setTheme) win.__setTheme(currentMode);
+          } catch(e) {}
+        }, 800);
+      } catch(e) {}
+    });
+  });
+
+  // Toolbar logo inject
+  async function injectToolbarLogo() {
+    const r = await fetch('../../assets/logo_name.svg');
+    const text = await r.text();
+    const doc = new DOMParser().parseFromString(text, 'image/svg+xml');
+    const svg = doc.querySelector('svg');
+    svg.style.height = '28px';
+    svg.style.width = 'auto';
+    svg.style.display = 'block';
+    // Make all paths white
+    const style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+    style.textContent = '.st0,.st1,.st2{fill:#ffffff;}';
+    svg.insertBefore(style, svg.firstChild);
+    document.getElementById('toolbar-logo').appendChild(svg);
+  }
+  injectToolbarLogo();
+</script>
+
+<!-- Expose navigators from each iframe app -->
+<script>
+// Patch index.html React app to expose navigation
+// We'll use postMessage to communicate with iframes
+window.addEventListener('message', e => {
+  if (e.data && e.data.type === 'kk-ready') {
+    // iframe is ready; send current state
+    const win = [desktop, tablet, mobile].find(f => {
+      try { return f.contentWindow === e.source; } catch(_) { return false; }
+    });
+    if (win) {
+      e.source.postMessage({ type: 'kk-navigate', page: currentPage, theme: currentMode }, '*');
+    }
+  }
+});
+</script>
+</body>
+</html>

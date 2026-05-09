@@ -1,0 +1,25 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon?: string;
+  price?: string;
+}
+
+const { title, description, price } = Astro.props;
+---
+
+<div class="service-card group relative bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-[22px] shadow-[var(--shadow-xs)] hover:shadow-[var(--shadow-md)] hover:border-blue-700 transition-all duration-[180ms] ease-out flex flex-col gap-3">
+  {price && (
+    <span class="absolute top-[22px] right-[22px] font-display text-[16px] font-bold text-blue-700">
+      {price}
+    </span>
+  )}
+  <div class="w-[44px] h-[44px] bg-blue-50 [data-theme='dark']:bg-[var(--bg-accent-subtle)] rounded-[10px] flex items-center justify-center text-blue-700 group-hover:bg-blue-700 group-hover:text-white transition-all duration-[180ms]">
+    <slot />
+  </div>
+  <div>
+    <h3 class="font-display text-[18px] font-bold text-[var(--text-primary)] mb-1.5 leading-[1.2]">{title}</h3>
+    <p class="text-[13px] text-[var(--text-secondary)] leading-relaxed font-body">{description}</p>
+  </div>
+</div>

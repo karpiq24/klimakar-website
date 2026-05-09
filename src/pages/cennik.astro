@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import PageHero from '../components/PageHero.astro';
+import PriceTable from '../components/PriceTable.astro';
+import CTABanner from '../components/CTABanner.astro';
+---
+
+<BaseLayout
+  title="Cennik — Klima-Kar"
+  description="Cennik usług serwisu klimatyzacji samochodowej i ogrzewań postojowych Klima-Kar we Wrocławiu. Przejrzyste ceny, wycena po diagnozie."
+>
+  <Breadcrumb items={[{ label: "Strona główna", href: "/" }, { label: "Cennik" }]} />
+
+  <PageHero
+    label="Cennik"
+    title="Cennik usług"
+    description="Przejrzyste ceny usług klimatyzacji samochodowej i ogrzewań postojowych. Podane ceny są cenami orientacyjnymi — dokładna wycena po diagnozie pojazdu."
+  />
+
+  <section class="bg-[var(--bg-page)] py-12 px-6 sm:px-10">
+    <div class="mx-auto max-w-[900px] flex flex-col gap-5">
+
+      <!-- Dezynfekcja -->
+      <PriceTable
+        title="Dezynfekcja"
+        rows={[
+          { service: "Dezynfekcja chemiczna metodą ultradźwiękową — usuwanie nieprzyjemnych zapachów", price: "120 zł" },
+          { service: "Dezynfekcja TUNAP — odgrzybianie najskuteczniejszą, chemiczną metodą ręczną", price: "250 zł" },
+        ]}
+      />
+
+      <!-- R134a -->
+      <PriceTable
+        title="Obsługa układu klimatyzacji R134a"
+        note="Auta od 1993 r. do 2014 r. i niektóre po 2014 r."
+        rows={[
+          { service: "Serwis układu, uzupełnienie czynnika R134a, oleju, UV", price: "200 zł + 35 zł/100g powyżej 50g" },
+        ]}
+      />
+
+      <!-- R1234yf -->
+      <PriceTable
+        title="Obsługa układu klimatyzacji R1234yf"
+        note="Niektóre auta od 2014 r. i większość od 2017 r."
+        rows={[
+          { service: "Serwis układu, uzupełnienie czynnika R1234yf, oleju, UV", price: "300 zł + 10 zł/10g powyżej 50g" },
+        ]}
+      />
+
+      <!-- R12 -->
+      <PriceTable
+        title="Obsługa układu klimatyzacji R12"
+        note="Auta sprzed 1993 r."
+        rows={[
+          { service: "Serwis układu, uzupełnienie czynnika zamiennik za R12, oleju, UV", price: "300 zł + 40 zł/100g powyżej 50g" },
+        ]}
+      />
+
+      <!-- Diagnostyka -->
+      <PriceTable
+        title="Diagnostyka usterek"
+        rows={[
+          { service: "Diagnostyka komputerowa / Diagnostyka szczelności klimatyzacji", price: "200 zł" },
+          { service: "Diagnostyka kompresora na hamowni", price: "200 zł" },
+        ]}
+      />
+
+      <!-- Naprawy i regeneracja -->
+      <PriceTable
+        title="Naprawy i regeneracja"
+        note="Do podanych cen należy doliczyć demontaż/montaż i napełnienie"
+        rows={[
+          { service: "Naprawa przewodu aluminiowego", price: "od 250 zł" },
+          { service: "Naprawa przewodu aluminiowo-gumowego", price: "od 300 zł" },
+          { service: "Regeneracja kompresora (uszczelnienie + regeneracja kpl. sprzęgła)", price: "od 1000 zł" },
+          { service: "Płukanie układu klimatyzacji z opiłków i brudnego oleju po zatarciu kompresora", price: "od 1500 zł" },
+        ]}
+      />
+
+      <!-- Ogrzewanie postojowe — Webasto -->
+      <PriceTable
+        title="Ogrzewanie postojowe — Webasto"
+        rows={[
+          { service: "Montaż ogrzewacza Webasto (osobowe)", price: "od 3500 zł" },
+          { service: "Montaż ogrzewacza Webasto (dostawcze)", price: "od 4000 zł" },
+          { service: "Naprawa ogrzewacza Webasto", price: "od 500 zł" },
+          { service: "Przegląd serwisowy Webasto", price: "od 350 zł" },
+        ]}
+      />
+
+      <!-- Ogrzewanie postojowe — Eberspächer -->
+      <PriceTable
+        title="Ogrzewanie postojowe — Eberspächer"
+        rows={[
+          { service: "Montaż ogrzewacza Eberspächer", price: "od 3500 zł" },
+          { service: "Naprawa ogrzewacza Eberspächer", price: "od 500 zł" },
+          { service: "Przegląd serwisowy Eberspächer", price: "od 350 zł" },
+        ]}
+      />
+
+      <!-- Ogrzewanie postojowe — DEFA -->
+      <PriceTable
+        title="Ogrzewanie postojowe — DEFA"
+        rows={[
+          { service: "Montaż zestawu DEFA", price: "od 1500 zł" },
+          { service: "Podgrzewacz silnika DEFA", price: "od 800 zł + część" },
+        ]}
+      />
+
+      <!-- Robocizna / Dodatkowe -->
+      <PriceTable
+        title="Dodatkowe"
+        rows={[
+          { service: "Dojazd do klienta (Wrocław)", price: "100 zł" },
+          { service: "Diagnostyka bez naprawy", price: "100-200 zł" },
+          { service: "Roboczogodzina", price: "250 zł" },
+        ]}
+      />
+
+      <!-- Note -->
+      <p class="text-[13px] text-[var(--text-muted)] italic font-body text-center">
+        Podane ceny są orientacyjne. Dokładna wycena po diagnozie pojazdu. Ceny brutto.
+      </p>
+
+      <!-- CTA -->
+      <div class="mt-4">
+        <CTABanner
+          title="Masz pytania o cennik?"
+          subtitle="Zadzwoń: 71 337 14 50 lub 605 594 506"
+          primaryText="Umów wizytę"
+          primaryHref="/kontakt/"
+          variant="card"
+        />
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

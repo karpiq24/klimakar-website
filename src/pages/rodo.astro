@@ -1,0 +1,125 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import PageHero from '../components/PageHero.astro';
+import CTABanner from '../components/CTABanner.astro';
+---
+
+<BaseLayout
+  title="Polityka prywatności — Klima-Kar"
+  description="Informacja o przetwarzaniu danych osobowych zgodnie z RODO."
+>
+
+  <Breadcrumb items={[
+    { label: "Strona główna", href: "/" },
+    { label: "RODO" },
+  ]} />
+
+  <PageHero
+    label="Informacje"
+    title="Polityka prywatności"
+    description="Informacja o przetwarzaniu danych osobowych zgodnie z Rozporządzeniem RODO."
+  />
+
+  <!-- ============================================================
+       RODO CONTENT
+       ============================================================ -->
+  <section class="bg-[var(--bg-page)] py-14 px-10 max-[600px]:px-5 transition-colors duration-200">
+    <div class="max-w-[800px] mx-auto">
+
+      <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-10 max-[600px]:p-6 shadow-[var(--shadow-sm)]">
+
+        <h2 class="font-display text-[28px] font-bold text-[var(--text-primary)] mb-6">Ochrona danych osobowych</h2>
+
+        <!-- Intro + Administrator -->
+        <div class="space-y-4 text-[15px] leading-relaxed text-[var(--text-primary)] font-body mb-8">
+          <p>
+            Zgodnie z art. 13 ust. 1 i 2 rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (ogólne rozporządzenie o ochronie danych) (Dz. Urz. UE L 119 z 04.05.2016, str. 1), dalej "RODO", Usługodawca informuje, że:
+          </p>
+          <p>
+            Administratorem danych osobowych w rozumieniu rozporządzenia o ochronie danych osobowych (RODO) jest:
+          </p>
+          <p class="font-semibold">
+            Klima-Kar Renata Karpińska<br>
+            ul. gen. Stefana Grota-Roweckiego 129<br>
+            52-214 Wrocław
+          </p>
+        </div>
+
+        <!-- Kontakt -->
+        <div class="border-t border-[var(--border-subtle)] pt-6 mb-8">
+          <h3 class="font-display text-[20px] font-bold text-[var(--text-primary)] mb-3">Kontakt w sprawach danych osobowych</h3>
+          <p class="text-[15px] leading-relaxed text-[var(--text-primary)] font-body">
+            W sprawach dotyczących przetwarzania danych należy kontaktować się na adres <a href="mailto:serwis@klima-kar.pl" class="text-blue-600 hover:underline">serwis@klima-kar.pl</a>.
+          </p>
+        </div>
+
+        <!-- Cel i zakres przetwarzania -->
+        <div class="border-t border-[var(--border-subtle)] pt-6 mb-8">
+          <h3 class="font-display text-[20px] font-bold text-[var(--text-primary)] mb-3">Cel i zakres przetwarzania danych</h3>
+          <p class="text-[15px] leading-relaxed text-[var(--text-primary)] font-body mb-3">
+            Pani/Pana dane osobowe przetwarzamy w celu zawarcia i wykonania umowy. Zakres przetwarzanych danych: imię, nazwisko, adres pocztowy, nr telefonu, adres e-mail, NIP (w przypadku osób prowadzących działalność gospodarczą), nr rachunku bankowego, dane dotyczące samochodu oraz generowane przez samochód, historia samochodu.
+          </p>
+          <p class="text-[15px] leading-relaxed text-[var(--text-primary)] font-body">
+            Pobieramy tylko te dane, bez których dana usługa nie może zostać wykonana. Niepodanie danych niezbędnych do zawarcia umowy i wykonania usługi spowoduje, że nie będziemy mogli zawrzeć umowy lub wykonać usługi. Dotyczy to także danych, które musimy zebrać z uwagi na ciążący na nas obowiązek prawny (np. dane do faktur/rachunków itp.). Okres przechowywania danych jest powiązany z celami i podstawami ich przetwarzania.
+          </p>
+        </div>
+
+        <!-- Prawa -->
+        <div class="border-t border-[var(--border-subtle)] pt-6 mb-8">
+          <h3 class="font-display text-[20px] font-bold text-[var(--text-primary)] mb-3">Prawa osoby, której dane dotyczą</h3>
+          <p class="text-[15px] leading-relaxed text-[var(--text-primary)] font-body mb-4">
+            Posiada Pani/Pan:
+          </p>
+          <ol class="list-decimal list-outside ml-5 space-y-3 text-[15px] leading-relaxed text-[var(--text-primary)] font-body">
+            <li>
+              Na podstawie art. 15 RODO — <strong>prawo dostępu</strong> do danych osobowych Pani/Pana dotyczących.
+            </li>
+            <li>
+              Na podstawie art. 16 RODO — <strong>prawo do sprostowania</strong> Pani/Pana danych osobowych.
+            </li>
+            <li>
+              Na podstawie art. 17 RODO — <strong>prawo do usunięcia danych</strong>, z wyjątkiem gdy przetwarzanie danych jest konieczne do wywiązania się z prawnego obowiązku lub do ustalenia, dochodzenia lub obrony roszczeń.
+            </li>
+            <li>
+              Na podstawie art. 18 RODO — <strong>prawo żądania od administratora ograniczenia przetwarzania</strong> danych osobowych z zastrzeżeniem przypadków, o których mowa w art. 18 ust. 2 RODO.
+            </li>
+            <li>
+              Na podstawie art. 20 RODO — <strong>prawo do przenoszenia danych</strong>.
+            </li>
+            <li>
+              <strong>Prawo do wniesienia skargi</strong> do Prezesa Urzędu Ochrony Danych Osobowych, gdy uzna Pani/Pan, że przetwarzanie danych osobowych Pani/Pana dotyczących narusza przepisy RODO.
+            </li>
+          </ol>
+        </div>
+
+        <!-- Ograniczenia praw -->
+        <div class="border-t border-[var(--border-subtle)] pt-6 mb-8">
+          <h3 class="font-display text-[20px] font-bold text-[var(--text-primary)] mb-3">Ograniczenia praw</h3>
+          <p class="text-[15px] leading-relaxed text-[var(--text-primary)] font-body mb-3">
+            Nie przysługuje Pani/Panu:
+          </p>
+          <ul class="list-disc list-outside ml-5 space-y-2 text-[15px] leading-relaxed text-[var(--text-primary)] font-body">
+            <li>
+              Na podstawie art. 21 RODO prawo sprzeciwu wobec przetwarzania danych osobowych, gdyż podstawą prawną przetwarzania Pani/Pana danych osobowych jest art. 6 ust. 1 lit. b RODO.
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-10">
+        <CTABanner
+          variant="card"
+          title="Masz pytania dotyczące przetwarzania danych?"
+          subtitle="Skontaktuj się z nami — wyjaśnimy wszelkie wątpliwości."
+          primaryText="Kontakt"
+          primaryHref="/kontakt/"
+        />
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>

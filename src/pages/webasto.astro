@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import PageHero from '../components/PageHero.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { Wrench, Search, CalendarCheck } from 'lucide-astro';
+
+const controlSystems = [
+  {
+    name: 'MultiControl',
+    type: 'Programator z wyświetlaczem',
+    features: [
+      'Menu w języku polskim',
+      'Przejrzysty wyświetlacz i wygodny przycisk',
+      '3 czasy włączania na dzień, programowanie na 7 dni',
+      'Wbudowany czujnik temperatury',
+      'Montaż możliwy bez wiercenia',
+    ],
+  },
+  {
+    name: 'Telestart T91',
+    type: 'Pilot radiowy',
+    features: [
+      'Zasięg do 1000 metrów',
+      'Prosta obsługa przyciskami On / Off',
+      'Wybór grzania lub wentylacji (zima/lato)',
+      'Czas działania od 10 do 120 minut',
+      'Eleganckie wzornictwo, wytrzymała obudowa',
+    ],
+  },
+  {
+    name: 'Telestart T99',
+    type: 'Pilot radiowy z potwierdzeniem',
+    features: [
+      'Zasięg do 1000 metrów',
+      'Funkcja informacji zwrotnej',
+      'Wybór grzania lub wentylacji (zima/lato)',
+      'Czas działania od 10 do 120 minut',
+      'Eleganckie wzornictwo, wytrzymała obudowa',
+    ],
+  },
+  {
+    name: 'Telestart T100',
+    type: 'Pilot z wyświetlaczem',
+    features: [
+      'Zasięg do 1000 metrów z informacją zwrotną',
+      'Programowanie czasu odjazdu (auto C1-C5)',
+      'Odczyt temperatury wnętrza pojazdu',
+      'Prosta obsługa przyciskami On / Off i lewo / prawo',
+      'Wybór grzania lub wentylacji (zima/lato)',
+    ],
+  },
+  {
+    name: 'ThermoCall',
+    type: 'Sterowanie GSM',
+    features: [
+      'Sterowanie z dowolnego miejsca w zasięgu GSM',
+      'Bezpłatna aplikacja mobilna',
+      'Programowanie z 24h wyprzedzeniem',
+      'Informacja o statusie, temperaturze, napięciu',
+      'Wymaga aktywnej karty SIM',
+    ],
+  },
+  {
+    name: 'ThermoConnect',
+    type: 'Sterowanie przez internet',
+    features: [
+      'Aplikacja mobilna i webowa',
+      'Timer jednorazowy i powtarzalny',
+      'Uruchamianie oparte na pozycji GPS',
+      'Lokalizacja pojazdu i geo-fencing',
+      'Obsługa wielu urządzeń z jednej aplikacji',
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Webasto — Klima-Kar"
+  description="Autoryzowany Serwis Webasto we Wrocławiu. Montaż, naprawa i diagnostyka ogrzewań postojowych Webasto. Systemy sterowania MultiControl, Telestart, ThermoCall."
+>
+  <Breadcrumb items={[
+    { label: "Strona główna", href: "/" },
+    { label: "Ogrzewanie postojowe", href: "/ogrzewanie-postojowe/" },
+    { label: "Webasto" },
+  ]} />
+
+  <PageHero
+    label="Webasto"
+    title="Autoryzowany Serwis<br>Webasto"
+    description="Jesteśmy autoryzowanym serwisem Webasto. Nasze wieloletnie doświadczenie i wiedza pozwalają na wykonywanie profesjonalnych napraw i montaży nowych instalacji. Wykonujemy również naprawy gwarancyjne."
+  />
+
+  <!-- Services section -->
+  <section class="bg-[var(--bg-page)] py-14 px-6 sm:px-10">
+    <div class="mx-auto max-w-[1200px]">
+
+      <h2 class="font-display text-[clamp(24px,3vw,32px)] font-bold text-[var(--text-primary)] mb-6">Nasze usługi</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
+
+        <ServiceCard
+          title="Montaż ogrzewaczy"
+          description="Profesjonalny montaż nowych ogrzewań postojowych Webasto dla pojazdów osobowych i dostawczych. Dobieramy odpowiedni zestaw montażowy do każdego modelu pojazdu."
+        >
+          <Wrench size={22} />
+        </ServiceCard>
+
+        <ServiceCard
+          title="Naprawa i serwis"
+          description="Naprawy gwarancyjne i pogwarancyjne. Pełna diagnostyka komputerowa, wymiana podzespołów, naprawa instalacji. Diagnostyka usterek ogrzewań spalinowych."
+        >
+          <Search size={22} />
+        </ServiceCard>
+
+        <ServiceCard
+          title="Przegląd serwisowy"
+          description="Regularne przeglądy serwisowe ogrzewań Webasto. Kontrola stanu technicznego, czyszczenie, sprawdzenie poprawności działania wszystkich podzespołów."
+        >
+          <CalendarCheck size={22} />
+        </ServiceCard>
+
+      </div>
+
+      <!-- Control systems section -->
+      <h2 class="font-display text-[clamp(24px,3vw,32px)] font-bold text-[var(--text-primary)] mb-2">Systemy sterowania Webasto</h2>
+      <p class="text-[14px] text-[var(--text-secondary)] font-body mb-6 max-w-[680px]">
+        Wybierz sposób sterowania ogrzewaniem postojowym dopasowany do Twoich potrzeb — od prostego programatora po sterowanie smartfonem.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+        {controlSystems.map((system) => (
+          <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-[22px] shadow-[var(--shadow-xs)] flex flex-col gap-3">
+            <div class="w-[44px] h-[44px] bg-[#C8001E]/10 rounded-[10px] flex items-center justify-center">
+              <span class="font-display text-[16px] font-bold text-[#C8001E]">W</span>
+            </div>
+            <div>
+              <h3 class="font-display text-[18px] font-bold text-[var(--text-primary)] mb-0.5 leading-[1.2]">{system.name}</h3>
+              <p class="text-[11px] uppercase tracking-wide text-[var(--text-muted)] font-body font-semibold mb-3">{system.type}</p>
+              <ul class="space-y-1.5">
+                {system.features.map((feature) => (
+                  <li class="text-[13px] text-[var(--text-secondary)] leading-relaxed font-body flex items-start gap-2">
+                    <span class="text-[#C8001E] mt-[3px] shrink-0">&#8226;</span>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- CTA Banner -->
+      <CTABanner
+        title="Zapytaj o montaż lub naprawę Webasto"
+        subtitle="tel. 71 337 14 50 · kom. 605 594 506"
+        primaryText="Umów wizytę"
+        primaryHref="/kontakt/"
+        variant="card"
+      />
+
+    </div>
+  </section>
+</BaseLayout>

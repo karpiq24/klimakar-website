@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import PageHero from '../components/PageHero.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { CalendarCheck, Droplets, ShieldCheck, Thermometer, Wrench } from 'lucide-astro';
+---
+
+<BaseLayout
+  title="Konserwacja klimatyzacji — Klima-Kar"
+  description="Dlaczego warto regularnie serwisować klimatyzację samochodową? Poradnik konserwacji układu klimatyzacji — zdrowie, bezpieczeństwo, oszczędności."
+>
+  <Breadcrumb items={[
+    { label: "Strona główna", href: "/" },
+    { label: "Klimatyzacja", href: "/klimatyzacja/" },
+    { label: "Konserwacja" },
+  ]} />
+
+  <PageHero
+    label="Poradnik"
+    title="Konserwacja<br>klimatyzacji"
+    description="Regularna konserwacja klimatyzacji pozwala uniknąć poważnych awarii, zaoszczędzić pieniądze i podwyższa wartość pojazdu."
+  />
+
+  <section class="bg-[var(--bg-page)] py-12 px-6 sm:px-10">
+    <div class="mx-auto max-w-[1200px]">
+
+      <!-- Info cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
+
+        <!-- Card 1: Dlaczego coroczny serwis -->
+        <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-6 shadow-[var(--shadow-xs)] flex flex-col gap-4">
+          <div class="w-[44px] h-[44px] bg-blue-50 [data-theme='dark']:bg-[var(--bg-accent-subtle)] rounded-[10px] flex items-center justify-center text-blue-700">
+            <Droplets size={22} />
+          </div>
+          <div>
+            <h3 class="font-display text-[20px] font-bold text-[var(--text-primary)] mb-2 leading-[1.2]">Dlaczego coroczny serwis jest ważny?</h3>
+            <p class="text-[14px] text-[var(--text-secondary)] leading-relaxed font-body">
+              Przez węże i ich połączenia może uciec rocznie do 10% czynnika chłodniczego. Olej zawarty w czynniku smaruje sprężarkę — jego brak oznacza ryzyko niedostatecznego smarowania, co może skończyć się całkowitą awarią układu. Koszty naprawy mogą sięgać kilku tysięcy złotych. Niedobór czynnika powoduje też dodatkowe zużycie paliwa, ponieważ sprężarka musi pracować częściej i dłużej.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2: Co obejmuje prawidłowy serwis -->
+        <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-6 shadow-[var(--shadow-xs)] flex flex-col gap-4">
+          <div class="w-[44px] h-[44px] bg-blue-50 [data-theme='dark']:bg-[var(--bg-accent-subtle)] rounded-[10px] flex items-center justify-center text-blue-700">
+            <Wrench size={22} />
+          </div>
+          <div>
+            <h3 class="font-display text-[20px] font-bold text-[var(--text-primary)] mb-2 leading-[1.2]">Co obejmuje prawidłowy serwis?</h3>
+            <ul class="text-[14px] text-[var(--text-secondary)] leading-relaxed font-body list-none p-0 m-0 flex flex-col gap-1.5">
+              <li class="flex items-start gap-2"><span class="text-blue-700 mt-0.5 shrink-0">&bull;</span>Kontrola wzrokowa elementów układu</li>
+              <li class="flex items-start gap-2"><span class="text-blue-700 mt-0.5 shrink-0">&bull;</span>Kontrola działania, wydajności i szczelności</li>
+              <li class="flex items-start gap-2"><span class="text-blue-700 mt-0.5 shrink-0">&bull;</span>Wymiana filtra kabinowego przeciwpyłkowego</li>
+              <li class="flex items-start gap-2"><span class="text-blue-700 mt-0.5 shrink-0">&bull;</span>Dezynfekcja — odgrzybianie parownika</li>
+              <li class="flex items-start gap-2"><span class="text-blue-700 mt-0.5 shrink-0">&bull;</span>Uzupełnienie czynnika chłodniczego, oleju i barwnika UV</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Card 3: Zdrowie i higiena -->
+        <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-6 shadow-[var(--shadow-xs)] flex flex-col gap-4">
+          <div class="w-[44px] h-[44px] bg-blue-50 [data-theme='dark']:bg-[var(--bg-accent-subtle)] rounded-[10px] flex items-center justify-center text-blue-700">
+            <ShieldCheck size={22} />
+          </div>
+          <div>
+            <h3 class="font-display text-[20px] font-bold text-[var(--text-primary)] mb-2 leading-[1.2]">Zdrowie i higiena</h3>
+            <p class="text-[14px] text-[var(--text-secondary)] leading-relaxed font-body">
+              Filtr pyłkowy przepuszcza duże ilości powietrza, zatrzymując pył, kurz i zarodniki — po roku jest nasycony i wymaga wymiany. Parownik, znajdujący się w wilgotnym i ciemnym otoczeniu pod tablicą rozdzielczą, stanowi idealną przestrzeń dla bakterii i grzybów. Zarazki przechodzą przez wentylację do wnętrza pojazdu, mogąc wywoływać reakcje alergiczne: kichanie, kaszel, łzawienie oczu. Regularna dezynfekcja parownika trwale usuwa zarazki.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 4: Bezpieczeństwo jazdy -->
+        <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-6 shadow-[var(--shadow-xs)] flex flex-col gap-4">
+          <div class="w-[44px] h-[44px] bg-blue-50 [data-theme='dark']:bg-[var(--bg-accent-subtle)] rounded-[10px] flex items-center justify-center text-blue-700">
+            <Thermometer size={22} />
+          </div>
+          <div>
+            <h3 class="font-display text-[20px] font-bold text-[var(--text-primary)] mb-2 leading-[1.2]">Bezpieczeństwo jazdy</h3>
+            <p class="text-[14px] text-[var(--text-secondary)] leading-relaxed font-body">
+              Gdy we wnętrzu pojazdu jest gorąco, organizm szybciej ulega zmęczeniu — reakcje są spowolnione, koncentracja słabsza, co znacząco zwiększa ryzyko wypadku. Sprawna klimatyzacja zapewnia odpowiednią temperaturę. Zimą włączenie klimatyzacji skutecznie przeciwdziała zaparowaniu szyb, zapewniając niczym nie ograniczoną widoczność.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- When to service -->
+      <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-6 shadow-[var(--shadow-xs)] mb-10 flex flex-col sm:flex-row gap-5 items-start">
+        <div class="w-[44px] h-[44px] bg-blue-50 [data-theme='dark']:bg-[var(--bg-accent-subtle)] rounded-[10px] flex items-center justify-center text-blue-700 shrink-0">
+          <CalendarCheck size={22} />
+        </div>
+        <div>
+          <h3 class="font-display text-[20px] font-bold text-[var(--text-primary)] mb-2 leading-[1.2]">Kiedy serwisować klimatyzację?</h3>
+          <p class="text-[14px] text-[var(--text-secondary)] leading-relaxed font-body">
+            Klimatyzację należy serwisować <strong class="text-[var(--text-primary)]">co 12 miesięcy</strong> lub wtedy, gdy zauważysz spadek wydajności chłodzenia. Używane pojazdy z działającą klimatyzacją osiągają wyższą cenę odsprzedaży — pieniądze zainwestowane w regularną konserwację zwiększają wartość pojazdu i zwracają się przy odsprzedaży. Konserwacja powinna być wykonywana tylko w fachowych warsztatach posiadających specjalne narzędzia i przeszkolony personel.
+          </p>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <CTABanner
+        title="Umów przegląd klimatyzacji"
+        subtitle="Zadzwoń: 71 337 14 50 lub 605 594 506"
+        primaryText="Umów wizytę"
+        primaryHref="/kontakt/"
+        variant="card"
+      />
+
+    </div>
+  </section>
+</BaseLayout>

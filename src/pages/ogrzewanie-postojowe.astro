@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import PageHero from '../components/PageHero.astro';
+import CTABanner from '../components/CTABanner.astro';
+
+const brands = [
+  {
+    name: 'Webasto',
+    color: '#C8001E',
+    tagline: 'Niezależne ogrzewanie spalinowe',
+    desc: 'Jesteśmy Autoryzowanym Serwisem Webasto. Nasze wieloletnie doświadczenie i wiedza pozwalają na wykonywanie profesjonalnych napraw i montaży nowych instalacji dla pojazdów osobowych i dostawczych.',
+    badges: ['Autoryzowany serwis', 'Montaż', 'Naprawa', 'Gwarancja'],
+    href: '/webasto/',
+  },
+  {
+    name: 'Eberspächer',
+    color: '#E85D00',
+    tagline: 'Niezależne ogrzewanie spalinowe',
+    desc: 'Autoryzowany Serwis Eberspächer. Profesjonalne naprawy i montaże ogrzewań spalinowych. Pełna diagnostyka komputerowa, wymiana podzespołów, naprawy gwarancyjne i pogwarancyjne.',
+    badges: ['Autoryzowany serwis', 'Montaż', 'Naprawa', 'Diagnostyka'],
+    href: '/eberspacher/',
+  },
+  {
+    name: 'DEFA',
+    color: '#006BB4',
+    tagline: 'Elektryczne ogrzewanie postojowe',
+    desc: 'Polecamy osobom posiadającym dostęp do sieci elektrycznej w miejscu postoju. DEFA pozwala ogrzać wnętrze pojazdu i silnik, a także naładować akumulator. Oferujemy doradztwo i montaż.',
+    badges: ['Doradztwo', 'Montaż', 'Serwis'],
+    href: '/defa/',
+  },
+];
+---
+
+<BaseLayout
+  title="Ogrzewanie postojowe — Klima-Kar"
+  description="Autoryzowany serwis ogrzewań postojowych Webasto, Eberspächer i DEFA we Wrocławiu. Montaż, naprawa, diagnostyka i serwis ogrzewaczy niezależnych."
+>
+  <Breadcrumb items={[{ label: "Strona główna", href: "/" }, { label: "Ogrzewanie postojowe" }]} />
+
+  <PageHero
+    label="Usługi"
+    title="Ogrzewanie postojowe<br>Webasto, Eberspächer, DEFA"
+    description="Jesteśmy autoryzowanym serwisem trzech wiodących marek ogrzewaczy niezależnych. Wykonujemy montaże, naprawy gwarancyjne i pogwarancyjne."
+  />
+
+  <section class="bg-[var(--bg-page)] py-14 px-6 sm:px-10">
+    <div class="mx-auto max-w-[1200px]">
+
+      <!-- Brand cards -->
+      <div class="flex flex-col gap-5">
+        {brands.map((brand) => (
+          <a href={brand.href} class="block bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] overflow-hidden shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] hover:border-blue-700 transition-all duration-[180ms] flex flex-col sm:flex-row group">
+            <div class="w-full h-[6px] sm:w-[6px] sm:h-auto shrink-0" style={`background:${brand.color}`}></div>
+            <div class="flex-1 p-6 sm:p-[28px_32px]">
+              <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 mb-3">
+                <div>
+                  <span
+                    class="inline-block text-white font-display text-[22px] font-bold rounded-[3px] px-3.5 py-[3px] mb-1.5"
+                    style={`background:${brand.color}`}
+                  >
+                    {brand.name}
+                  </span>
+                  <p class="text-[12px] font-semibold uppercase tracking-wide text-[var(--text-muted)] font-body">
+                    {brand.tagline}
+                  </p>
+                </div>
+                <div class="flex gap-1.5 flex-wrap">
+                  {brand.badges.map((badge) => (
+                    <span class="bg-blue-50 [data-theme='dark']:bg-[var(--bg-accent-subtle)] text-blue-600 text-[10px] uppercase font-bold px-2.5 py-[3px] rounded-full tracking-wide font-body">
+                      {badge}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <p class="text-[14px] text-[var(--text-secondary)] leading-[1.65] font-body max-w-[680px]">
+                {brand.desc}
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-10">
+        <CTABanner
+          title="Zapytaj o montaż lub naprawę"
+          subtitle="tel. 71 337 14 50 · kom. 605 594 506"
+          primaryText="Umów wizytę"
+          primaryHref="/kontakt/"
+          variant="card"
+        />
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

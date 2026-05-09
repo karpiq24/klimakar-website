@@ -1,0 +1,230 @@
+---
+// ContactForm.astro — AJAX form with client-side validation and honeypot
+---
+
+<div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-lg p-8 shadow-[var(--shadow-md)]">
+  <h3 class="font-display text-[24px] font-bold text-[var(--text-primary)] mb-1.5">Umów wizytę</h3>
+  <p class="text-[13px] text-[var(--text-secondary)] font-body leading-relaxed mb-6">
+    Wypełnij formularz — oddzwonimy w ciągu 1 dnia roboczego.
+  </p>
+
+  <form id="contact-form" novalidate class="flex flex-col gap-3.5">
+    <!-- Name + Phone row -->
+    <div class="grid grid-cols-1 min-[600px]:grid-cols-2 gap-3">
+      <div>
+        <label for="cf-name" class="block font-body text-[13px] font-medium text-[var(--text-secondary)] mb-1.5">
+          Imię i nazwisko <span class="text-[var(--color-error)]">*</span>
+        </label>
+        <input
+          type="text"
+          id="cf-name"
+          name="name"
+          required
+          placeholder="Jan Kowalski"
+          class="contact-input w-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-[6px] py-[10px] px-[14px] font-body text-[14px] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none transition-all duration-150 focus:border-blue-600 focus:shadow-[var(--shadow-focus)]"
+        />
+        <p class="field-error hidden text-[12px] text-[var(--color-error)] mt-1">Pole wymagane</p>
+      </div>
+      <div>
+        <label for="cf-phone" class="block font-body text-[13px] font-medium text-[var(--text-secondary)] mb-1.5">
+          Numer telefonu <span class="text-[var(--color-error)]">*</span>
+        </label>
+        <input
+          type="tel"
+          id="cf-phone"
+          name="phone"
+          required
+          placeholder="71 337 14 50"
+          class="contact-input w-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-[6px] py-[10px] px-[14px] font-body text-[14px] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none transition-all duration-150 focus:border-blue-600 focus:shadow-[var(--shadow-focus)]"
+        />
+        <p class="field-error hidden text-[12px] text-[var(--color-error)] mt-1">Pole wymagane</p>
+      </div>
+    </div>
+
+    <!-- Service select -->
+    <div>
+      <label for="cf-service" class="block font-body text-[13px] font-medium text-[var(--text-secondary)] mb-1.5">
+        Rodzaj usługi <span class="text-[var(--color-error)]">*</span>
+      </label>
+      <select
+        id="cf-service"
+        name="service"
+        required
+        class="contact-input w-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-[6px] py-[10px] px-[14px] font-body text-[14px] text-[var(--text-primary)] outline-none transition-all duration-150 focus:border-blue-600 focus:shadow-[var(--shadow-focus)] appearance-none"
+      >
+        <option value="">Wybierz usługę...</option>
+        <option value="Klimatyzacja samochodowa">Klimatyzacja samochodowa</option>
+        <option value="Ogrzewanie postojowe — Webasto">Ogrzewanie postojowe — Webasto</option>
+        <option value="Ogrzewanie postojowe — Eberspächer">Ogrzewanie postojowe — Eberspächer</option>
+        <option value="Ogrzewanie postojowe — DEFA">Ogrzewanie postojowe — DEFA</option>
+        <option value="Inna usługa">Inna usługa</option>
+      </select>
+      <p class="field-error hidden text-[12px] text-[var(--color-error)] mt-1">Pole wymagane</p>
+    </div>
+
+    <!-- Car -->
+    <div>
+      <label for="cf-car" class="block font-body text-[13px] font-medium text-[var(--text-secondary)] mb-1.5">
+        Marka i model pojazdu, rocznik
+      </label>
+      <input
+        type="text"
+        id="cf-car"
+        name="car"
+        placeholder="np. Volkswagen Golf 2020"
+        class="contact-input w-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-[6px] py-[10px] px-[14px] font-body text-[14px] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none transition-all duration-150 focus:border-blue-600 focus:shadow-[var(--shadow-focus)]"
+      />
+    </div>
+
+    <!-- Message -->
+    <div>
+      <label for="cf-message" class="block font-body text-[13px] font-medium text-[var(--text-secondary)] mb-1.5">
+        Dodatkowe informacje
+      </label>
+      <textarea
+        id="cf-message"
+        name="message"
+        rows="4"
+        placeholder="Opisz problem lub dodaj informacje..."
+        class="contact-input w-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-[6px] py-[10px] px-[14px] font-body text-[14px] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none transition-all duration-150 focus:border-blue-600 focus:shadow-[var(--shadow-focus)] resize-vertical"
+      ></textarea>
+    </div>
+
+    <!-- Honeypot -->
+    <div style="display:none" aria-hidden="true">
+      <input type="text" name="website" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <!-- Submit -->
+    <button
+      type="submit"
+      class="w-full bg-blue-700 hover:bg-blue-800 text-white font-display text-[16px] font-bold py-3 rounded-[6px] transition-colors duration-150 cursor-pointer mt-1"
+    >
+      Wyślij zapytanie
+    </button>
+  </form>
+
+  <p class="text-[12px] text-[var(--text-muted)] italic mt-4 leading-relaxed">
+    Prosimy o podanie marki, modelu i rocznika pojazdu — ułatwi to wycenę usługi.
+  </p>
+</div>
+
+<!-- Toast container -->
+<div
+  id="contact-toast"
+  class="fixed top-5 right-5 z-50 max-w-[380px] rounded-[6px] px-5 py-4 shadow-[var(--shadow-lg)] font-body text-[14px] font-semibold text-white transition-all duration-300 translate-x-[calc(100%+2rem)] opacity-0 pointer-events-none"
+  role="alert"
+></div>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const toast = document.getElementById('contact-toast') as HTMLDivElement;
+
+  let toastTimer: ReturnType<typeof setTimeout> | null = null;
+
+  function showToast(message: string, success: boolean) {
+    if (toastTimer) clearTimeout(toastTimer);
+
+    toast.textContent = message;
+    toast.className = toast.className
+      .replace(/bg-\[#[^\]]+\]/g, '')
+      .replace(/translate-x-\[calc\(100%\+2rem\)\]/g, '')
+      .replace(/opacity-0/g, '')
+      .replace(/pointer-events-none/g, '');
+
+    const bgClass = success ? 'bg-[#1A8A4A]' : 'bg-[#C0271A]';
+    toast.classList.add(bgClass, 'translate-x-0', 'opacity-100', 'pointer-events-auto');
+
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('translate-x-0', 'opacity-100', 'pointer-events-auto');
+      toast.classList.add('translate-x-[calc(100%+2rem)]', 'opacity-0', 'pointer-events-none');
+    }, 5000);
+  }
+
+  function validateField(field: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement): boolean {
+    const wrapper = field.closest('div');
+    const errorEl = wrapper?.querySelector('.field-error');
+
+    if (field.hasAttribute('required') && !field.value.trim()) {
+      field.classList.add('border-[var(--color-error)]');
+      field.classList.remove('border-[var(--border-default)]');
+      errorEl?.classList.remove('hidden');
+      return false;
+    }
+
+    field.classList.remove('border-[var(--color-error)]');
+    field.classList.add('border-[var(--border-default)]');
+    errorEl?.classList.add('hidden');
+    return true;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Validate required fields
+    const requiredFields = form.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[required]');
+    let isValid = true;
+    requiredFields.forEach((field) => {
+      if (!validateField(field)) isValid = false;
+    });
+
+    if (!isValid) return;
+
+    // Check honeypot
+    const honeypot = form.querySelector<HTMLInputElement>('input[name="website"]');
+    if (honeypot && honeypot.value) {
+      showToast('Dziękujemy! Skontaktujemy się wkrótce.', true);
+      form.reset();
+      return;
+    }
+
+    // Collect data
+    const data = {
+      name: (form.querySelector<HTMLInputElement>('#cf-name'))!.value.trim(),
+      phone: (form.querySelector<HTMLInputElement>('#cf-phone'))!.value.trim(),
+      service: (form.querySelector<HTMLSelectElement>('#cf-service'))!.value,
+      car: (form.querySelector<HTMLInputElement>('#cf-car'))!.value.trim(),
+      message: (form.querySelector<HTMLTextAreaElement>('#cf-message'))!.value.trim(),
+      website: honeypot?.value ?? '',
+    };
+
+    // Submit
+    const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Wysyłanie...';
+
+    try {
+      const response = await fetch('/contact.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        showToast(result.message || 'Dziękujemy! Skontaktujemy się wkrótce.', true);
+        form.reset();
+        // Reset any lingering error states
+        form.querySelectorAll('.contact-input').forEach((el) => {
+          el.classList.remove('border-[var(--color-error)]');
+          el.classList.add('border-[var(--border-default)]');
+        });
+        form.querySelectorAll('.field-error').forEach((el) => el.classList.add('hidden'));
+      } else {
+        showToast(result.message || 'Wystąpił błąd. Proszę spróbować ponownie.', false);
+      }
+    } catch {
+      showToast('Wystąpił błąd połączenia. Proszę zadzwonić: 71 337 14 50', false);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Wyślij zapytanie';
+    }
+  });
+
+  // Clear error on input
+  form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('.contact-input').forEach((field) => {
+    field.addEventListener('input', () => validateField(field));
+    field.addEventListener('change', () => validateField(field));
+  });
+</script>
