@@ -30,13 +30,12 @@ if (!empty($input['website'])) {
 
 // Sanitize
 $name    = htmlspecialchars(strip_tags(trim($input['name'] ?? '')));
-$phone   = htmlspecialchars(strip_tags(trim($input['phone'] ?? '')));
-$service = htmlspecialchars(strip_tags(trim($input['service'] ?? '')));
+$email   = htmlspecialchars(strip_tags(trim($input['email'] ?? '')));
 $car     = htmlspecialchars(strip_tags(trim($input['car'] ?? '')));
 $message = htmlspecialchars(strip_tags(trim($input['message'] ?? '')));
 
 // Validate required
-if (empty($name) || empty($phone) || empty($service)) {
+if (empty($name) || empty($email)) {
     http_response_code(400);
     echo json_encode(['success' => false, 'message' => 'Proszę wypełnić wymagane pola']);
     exit;
@@ -44,10 +43,9 @@ if (empty($name) || empty($phone) || empty($service)) {
 
 // Build email
 $to = 'serwis@klima-kar.pl';
-$subject = "Nowe zapytanie ze strony www — $service";
+$subject = "Nowe zapytanie ze strony www";
 $body  = "Imię i nazwisko: $name\n";
-$body .= "Telefon: $phone\n";
-$body .= "Usługa: $service\n";
+$body .= "E-mail: $email\n";
 if ($car)     $body .= "Pojazd: $car\n";
 if ($message) $body .= "\nWiadomość:\n$message\n";
 

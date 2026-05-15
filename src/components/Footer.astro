@@ -1,5 +1,8 @@
 ---
-import { Phone, Clock, Mail, MapPin } from 'lucide-astro';
+import { Phone, Clock, Mail, MapPin, Instagram, Facebook } from 'lucide-astro';
+import webastoLogo from '../assets/logos/webasto.svg';
+import eberspacherLogo from '../assets/logos/eberspacher.svg';
+import defaLogo from '../assets/logos/defa.svg';
 ---
 
 <footer class="font-body" style="background: #060D16; padding: 48px 40px 28px;">
@@ -20,10 +23,24 @@ import { Phone, Clock, Mail, MapPin } from 'lucide-astro';
         <p class="text-[13px] text-white/65 leading-relaxed max-w-[260px] mb-4">
           Firma rodzinna z wielopokoleniową tradycją w branży chłodnictwa i ogrzewania. Wrocław, działamy od 1989 roku.
         </p>
-        <div class="flex gap-2 flex-wrap">
-          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border border-white/15 text-white/65 tracking-wider">Webasto</span>
-          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border border-white/15 text-white/65 tracking-wider">Eberspächer</span>
-          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border border-white/15 text-white/65 tracking-wider">DEFA</span>
+        <div class="flex gap-4 flex-wrap items-center mb-4">
+          <a href="/webasto/" class="inline-flex items-center opacity-60 hover:opacity-100 transition-opacity">
+            <img src={webastoLogo.src} alt="Webasto" class="h-5 w-auto [filter:brightness(0)_invert(1)]" />
+          </a>
+          <a href="/eberspacher/" class="inline-flex items-center opacity-60 hover:opacity-100 transition-opacity">
+            <img src={eberspacherLogo.src} alt="Eberspächer" class="h-5 w-auto [filter:brightness(0)_invert(1)]" />
+          </a>
+          <a href="/defa/" class="inline-flex items-center opacity-60 hover:opacity-100 transition-opacity">
+            <img src={defaLogo.src} alt="DEFA" class="h-5 w-auto [filter:brightness(0)_invert(1)]" />
+          </a>
+        </div>
+        <div class="flex gap-3">
+          <a href="https://www.instagram.com/__klimakar__/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-white/50 hover:text-white/85 transition-colors">
+            <Instagram size={18} strokeWidth={1.5} />
+          </a>
+          <a href="https://www.facebook.com/KlimaKar/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="text-white/50 hover:text-white/85 transition-colors">
+            <Facebook size={18} strokeWidth={1.5} />
+          </a>
         </div>
       </div>
 
@@ -68,7 +85,7 @@ import { Phone, Clock, Mail, MapPin } from 'lucide-astro';
         </div>
         <div class="flex items-center gap-2">
           <Clock size={14} class="text-white/55 shrink-0" strokeWidth={1.5} />
-          <span class="text-[13px] text-white/65 leading-snug">Pon–Pt: 8:00–16:00</span>
+          <span class="text-[13px] text-white/65 leading-snug">Pon–Pt: 9:00–17:00</span>
         </div>
       </div>
     </div>

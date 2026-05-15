@@ -3,9 +3,9 @@
 ---
 
 <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-lg p-8 shadow-[var(--shadow-md)]">
-  <h3 class="font-display text-[24px] font-bold text-[var(--text-primary)] mb-1.5">Umów wizytę</h3>
+  <h3 class="font-display text-[24px] font-bold text-[var(--text-primary)] mb-1.5">Wyślij zapytanie</h3>
   <p class="text-[13px] text-[var(--text-secondary)] font-body leading-relaxed mb-6">
-    Wypełnij formularz — oddzwonimy w ciągu 1 dnia roboczego.
+    Wypełnij formularz — odpiszemy w ciągu 1 dnia roboczego.
   </p>
 
   <form id="contact-form" novalidate class="flex flex-col gap-3.5">
@@ -26,40 +26,19 @@
         <p class="field-error hidden text-[12px] text-[var(--color-error)] mt-1">Pole wymagane</p>
       </div>
       <div>
-        <label for="cf-phone" class="block font-body text-[13px] font-medium text-[var(--text-secondary)] mb-1.5">
-          Numer telefonu <span class="text-[var(--color-error)]">*</span>
+        <label for="cf-email" class="block font-body text-[13px] font-medium text-[var(--text-secondary)] mb-1.5">
+          Adres e-mail <span class="text-[var(--color-error)]">*</span>
         </label>
         <input
-          type="tel"
-          id="cf-phone"
-          name="phone"
+          type="email"
+          id="cf-email"
+          name="email"
           required
-          placeholder="71 337 14 50"
+          placeholder="np. jan@example.com"
           class="contact-input w-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-[6px] py-[10px] px-[14px] font-body text-[14px] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none transition-all duration-150 focus:border-blue-600 focus:shadow-[var(--shadow-focus)]"
         />
         <p class="field-error hidden text-[12px] text-[var(--color-error)] mt-1">Pole wymagane</p>
       </div>
-    </div>
-
-    <!-- Service select -->
-    <div>
-      <label for="cf-service" class="block font-body text-[13px] font-medium text-[var(--text-secondary)] mb-1.5">
-        Rodzaj usługi <span class="text-[var(--color-error)]">*</span>
-      </label>
-      <select
-        id="cf-service"
-        name="service"
-        required
-        class="contact-input w-full bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-[6px] py-[10px] px-[14px] font-body text-[14px] text-[var(--text-primary)] outline-none transition-all duration-150 focus:border-blue-600 focus:shadow-[var(--shadow-focus)] appearance-none"
-      >
-        <option value="">Wybierz usługę...</option>
-        <option value="Klimatyzacja samochodowa">Klimatyzacja samochodowa</option>
-        <option value="Ogrzewanie postojowe — Webasto">Ogrzewanie postojowe — Webasto</option>
-        <option value="Ogrzewanie postojowe — Eberspächer">Ogrzewanie postojowe — Eberspächer</option>
-        <option value="Ogrzewanie postojowe — DEFA">Ogrzewanie postojowe — DEFA</option>
-        <option value="Inna usługa">Inna usługa</option>
-      </select>
-      <p class="field-error hidden text-[12px] text-[var(--color-error)] mt-1">Pole wymagane</p>
     </div>
 
     <!-- Car -->
@@ -105,7 +84,7 @@
   </form>
 
   <p class="text-[12px] text-[var(--text-muted)] italic mt-4 leading-relaxed">
-    Prosimy o podanie marki, modelu i rocznika pojazdu — ułatwi to wycenę usługi.
+    Prosimy o podanie marki, modelu i rocznika pojazdu — ułatwi to wycenę usługi. W przypadku zapytania o montaż ogrzewania postojowego prosimy podać również rodzaj, pojemność i moc silnika oraz typ klimatyzacji (manualna / automatyczna).
   </p>
 </div>
 
@@ -181,8 +160,7 @@
     // Collect data
     const data = {
       name: (form.querySelector<HTMLInputElement>('#cf-name'))!.value.trim(),
-      phone: (form.querySelector<HTMLInputElement>('#cf-phone'))!.value.trim(),
-      service: (form.querySelector<HTMLSelectElement>('#cf-service'))!.value,
+      email: (form.querySelector<HTMLInputElement>('#cf-email'))!.value.trim(),
       car: (form.querySelector<HTMLInputElement>('#cf-car'))!.value.trim(),
       message: (form.querySelector<HTMLTextAreaElement>('#cf-message'))!.value.trim(),
       website: honeypot?.value ?? '',
@@ -215,7 +193,7 @@
         showToast(result.message || 'Wystąpił błąd. Proszę spróbować ponownie.', false);
       }
     } catch {
-      showToast('Wystąpił błąd połączenia. Proszę zadzwonić: 71 337 14 50', false);
+      showToast('Wystąpił błąd połączenia. Proszę napisać: serwis@klima-kar.pl', false);
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Wyślij zapytanie';

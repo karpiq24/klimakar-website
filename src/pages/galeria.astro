@@ -42,6 +42,20 @@ const galleryImages = [
   <section class="bg-[var(--bg-page)] py-14 px-10 max-[600px]:px-5 transition-colors duration-200">
     <div class="max-w-[1200px] mx-auto">
 
+      <!-- YouTube video -->
+      <div class="mb-10 rounded-md overflow-hidden border border-[var(--border-subtle)]">
+        <div class="relative w-full aspect-video">
+          <iframe
+            src="https://www.youtube.com/embed/yUBazwim6so?rel=0"
+            title="Klima-Kar — film z warsztatu"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            class="absolute inset-0 w-full h-full border-0"
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+
       <div class="grid grid-cols-1 min-[600px]:grid-cols-2 min-[900px]:grid-cols-3 gap-4">
         {galleryImages.map((img, i) => (
           <button

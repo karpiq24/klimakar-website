@@ -3,11 +3,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import PageHero from '../components/PageHero.astro';
 import CTABanner from '../components/CTABanner.astro';
+import webastoLogo from '../assets/logos/webasto.svg';
+import eberspacherLogo from '../assets/logos/eberspacher.svg';
+import defaLogo from '../assets/logos/defa.svg';
 
 const brands = [
   {
     name: 'Webasto',
     color: '#C8001E',
+    logo: webastoLogo.src,
     tagline: 'Niezależne ogrzewanie spalinowe',
     desc: 'Jesteśmy Autoryzowanym Serwisem Webasto. Nasze wieloletnie doświadczenie i wiedza pozwalają na wykonywanie profesjonalnych napraw i montaży nowych instalacji dla pojazdów osobowych i dostawczych.',
     badges: ['Autoryzowany serwis', 'Montaż', 'Naprawa', 'Gwarancja'],
@@ -16,6 +20,7 @@ const brands = [
   {
     name: 'Eberspächer',
     color: '#E85D00',
+    logo: eberspacherLogo.src,
     tagline: 'Niezależne ogrzewanie spalinowe',
     desc: 'Autoryzowany Serwis Eberspächer. Profesjonalne naprawy i montaże ogrzewań spalinowych. Pełna diagnostyka komputerowa, wymiana podzespołów, naprawy gwarancyjne i pogwarancyjne.',
     badges: ['Autoryzowany serwis', 'Montaż', 'Naprawa', 'Diagnostyka'],
@@ -24,6 +29,7 @@ const brands = [
   {
     name: 'DEFA',
     color: '#006BB4',
+    logo: defaLogo.src,
     tagline: 'Elektryczne ogrzewanie postojowe',
     desc: 'Polecamy osobom posiadającym dostęp do sieci elektrycznej w miejscu postoju. DEFA pozwala ogrzać wnętrze pojazdu i silnik, a także naładować akumulator. Oferujemy doradztwo i montaż.',
     badges: ['Doradztwo', 'Montaż', 'Serwis'],
@@ -55,12 +61,9 @@ const brands = [
             <div class="flex-1 p-6 sm:p-[28px_32px]">
               <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 mb-3">
                 <div>
-                  <span
-                    class="inline-block text-white font-display text-[22px] font-bold rounded-[3px] px-3.5 py-[3px] mb-1.5"
-                    style={`background:${brand.color}`}
-                  >
-                    {brand.name}
-                  </span>
+                  <div class="h-10 flex items-center mb-1.5">
+                    <img src={brand.logo} alt={brand.name} class="partner-logo h-10 w-auto max-w-[200px] object-contain" />
+                  </div>
                   <p class="text-[12px] font-semibold uppercase tracking-wide text-[var(--text-muted)] font-body">
                     {brand.tagline}
                   </p>
@@ -91,6 +94,103 @@ const brands = [
           variant="card"
         />
       </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DETAILED CONTENT
+       ============================================================ -->
+  <section class="bg-[var(--bg-page)] py-14 px-6 sm:px-10 border-t border-[var(--border-subtle)]">
+    <div class="mx-auto max-w-[900px] flex flex-col gap-10">
+
+      <!-- Zalety -->
+      <div>
+        <h2 class="font-display text-[clamp(22px,3vw,28px)] font-bold text-[var(--text-primary)] mb-4">Zalety ogrzewania postojowego</h2>
+        <ul class="flex flex-col gap-2">
+          {[
+            'Podgrzany do odpowiedniej temperatury silnik — brak efektu zimnego startu.',
+            'Ciepłe i przyjazne warunki wewnątrz pojazdu natychmiast po wejściu.',
+            'Czyste szyby — bezpieczne, suche i odlodzone.',
+            'Mniejsze zużycie elementów silnika podczas rozruchu.',
+            'Niski poziom zużycia paliwa i emisji spalin.',
+            'Wygodne sterowanie — zegarem, pilotem lub telefonem komórkowym.',
+          ].map((item) => (
+            <li class="flex items-start gap-2.5 text-[14px] text-[var(--text-secondary)] leading-relaxed font-body">
+              <span class="text-blue-600 mt-0.5 shrink-0 font-bold">&bull;</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Ogrzewanie wodne -->
+      <div>
+        <h2 class="font-display text-[clamp(22px,3vw,28px)] font-bold text-[var(--text-primary)] mb-3">Jak działa ogrzewanie wodne?</h2>
+        <p class="text-[14px] text-[var(--text-secondary)] leading-[1.7] font-body">
+          Paliwowe, wodne ogrzewania postojowe (Webasto i Eberspächer) stosowane są w celu przygotowania samochodu do jazdy.
+          Po włączeniu w ciągu kilkunastu do kilkudziesięciu minut nagrzeje się silnik, wnętrze pojazdu i rozmrożą się szyby.
+          Ogrzewania wodne montowane są w obiegu płynu chłodzącego i stosowane są <strong class="text-[var(--text-primary)]">głównie w samochodach osobowych</strong>.
+          Aktywuje się je w zależności od wybranego sterowania — pilotem, telefonem komórkowym lub nastawiając w zegarze godzinę uruchomienia albo odjazdu.
+          Ciepło uzyskuje się poprzez spalanie paliwa pobieranego ze zbiornika. Płyn chłodzący nabiera temperatury i za pomocą pompy obiegowej
+          przetłaczany jest do silnika oraz do nagrzewnicy. Pracujący wentylator wtłacza przez kratki nawiewowe podgrzane powietrze do wnętrza pojazdu.
+          Warto pamiętać o zasadzie „czas ogrzewania = czas jazdy", aby akumulator rozruchowy był zawsze doładowany.
+        </p>
+      </div>
+
+      <!-- Ogrzewanie powietrzne -->
+      <div>
+        <h2 class="font-display text-[clamp(22px,3vw,28px)] font-bold text-[var(--text-primary)] mb-3">Jak działa ogrzewanie powietrzne?</h2>
+        <p class="text-[14px] text-[var(--text-secondary)] leading-[1.7] font-body">
+          Paliwowe, powietrzne ogrzewania postojowe (Webasto i Eberspächer) montowane są niezależnie.
+          Stosowane są <strong class="text-[var(--text-primary)]">głównie w samochodach dostawczych i pojazdach ciężarowych</strong>
+          w celu utrzymywania nastawionej temperatury we wnętrzu pojazdu. Ciepło uzyskuje się poprzez spalanie paliwa pobieranego ze zbiornika.
+          Agregat tego typu ogrzewa powietrze i tłoczy je za pomocą własnej dmuchawy. Konstrukcja urządzenia pozwala na ciągłą pracę.
+          Świetnie nadaje się do spania w pojeździe.
+        </p>
+      </div>
+
+      <!-- Koszty eksploatacji -->
+      <div>
+        <h2 class="font-display text-[clamp(22px,3vw,28px)] font-bold text-[var(--text-primary)] mb-3">Koszty eksploatacji</h2>
+        <p class="text-[14px] text-[var(--text-secondary)] leading-[1.7] font-body mb-3">
+          W przypadku ogrzewania wodnego jeden trzydziestominutowy cykl ogrzewania samochodu osobowego w zimowy poranek kosztuje około złotówkę*.
+          Warto zwrócić uwagę na fakt, że koszt eksploatacji częściowo się zwraca, ponieważ oszczędzamy na paliwie, którego większą ilość
+          potrzebowałby nienagrzany silnik.
+        </p>
+        <p class="text-[14px] text-[var(--text-secondary)] leading-[1.7] font-body mb-2">
+          Przykładowe ogrzewanie powietrzne Airtronic D2 o mocy 2 kW pobiera w zależności od warunków od 0,1 do 0,28 litra na godzinę pracy,
+          co daje od 0,50 zł do 1,40 zł na godzinę*. Gdy temperatura nie spada, urządzenie przechodzi w tryb czuwania — koszt może być jeszcze niższy.
+        </p>
+        <p class="text-[13px] text-[var(--text-muted)] font-body italic">*Koszt orientacyjny przyjęty dla paliwa w cenie 5 zł za litr.</p>
+      </div>
+
+      <!-- Koszty montażu -->
+      <div>
+        <h2 class="font-display text-[clamp(22px,3vw,28px)] font-bold text-[var(--text-primary)] mb-3">Koszty montażu</h2>
+        <p class="text-[14px] text-[var(--text-secondary)] leading-[1.7] font-body">
+          Ze względu na różnice techniczne pomiędzy modelami do każdego pojazdu przewidziano inny zestaw montażowy. Cena różni się
+          w zależności od modelu pojazdu, wybranej mocy agregatu, elementów sterujących i stopnia integracji z systemem wentylacji.
+          Dostępnych rozwiązań jest bardzo wiele — szczegółową wycenę udzielamy po podaniu danych pojazdu. Dokładne ceny montażu
+          znajdziesz w naszym <a href="/cennik/" class="text-blue-600 hover:underline font-semibold">cenniku</a>.
+        </p>
+      </div>
+
+      <!-- Rozbudowa dogrzewacza -->
+      <div>
+        <h2 class="font-display text-[clamp(22px,3vw,28px)] font-bold text-[var(--text-primary)] mb-3">Rozbudowa dogrzewacza do ogrzewania postojowego</h2>
+        <p class="text-[14px] text-[var(--text-secondary)] leading-[1.7] font-body">
+          Wiele aut fabrycznie wyposażono w dogrzewacze silnika diesla — użytkownicy często nie wiedzą, że ich samochód ma dodatkowe
+          ogrzewanie spalinowe. Dogrzewacz uruchamia się w niskich temperaturach, aby przyspieszyć osiągnięcie temperatury roboczej silnika.
+          Takie dogrzewacze można przerobić na pełnoprawne ogrzewanie postojowe. Koszt rozbudowy jest znacznie niższy niż montaż ogrzewania
+          od zera. Zainteresowanych prosimy o <a href="/kontakt/" class="text-blue-600 hover:underline font-semibold">kontakt</a>.
+        </p>
+      </div>
+
+      <!-- Ardic -->
+      <p class="text-[14px] text-[var(--text-secondary)] font-body">
+        Serwisujemy ponadto ogrzewania <strong class="text-[var(--text-primary)]">Ardic</strong>.
+      </p>
 
     </div>
   </section>

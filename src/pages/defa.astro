@@ -4,6 +4,7 @@ import Breadcrumb from '../components/Breadcrumb.astro';
 import PageHero from '../components/PageHero.astro';
 import CTABanner from '../components/CTABanner.astro';
 import { Thermometer, Fan, BatteryCharging, Leaf, ShieldCheck, Fuel, Snowflake } from 'lucide-astro';
+import defaLogo from '../assets/logos/defa.svg';
 
 const modules = [
   {
@@ -49,6 +50,10 @@ const benefits = [
 
   <section class="bg-[var(--bg-page)] py-14 px-6 sm:px-10">
     <div class="mx-auto max-w-[1200px]">
+
+      <div class="mb-8">
+        <img src={defaLogo.src} alt="DEFA" class="partner-logo h-14 w-auto max-w-[280px] object-contain" />
+      </div>
 
       <!-- Introduction -->
       <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-6 sm:p-8 shadow-[var(--shadow-sm)] mb-10">

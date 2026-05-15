@@ -5,6 +5,10 @@ import PartnerCard from '../components/PartnerCard.astro';
 import StatCard from '../components/StatCard.astro';
 import ContactSection from '../components/ContactSection.astro';
 import { Wind, Flame, ShieldCheck, Search, Wrench, Settings } from 'lucide-astro';
+import logoNoname from '../assets/logos/logo_noname.svg';
+import webastoLogo from '../assets/logos/webasto.svg';
+import eberspacherLogo from '../assets/logos/eberspacher.svg';
+import defaLogo from '../assets/logos/defa.svg';
 ---
 
 <BaseLayout
@@ -17,9 +21,9 @@ import { Wind, Flame, ShieldCheck, Search, Wrench, Settings } from 'lucide-astro
        ============================================================ -->
   <section class="hero-section bg-dark-900 relative overflow-hidden pt-[100px] pb-[80px] px-10 max-[600px]:px-5 max-[600px]:pt-16 max-[600px]:pb-14 transition-colors duration-200">
     <!-- Decorative circles -->
-    <div class="absolute -top-20 -right-20 w-[460px] h-[460px] rounded-full border border-blue-700/20 pointer-events-none" aria-hidden="true"></div>
-    <div class="absolute -top-10 -right-10 w-[300px] h-[300px] rounded-full border border-blue-600/[0.18] pointer-events-none" aria-hidden="true"></div>
-    <div class="absolute -bottom-[100px] -left-[100px] w-[400px] h-[400px] rounded-full border border-blue-500/10 pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute -bottom-[60px] -left-[60px] w-[500px] h-[500px] rounded-full border border-blue-700/20 pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute -bottom-[30px] -left-[30px] w-[340px] h-[340px] rounded-full border border-blue-600/[0.18] pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute -bottom-[100px] -left-[100px] w-[650px] h-[650px] rounded-full border border-blue-500/10 pointer-events-none" aria-hidden="true"></div>
 
     <!-- Decorative gradient blobs -->
     <div class="absolute top-1/4 right-[10%] w-[500px] h-[500px] rounded-full pointer-events-none opacity-[0.06]" style="background: radial-gradient(circle, rgba(28,94,166,0.6) 0%, transparent 70%);" aria-hidden="true"></div>
@@ -27,10 +31,10 @@ import { Wind, Flame, ShieldCheck, Search, Wrench, Settings } from 'lucide-astro
 
     <!-- Large rotated logo as background feature -->
     <div
-      class="absolute top-1/2 -right-[180px] w-[880px] h-[880px] -translate-y-1/2 -rotate-45 opacity-[0.07] pointer-events-none max-[900px]:w-[500px] max-[900px]:h-[500px] max-[900px]:-right-[100px]"
+      class="absolute top-1/2 right-[30px] w-[1100px] h-[1100px] -translate-y-1/2 -rotate-25 opacity-[0.09] pointer-events-none max-[900px]:w-[650px] max-[900px]:h-[650px] max-[900px]:-right-[100px]"
       aria-hidden="true"
     >
-      <img src="/images/logo.svg" alt="" class="w-full h-full [filter:brightness(0)_invert(1)]" />
+      <img src={logoNoname.src} alt="" class="w-full h-full [filter:brightness(0)_invert(1)]" />
     </div>
 
     <div class="max-w-[1200px] mx-auto flex items-center gap-16 relative">
@@ -68,10 +72,6 @@ import { Wind, Flame, ShieldCheck, Search, Wrench, Settings } from 'lucide-astro
             <div class="text-[12px] text-white/50 font-body mt-1">lat doświadczenia</div>
           </div>
           <div>
-            <div class="font-display text-[28px] font-bold text-white leading-none">3</div>
-            <div class="text-[12px] text-white/50 font-body mt-1">autoryzacje partnerskie</div>
-          </div>
-          <div>
             <a href="tel:+48713371450" class="block">
               <div class="font-display text-[28px] font-bold text-white leading-none">71 337 14 50</div>
               <div class="text-[12px] text-white/50 font-body mt-1">zadzwoń do nas</div>
@@ -104,6 +104,7 @@ import { Wind, Flame, ShieldCheck, Search, Wrench, Settings } from 'lucide-astro
         <ServiceCard
           title="Klimatyzacja samochodowa"
           description="Napełnianie, diagnostyka, regeneracja sprężarek, wymiana podzespołów. Obsługa czynników R134a, R1234yf i R12."
+          href="/klimatyzacja/"
         >
           <Wind size={22} strokeWidth={1.5} />
         </ServiceCard>
@@ -111,6 +112,7 @@ import { Wind, Flame, ShieldCheck, Search, Wrench, Settings } from 'lucide-astro
         <ServiceCard
           title="Ogrzewanie postojowe"
           description="Montaż, naprawa i serwis Webasto, Eberspächer i DEFA. Ogrzewacze spalinowe i elektryczne dla aut osobowych i dostawczych."
+          href="/ogrzewanie-postojowe/"
         >
           <Flame size={22} strokeWidth={1.5} />
         </ServiceCard>
@@ -118,6 +120,7 @@ import { Wind, Flame, ShieldCheck, Search, Wrench, Settings } from 'lucide-astro
         <ServiceCard
           title="Dezynfekcja klimatyzacji"
           description="Metoda chemiczna TUNAP i ultradźwiękowa. Skuteczne odgrzybianie i odkażanie układu klimatyzacji."
+          href="/klimatyzacja/"
         >
           <ShieldCheck size={22} strokeWidth={1.5} />
         </ServiceCard>
@@ -125,6 +128,7 @@ import { Wind, Flame, ShieldCheck, Search, Wrench, Settings } from 'lucide-astro
         <ServiceCard
           title="Diagnostyka i testy"
           description="Elektroniczne testy szczelności, diagnostyka komputerowa, kontrola UV. Sprawdzenie kompresora na hamowni."
+          href="/klimatyzacja/"
         >
           <Search size={22} strokeWidth={1.5} />
         </ServiceCard>
@@ -132,6 +136,7 @@ import { Wind, Flame, ShieldCheck, Search, Wrench, Settings } from 'lucide-astro
         <ServiceCard
           title="Wymiana podzespołów"
           description="Skraplacze, parowniki, przewody, filtry kabinowe, zawory rozprężne i inne elementy układu klimatyzacji."
+          href="/klimatyzacja/"
         >
           <Wrench size={22} strokeWidth={1.5} />
         </ServiceCard>
@@ -139,6 +144,7 @@ import { Wind, Flame, ShieldCheck, Search, Wrench, Settings } from 'lucide-astro
         <ServiceCard
           title="Regeneracja sprężarek"
           description="Naprawa i regeneracja sprężarek wszystkich marek. Uszczelnianie, wymiana sprzęgieł, płukanie układu."
+          href="/klimatyzacja/"
         >
           <Settings size={22} strokeWidth={1.5} />
         </ServiceCard>
@@ -157,43 +163,51 @@ import { Wind, Flame, ShieldCheck, Search, Wrench, Settings } from 'lucide-astro
   <!-- ============================================================
        SECTION 3: PARTNERS
        ============================================================ -->
-  <section class="bg-dark-900 py-[72px] px-10 max-[600px]:px-5 max-[600px]:py-12 transition-colors duration-200" id="partnerzy">
+  <section class="bg-dark-900 py-[72px] px-10 max-[600px]:px-5 max-[600px]:py-12 transition-colors duration-200" id="ogrzewanie">
     <div class="max-w-[1200px] mx-auto">
       <!-- Section header -->
       <div class="flex justify-between items-end mb-10 flex-wrap gap-4">
         <div>
-          <div class="text-[11px] font-bold uppercase tracking-[0.1em] text-blue-500 font-body mb-2.5">Partnerzy</div>
+          <div class="text-[11px] font-bold uppercase tracking-[0.1em] text-blue-500 font-body mb-2.5">Ogrzewanie</div>
           <h2 class="font-display text-[clamp(30px,4vw,38px)] font-bold text-white leading-[1.1]">
-            Autoryzowany serwis
+            Ogrzewacze postojowe
           </h2>
         </div>
-        <p class="text-[14px] text-white/45 leading-[1.6] font-body max-w-[340px]">
-          Certyfikaty autoryzacji gwarantują najwyższy standard usług i oryginalne części zamienne.
+        <p class="text-[14px] text-white/45 leading-[1.6] font-body max-w-[400px]">
+          Autoryzowani serwisanci Webasto i Eberspächer — oryginalne części i naprawy gwarancyjne. Sprzedaż i montaż systemów DEFA.
         </p>
       </div>
 
-      <!-- Partner cards -->
-      <div class="grid grid-cols-1 min-[900px]:grid-cols-3 gap-4">
+      <!-- Partner cards: Webasto + Eber full width, DEFA below half width -->
+      <div class="grid grid-cols-1 min-[900px]:grid-cols-2 gap-4 mb-4">
         <PartnerCard
           name="Webasto"
           color="#C8001E"
+          logo={webastoLogo.src}
           tagline="Niezależne ogrzewanie spalinowe"
           description="Autoryzowany serwis ogrzewaczy spalinowych i elektrycznych Webasto — montaż, naprawy gwarancyjne i pogwarancyjne dla pojazdów osobowych i dostawczych."
           badges={["Autoryzowany serwis", "Montaż", "Naprawa"]}
+          href="/webasto/"
         />
         <PartnerCard
           name="Eberspächer"
           color="#E85D00"
+          logo={eberspacherLogo.src}
           tagline="Niezależne ogrzewanie spalinowe"
           description="Profesjonalny serwis ogrzewaczy Eberspächer. Diagnostyka, wymiana podzespołów, naprawy. Autoryzowany serwis z wieloletnim doświadczeniem."
           badges={["Autoryzowany serwis", "Montaż", "Naprawa"]}
+          href="/eberspacher/"
         />
+      </div>
+      <div class="min-[900px]:w-[calc(50%-8px)]">
         <PartnerCard
           name="DEFA"
           color="#006BB4"
+          logo={defaLogo.src}
           tagline="Elektryczne ogrzewanie postojowe"
-          description="Autoryzowany instalator i serwis DEFA — elektryczne ogrzewanie silnika, wnętrza i ładowanie akumulatora. Idealne dla miejsc z dostępem do prądu."
+          description="Sprzedaż, montaż i serwis DEFA — elektryczne ogrzewanie silnika, wnętrza i ładowanie akumulatora. Idealne dla miejsc z dostępem do prądu."
           badges={["Doradztwo", "Montaż", "Serwis"]}
+          href="/defa/"
         />
       </div>
     </div>
@@ -215,7 +229,7 @@ import { Wind, Flame, ShieldCheck, Search, Wrench, Settings } from 'lucide-astro
           Jesteśmy firmą rodzinną z dwupokoleniową tradycją w branży chłodnictwa. W 1999 roku przyjęliśmy nazwę Klima-Kar i osiedliliśmy się na ul. Grota Roweckiego 129 we Wrocławiu.
         </p>
         <p class="text-[15px] text-[var(--text-secondary)] leading-[1.65] font-body mb-7">
-          Posiadamy autoryzacje Webasto, Eberspächer i DEFA — co gwarantuje najwyższy standard usług i oryginalne części zamienne. Tysiące udanych napraw i zadowolonych klientów.
+          Posiadamy autoryzacje Webasto i Eberspächer oraz jesteśmy partnerem sprzedażowym DEFA — co gwarantuje najwyższy standard usług i oryginalne części zamienne. Tysiące udanych napraw i zadowolonych klientów.
         </p>
         <div class="flex gap-2.5 flex-wrap">
           <a href="/o-firmie/" class="inline-flex items-center bg-blue-700 text-white border-none rounded-[4px] px-5 py-2.5 text-[14px] font-semibold font-body hover:bg-blue-800 transition-colors">
@@ -232,7 +246,6 @@ import { Wind, Flame, ShieldCheck, Search, Wrench, Settings } from 'lucide-astro
         <StatCard value="1989" label="Rok założenia" />
         <StatCard value="1999" label="Nazwa Klima-Kar" />
         <StatCard value="2008" label="Autoryzacja Webasto" />
-        <StatCard value="3" label="Autoryzacje partnerskie" />
       </div>
     </div>
   </section>
