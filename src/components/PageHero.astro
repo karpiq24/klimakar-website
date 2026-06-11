@@ -3,13 +3,29 @@ interface Props {
   label: string;
   title: string;
   description: string;
+  image?: string;
+  imageAlt?: string;
 }
 
-const { label, title, description } = Astro.props;
+const { label, title, description, image, imageAlt = '' } = Astro.props;
 ---
 
-<section class="bg-[var(--bg-dark)] [data-theme='dark']:bg-[var(--bg-dark-deeper)] py-14 pb-12 px-10">
-  <div class="mx-auto max-w-[1200px]">
+<section class="relative overflow-hidden bg-[var(--bg-dark)] [data-theme='dark']:bg-[var(--bg-dark-deeper)] py-14 pb-12 px-10">
+  {image && (
+    <>
+      <img
+        src={image}
+        alt={imageAlt}
+        class="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
+        aria-hidden={imageAlt ? undefined : "true"}
+      />
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-[var(--bg-dark)] via-[var(--bg-dark)]/90 to-[var(--bg-dark)]/65 pointer-events-none"
+        aria-hidden="true"
+      ></div>
+    </>
+  )}
+  <div class="relative mx-auto max-w-[1200px]">
     <p class="uppercase text-[11px] tracking-widest text-blue-500 font-body mb-2.5 font-bold">{label}</p>
     <h1
       class="font-display text-[clamp(32px,4vw,52px)] font-bold text-white leading-tight mb-4"

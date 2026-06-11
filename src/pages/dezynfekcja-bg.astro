@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import PageHero from '../components/PageHero.astro';
+import CTABanner from '../components/CTABanner.astro';
+---
+
+<BaseLayout
+  title="Dezynfekcja BG — Klima-Kar"
+  description="Kompleksowa dezynfekcja układu klimatyzacji i wnętrza pojazdu metodą BG. Usuwa nieprzyjemne zapachy, grzyby i pleśń, poprawia wydajność klimatyzacji."
+>
+  <Breadcrumb items={[
+    { label: "Strona główna", href: "/" },
+    { label: "Klimatyzacja", href: "/klimatyzacja/" },
+    { label: "Dezynfekcja BG" },
+  ]} />
+
+  <PageHero
+    label="Klimatyzacja"
+    title="Dezynfekcja<br>BG"
+    description="Regularna dezynfekcja to podstawa — kompleksowa procedura BG oczyszcza cały układ klimatyzacji oraz wnętrze pojazdu, poprawiając jego wydajność i usuwając nieprzyjemne zapachy."
+  />
+
+  <section class="bg-[var(--bg-page)] py-12 px-6 sm:px-10">
+    <div class="mx-auto max-w-[800px] flex flex-col gap-8">
+
+      <div>
+        <h2 class="font-display text-[clamp(22px,3vw,28px)] font-bold text-[var(--text-primary)] mb-3">Regularna dezynfekcja to podstawa</h2>
+        <img src="/images/bg-przed.jpg" alt="Przed dezynfekcją BG" class="w-full sm:w-[320px] rounded-[6px] float-right ml-5 mb-3" />
+        <p class="text-[14px] text-[var(--text-secondary)] leading-[1.7] font-body mb-3">
+          Jednym z kluczowych problemów związanych z prawidłowym funkcjonowaniem systemu klimatyzacji jest utrzymanie go w czystości, dlatego serwis powinien mieć charakter profilaktyczny. System wentylacji wdmuchuje ciepłe lub zimne powietrze do wnętrza pojazdu. Musi ono przejść przez parownik, gdzie nagromadzone zanieczyszczenia uniemożliwiają jego swobodny przepływ. Brud, pozostałości dymu papierosowego, pyłki itp. zatykają przestrzenie pomiędzy elementami parownika, co utrudnia przepływ powietrza przez system wentylacyjny.
+        </p>
+        <img src="/images/bg-podczas.png" alt="Podczas dezynfekcji BG" class="w-full sm:w-[320px] rounded-[6px] float-left mr-5 mb-3" />
+        <p class="text-[14px] text-[var(--text-secondary)] leading-[1.7] font-body mb-3">
+          Ponadto kryjące się w systemie wentylacyjnym pleśnie, bakterie, zarodniki czy grzyby dostają się do kabiny pojazdu za każdym razem, gdy włączane jest ogrzewanie lub chłodzenie. Może to powodować u kierowcy i pasażerów alergie, astmę czy inne choroby dróg oddechowych. Nie należy zapominać, że oprócz samego układu klimatyzacji źródłem nieprzyjemnych zapachów może być również kabina pojazdu — wilgoć zbierająca się pod dywanikami czy rozlane produkty spożywcze mogą stanowić doskonałą pożywkę dla mikroorganizmów.
+        </p>
+        <p class="text-[14px] text-[var(--text-secondary)] leading-[1.7] font-body">
+          Wykonując serwis układu klimatyzacji profilaktycznie, mamy pewność, że powietrze w pojeździe będzie cały czas świeże i pozbawione wszelkich zanieczyszczeń i drobnoustrojów, które mogą być przyczyną groźnych chorób układu oddechowego. Podkreśla to chociażby Państwowy Zakład Higieny, który od kilku lat alarmuje, iż źle serwisowany układ wentylacji sprzyja rozwojowi chorób układu oddechowego. Również Światowa Organizacja Zdrowia (WHO) na opracowanej przez swoich ekspertów liście zagrożeń dla płuc umieściła m.in. zespoły chorobotwórcze związane z oddychaniem zanieczyszczonym, klimatyzowanym powietrzem.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-display text-[clamp(22px,3vw,28px)] font-bold text-[var(--text-primary)] mb-3">Dlaczego dezynfekcja BG?</h2>
+        <img src="/images/bg-po.jpg" alt="Po dezynfekcji BG" class="w-full sm:w-[320px] rounded-[6px] float-right ml-5 mb-3" />
+        <p class="text-[14px] text-[var(--text-secondary)] leading-[1.7] font-body mb-2">
+          Na rynku dostępnych jest szereg technologii, których celem jest dezynfekcja wybranych elementów, niekoniecznie działających kompleksowo na cały układ klimatyzacji wraz z wnętrzem pojazdu. Jak we wszystkich dziedzinach mamy wybór, dlatego warto zapoznać się z oferowanymi metodami i sprawdzić, czy po ich zastosowaniu powietrze w pojeździe będzie cały czas świeże i pozbawione wszelkich zanieczyszczeń i drobnoustrojów, które mogą być przyczyną groźnych chorób układu oddechowego. Metodą, która działa kompleksowo na cały układ klimatyzacji i wnętrze pojazdu, jest procedura oferowana przez firmę BG. Zastosowanie serwisu układu klimatyzacji BG oczyści cały układ oraz poprawi jego wydajność. Nieprzyjemne zapachy, grzyby, pleśń zostaną zlikwidowane, a wnętrze pojazdu odświeżone.
+        </p>
+        <p class="text-[12px] text-[var(--text-muted)] italic font-body">Źródło: BG Poland</p>
+      </div>
+
+      <div>
+        <h2 class="font-display text-[clamp(22px,3vw,28px)] font-bold text-[var(--text-primary)] mb-3">Cennik</h2>
+        <img src="/images/bg-cennik.jpg" alt="BG cennik" class="w-full rounded-[6px]" />
+      </div>
+
+      <CTABanner
+        title="Umów dezynfekcję BG"
+        subtitle="Zadzwoń: 71 337 14 50 lub 605 594 506"
+        primaryText="Umów wizytę"
+        primaryHref="/kontakt/"
+        secondaryText="Zobacz cennik"
+        secondaryHref="/cennik/"
+        variant="card"
+      />
+
+    </div>
+  </section>
+</BaseLayout>

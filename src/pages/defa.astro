@@ -11,16 +11,22 @@ const modules = [
     title: 'Podgrzewacz silnika',
     description: 'Do większości jednostek napędowych występuje specjalnie dedykowana grzałka silnika. Rozruch wstępnie podgrzanego silnika jest łatwiejszy i oznacza istotne zmniejszenie zużycia paliwa, a także obniżenie zużycia samego silnika w porównaniu do startu „na zimno".',
     icon: 'thermometer',
+    image: '/images/defa-silnik.png',
+    imageAlt: 'DEFA — podgrzewacz silnika',
   },
   {
     title: 'Ogrzewacz wnętrza',
     description: 'Ogrzewacz wnętrza zapewnia komfortową temperaturę wnętrza pojazdu. Ciepłe wnętrze pozwala zapomnieć o parowaniu szyb i porannym skrobaniu lodu. Bezpiecznie jest jeździć z czystymi i odlodzonymi szybami.',
     icon: 'fan',
+    image: '/images/defa-wnetrze.png',
+    imageAlt: 'DEFA — ogrzewacz wnętrza pojazdu',
   },
   {
     title: 'Ładowarka akumulatora',
     description: 'Elektroniczna ładowarka daje pewność naładowanego do pełna akumulatora. Zaawansowana elektronika zapobiega przeładowaniu, a akumulator jest prawidłowo ładowany niezależnie od temperatury na zewnątrz.',
     icon: 'battery',
+    image: '/images/defa-ladowanie.png',
+    imageAlt: 'DEFA — ładowanie akumulatora',
   },
 ];
 
@@ -71,7 +77,16 @@ const benefits = [
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
         {modules.map((mod) => (
-          <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-[22px] shadow-[var(--shadow-xs)] flex flex-col gap-3">
+          <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] overflow-hidden shadow-[var(--shadow-xs)] flex flex-col">
+            <div class="bg-white aspect-[4/3] flex items-center justify-center p-6 border-b border-[var(--border-subtle)]">
+              <img
+                src={mod.image}
+                alt={mod.imageAlt}
+                loading="lazy"
+                class="max-w-full max-h-full object-contain"
+              />
+            </div>
+            <div class="p-[22px] flex flex-col gap-3">
             <div class="w-[44px] h-[44px] bg-[#006BB4]/10 rounded-[10px] flex items-center justify-center text-[#006BB4]">
               {mod.icon === 'thermometer' && <Thermometer size={22} />}
               {mod.icon === 'fan' && <Fan size={22} />}
@@ -80,6 +95,7 @@ const benefits = [
             <div>
               <h3 class="font-display text-[18px] font-bold text-[var(--text-primary)] mb-1.5 leading-[1.2]">{mod.title}</h3>
               <p class="text-[13px] text-[var(--text-secondary)] leading-relaxed font-body">{mod.description}</p>
+            </div>
             </div>
           </div>
         ))}

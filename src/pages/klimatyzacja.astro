@@ -4,7 +4,7 @@ import Breadcrumb from '../components/Breadcrumb.astro';
 import PageHero from '../components/PageHero.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import CTABanner from '../components/CTABanner.astro';
-import { Wind, Search, Settings, ShieldCheck, Zap, Layers } from 'lucide-astro';
+import { Wind, Search, Settings, ShieldCheck, Zap, Layers, Droplet, CalendarCheck } from 'lucide-astro';
 ---
 
 <BaseLayout
@@ -17,6 +17,8 @@ import { Wind, Search, Settings, ShieldCheck, Zap, Layers } from 'lucide-astro';
     label="Usługi"
     title="Klimatyzacja<br>samochodowa"
     description="W pełni obsługujemy pojazdy z czynnikiem R12, R134a, R1234yf oraz R744. Wykonujemy wszelkie naprawy: regeneracja sprężarek, naprawa przewodów, wymiana chłodnic i parowników, usuwanie nieprzyjemnych zapachów, dezynfekcja, napełnianie. Posiadamy na miejscu filtry kabinowe zwykłe oraz węglowe do większości samochodów."
+    image="/images/manometry50p.webp"
+    imageAlt="Manometry do obsługi klimatyzacji samochodowej"
   />
 
   <section class="bg-[var(--bg-page)] py-14 px-6 sm:px-10">
@@ -53,6 +55,7 @@ import { Wind, Search, Settings, ShieldCheck, Zap, Layers } from 'lucide-astro';
           title="Dezynfekcja TUNAP"
           description="Najskuteczniejsza chemiczna metoda ręczna oczyszczania układu. Eliminacja bakterii, grzybów i nieprzyjemnych zapachów z parownika i kanałów wentylacyjnych."
           price="250 zł"
+          href="/tunap/"
         >
           <ShieldCheck size={22} />
         </ServiceCard>
@@ -60,7 +63,7 @@ import { Wind, Search, Settings, ShieldCheck, Zap, Layers } from 'lucide-astro';
         <ServiceCard
           title="Dezynfekcja ultradźwiękowa"
           description="Szybka i skuteczna dezynfekcja chemiczna metodą ultradźwiękową. Zapobieganie i usuwanie nieprzyjemnych zapachów. Idealna jako profilaktyczne odświeżenie układu."
-          price="120 zł"
+          price="150 zł"
         >
           <Zap size={22} />
         </ServiceCard>
@@ -71,6 +74,22 @@ import { Wind, Search, Settings, ShieldCheck, Zap, Layers } from 'lucide-astro';
           price="od 250 zł"
         >
           <Layers size={22} />
+        </ServiceCard>
+
+        <ServiceCard
+          title="Dezynfekcja BG"
+          description="Kompleksowa dezynfekcja całego układu klimatyzacji wraz z wnętrzem pojazdu. Usuwa nieprzyjemne zapachy, grzyby i pleśń, poprawia wydajność klimatyzacji."
+          href="/dezynfekcja-bg/"
+        >
+          <Droplet size={22} />
+        </ServiceCard>
+
+        <ServiceCard
+          title="Konserwacja klimatyzacji"
+          description="Coroczny przegląd i serwis profilaktyczny — kontrola szczelności, wydajności, wymiana filtra kabinowego i dezynfekcja parownika."
+          href="/konserwacja/"
+        >
+          <CalendarCheck size={22} />
         </ServiceCard>
 
       </div>

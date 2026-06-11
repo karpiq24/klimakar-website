@@ -5,7 +5,7 @@ import PartnerCard from '../components/PartnerCard.astro';
 import StatCard from '../components/StatCard.astro';
 import ContactSection from '../components/ContactSection.astro';
 import { Wind, Flame, ShieldCheck, Search, Wrench, Settings } from 'lucide-astro';
-import logoNoname from '../assets/logos/logo_noname.svg';
+import logoWhite from '../assets/logos/logo_white.svg';
 import webastoLogo from '../assets/logos/webasto.svg';
 import eberspacherLogo from '../assets/logos/eberspacher.svg';
 import defaLogo from '../assets/logos/defa.svg';
@@ -20,7 +20,16 @@ import defaLogo from '../assets/logos/defa.svg';
        SECTION 1: HERO
        ============================================================ -->
   <section class="hero-section bg-dark-900 relative overflow-hidden pt-[100px] pb-[80px] px-10 max-[600px]:px-5 max-[600px]:pt-16 max-[600px]:pb-14 transition-colors duration-200">
-    <!-- Decorative circles -->
+    <!-- Photographic background -->
+    <img
+      src="/images/dron-1-1536x960.webp"
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none select-none"
+    />
+    <div class="absolute inset-0 bg-gradient-to-br from-dark-900/95 via-dark-900/80 to-dark-900/50 pointer-events-none" aria-hidden="true"></div>
+
+    <!-- Decorative circles (bottom-left) -->
     <div class="absolute -bottom-[60px] -left-[60px] w-[500px] h-[500px] rounded-full border border-blue-700/20 pointer-events-none" aria-hidden="true"></div>
     <div class="absolute -bottom-[30px] -left-[30px] w-[340px] h-[340px] rounded-full border border-blue-600/[0.18] pointer-events-none" aria-hidden="true"></div>
     <div class="absolute -bottom-[100px] -left-[100px] w-[650px] h-[650px] rounded-full border border-blue-500/10 pointer-events-none" aria-hidden="true"></div>
@@ -28,14 +37,6 @@ import defaLogo from '../assets/logos/defa.svg';
     <!-- Decorative gradient blobs -->
     <div class="absolute top-1/4 right-[10%] w-[500px] h-[500px] rounded-full pointer-events-none opacity-[0.06]" style="background: radial-gradient(circle, rgba(28,94,166,0.6) 0%, transparent 70%);" aria-hidden="true"></div>
     <div class="absolute bottom-0 left-[20%] w-[400px] h-[400px] rounded-full pointer-events-none opacity-[0.04]" style="background: radial-gradient(circle, rgba(64,176,217,0.6) 0%, transparent 70%);" aria-hidden="true"></div>
-
-    <!-- Large rotated logo as background feature -->
-    <div
-      class="absolute top-1/2 right-[30px] w-[1100px] h-[1100px] -translate-y-1/2 -rotate-25 opacity-[0.09] pointer-events-none max-[900px]:w-[650px] max-[900px]:h-[650px] max-[900px]:-right-[100px]"
-      aria-hidden="true"
-    >
-      <img src={logoNoname.src} alt="" class="w-full h-full [filter:brightness(0)_invert(1)]" />
-    </div>
 
     <div class="max-w-[1200px] mx-auto flex items-center gap-16 relative">
       <div class="flex-1 max-w-[640px]">
@@ -45,13 +46,20 @@ import defaLogo from '../assets/logos/defa.svg';
           <span class="text-blue-500 text-[12px] font-semibold font-body tracking-[0.06em] uppercase">Działamy od 1989 roku &middot; Wrocław</span>
         </div>
 
+        <!-- Company logo (with name) -->
+        <img
+          src={logoWhite.src}
+          alt="Klima-Kar"
+          class="h-[60px] w-auto mb-7 max-[600px]:h-[46px] [filter:drop-shadow(0_2px_8px_rgba(0,0,0,0.4))]"
+        />
+
         <!-- H1 -->
-        <h1 class="font-display text-[clamp(36px,5vw,64px)] font-bold text-white leading-[1.1] tracking-[-0.02em] mb-5">
+        <h1 class="font-display text-[clamp(32px,4.5vw,56px)] font-bold text-white leading-[1.1] tracking-[-0.02em] mb-5 [text-shadow:0_2px_12px_rgba(0,0,0,0.35)]">
           Klimatyzacja<br /><span class="text-blue-500">i ogrzewanie</span><br />Twojego auta
         </h1>
 
         <!-- Subtitle -->
-        <p class="text-white/65 text-[16px] leading-[1.65] font-body mb-8 max-w-[480px]">
+        <p class="text-white/75 text-[16px] leading-[1.65] font-body mb-8 max-w-[480px] [text-shadow:0_1px_8px_rgba(0,0,0,0.4)]">
           Profesjonalny serwis klimatyzacji samochodowej oraz ogrzewań postojowych Webasto, Eberspächer i DEFA we Wrocławiu.
         </p>
 
@@ -68,8 +76,8 @@ import defaLogo from '../assets/logos/defa.svg';
         <!-- Stats row -->
         <div class="flex gap-8 mt-12 pt-8 border-t border-white/10 flex-wrap">
           <div>
-            <div class="font-display text-[28px] font-bold text-white leading-none">35+</div>
-            <div class="text-[12px] text-white/50 font-body mt-1">lat doświadczenia</div>
+            <div class="font-display text-[28px] font-bold text-white leading-none">1989</div>
+            <div class="text-[12px] text-white/50 font-body mt-1">rok założenia firmy</div>
           </div>
           <div>
             <a href="tel:+48713371450" class="block">
@@ -103,7 +111,7 @@ import defaLogo from '../assets/logos/defa.svg';
       <div class="grid grid-cols-1 min-[600px]:grid-cols-2 min-[960px]:grid-cols-3 gap-4">
         <ServiceCard
           title="Klimatyzacja samochodowa"
-          description="Napełnianie, diagnostyka, regeneracja sprężarek, wymiana podzespołów. Obsługa czynników R134a, R1234yf i R12."
+          description="Napełnianie, diagnostyka, regeneracja sprężarek, wymiana podzespołów. Obsługa czynników R12, R134a, R1234yf oraz R744."
           href="/klimatyzacja/"
         >
           <Wind size={22} strokeWidth={1.5} />
@@ -209,6 +217,53 @@ import defaLogo from '../assets/logos/defa.svg';
           badges={["Doradztwo", "Montaż", "Serwis"]}
           href="/defa/"
         />
+      </div>
+
+      <!-- Overview link -->
+      <div class="mt-8">
+        <a href="/ogrzewanie-postojowe/" class="inline-flex items-center bg-transparent text-blue-500 border-[1.5px] border-blue-500/50 rounded-[4px] px-6 py-2.5 text-[14px] font-semibold font-body hover:bg-blue-500 hover:text-dark-900 transition-colors">
+          Dowiedz się więcej o ogrzewaniu postojowym &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SECTION 3b: REALIZACJE (GALLERY TEASER)
+       ============================================================ -->
+  <section class="bg-[var(--bg-page)] py-[72px] px-10 max-[600px]:px-5 max-[600px]:py-12 transition-colors duration-200">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="flex justify-between items-end mb-10 flex-wrap gap-4">
+        <div>
+          <div class="text-[11px] font-bold uppercase tracking-[0.1em] text-blue-600 font-body mb-2.5">Galeria</div>
+          <h2 class="font-display text-[clamp(30px,4vw,38px)] font-bold text-[var(--text-primary)] leading-[1.1]">
+            Nasze realizacje
+          </h2>
+        </div>
+        <a href="/galeria/" class="text-[14px] font-semibold font-body text-blue-700 hover:text-blue-800 transition-colors shrink-0">
+          Zobacz całą galerię &rarr;
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 min-[900px]:grid-cols-4 gap-4">
+        {[
+          { src: "/images/galeria/lamb.JPG", alt: "Serwis klimatyzacji w Lamborghini" },
+          { src: "/images/galeria/merc.jpg", alt: "Serwis klimatyzacji w Mercedesie" },
+          { src: "/images/galeria/k2.jpg", alt: "Naprawa klimatyzacji samochodowej" },
+          { src: "/images/galeria/war.JPG", alt: "Warsztat Klima-Kar we Wrocławiu" },
+        ].map((img) => (
+          <a href="/galeria/" class="group block rounded-[10px] overflow-hidden border border-[var(--border-subtle)] shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-lg)] transition-shadow duration-200">
+            <div class="aspect-[4/3] overflow-hidden">
+              <img
+                src={img.src}
+                alt={img.alt}
+                loading="lazy"
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            </div>
+          </a>
+        ))}
       </div>
     </div>
   </section>

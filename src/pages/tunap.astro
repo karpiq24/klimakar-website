@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import PageHero from '../components/PageHero.astro';
+import CTABanner from '../components/CTABanner.astro';
+---
+
+<BaseLayout
+  title="Dezynfekcja TUNAP — Klima-Kar"
+  description="Dezynfekcja klimatyzacji preparatem TUNAP Contra Sept 180 — zwycięzcą testu Niemieckiego Instytutu ds. Astmy i Alergii, dopuszczonym przez DGHM."
+>
+  <Breadcrumb items={[
+    { label: "Strona główna", href: "/" },
+    { label: "Klimatyzacja", href: "/klimatyzacja/" },
+    { label: "Dezynfekcja TUNAP" },
+  ]} />
+
+  <PageHero
+    label="Klimatyzacja"
+    title="Dezynfekcja<br>TUNAP"
+    description="Nowoczesny, bezaldehydowy preparat do czyszczenia klimatyzacji, który kompleksowo zwalcza nieprzyjemne zapachy powstające z biegiem czasu na skutek gromadzenia się bakterii i grzybów."
+  />
+
+  <section class="bg-[var(--bg-page)] py-12 px-6 sm:px-10">
+    <div class="mx-auto max-w-[800px] flex flex-col gap-8">
+
+      <div class="flex flex-col sm:flex-row gap-6 items-start">
+        <img src="/images/tunap-child.webp" alt="Tunap dziecko" class="w-full sm:w-[260px] rounded-[6px] shrink-0" />
+        <div>
+          <h2 class="font-display text-[clamp(22px,3vw,28px)] font-bold text-[var(--text-primary)] mb-3">Preparat do czyszczenia klimatyzacji Contra Sept 180</h2>
+          <p class="text-[14px] text-[var(--text-secondary)] leading-[1.7] font-body mb-3">
+            Nowoczesny, bezaldehydowy preparat do czyszczenia klimatyzacji kompleksowo zwalcza nieprzyjemne zapachy powstające z biegiem czasu na skutek gromadzenia się bakterii i grzybów. Zwycięzca testu na najskuteczniejszy preparat do czyszczenia układów klimatyzacji przeprowadzonego przez Niemiecki Instytut ds. Astmy i Alergii.
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <p class="text-[14px] text-[var(--text-secondary)] leading-[1.7] font-body mb-3">
+          Procedurę czyszczenia klimatyzacji metodą TUNAP można podsumować jako unikanie „dróg na skróty”. Jej kluczowym punktem jest dokładne wyczyszczenie parownika, który jest elementem układu, na którym gromadzi się najwięcej osadów, bakterii i grzybów. Czyszczenie chemiczne specjalnym środkiem jest tu połączone z myciem ciśnieniowym, które pozwala wypłukać cały brud i usunąć go z przewodów wentylacyjnych pojazdu. Układ zostaje także zabezpieczony, co na dłuższy czas tworzy barierę dla rozwoju kolejnych, szkodliwych dla zdrowia mikroorganizmów.
+        </p>
+        <img src="/images/tunap-mycie2.webp" alt="Podczas dezynfekcji TUNAP" class="w-full sm:w-[320px] rounded-[6px] float-right ml-5 mb-3" />
+        <ul class="text-[14px] text-[var(--text-secondary)] leading-relaxed font-body list-none p-0 m-0 flex flex-col gap-1.5 mb-3">
+          <li class="flex items-start gap-2"><span class="text-blue-700 mt-0.5 shrink-0">&bull;</span>Szczególnie polecany do kompleksowego czyszczenia układów klimatyzacji</li>
+          <li class="flex items-start gap-2"><span class="text-blue-700 mt-0.5 shrink-0">&bull;</span>Do zwalczania nieprzyjemnych zapachów</li>
+          <li class="flex items-start gap-2"><span class="text-blue-700 mt-0.5 shrink-0">&bull;</span>Dopuszczony do użytku przez DGHM (Niemieckie Towarzystwo Higieny i Mikrobiologii)</li>
+          <li class="flex items-start gap-2"><span class="text-blue-700 mt-0.5 shrink-0">&bull;</span>Szybko działający natryskowy preparat czyszczący na bazie alkoholu z właściwościami chroniącymi elementy wnętrza pojazdu</li>
+        </ul>
+        <p class="text-[14px] text-[var(--text-secondary)] leading-[1.7] font-body">
+          Bakterie, grzyby i mikroorganizmy osiedlające się w układzie klimatyzacji mogą prowadzić do zanieczyszczenia powietrza w samochodzie. Firma TUNAP zaleca 1 do 2 razy w roku przeprowadzenie profesjonalnej dezynfekcji parownika oraz kanałów powietrznych, używając preparatów do czyszczenia układów klimatyzacji najwyższej jakości. Preparat do czyszczenia klimatyzacji Contra Sept 180 pozwala usunąć przeszkadzające, nieprzyjemne zapachy oraz zapobiec ponownemu osiedlaniu się bakterii, grzybów oraz mikroorganizmów na długi czas. Preparaty do czyszczenia klimatyzacji Contra Sept® są szczególnie polecane dla małych dzieci, alergików i astmatyków. Pozwól sobie swobodnie oddychać!
+        </p>
+      </div>
+
+      <img src="/images/tunap-przedipo.webp" alt="Tunap przed i po" class="w-full rounded-[6px]" />
+
+      <p class="text-[12px] text-[var(--text-muted)] italic font-body">Źródło: tunap.pl, motofocus.pl</p>
+
+      <CTABanner
+        title="Umów dezynfekcję TUNAP"
+        subtitle="Zadzwoń: 71 337 14 50 lub 605 594 506"
+        primaryText="Umów wizytę"
+        primaryHref="/kontakt/"
+        secondaryText="Zobacz cennik"
+        secondaryHref="/cennik/"
+        variant="card"
+      />
+
+    </div>
+  </section>
+</BaseLayout>

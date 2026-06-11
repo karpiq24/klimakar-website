@@ -11,6 +11,7 @@ const controlSystems = [
   {
     name: 'MultiControl',
     type: 'Programator z wyświetlaczem',
+    image: '/images/MC.jpg',
     features: [
       'Menu w języku polskim',
       'Przejrzysty wyświetlacz i wygodny przycisk',
@@ -22,6 +23,7 @@ const controlSystems = [
   {
     name: 'Telestart T91',
     type: 'Pilot radiowy',
+    image: '/images/t91.jpg',
     features: [
       'Zasięg do 1000 metrów',
       'Prosta obsługa przyciskami On / Off',
@@ -33,6 +35,7 @@ const controlSystems = [
   {
     name: 'Telestart T99',
     type: 'Pilot radiowy z potwierdzeniem',
+    image: '/images/t99.webp',
     features: [
       'Zasięg do 1000 metrów',
       'Funkcja informacji zwrotnej',
@@ -44,6 +47,7 @@ const controlSystems = [
   {
     name: 'Telestart T100',
     type: 'Pilot z wyświetlaczem',
+    image: '/images/t100.jpg',
     features: [
       'Zasięg do 1000 metrów z informacją zwrotną',
       'Programowanie czasu odjazdu (auto C1-C5)',
@@ -55,6 +59,7 @@ const controlSystems = [
   {
     name: 'ThermoCall',
     type: 'Sterowanie GSM',
+    image: '/images/TC.png',
     features: [
       'Sterowanie z dowolnego miejsca w zasięgu GSM',
       'Bezpłatna aplikacja mobilna',
@@ -66,12 +71,14 @@ const controlSystems = [
   {
     name: 'ThermoConnect',
     type: 'Sterowanie przez internet',
+    image: '/images/ThermoConnect.jpg',
     features: [
       'Aplikacja mobilna i webowa',
       'Timer jednorazowy i powtarzalny',
       'Uruchamianie oparte na pozycji GPS',
       'Lokalizacja pojazdu i geo-fencing',
       'Obsługa wielu urządzeń z jednej aplikacji',
+      'Pierwszy rok bezpłatny, każdy kolejny — abonament 35 € rocznie',
     ],
   },
 ];
@@ -91,6 +98,8 @@ const controlSystems = [
     label="Webasto"
     title="Autoryzowany Serwis<br>Webasto"
     description="Jesteśmy autoryzowanym serwisem Webasto. Nasze wieloletnie doświadczenie i wiedza pozwalają na wykonywanie profesjonalnych napraw i montaży nowych instalacji. Wykonujemy również naprawy gwarancyjne."
+    image="/images/webastoauto.jpg"
+    imageAlt="Montaż ogrzewania postojowego Webasto"
   />
 
   <!-- Services section -->
@@ -136,11 +145,16 @@ const controlSystems = [
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
         {controlSystems.map((system) => (
-          <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-[22px] shadow-[var(--shadow-xs)] flex flex-col gap-3">
-            <div class="w-[44px] h-[44px] bg-[#C8001E]/10 rounded-[10px] flex items-center justify-center">
-              <span class="font-display text-[16px] font-bold text-[#C8001E]">W</span>
+          <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] overflow-hidden shadow-[var(--shadow-xs)] flex flex-col">
+            <div class="bg-white aspect-[4/3] flex items-center justify-center p-5 border-b border-[var(--border-subtle)]">
+              <img
+                src={system.image}
+                alt={`Webasto ${system.name}`}
+                loading="lazy"
+                class="max-w-full max-h-full object-contain"
+              />
             </div>
-            <div>
+            <div class="p-[22px]">
               <h3 class="font-display text-[18px] font-bold text-[var(--text-primary)] mb-0.5 leading-[1.2]">{system.name}</h3>
               <p class="text-[11px] uppercase tracking-wide text-[var(--text-muted)] font-body font-semibold mb-3">{system.type}</p>
               <ul class="space-y-1.5">

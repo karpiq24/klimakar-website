@@ -11,6 +11,7 @@ const controlSystems = [
   {
     name: 'EasyStart Select',
     type: 'Włącznik z wyświetlaczem',
+    image: '/images/ess.jpg',
     features: [
       'Prosta funkcja włączania i wyłączania jednym przyciskiem',
       'Funkcja wyświetlania informacji zwrotnej',
@@ -22,6 +23,7 @@ const controlSystems = [
   {
     name: 'EasyStart Timer',
     type: 'Programator tygodniowy',
+    image: '/images/est.jpg',
     features: [
       'Programowanie w cyklu tygodniowym',
       'Możliwość ustawienia trzech programów',
@@ -33,6 +35,7 @@ const controlSystems = [
   {
     name: 'EasyStart Remote',
     type: 'Pilot radiowy',
+    image: '/images/esr.jpg',
     features: [
       'Zasięg do 1000 metrów',
       'Funkcja informacji zwrotnej',
@@ -44,6 +47,7 @@ const controlSystems = [
   {
     name: 'EasyStart Remote+',
     type: 'Pilot z wyświetlaczem i programowaniem',
+    image: '/images/esr+.jpg',
     features: [
       'Zasięg do 1000 metrów z informacją zwrotną',
       'Programowanie czasu odjazdu (automatyczne)',
@@ -55,12 +59,14 @@ const controlSystems = [
   {
     name: 'EasyStart Web',
     type: 'Sterowanie przez internet',
+    image: '/images/esw.jpg',
     features: [
       'Sterowanie z dowolnego miejsca przez internet',
       'Bezpłatna aplikacja na smartfony',
       'Sterowanie przez przeglądarkę internetową',
       'Automatyczne programowanie czasu odjazdu',
       'Informacja o statusie i temperaturze wnętrza',
+      'Wymaga abonamentu — 129 zł rocznie (cena na dzień 12.11.2020)',
     ],
   },
 ];
@@ -125,11 +131,16 @@ const controlSystems = [
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
         {controlSystems.map((system) => (
-          <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] p-[22px] shadow-[var(--shadow-xs)] flex flex-col gap-3">
-            <div class="w-[44px] h-[44px] bg-[#E85D00]/10 rounded-[10px] flex items-center justify-center">
-              <span class="font-display text-[16px] font-bold text-[#E85D00]">E</span>
+          <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] overflow-hidden shadow-[var(--shadow-xs)] flex flex-col">
+            <div class="bg-white aspect-[4/3] flex items-center justify-center p-5 border-b border-[var(--border-subtle)]">
+              <img
+                src={system.image}
+                alt={`Eberspächer ${system.name}`}
+                loading="lazy"
+                class="max-w-full max-h-full object-contain"
+              />
             </div>
-            <div>
+            <div class="p-[22px]">
               <h3 class="font-display text-[18px] font-bold text-[var(--text-primary)] mb-0.5 leading-[1.2]">{system.name}</h3>
               <p class="text-[11px] uppercase tracking-wide text-[var(--text-muted)] font-body font-semibold mb-3">{system.type}</p>
               <ul class="space-y-1.5">

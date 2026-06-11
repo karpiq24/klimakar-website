@@ -20,6 +20,8 @@ import StatCard from '../components/StatCard.astro';
     label="O firmie"
     title="Firma rodzinna<br>z dwupokoleniową tradycją"
     description="Jesteśmy firmą rodzinną z wieloletnim doświadczeniem w branży chłodnictwa i ogrzewania. Nasza pasja i zaangażowanie sprawiają, że jesteśmy liderem w naprawach klimatyzacji samochodowej we Wrocławiu."
+    image="/images/galeria/szyld.JPG"
+    imageAlt="Szyld serwisu Klima-Kar we Wrocławiu"
   />
 
   <!-- ============================================================
@@ -27,7 +29,16 @@ import StatCard from '../components/StatCard.astro';
        ============================================================ -->
   <section class="bg-[var(--bg-page)] py-16 px-10 max-[600px]:px-5 transition-colors duration-200">
     <div class="max-w-[1200px] mx-auto">
-      <div class="text-[11px] font-bold uppercase tracking-[0.1em] text-blue-600 font-body mb-8">Historia firmy</div>
+      <div class="text-[11px] font-bold uppercase tracking-[0.1em] text-blue-600 font-body mb-6">Historia firmy</div>
+
+      <!-- Workshop photo -->
+      <figure class="mb-10 rounded-[10px] overflow-hidden border border-[var(--border-subtle)] shadow-[var(--shadow-sm)]">
+        <img
+          src="/images/galeria/war.JPG"
+          alt="Warsztat Klima-Kar we Wrocławiu"
+          class="w-full h-full max-h-[420px] object-cover"
+        />
+      </figure>
 
       <Timeline items={[
         { year: "1989", title: "Początek działalności", description: "Założyciel Krzysztof Karpiński otwiera warsztat zajmujący się serwisem zmechanizowanego sprzętu gospodarstwa domowego. Początki wolnej Polski — i naszej firmy." },
@@ -60,7 +71,7 @@ import StatCard from '../components/StatCard.astro';
 
         <!-- Right column: stat cards 2x2 -->
         <div class="grid grid-cols-2 gap-3">
-          <StatCard value="35+" label="lat doświadczenia" />
+          <StatCard value="1989" label="rok założenia firmy" />
           <StatCard value="3" label="autoryzacje partnerskie" />
           <StatCard value="Wrocław" label="siedziba od 1999" />
           <StatCard value="Rodzinna" label="firma dwupokoleniowa" />
