@@ -1,63 +1,63 @@
 ---
+interface TimelineItem {
+  year: string;
+  title: string;
+  description: string;
+  image?: string;
+  imageAlt?: string;
+}
+
 interface Props {
-  items: { year: string; title: string; description: string }[];
+  items: TimelineItem[];
 }
 
 const { items } = Astro.props;
 ---
 
-<div class="timeline relative">
-  <!-- Vertical line -->
-  <div class="timeline-line absolute left-[64px] top-0 bottom-0 w-[2px] bg-[var(--border-subtle)]"></div>
+<ol class="timeline relative list-none m-0 p-0 pl-10 max-[600px]:pl-8">
+  <!-- Vertical rail (center at x=8px) -->
+  <div class="absolute left-[7px] top-3 bottom-3 w-[2px] bg-[var(--border-default)]" aria-hidden="true"></div>
 
-  <div class="flex flex-col gap-8">
-    {items.map((item, i) => (
-      <div class="timeline-item flex gap-8 items-start">
-        <!-- Year badge -->
-        <div class="w-[128px] shrink-0 flex justify-end pr-6 pt-[18px] box-border">
-          <span
-            class:list={[
-              'font-display text-[22px] font-bold',
-              i === items.length - 1 ? 'text-blue-700' : 'text-[var(--text-muted)]',
-            ]}
-          >
-            {item.year}
-          </span>
-        </div>
-        <!-- Dot -->
-        <div
+  {items.map((item, i) => {
+    const last = i === items.length - 1;
+    return (
+      <li class="relative pb-8 last:pb-0">
+        <!-- Dot (16px, border-box → center at x=8px aligns with rail) -->
+        <span
           class:list={[
-            'w-[14px] h-[14px] rounded-full shrink-0 mt-5 z-[1] border-[3px] border-[var(--bg-page)]',
-            i === items.length - 1 ? 'bg-blue-700' : 'bg-blue-600',
+            'absolute -left-10 top-5 w-4 h-4 rounded-full border-[3px] border-[var(--bg-page)] z-[1] max-[600px]:-left-8',
+            last ? 'bg-blue-700 ring-4 ring-blue-700/15' : 'bg-blue-600',
           ]}
-        ></div>
-        <!-- Card -->
-        <div class="flex-1 bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] px-6 py-5 shadow-[var(--shadow-sm)]">
-          <h3 class="font-display text-[20px] font-bold text-[var(--text-primary)] mb-2">{item.title}</h3>
-          <p class="text-[14px] text-[var(--text-secondary)] leading-[1.6] font-body">{item.description}</p>
-        </div>
-      </div>
-    ))}
-  </div>
-</div>
+          aria-hidden="true"
+        ></span>
 
-<style>
-  @media (max-width: 899px) {
-    .timeline-line {
-      display: none;
-    }
-    .timeline-item {
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .timeline-item > div:first-child {
-      width: auto;
-      justify-content: flex-start;
-      padding-right: 0;
-      padding-top: 0;
-    }
-    .timeline-item > div:nth-child(2) {
-      display: none;
-    }
-  }
-</style>
+        <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[8px] overflow-hidden shadow-[var(--shadow-sm)] flex flex-col min-[700px]:flex-row">
+          {item.image && (
+            <div class="min-[700px]:w-[400px] shrink-0 bg-[var(--bg-page)] flex items-center">
+              <img
+                src={item.image}
+                alt={item.imageAlt ?? ''}
+                class="w-full h-auto object-cover"
+                loading="lazy"
+              />
+            </div>
+          )}
+          <div class="p-6 max-[600px]:p-4 flex-1 flex flex-col justify-center">
+            <span
+              class:list={[
+                'self-start font-display text-[13px] font-bold uppercase tracking-[0.06em] px-2.5 py-1 rounded-[4px] mb-3',
+                last
+                  ? 'bg-blue-700 text-white'
+                  : "bg-[var(--bg-accent-subtle)] text-blue-700 [data-theme='dark']:text-blue-300",
+              ]}
+            >
+              {item.year}
+            </span>
+            <h3 class="font-display text-[20px] font-bold text-[var(--text-primary)] mb-1.5 leading-snug">{item.title}</h3>
+            <p class="text-[14px] text-[var(--text-secondary)] leading-[1.6] font-body">{item.description}</p>
+          </div>
+        </div>
+      </li>
+    );
+  })}
+</ol>
