@@ -91,7 +91,7 @@
 
 /* ---------- Type ---------- */
 .kk-h1{font-family:var(--font-display);font-weight:600;font-size:clamp(40px,6.2cqi,92px);line-height:1.02;letter-spacing:-.045em;margin:0;text-wrap:balance}
-.kk-grad{background:linear-gradient(180deg,var(--navy) 20%,var(--brand) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.kk-grad{background:linear-gradient(180deg,var(--navy) 20%,var(--brand) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-block:.16em;margin-block:-.16em}
 .kk-h2{font-family:var(--font-display);font-weight:600;font-size:clamp(28px,3.6cqi,52px);line-height:1.05;letter-spacing:-.035em;color:var(--navy);margin:0;text-wrap:balance;overflow-wrap:break-word}
 .kk-sh{font-family:var(--font-display);font-weight:600;font-size:clamp(24px,2.7cqi,40px);line-height:1.05;letter-spacing:-.035em;color:var(--navy);white-space:nowrap}
 .kk-h3{font-family:var(--font-display);font-weight:600;font-size:26px;line-height:1.2;letter-spacing:-.03em;color:var(--navy);margin:0}
@@ -152,7 +152,7 @@
 
 /* ---------- Hero ---------- */
 .kk-hero{position:relative;padding-top:clamp(48px,8cqi,112px);text-align:center}
-.kk-hero .kk-h1{margin:26px auto -.16em;padding-bottom:.16em;max-width:1060px}
+.kk-hero .kk-h1{margin:calc(26px - .16em) auto -.16em;max-width:1060px}
 .kk-hero .kk-lead{margin:26px auto 0;max-width:580px}
 .kk-actions{display:flex;flex-wrap:wrap;gap:12px}
 .kk-hero .kk-actions{justify-content:center;margin-top:34px}
