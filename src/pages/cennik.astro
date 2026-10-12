@@ -10,6 +10,7 @@ const refrigerants = [
   { code: 'R134a', cars: 'Auta od 1993 r. do 2014 r. i niektóre po 2014 r.', price: '250 zł', extra: '+ 40 zł/100g powyżej 50g', service: 'Serwis układu, uzupełnienie czynnika R134a, oleju, UV' },
   { code: 'R1234yf', cars: 'Niektóre auta od 2014 r. i większość od 2017 r.', price: '300 zł', extra: '+ 10 zł/10g powyżej 50g', service: 'Serwis układu, uzupełnienie czynnika R1234yf, oleju, UV' },
   { code: 'R12', cars: 'Auta sprzed 1993 r.', price: '300 zł', extra: '+ 40 zł/100g powyżej 50g', service: 'Serwis układu, uzupełnienie czynnika zamiennik za R12, oleju, UV' },
+  { code: 'R744', cars: 'Wybrane modele pojazdów', price: '900 zł', service: 'Serwis układu, napełnienie czynnika R744, oleju, UV' },
 ];
 
 const groups = [
@@ -60,7 +61,7 @@ const groups = [
 
   <section class="kk-wrap kk-section">
     <SectionHeader eyebrow="Klimatyzacja" title="Obsługa układu klimatyzacji" />
-    <PriceCards cards={refrigerants} />
+    <PriceCards cards={refrigerants} columns={2} />
     <div class="kk-price-groups">
       {groups.map((g) => <div><PriceGroup {...g} /></div>)}
     </div>

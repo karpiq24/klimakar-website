@@ -1,6 +1,7 @@
 ---
 // ContentSection (variant A) — long text on one frost panel: sticky eyebrow + h2 on the left,
 // paragraphs on the right, and an optional callout (slot "callout") for one sentence the page contains.
+// An optional IconTile (slot "icon") can lead the heading column.
 // Lists inside use <ul class="kk-checklist">.
 interface Props {
   eyebrow: string;
@@ -10,11 +11,12 @@ interface Props {
 
 const { eyebrow, title, as: Heading = 'h2' } = Astro.props;
 const hasCallout = Astro.slots.has('callout');
+const hasIcon = Astro.slots.has('icon');
 ---
 
 <section class="kk-wrap kk-section">
   <div class="kk-frost kk-article">
-    <div class="kk-article-side"><p class="kk-eyebrow">{eyebrow}</p><Heading class="kk-h2">{title}</Heading></div>
+    <div class="kk-article-side">{hasIcon && <span class="kk-ico" style="margin-bottom:20px"><slot name="icon" /></span>}<p class="kk-eyebrow">{eyebrow}</p><Heading class="kk-h2">{title}</Heading></div>
     <div class="kk-article-body">
       <slot />
       {hasCallout && (
