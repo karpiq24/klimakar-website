@@ -6,12 +6,16 @@ interface Props {
   title: string;
   items: string[];
   season: 'summer' | 'winter';
+  /** Overrides the seasonal photo (e.g. a brand page that must not show another brand's car). */
+  image?: string;
+  imageAlt?: string;
 }
 
-const { eyebrow, title, items, season } = Astro.props;
-const photo = season === 'summer'
+const { eyebrow, title, items, season, image, imageAlt = '' } = Astro.props;
+const seasonal = season === 'summer'
   ? { src: '/images/lato-1.webp', alt: 'Parking w upalny dzień — auto z działającą klimatyzacją', line: 'Latem chłodzimy.' }
   : { src: '/images/webastoauto.jpg', alt: 'Samochód z ogrzewaniem postojowym zimą', line: 'Zimą grzejemy.' };
+const photo = image ? { ...seasonal, src: image, alt: imageAlt } : seasonal;
 ---
 
 <section class="kk-wrap kk-section">
