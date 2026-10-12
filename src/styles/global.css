@@ -142,3 +142,8 @@
     box-shadow: var(--shadow-focus);
   }
 }
+
+/* The hidden attribute must win over kk- display rules (chips, mobile menu, icons). */
+[hidden] {
+  display: none !important;
+}

@@ -1,0 +1,60 @@
+---
+// VideoFeature (variant B) — text beside a poster in a frost frame with a brand play disc.
+// No YouTube scripts load until the click, which swaps in a youtube-nocookie iframe.
+interface Props {
+  eyebrow: string;
+  title: string;
+  text: string;
+  videoId: string;
+  videoTitle: string;
+  poster: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const { eyebrow, title, text, videoId, videoTitle, poster, ctaLabel, ctaHref } = Astro.props;
+---
+
+<section class="kk-wrap kk-section">
+  <div class="kk-video">
+    <div>
+      <p class="kk-eyebrow">{eyebrow}</p>
+      <h2 class="kk-h2" style="margin-bottom:18px">{title}</h2>
+      <p>{text}</p>
+      {ctaLabel && ctaHref && <a href={ctaHref} class="kk-btn kk-btn--primary">{ctaLabel}</a>}
+    </div>
+    <div class="kk-frost kk-video-frame">
+      <a href={`https://www.youtube.com/watch?v=${videoId}`} class="kk-video-poster" data-video={videoId} data-title={videoTitle} aria-label={`Odtwórz: ${videoTitle}`}>
+        <img src={poster} alt="" loading="lazy">
+        <span class="kk-video-play kk-blue"><svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4v16l13-8z"></path></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('.kk-video-poster[data-video]').forEach((poster) => {
+    poster.addEventListener('click', (e) => {
+      e.preventDefault();
+      const frame = document.createElement('iframe');
+      frame.src = `https://www.youtube-nocookie.com/embed/${poster.dataset.video}?autoplay=1&rel=0`;
+      frame.title = poster.dataset.title || '';
+      frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      frame.allowFullscreen = true;
+      frame.className = 'kk-video-iframe';
+      const box = document.createElement('div');
+      box.className = 'kk-video-poster';
+      box.appendChild(frame);
+      poster.replaceWith(box);
+    });
+  });
+</script>
+
+<style is:global>
+  .kk-video-iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+</style>

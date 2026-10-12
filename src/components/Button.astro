@@ -1,0 +1,18 @@
+---
+// Button — pill CTA. <a> when href is set, otherwise a <button>.
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'frost';
+  size?: 'sm' | 'md' | 'lg';
+  type?: 'button' | 'submit';
+  class?: string;
+  [key: string]: any;
+}
+
+const { href, variant = 'primary', size = 'md', type = 'button', class: cls, ...rest } = Astro.props;
+const classes = ['kk-btn', `kk-btn--${variant}`, size !== 'md' && `kk-btn--${size}`, cls];
+---
+
+{href
+  ? <a href={href} class:list={classes} {...rest}><slot /></a>
+  : <button type={type} class:list={classes} {...rest}><slot /></button>}

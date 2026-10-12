@@ -1,0 +1,21 @@
+---
+// HistoryTimeline (variant A) — vertical gradient axis, a brand year disc per entry,
+// frost cards alternating left and right with the era photo where one exists.
+interface Props {
+  items: { year: string; title: string; description: string; image?: string; imageAlt?: string; imagePosition?: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="kk-history">
+  {items.map((item) => (
+    <div class="kk-history-item">
+      <span class="kk-history-year kk-blue">{item.year}</span>
+      <div class="kk-frost kk-history-card">
+        {item.image && <img src={item.image} alt={item.imageAlt ?? ''} style={item.imagePosition ? `object-position:${item.imagePosition}` : undefined} loading="lazy">}
+        <div class="kk-history-body"><h3>{item.title}</h3><p>{item.description}</p></div>
+      </div>
+    </div>
+  ))}
+</div>

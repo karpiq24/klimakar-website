@@ -1,0 +1,33 @@
+---
+// FeatureList (variant B) — framed seasonal photo carrying the season line, beside an eyebrow,
+// h2 and a hairline checklist with brand check discs. Winter photo on heating pages, summer on AC.
+interface Props {
+  eyebrow: string;
+  title: string;
+  items: string[];
+  season: 'summer' | 'winter';
+}
+
+const { eyebrow, title, items, season } = Astro.props;
+const photo = season === 'summer'
+  ? { src: '/images/lato-1.webp', alt: 'Parking w upalny dzień — auto z działającą klimatyzacją', line: 'Latem chłodzimy.' }
+  : { src: '/images/webastoauto.jpg', alt: 'Samochód z ogrzewaniem postojowym zimą', line: 'Zimą grzejemy.' };
+---
+
+<section class="kk-wrap kk-section">
+  <div class="kk-benefits">
+    <div class="kk-benefits-photo">
+      <div class="kk-frost kk-frame"><div class="kk-frame-photo"><img src={photo.src} alt={photo.alt} loading="lazy"></div></div>
+      <div class="kk-frost kk-benefits-tag"><span class="kk-sh">{photo.line}</span></div>
+    </div>
+    <div>
+      <p class="kk-eyebrow">{eyebrow}</p>
+      <h2 class="kk-h2" style="margin-bottom:18px">{title}</h2>
+      <ul class="kk-checklist">
+        {items.map((item) => (
+          <li><span class="kk-check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span><span>{item}</span></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

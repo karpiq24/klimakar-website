@@ -1,0 +1,18 @@
+---
+// PriceGroup (PriceTable variant C, tier 2) — a frost card of services with dotted leaders to the price.
+// Prices are copied exactly; never round or rephrase them.
+interface Props {
+  title: string;
+  note?: string;
+  rows: { service: string; price: string; extra?: string }[];
+}
+
+const { title, note, rows } = Astro.props;
+---
+
+<div class="kk-frost kk-price-group">
+  <div class="kk-price-head"><h3 class="kk-price-title" style="margin:0">{title}</h3>{note && <span class="kk-price-note">{note}</span>}</div>
+  {rows.map((r) => (
+    <div class="kk-price-row"><span class="kk-price-item">{r.service}</span><span class="kk-price-dots" aria-hidden="true"></span><span class="kk-price-value">{r.price}{r.extra && <small>{r.extra}</small>}</span></div>
+  ))}
+</div>

@@ -1,0 +1,28 @@
+---
+// PhotoPanel — 40px-radius section with a full-bleed seasonal photo under a pale veil.
+// Summer photo for air conditioning, winter photo for heating; never mix them.
+import SectionHeader from './SectionHeader.astro';
+
+interface Props {
+  season: 'summer' | 'winter';
+  eyebrow: string;
+  title: string;
+  description?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  as?: 'h1' | 'h2';
+}
+
+const { season, eyebrow, title, description, ctaLabel, ctaHref, as } = Astro.props;
+const photo = season === 'summer' ? '/images/lato-1.webp' : '/images/webastoauto.jpg';
+---
+
+<section class="kk-wrap kk-section">
+  <div class="kk-photopanel">
+    <img src={photo} alt="" aria-hidden="true">
+    <div class:list={['kk-veil', { 'kk-veil--heat': season === 'winter' }]} aria-hidden="true"></div>
+    <SectionHeader eyebrow={eyebrow} title={title} description={description} as={as} />
+    <slot />
+    {ctaLabel && ctaHref && <div class="kk-photopanel-cta"><a href={ctaHref} class="kk-btn kk-btn--primary">{ctaLabel}</a></div>}
+  </div>
+</section>

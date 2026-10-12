@@ -1,0 +1,18 @@
+---
+// SectionHeader — eyebrow, display h2 and an optional description (or a link via the "aside" slot).
+interface Props {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  as?: 'h1' | 'h2';
+}
+
+const { eyebrow, title, description, as: Heading = 'h2' } = Astro.props;
+const hasAside = Astro.slots.has('aside');
+---
+
+<div class="kk-shead">
+  <div><p class="kk-eyebrow">{eyebrow}</p><Heading class="kk-h2">{title}</Heading></div>
+  {description && <p>{description}</p>}
+  {hasAside && <slot name="aside" />}
+</div>

@@ -1,0 +1,10 @@
+---
+// IconTile — 54px rounded square holding one 24px Lucide icon (stroke 1.8), passed in the slot.
+interface Props {
+  variant?: 'default' | 'on-brand' | 'on-navy';
+}
+
+const { variant = 'default' } = Astro.props;
+---
+
+<span class:list={['kk-ico', variant !== 'default' && `kk-ico--${variant}`]}><slot /></span>

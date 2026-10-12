@@ -1,0 +1,30 @@
+---
+// ProductCard (variant A) — packshot on white, type tag, name and the full feature checklist.
+// Place cards inside <div class="kk-products">. `description` replaces the list (DEFA modules).
+interface Props {
+  name: string;
+  type?: string;
+  image: string;
+  imageAlt: string;
+  features?: string[];
+  description?: string;
+}
+
+const { name, type, image, imageAlt, features = [], description } = Astro.props;
+---
+
+<div class="kk-frost kk-card kk-product">
+  <span class="kk-product-shot"><img src={image} alt={imageAlt} loading="lazy"></span>
+  <span class="kk-product-body">
+    {type && <span class="kk-chip kk-chip--tag" style="align-self:flex-start">{type}</span>}
+    <h3 class="kk-product-name" style="margin:0">{name}</h3>
+    {description && <p class="kk-svc-text">{description}</p>}
+    {features.length > 0 && (
+      <ul class="kk-product-feats">
+        {features.map((f) => (
+          <li><span class="kk-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span>{f}</li>
+        ))}
+      </ul>
+    )}
+  </span>
+</div>

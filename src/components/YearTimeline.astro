@@ -1,0 +1,48 @@
+---
+// YearTimeline — frost-framed 4:3 photo crossfading between eras, driven by three year buttons.
+// Advances every 4.5s; a click selects a year and restarts the timer. Off under reduced motion.
+interface Props {
+  years: { year: string; label: string; src: string; alt: string; position?: string }[];
+}
+
+const { years } = Astro.props;
+---
+
+<div class="kk-frost kk-frame kk-yeartimeline">
+  <div class="kk-frame-photo">
+    {years.map((y, i) => <img class:list={['kk-fade', { on: i === 0 }]} src={y.src} alt={y.alt} style={y.position ? `object-position:${y.position}` : undefined}>)}
+  </div>
+  <div class="kk-years">
+    {years.map((y, i) => (
+      <button type="button" class:list={['kk-year', { on: i === 0 }]} aria-pressed={i === 0 ? 'true' : 'false'}><span class="kk-year-n">{y.year}</span><span class="kk-year-l">{y.label}</span><span class="kk-year-bar" aria-hidden="true"></span></button>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.kk-yeartimeline').forEach((root) => {
+    const photos = [...root.querySelectorAll<HTMLElement>('.kk-fade')];
+    const buttons = [...root.querySelectorAll<HTMLButtonElement>('.kk-year')];
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let cur = 0;
+    let timer: ReturnType<typeof setInterval> | undefined;
+    const show = (k: number) => {
+      cur = k;
+      photos.forEach((p, i) => p.classList.toggle('on', i === k));
+      buttons.forEach((b, i) => {
+        b.classList.remove('on');
+        b.setAttribute('aria-pressed', String(i === k));
+        if (i === k) {
+          void b.offsetWidth; // restart the progress-bar animation
+          b.classList.add('on');
+        }
+      });
+    };
+    const start = () => {
+      clearInterval(timer);
+      if (!still) timer = setInterval(() => show((cur + 1) % buttons.length), 4500);
+    };
+    buttons.forEach((b, i) => b.addEventListener('click', () => { show(i); start(); }));
+    start();
+  });
+</script>

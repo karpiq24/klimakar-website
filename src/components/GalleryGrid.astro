@@ -1,0 +1,85 @@
+---
+// GalleryGrid — 4:5 photos in frost frames, every second tile dropped for a staggered rhythm.
+// With `href` every tile links there (homepage); without it tiles open a lightbox (/galeria).
+interface Props {
+  images: { src: string; alt: string }[];
+  href?: string;
+}
+
+const { images, href } = Astro.props;
+---
+
+<div class="kk-g4">
+  {images.map((img, i) =>
+    href ? (
+      <a href={href} class="kk-frost kk-card kk-tile"><img src={img.src} alt={img.alt} loading="lazy"></a>
+    ) : (
+      <button type="button" class="kk-frost kk-card kk-tile kk-gallery-thumb" data-src={img.src} data-alt={img.alt} aria-label={`Powiększ: ${img.alt}`}>
+        <img src={img.src} alt={img.alt} loading={i < 4 ? 'eager' : 'lazy'}>
+      </button>
+    ),
+  )}
+</div>
+
+{!href && (
+  <dialog class="kk-lightbox" id="kk-lightbox" aria-label="Podgląd zdjęcia">
+    <button type="button" class="kk-round kk-blue" id="kk-lightbox-close" aria-label="Zamknij"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+    <img id="kk-lightbox-img" src="" alt="">
+  </dialog>
+)}
+
+<script>
+  const dialog = document.getElementById('kk-lightbox') as HTMLDialogElement | null;
+  const img = document.getElementById('kk-lightbox-img') as HTMLImageElement | null;
+  if (dialog && img) {
+    document.querySelectorAll<HTMLButtonElement>('.kk-gallery-thumb').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        img.src = btn.dataset.src || '';
+        img.alt = btn.dataset.alt || '';
+        dialog.showModal();
+      });
+    });
+    document.getElementById('kk-lightbox-close')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+    dialog.addEventListener('close', () => {
+      img.src = '';
+      img.alt = '';
+    });
+  }
+</script>
+
+<style>
+  button.kk-tile {
+    width: 100%;
+    border: 1px solid var(--frost-edge);
+    cursor: zoom-in;
+    font: inherit;
+  }
+  .kk-lightbox {
+    max-width: min(1200px, 92vw);
+    max-height: 90vh;
+    padding: var(--frame-inset);
+    border: 1px solid var(--frost-edge);
+    border-radius: var(--radius-frame);
+    background: var(--frost-tile);
+    box-shadow: var(--shadow-form);
+    overflow: visible;
+  }
+  .kk-lightbox::backdrop {
+    background: rgba(7, 26, 51, 0.82);
+    backdrop-filter: blur(6px);
+  }
+  .kk-lightbox img {
+    display: block;
+    max-width: 100%;
+    max-height: calc(90vh - 2 * var(--frame-inset) - 2px);
+    border-radius: var(--radius-frame-photo);
+  }
+  .kk-lightbox .kk-round {
+    position: absolute;
+    top: -16px;
+    right: -16px;
+  }
+</style>

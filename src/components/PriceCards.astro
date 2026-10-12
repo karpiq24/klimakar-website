@@ -1,0 +1,21 @@
+---
+// PriceCards (PriceTable variant C, tier 1) — the three refrigerant services as big price cards.
+interface Props {
+  cards: { code: string; cars: string; price: string; extra?: string; service: string }[];
+}
+
+const { cards } = Astro.props;
+---
+
+<div class="kk-price-cards">
+  {cards.map((c) => (
+    <div class="kk-frost kk-card kk-price-card">
+      <span class="kk-price-ghost" aria-hidden="true">{c.code}</span>
+      <h3 class="kk-price-code" style="margin:0">{c.code}</h3>
+      <span class="kk-chip kk-chip--tag" style="align-self:flex-start;position:relative">{c.cars}</span>
+      <span class="kk-price-big" style="position:relative">{c.price}</span>
+      {c.extra && <span class="kk-price-extra">{c.extra}</span>}
+      <span class="kk-price-svc">{c.service}</span>
+    </div>
+  ))}
+</div>

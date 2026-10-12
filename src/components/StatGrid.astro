@@ -1,0 +1,24 @@
+---
+// StatGrid (variant B) — centered eyebrow, h2 and text, then a frost bar of four facts.
+// No invented numbers: every fact must already appear elsewhere on the site.
+interface Props {
+  eyebrow: string;
+  title: string;
+  paragraphs: string[];
+  stats: { value: string; label: string }[];
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const { eyebrow, title, paragraphs, stats, ctaLabel, ctaHref } = Astro.props;
+---
+
+<section class="kk-wrap kk-stats kk-section">
+  <p class="kk-eyebrow">{eyebrow}</p>
+  <h2 class="kk-h2">{title}</h2>
+  {paragraphs.map((p) => <p>{p}</p>)}
+  <div class="kk-frost kk-stats-bar">
+    {stats.map((s) => <div><span class="kk-stat-n kk-grad">{s.value}</span><span class="kk-stat-l">{s.label}</span></div>)}
+  </div>
+  {ctaLabel && ctaHref && <div style="margin-top:28px"><a href={ctaHref} class="kk-btn kk-btn--primary">{ctaLabel}</a></div>}
+</section>

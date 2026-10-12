@@ -1,0 +1,13 @@
+---
+// Chip — small pill for tags and live status. `dot` adds the pulsing "true right now" dot.
+interface Props {
+  variant?: 'default' | 'tag' | 'now' | 'on-brand' | 'ice' | 'outline';
+  dot?: boolean;
+  class?: string;
+  style?: string;
+}
+
+const { variant = 'default', dot = false, class: cls, style } = Astro.props;
+---
+
+<span class:list={['kk-chip', variant !== 'default' && `kk-chip--${variant}`, cls]} style={style}>{dot && <span class="kk-dot"></span>}<slot /></span>

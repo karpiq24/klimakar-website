@@ -81,7 +81,7 @@
 /* ---------- Page base ---------- */
 .kk-root{container:kk/inline-size;position:relative;overflow:hidden;overflow:clip;background-color:var(--ground);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.6}
 .kk-root *,.kk-root *::before,.kk-root *::after{box-sizing:border-box}
-.kk-root a{color:inherit}
+:where(.kk-root) a{color:inherit}
 .kk-dots{background-image:radial-gradient(var(--brand-dot) 1px,transparent 1.4px);background-size:22px 22px}
 .kk-wrap{max-width:var(--wrap-max);margin:0 auto;width:100%;padding-left:clamp(var(--gutter-min),3cqi,var(--gutter));padding-right:clamp(var(--gutter-min),3cqi,var(--gutter))}
 .kk-section{position:relative;padding-top:clamp(72px,9cqi,var(--section-y))}
