@@ -37,6 +37,7 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
   <section class="kk-wrap kk-hero">
     <Badge>Działamy od 1999 roku · Wrocław</Badge>
     <h1 class="kk-h1 kk-grad">Klimatyzacja i ogrzewanie Twojego auta</h1>
+    <p class="kk-hero-tagline">Komfortowy klimat w zasięgu ręki</p>
     <p class="kk-lead">Profesjonalny serwis klimatyzacji samochodowej oraz ogrzewań postojowych Webasto, Eberspächer i DEFA we Wrocławiu.</p>
     <div class="kk-actions">
       <a href="/kontakt/" class="kk-btn kk-btn--primary kk-btn--lg">Umów wizytę</a>
@@ -133,6 +134,19 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
 </BaseLayout>
 
 <style>
+  .kk-hero-tagline {
+    margin: 22px auto 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(20px, 2.2cqi, 30px);
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    color: var(--brand);
+    text-wrap: balance;
+  }
+  .kk-hero-tagline + .kk-lead {
+    margin-top: 16px;
+  }
   .kk-about {
     position: relative;
     display: flex;
