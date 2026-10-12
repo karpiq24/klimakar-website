@@ -277,6 +277,7 @@ textarea.kk-input{resize:vertical}
 .kk-foot-logos{display:flex;gap:14px;align-items:center}
 .kk-foot-logos .kk-lw{height:15px}.kk-foot-logos .kk-le{height:19px}.kk-foot-logos .kk-ld{height:19px}
 .kk-foot-bottom{margin-top:32px;padding-top:18px;border-top:1px solid var(--brand-line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:13px}
+.kk-foot-bottom a{text-decoration:none}
 
 /* ---------- Subpage components (chosen 2026-10-12) ---------- */
 .kk-crumbs{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13px;color:var(--text-muted)}

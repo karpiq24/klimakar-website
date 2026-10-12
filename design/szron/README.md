@@ -1,6 +1,6 @@
 # Szron redesign — migration handoff
 
-Status (2026-10-12): the **Szron** design and all its components are chosen. This folder holds everything needed to rebuild the Astro site on it. Nothing in `src/` has been migrated yet; only the fact fixes listed at the end are applied there.
+Status (2026-10-12): the **Szron** design and all its components are chosen, and the Astro site in `src/` has been migrated to it (see "Migration done" at the end).
 
 - Design system (brand book, tokens, 27 components with live previews, assets): https://claude.ai/artifact/VN7mKsrvHdtzkwbfakVQet ("Klima-Kar Szron"). It is private to the owner.
 - Design canvas: https://claude.ai/artifact/JFSeGxhcABBowJsRhuEBbu. Page "3 · Szron" holds the approved homepage (desktop + mobile). Page "4 · Nowe komponenty" holds the subpage component options.
@@ -92,3 +92,18 @@ Fact fixes only. Files:
 - `index.astro`: badge, stats, "Ogrzewanie postojowe", "Skuteczne naprawy".
 
 Verified: `npm run build` passes (Node 22.23.1, 15 pages), and the built HTML has no "rok założenia", "Ogrzewacze postojowe" or "działamy od 1989".
+
+## Migration done (2026-10-12)
+
+All five steps are complete on branch `szron-design-handoff`: 15 pages build, and each was checked at 1440px and 390px.
+
+- Components live in `src/components/` (one per design-system component, plus `PriceCards`/`PriceGroup` and `Seasons`). Tailwind is removed; `src/styles/global.css` is only a document reset.
+- `src/styles/szron.css` is this folder's `szron.css` with these fixes, found while checking pages:
+  - font `@import` removed (the fonts are `<link>`ed in `BaseLayout`);
+  - `.kk-root` uses `overflow: clip`, so the ContentSection heading can stick;
+  - `:where(.kk-root) a` resets link colour without overriding `.kk-btn--primary`, `.kk-link` and `.kk-cta-tel`;
+  - `.kk-round.kk-blue` sets the brand background (the burger rendered white on white);
+  - `.kk-article p`, `.kk-stats p` and `.kk-video p` skip `.kk-eyebrow` (they turned eyebrows grey and 17px);
+  - mobile: buttons may wrap, the month-banner CTA spans the full width, and StatGrid numbers scale down;
+  - `.kk-h2` and `.kk-pagehero-title` get `overflow-wrap: break-word` as a safety net;
+  - `.kk-foot-bottom a` has no underline, as on the approved homepage.
