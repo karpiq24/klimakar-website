@@ -1,0 +1,18 @@
+<!-- YearTimeline — reference markup from the Klima-Kar Szron design system. Classes: szron.css. Image URLs point at the final site paths (see blob-map.json). -->
+<div class="kk-wrap" style="max-width:640px"><div class="kk-frost kk-frame">
+  <div class="kk-frame-photo">
+    <img class="kk-fade on" src="/images/tata.webp" alt="Krzysztof Karpiński, przyszły założyciel Klima-Kar, przy lodówce (1989)" style="object-position:0% 30%">
+    <img class="kk-fade" src="/images/1999.webp" alt="Siedziba Klima-Kar przy ul. Grota Roweckiego 129 w 1999 roku">
+    <img class="kk-fade" src="/images/galeria/war.JPG" alt="Warsztat Klima-Kar ze stanowiskami z podnośnikami">
+  </div>
+  <div class="kk-years">
+    <button type="button" class="kk-year on" aria-pressed="true"><span class="kk-year-n">1989</span><span class="kk-year-l">Początki w chłodnictwie</span><span class="kk-year-bar" aria-hidden="true"></span></button>
+    <button type="button" class="kk-year" aria-pressed="false"><span class="kk-year-n">1999</span><span class="kk-year-l">Start Klima-Kar</span><span class="kk-year-bar" aria-hidden="true"></span></button>
+    <button type="button" class="kk-year" aria-pressed="false"><span class="kk-year-n">2008</span><span class="kk-year-l">Autoryzacja Webasto</span><span class="kk-year-bar" aria-hidden="true"></span></button>
+  </div>
+</div></div>
+
+<script>
+// Behaviour used in the design-system preview (port to the Astro component).
+var ph=[].slice.call(document.querySelectorAll('.kk-fade')),bt=[].slice.call(document.querySelectorAll('.kk-year')),cur=0,t;function show(k){cur=k;ph.forEach(function(p,i){p.classList.toggle('on',i===k)});bt.forEach(function(b,i){b.classList.remove('on');b.setAttribute('aria-pressed',String(i===k));if(i===k){void b.offsetWidth;b.classList.add('on')}})}function start(){clearInterval(t);t=setInterval(function(){show((cur+1)%bt.length)},4500)}bt.forEach(function(b,i){b.addEventListener('click',function(){show(i);start()})});start();
+</script>
