@@ -91,4 +91,4 @@ Fact fixes only. Files:
 - `klimatyzacja.astro`: meta, hero text, and the "Skuteczne naprawy" card without the regeneration price.
 - `index.astro`: badge, stats, "Ogrzewanie postojowe", "Skuteczne naprawy".
 
-They were not built locally; the session had no Node.
+Verified: `npm run build` passes (Node 22.23.1, 15 pages), and the built HTML has no "rok założenia", "Ogrzewacze postojowe" or "działamy od 1989".
