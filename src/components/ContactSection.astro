@@ -28,8 +28,26 @@ const { intro = true } = Astro.props;
         <div class="kk-info"><div class="kk-info-label">E-mail</div><a href="mailto:serwis@klima-kar.pl">serwis@klima-kar.pl</a></div>
         <div class="kk-info"><div class="kk-info-label">Godziny otwarcia</div>Pon-Pt: 9:00-17:00<br>Sob-Nd: nieczynne</div>
       </div>
-      <div class="kk-map"><img src="/images/dron-1-1536x960.webp" alt="Mapa: Klima-Kar, ul. Grota Roweckiego 129" loading="lazy"><a href="https://www.google.com/maps/search/?api=1&query=Klima-Kar+ul.+Grota+Roweckiego+129+Wroc%C5%82aw" target="_blank" rel="noopener noreferrer">Otwórz w Mapach ↗</a></div>
+      <div class="kk-map">
+        <iframe
+          src="https://maps.google.com/maps?q=Klima-Kar+ul.+Grota+Roweckiego+129+Wroc%C5%82aw&output=embed&hl=pl&z=16"
+          title="Mapa: Klima-Kar, ul. Grota Roweckiego 129"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
+      </div>
     </div>
     <ContactForm />
   </div>
 </section>
+
+<style>
+  /* Live Google map in the kk-map frame. The embed carries its own "Otwórz w Mapach" link. */
+  .kk-map iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+</style>
