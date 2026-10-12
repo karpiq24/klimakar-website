@@ -96,56 +96,6 @@
 }
 
 /* ============================================================
-   DARK MODE OVERRIDES
-   ============================================================ */
-[data-theme="dark"] {
-  --bg-page: #1A2A3A;
-  --bg-surface: #243447;
-  --bg-surface-raised: #2E3F55;
-  --bg-dark: #060D16;
-  --bg-dark-deeper: #030810;
-  --bg-accent: #1C5EA6;
-  --bg-accent-subtle: rgba(28, 94, 166, 0.28);
-
-  --text-primary: #E8EFF4;
-  --text-secondary: #7A94A8;
-  --text-muted: #7A94A8;
-  --text-on-dark: #E8EFF4;
-  --text-link: #40B0D9;
-  --text-link-hover: #6AC4E6;
-
-  --border-default: rgba(255, 255, 255, 0.10);
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-accent: #3388BF;
-
-  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.30);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.40);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.45);
-  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.50);
-}
-
-/* ============================================================
-   COMPONENT OVERRIDES
-   ============================================================ */
-[data-theme="dark"] .partner-logo {
-  filter: brightness(0) invert(1);
-}
-
-[data-theme="dark"] .kk-breadcrumb {
-  background-color: var(--color-dark-900);
-}
-
-[data-theme="dark"] .kk-price-header {
-  background-color: rgba(28, 94, 166, 0.50);
-}
-
-[data-theme="dark"] .kk-price-header-title,
-[data-theme="dark"] .kk-price-value {
-  color: var(--color-blue-200);
-}
-
-/* ============================================================
    BASE STYLES
    ============================================================ */
 @layer base {
@@ -157,7 +107,6 @@
     font-family: var(--font-body);
     color: var(--text-primary);
     background-color: var(--bg-page);
-    transition: background-color 200ms ease;
   }
 
   h1, h2, h3 {
