@@ -152,7 +152,7 @@
 
 /* ---------- Hero ---------- */
 .kk-hero{position:relative;padding-top:clamp(48px,8cqi,112px);text-align:center}
-.kk-hero .kk-h1{margin:26px auto 0;max-width:1060px}
+.kk-hero .kk-h1{margin:26px auto -.16em;padding-bottom:.16em;max-width:1060px}
 .kk-hero .kk-lead{margin:26px auto 0;max-width:580px}
 .kk-actions{display:flex;flex-wrap:wrap;gap:12px}
 .kk-hero .kk-actions{justify-content:center;margin-top:34px}
