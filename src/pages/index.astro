@@ -1,314 +1,151 @@
 ---
+// Homepage — port of design/szron/homepage.dc.html (approved Szron design, markup and copy verbatim).
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ServiceCard from '../components/legacy/ServiceCard.astro';
-import PartnerCard from '../components/legacy/PartnerCard.astro';
-import StatCard from '../components/legacy/StatCard.astro';
-import ContactSection from '../components/legacy/ContactSection.astro';
-import { Wind, Flame, ShieldCheck, Search, Wrench, Settings } from 'lucide-astro';
-import logoWhite from '../assets/logos/logo_white.svg';
-import webastoLogo from '../assets/logos/webasto.svg';
-import eberspacherLogo from '../assets/logos/eberspacher.svg';
-import defaLogo from '../assets/logos/defa.svg';
+import Badge from '../components/Badge.astro';
+import Seasons from '../components/Seasons.astro';
+import LogoStrip from '../components/LogoStrip.astro';
+import PhotoPanel from '../components/PhotoPanel.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import PartnerCard from '../components/PartnerCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+import YearTimeline from '../components/YearTimeline.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { Columns4, ShieldCheck, Search, Zap, Wrench } from 'lucide-astro';
+
+const gallery = [
+  { src: '/images/galeria/lamb.JPG', alt: 'Serwis klimatyzacji w Lamborghini' },
+  { src: '/images/galeria/merc.jpg', alt: 'Serwis klimatyzacji w Mercedesie' },
+  { src: '/images/galeria/k2.jpg', alt: 'Naprawa klimatyzacji samochodowej' },
+  { src: '/images/galeria/war.JPG', alt: 'Warsztat Klima-Kar we Wrocławiu' },
+];
+
+const years = [
+  { year: '1989', label: 'Początki w chłodnictwie', src: '/images/tata.webp', alt: 'Krzysztof Karpiński, przyszły założyciel Klima-Kar, przy lodówce (1989)', position: '0% 30%' },
+  { year: '1999', label: 'Start Klima-Kar', src: '/images/1999.webp', alt: 'Siedziba Klima-Kar przy ul. Grota Roweckiego 129 w 1999 roku' },
+  { year: '2008', label: 'Autoryzacja Webasto', src: '/images/galeria/war.JPG', alt: 'Warsztat Klima-Kar ze stanowiskami z podnośnikami' },
+];
+
+const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
 ---
 
 <BaseLayout
   title="Klima-Kar — Klimatyzacja samochodowa Wrocław"
   description="Profesjonalny serwis klimatyzacji samochodowej oraz ogrzewań postojowych Webasto, Eberspächer i DEFA we Wrocławiu. Firma rodzinna z tradycją od 1989 roku."
 >
+  <!-- HERO -->
+  <section class="kk-wrap kk-hero">
+    <Badge>W chłodnictwie od 1989 roku · Wrocław</Badge>
+    <h1 class="kk-h1 kk-grad">Klimatyzacja i ogrzewanie Twojego auta</h1>
+    <p class="kk-lead">Profesjonalny serwis klimatyzacji samochodowej oraz ogrzewań postojowych Webasto, Eberspächer i DEFA we Wrocławiu.</p>
+    <div class="kk-actions">
+      <a href="/kontakt/" class="kk-btn kk-btn--primary kk-btn--lg">Umów wizytę</a>
+      <a href="/cennik/" class="kk-btn kk-btn--frost kk-btn--lg">Zobacz cennik</a>
+    </div>
+  </section>
 
-  <!-- ============================================================
-       SECTION 1: HERO
-       ============================================================ -->
-  <section class="hero-section bg-dark-900 relative overflow-hidden pt-[100px] pb-[80px] px-10 max-[600px]:px-5 max-[600px]:pt-16 max-[600px]:pb-14 transition-colors duration-200">
-    <!-- Photographic background -->
-    <img
-      src="/images/dron-1-1536x960.webp"
-      alt=""
-      aria-hidden="true"
-      class="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none select-none"
-    />
-    <div class="absolute inset-0 bg-gradient-to-br from-dark-900/95 via-dark-900/80 to-dark-900/50 pointer-events-none" aria-hidden="true"></div>
+  <!-- SEASONS + MONTH BANNER -->
+  <Seasons />
 
-    <!-- Decorative circles (bottom-left) -->
-    <div class="absolute -bottom-[60px] -left-[60px] w-[500px] h-[500px] rounded-full border border-blue-700/20 pointer-events-none" aria-hidden="true"></div>
-    <div class="absolute -bottom-[30px] -left-[30px] w-[340px] h-[340px] rounded-full border border-blue-600/[0.18] pointer-events-none" aria-hidden="true"></div>
-    <div class="absolute -bottom-[100px] -left-[100px] w-[650px] h-[650px] rounded-full border border-blue-500/10 pointer-events-none" aria-hidden="true"></div>
+  <!-- LOGO STRIP -->
+  <LogoStrip />
 
-    <!-- Decorative gradient blobs -->
-    <div class="absolute top-1/4 right-[10%] w-[500px] h-[500px] rounded-full pointer-events-none opacity-[0.06]" style="background: radial-gradient(circle, rgba(28,94,166,0.6) 0%, transparent 70%);" aria-hidden="true"></div>
-    <div class="absolute bottom-0 left-[20%] w-[400px] h-[400px] rounded-full pointer-events-none opacity-[0.04]" style="background: radial-gradient(circle, rgba(64,176,217,0.6) 0%, transparent 70%);" aria-hidden="true"></div>
+  <!-- SERVICES -->
+  <PhotoPanel
+    season="summer"
+    eyebrow="Usługi"
+    title="Kompleksowy serwis klimatyzacji"
+    description="Napełnianie, diagnostyka, naprawy i wymiana podzespołów. Obsługa czynników R12, R134a, R1234yf oraz R744."
+    ctaLabel="Zobacz cennik →"
+    ctaHref="/cennik/"
+  >
+    <div class="kk-svc">
+      <ServiceCard variant="brand" title="Filtry kabinowe" chip="Od ręki" href="/klimatyzacja/"
+        text="Mamy na miejscu duży wybór filtrów kabinowych — wymienimy od ręki, bez czekania na dostawę.">
+        <Columns4 {...icon} />
+      </ServiceCard>
+      <ServiceCard title="Dezynfekcja klimatyzacji" href="/tunap/"
+        text="Metoda chemiczna TUNAP i ultradźwiękowa. Skuteczne odgrzybianie i odkażanie układu klimatyzacji.">
+        <ShieldCheck {...icon} />
+      </ServiceCard>
+      <ServiceCard title="Diagnostyka i testy" href="/klimatyzacja/"
+        text="Elektroniczne testy szczelności, diagnostyka komputerowa, kontrola UV. Sprawdzenie kompresora na hamowni.">
+        <Search {...icon} />
+      </ServiceCard>
+      <ServiceCard variant="spotlight" title="R744 i auta elektryczne" chip="Nieliczni w Polsce" href="/klimatyzacja/"
+        tags={['R744 · CO₂', 'Mercedes Klasy S', 'Pompy ciepła', 'Hybrydy i EV']}
+        text="Klimatyzacja na CO₂ (R744) trafia do coraz większej liczby aut. Mamy sprzęt i doświadczenie, żeby ją serwisować — jako jeden z nielicznych warsztatów w Polsce. Obsługujemy też klimatyzację aut elektrycznych i hybrydowych: elektryczne sprężarki wysokiego napięcia i układy z pompą ciepła, z użyciem dedykowanych olejów dielektrycznych.">
+        <Zap {...icon} />
+      </ServiceCard>
+      <ServiceCard variant="image" title="Skuteczne naprawy" href="/klimatyzacja/" image="/images/galeria/k2.jpg"
+        text="Uszkodzone elementy wymieniamy na nowe — sprężarki, skraplacze, parowniki, przewody, zawory rozprężne. Gdy nowa część nie wchodzi w grę, regenerujemy sprężarki i przewody.">
+        <Wrench {...icon} />
+      </ServiceCard>
+    </div>
+  </PhotoPanel>
 
-    <div class="max-w-[1200px] mx-auto flex items-center gap-16 relative">
-      <div class="flex-1 max-w-[640px]">
-        <!-- Badge -->
-        <div class="inline-flex items-center gap-1.5 bg-blue-700/[0.22] border border-blue-700/40 rounded-full px-3.5 py-1 mb-6">
-          <div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
-          <span class="text-blue-500 text-[12px] font-semibold font-body tracking-[0.06em] uppercase">W chłodnictwie od 1989 roku &middot; Wrocław</span>
-        </div>
+  <!-- PARTNERS -->
+  <PhotoPanel
+    season="winter"
+    eyebrow="Webasto · Eberspächer · DEFA"
+    title="Ogrzewanie postojowe"
+    description="Autoryzowani serwisanci Webasto i Eberspächer — oryginalne części i naprawy gwarancyjne. Sprzedaż i montaż systemów DEFA."
+    ctaLabel="Dowiedz się więcej o ogrzewaniu postojowym →"
+    ctaHref="/ogrzewanie-postojowe/"
+  >
+    <div class="kk-g3">
+      <PartnerCard brand="webasto" href="/webasto/" kind="Niezależne ogrzewanie spalinowe" tags={['Autoryzowany serwis', 'Montaż', 'Naprawa']}
+        text="Autoryzowany serwis ogrzewaczy spalinowych i elektrycznych Webasto — montaż, naprawy gwarancyjne i pogwarancyjne dla pojazdów osobowych i dostawczych." />
+      <PartnerCard brand="eberspacher" href="/eberspacher/" kind="Niezależne ogrzewanie spalinowe" tags={['Autoryzowany serwis', 'Montaż', 'Naprawa']}
+        text="Profesjonalny serwis ogrzewaczy Eberspächer. Diagnostyka, wymiana podzespołów, naprawy. Autoryzowany serwis z wieloletnim doświadczeniem." />
+      <PartnerCard brand="defa" href="/defa/" kind="Elektryczne ogrzewanie postojowe" tags={['Doradztwo', 'Montaż', 'Serwis']}
+        text="Sprzedaż, montaż i serwis DEFA — elektryczne ogrzewanie silnika, wnętrza i ładowanie akumulatora. Idealne dla miejsc z dostępem do prądu." />
+    </div>
+  </PhotoPanel>
 
-        <!-- Company logo (with name) -->
-        <img
-          src={logoWhite.src}
-          alt="Klima-Kar"
-          class="h-[60px] w-auto mb-7 max-[600px]:h-[46px] [filter:drop-shadow(0_2px_8px_rgba(0,0,0,0.4))]"
-        />
+  <!-- GALLERY -->
+  <section class="kk-wrap kk-section">
+    <SectionHeader eyebrow="Galeria" title="Nasze realizacje">
+      <a slot="aside" href="/galeria/" class="kk-link">Zobacz całą galerię →</a>
+    </SectionHeader>
+    <GalleryGrid images={gallery} href="/galeria/" />
+  </section>
 
-        <!-- H1 -->
-        <h1 class="font-display text-[clamp(32px,4.5vw,56px)] font-bold text-white leading-[1.1] tracking-[-0.02em] mb-5 [text-shadow:0_2px_12px_rgba(0,0,0,0.35)]">
-          Klimatyzacja<br /><span class="text-blue-500">i ogrzewanie</span><br />Twojego auta
-        </h1>
-
-        <!-- Subtitle -->
-        <p class="text-white/75 text-[16px] leading-[1.65] font-body mb-8 max-w-[480px] [text-shadow:0_1px_8px_rgba(0,0,0,0.4)]">
-          Profesjonalny serwis klimatyzacji samochodowej oraz ogrzewań postojowych Webasto, Eberspächer i DEFA we Wrocławiu.
-        </p>
-
-        <!-- CTA Buttons -->
-        <div class="flex gap-3 flex-wrap">
-          <a href="/kontakt/" class="inline-flex items-center bg-blue-700 text-white border-none rounded-[4px] px-7 py-3 text-[15px] font-semibold font-body hover:bg-blue-800 transition-colors">
-            Umów wizytę
-          </a>
-          <a href="/cennik/" class="inline-flex items-center bg-white/[0.08] text-white border-[1.5px] border-white/20 rounded-[4px] px-7 py-3 text-[15px] font-semibold font-body hover:bg-white/[0.14] transition-colors">
-            Zobacz cennik
-          </a>
-        </div>
-
-        <!-- Stats row -->
-        <div class="flex gap-8 mt-12 pt-8 border-t border-white/10 flex-wrap">
-          <div>
-            <div class="font-display text-[28px] font-bold text-white leading-none">1989</div>
-            <div class="text-[12px] text-white/50 font-body mt-1">początki w chłodnictwie</div>
-          </div>
-          <div>
-            <a href="tel:+48713371450" class="block">
-              <div class="font-display text-[28px] font-bold text-white leading-none">71 337 14 50</div>
-              <div class="text-[12px] text-white/50 font-body mt-1">zadzwoń do nas</div>
-            </a>
-          </div>
-        </div>
+  <!-- ABOUT -->
+  <section class="kk-wrap kk-section--lg kk-about">
+    <div class="kk-about-media">
+      <YearTimeline years={years} />
+    </div>
+    <div class="kk-about-text">
+      <p class="kk-eyebrow">O nas</p>
+      <h2 class="kk-h2" style="margin-bottom:22px">Firma rodzinna z tradycją od 1989</h2>
+      <p style="margin:0 0 14px;color:var(--text-strong)">Jesteśmy firmą rodzinną z dwupokoleniową tradycją w branży chłodnictwa. W 1999 roku przyjęliśmy nazwę Klima-Kar i osiedliliśmy się na ul. Grota Roweckiego 129 we Wrocławiu.</p>
+      <p class="kk-muted" style="margin:0 0 28px">Posiadamy autoryzacje Webasto i Eberspächer oraz jesteśmy partnerem sprzedażowym DEFA — co gwarantuje najwyższy standard usług i oryginalne części zamienne. Tysiące udanych napraw i zadowolonych klientów.</p>
+      <div class="kk-actions">
+        <a href="/o-firmie/" class="kk-btn kk-btn--primary">Historia firmy</a>
+        <a href="/kontakt/" class="kk-btn kk-btn--frost">Kontakt</a>
       </div>
     </div>
   </section>
 
-
-  <!-- ============================================================
-       SECTION 2: SERVICES GRID
-       ============================================================ -->
-  <section class="bg-[var(--bg-page)] py-[72px] px-10 max-[600px]:px-5 max-[600px]:py-12 transition-colors duration-200" id="uslugi">
-    <div class="max-w-[1200px] mx-auto">
-      <!-- Section header -->
-      <div class="mb-12 max-w-[580px]">
-        <div class="text-[11px] font-bold uppercase tracking-[0.1em] text-blue-600 font-body mb-2.5">Usługi</div>
-        <h2 class="font-display text-[clamp(32px,4vw,42px)] font-bold text-[var(--text-primary)] leading-[1.1] tracking-[-0.01em] mb-3.5">
-          Kompleksowy serwis klimatyzacji
-        </h2>
-        <p class="text-[15px] text-[var(--text-secondary)] leading-[1.6] font-body">
-          Wykonujemy pełen zakres napraw i obsługi — od diagnostyki po wymianę podzespołów, skuteczne naprawy i montaż ogrzewania postojowego.
-        </p>
-      </div>
-
-      <!-- Cards grid -->
-      <div class="grid grid-cols-1 min-[600px]:grid-cols-2 min-[960px]:grid-cols-3 gap-4">
-        <ServiceCard
-          title="Klimatyzacja samochodowa"
-          description="Napełnianie, diagnostyka, naprawy i wymiana podzespołów. Obsługa czynników R12, R134a, R1234yf oraz R744."
-          href="/klimatyzacja/"
-        >
-          <Wind size={22} strokeWidth={1.5} />
-        </ServiceCard>
-
-        <ServiceCard
-          title="Ogrzewanie postojowe"
-          description="Montaż, naprawa i serwis Webasto, Eberspächer i DEFA. Ogrzewacze spalinowe i elektryczne dla aut osobowych i dostawczych."
-          href="/ogrzewanie-postojowe/"
-        >
-          <Flame size={22} strokeWidth={1.5} />
-        </ServiceCard>
-
-        <ServiceCard
-          title="Dezynfekcja klimatyzacji"
-          description="Metoda chemiczna TUNAP i ultradźwiękowa. Skuteczne odgrzybianie i odkażanie układu klimatyzacji."
-          href="/klimatyzacja/"
-        >
-          <ShieldCheck size={22} strokeWidth={1.5} />
-        </ServiceCard>
-
-        <ServiceCard
-          title="Diagnostyka i testy"
-          description="Elektroniczne testy szczelności, diagnostyka komputerowa, kontrola UV. Sprawdzenie kompresora na hamowni."
-          href="/klimatyzacja/"
-        >
-          <Search size={22} strokeWidth={1.5} />
-        </ServiceCard>
-
-        <ServiceCard
-          title="Wymiana podzespołów"
-          description="Skraplacze, parowniki, przewody, filtry kabinowe, zawory rozprężne i inne elementy układu klimatyzacji."
-          href="/klimatyzacja/"
-        >
-          <Wrench size={22} strokeWidth={1.5} />
-        </ServiceCard>
-
-        <ServiceCard
-          title="Skuteczne naprawy"
-          description="Uszkodzone elementy wymieniamy na nowe. Gdy nowa część nie wchodzi w grę, regenerujemy sprężarki i przewody."
-          href="/klimatyzacja/"
-        >
-          <Settings size={22} strokeWidth={1.5} />
-        </ServiceCard>
-      </div>
-
-      <!-- CTA -->
-      <div class="mt-8 text-center">
-        <a href="/cennik/" class="inline-flex items-center bg-transparent text-blue-700 border-[1.5px] border-blue-700 rounded-[4px] px-6 py-2.5 text-[14px] font-semibold font-body hover:bg-blue-700 hover:text-white transition-colors">
-          Zobacz cennik &rarr;
-        </a>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       SECTION 3: PARTNERS
-       ============================================================ -->
-  <section class="bg-dark-900 py-[72px] px-10 max-[600px]:px-5 max-[600px]:py-12 transition-colors duration-200" id="ogrzewanie">
-    <div class="max-w-[1200px] mx-auto">
-      <!-- Section header -->
-      <div class="flex justify-between items-end mb-10 flex-wrap gap-4">
-        <div>
-          <div class="text-[11px] font-bold uppercase tracking-[0.1em] text-blue-500 font-body mb-2.5">Ogrzewanie</div>
-          <h2 class="font-display text-[clamp(30px,4vw,38px)] font-bold text-white leading-[1.1]">
-            Ogrzewanie postojowe
-          </h2>
-        </div>
-        <p class="text-[14px] text-white/45 leading-[1.6] font-body max-w-[400px]">
-          Autoryzowani serwisanci Webasto i Eberspächer — oryginalne części i naprawy gwarancyjne. Sprzedaż i montaż systemów DEFA.
-        </p>
-      </div>
-
-      <!-- Partner cards: Webasto + Eber full width, DEFA below half width -->
-      <div class="grid grid-cols-1 min-[900px]:grid-cols-2 gap-4 mb-4">
-        <PartnerCard
-          name="Webasto"
-          color="#C8001E"
-          logo={webastoLogo.src}
-          tagline="Niezależne ogrzewanie spalinowe"
-          description="Autoryzowany serwis ogrzewaczy spalinowych i elektrycznych Webasto — montaż, naprawy gwarancyjne i pogwarancyjne dla pojazdów osobowych i dostawczych."
-          badges={["Autoryzowany serwis", "Montaż", "Naprawa"]}
-          href="/webasto/"
-        />
-        <PartnerCard
-          name="Eberspächer"
-          color="#E85D00"
-          logo={eberspacherLogo.src}
-          tagline="Niezależne ogrzewanie spalinowe"
-          description="Profesjonalny serwis ogrzewaczy Eberspächer. Diagnostyka, wymiana podzespołów, naprawy. Autoryzowany serwis z wieloletnim doświadczeniem."
-          badges={["Autoryzowany serwis", "Montaż", "Naprawa"]}
-          href="/eberspacher/"
-        />
-      </div>
-      <div class="min-[900px]:w-[calc(50%-8px)]">
-        <PartnerCard
-          name="DEFA"
-          color="#006BB4"
-          logo={defaLogo.src}
-          tagline="Elektryczne ogrzewanie postojowe"
-          description="Sprzedaż, montaż i serwis DEFA — elektryczne ogrzewanie silnika, wnętrza i ładowanie akumulatora. Idealne dla miejsc z dostępem do prądu."
-          badges={["Doradztwo", "Montaż", "Serwis"]}
-          href="/defa/"
-        />
-      </div>
-
-      <!-- Overview link -->
-      <div class="mt-8">
-        <a href="/ogrzewanie-postojowe/" class="inline-flex items-center bg-transparent text-blue-500 border-[1.5px] border-blue-500/50 rounded-[4px] px-6 py-2.5 text-[14px] font-semibold font-body hover:bg-blue-500 hover:text-dark-900 transition-colors">
-          Dowiedz się więcej o ogrzewaniu postojowym &rarr;
-        </a>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       SECTION 3b: REALIZACJE (GALLERY TEASER)
-       ============================================================ -->
-  <section class="bg-[var(--bg-page)] py-[72px] px-10 max-[600px]:px-5 max-[600px]:py-12 transition-colors duration-200">
-    <div class="max-w-[1200px] mx-auto">
-      <div class="flex justify-between items-end mb-10 flex-wrap gap-4">
-        <div>
-          <div class="text-[11px] font-bold uppercase tracking-[0.1em] text-blue-600 font-body mb-2.5">Galeria</div>
-          <h2 class="font-display text-[clamp(30px,4vw,38px)] font-bold text-[var(--text-primary)] leading-[1.1]">
-            Nasze realizacje
-          </h2>
-        </div>
-        <a href="/galeria/" class="text-[14px] font-semibold font-body text-blue-700 hover:text-blue-800 transition-colors shrink-0">
-          Zobacz całą galerię &rarr;
-        </a>
-      </div>
-
-      <div class="grid grid-cols-2 min-[900px]:grid-cols-4 gap-4">
-        {[
-          { src: "/images/galeria/lamb.JPG", alt: "Serwis klimatyzacji w Lamborghini" },
-          { src: "/images/galeria/merc.jpg", alt: "Serwis klimatyzacji w Mercedesie" },
-          { src: "/images/galeria/k2.jpg", alt: "Naprawa klimatyzacji samochodowej" },
-          { src: "/images/galeria/war.JPG", alt: "Warsztat Klima-Kar we Wrocławiu" },
-        ].map((img) => (
-          <a href="/galeria/" class="group block rounded-[10px] overflow-hidden border border-[var(--border-subtle)] shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-lg)] transition-shadow duration-200">
-            <div class="aspect-[4/3] overflow-hidden">
-              <img
-                src={img.src}
-                alt={img.alt}
-                loading="lazy"
-                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       SECTION 4: ABOUT
-       ============================================================ -->
-  <section class="bg-[var(--bg-page)] py-[72px] px-10 max-[600px]:px-5 max-[600px]:py-12 transition-colors duration-200" id="o-nas">
-    <div class="max-w-[1200px] mx-auto grid grid-cols-1 min-[900px]:grid-cols-2 gap-16 items-center">
-      <!-- Left column: text -->
-      <div>
-        <div class="text-[11px] font-bold uppercase tracking-[0.1em] text-blue-600 font-body mb-2.5">O nas</div>
-        <h2 class="font-display text-[clamp(30px,4vw,38px)] font-bold text-[var(--text-primary)] leading-[1.1] mb-5">
-          Firma rodzinna<br />z tradycją od 1989
-        </h2>
-        <p class="text-[15px] text-[var(--text-secondary)] leading-[1.65] font-body mb-3.5">
-          Jesteśmy firmą rodzinną z dwupokoleniową tradycją w branży chłodnictwa. W 1999 roku przyjęliśmy nazwę Klima-Kar i osiedliliśmy się na ul. Grota Roweckiego 129 we Wrocławiu.
-        </p>
-        <p class="text-[15px] text-[var(--text-secondary)] leading-[1.65] font-body mb-7">
-          Posiadamy autoryzacje Webasto i Eberspächer oraz jesteśmy partnerem sprzedażowym DEFA — co gwarantuje najwyższy standard usług i oryginalne części zamienne. Tysiące udanych napraw i zadowolonych klientów.
-        </p>
-        <div class="flex gap-2.5 flex-wrap">
-          <a href="/o-firmie/" class="inline-flex items-center bg-blue-700 text-white border-none rounded-[4px] px-5 py-2.5 text-[14px] font-semibold font-body hover:bg-blue-800 transition-colors">
-            Historia firmy
-          </a>
-          <a href="/kontakt/" class="inline-flex items-center bg-transparent text-blue-700 border-[1.5px] border-blue-700 rounded-[4px] px-5 py-2.5 text-[14px] font-semibold font-body hover:bg-blue-700 hover:text-white transition-colors">
-            Kontakt
-          </a>
-        </div>
-      </div>
-
-      <!-- Right column: stat cards -->
-      <div class="grid grid-cols-2 gap-3">
-        <StatCard value="1989" label="Początki w chłodnictwie" />
-        <StatCard value="1999" label="Start Klima-Kar" />
-        <StatCard value="2008" label="Autoryzacja Webasto" />
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       SECTION 5: CONTACT
-       ============================================================ -->
+  <!-- CONTACT -->
   <ContactSection />
-
 </BaseLayout>
+
+<style>
+  .kk-about {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px 64px;
+    align-items: center;
+  }
+  .kk-about-media {
+    flex: 1 1 460px;
+    min-width: 0;
+  }
+  .kk-about-text {
+    flex: 1 1 420px;
+    min-width: 0;
+  }
+</style>

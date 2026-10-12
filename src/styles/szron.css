@@ -143,7 +143,7 @@
 .kk-nav a[aria-current="page"]{background:var(--white);color:var(--brand);box-shadow:var(--shadow-nav-active)}
 .kk-burger{display:none;gap:6px;align-items:center}
 .kk-round{width:46px;height:46px;border-radius:var(--radius-pill);border:0;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer;background:var(--white);color:var(--brand)}
-.kk-round.kk-blue{color:var(--white)}
+.kk-round.kk-blue{background:var(--brand);color:var(--white)}
 .kk-mnav{display:none;flex-direction:column;margin-top:8px;padding:10px;border-radius:var(--radius-card-sm);font-size:18px;font-weight:600}
 .kk-mnav a{text-decoration:none;padding:13px 16px;border-radius:var(--radius-pill)}
 .kk-mnav a[aria-current="page"]{background:var(--white);color:var(--brand)}
@@ -435,6 +435,7 @@ textarea.kk-input{resize:vertical}
 /* ---------- Mobile (container ≤ 760px) ---------- */
 @container kk (max-width: 760px){
   .kk-nav,.kk-header>.kk-btn{display:none}
+  .kk-btn{white-space:normal;text-align:center;max-width:100%}
   .kk-burger{display:inline-flex}
   .kk-mnav{display:flex}
   .kk-h1{font-size:11.4cqi}
@@ -443,7 +444,7 @@ textarea.kk-input{resize:vertical}
   .kk-seasons{grid-template-columns:minmax(0,1fr)}
   .kk-knob{display:none}
   .kk-banner{grid-template-columns:auto minmax(0,1fr);align-items:start}
-  .kk-banner>.kk-btn{grid-column:1 / -1}
+  .kk-banner>.kk-btn{grid-column:1 / -1;justify-self:stretch;white-space:normal;text-align:center}
   .kk-logos{flex-wrap:nowrap;gap:5cqi}
   .kk-lw{height:6.2cqi}.kk-le{height:9.5cqi}.kk-ld{height:10.3cqi}
   .kk-svc,.kk-g2,.kk-g3{grid-template-columns:minmax(0,1fr)}
