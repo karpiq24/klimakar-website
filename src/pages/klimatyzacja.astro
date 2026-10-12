@@ -1,109 +1,74 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumb from '../components/legacy/Breadcrumb.astro';
-import PageHero from '../components/legacy/PageHero.astro';
-import ServiceCard from '../components/legacy/ServiceCard.astro';
-import CTABanner from '../components/legacy/CTABanner.astro';
-import { Wind, Search, Settings, ShieldCheck, Zap, Layers, Droplet, CalendarCheck } from 'lucide-astro';
+import PageHero from '../components/PageHero.astro';
+import PhotoPanel from '../components/PhotoPanel.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { Columns4, Wind, Search, Zap, Wrench, ShieldCheck, AudioWaveform, Layers, Droplet, CalendarCheck } from 'lucide-astro';
+
+const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
 ---
 
 <BaseLayout
   title="Klimatyzacja samochodowa — Klima-Kar"
   description="Profesjonalny serwis klimatyzacji samochodowej we Wrocławiu. Napełnianie, diagnostyka, naprawy i wymiana podzespołów, dezynfekcja."
 >
-  <Breadcrumb items={[{ label: "Strona główna", href: "/" }, { label: "Klimatyzacja" }]} />
-
   <PageHero
-    label="Usługi"
-    title="Klimatyzacja<br>samochodowa"
-    description="W pełni obsługujemy pojazdy z czynnikiem R12, R134a, R1234yf oraz R744. Wykonujemy wszelkie naprawy: wymiana uszkodzonych elementów na nowe, naprawa przewodów, wymiana chłodnic i parowników, regeneracja sprężarek, usuwanie nieprzyjemnych zapachów, dezynfekcja, napełnianie. Posiadamy na miejscu filtry kabinowe zwykłe oraz węglowe do większości samochodów."
+    crumbs={[{ label: 'Strona główna', href: '/' }, { label: 'Klimatyzacja' }]}
+    eyebrow="Usługi"
+    title="Klimatyzacja samochodowa"
+    lead="W pełni obsługujemy pojazdy z czynnikiem R12, R134a, R1234yf oraz R744. Wykonujemy wszelkie naprawy: wymiana uszkodzonych elementów na nowe, naprawa przewodów, wymiana chłodnic i parowników, regeneracja sprężarek, usuwanie nieprzyjemnych zapachów, dezynfekcja, napełnianie. Posiadamy na miejscu filtry kabinowe zwykłe oraz węglowe do większości samochodów."
     image="/images/manometry50p.webp"
     imageAlt="Manometry do obsługi klimatyzacji samochodowej"
+    tag="R12 · R134a · R1234yf · R744"
+    actions={[{ label: 'Umów wizytę', href: '/kontakt/' }, { label: 'Zobacz cennik', href: '/cennik/' }]}
   />
 
-  <section class="bg-[var(--bg-page)] py-14 px-6 sm:px-10">
-    <div class="mx-auto max-w-[1200px]">
-
-      <!-- Service cards grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-
-        <ServiceCard
-          title="Napełnianie i serwis układu"
-          description="Odzysk czynnika, wykonanie próżni, kontrola szczelności, napełnienie czystym czynnikiem R134a, R1234yf lub R12. Kontrola ciśnienia podczas pracy. Uzupełnienie oleju i barwnika UV."
-          price="od 200 zł"
-        >
-          <Wind size={22} />
-        </ServiceCard>
-
-        <ServiceCard
-          title="Diagnostyka i test szczelności"
-          description="Elektroniczne testy szczelności układu z użyciem wykrywacza nieszczelności i barwnika UV. Diagnostyka komputerowa. Diagnostyka kompresora na hamowni."
-          price="250 zł"
-        >
-          <Search size={22} />
-        </ServiceCard>
-
-        <ServiceCard
-          title="Skuteczne naprawy"
-          description="Uszkodzone elementy wymieniamy na nowe. Gdy nowa część nie wchodzi w grę, regenerujemy sprężarki wszystkich marek — uszczelnienie, regeneracja kompletnego sprzęgła, płukanie układu z opiłków po zatarciu kompresora."
-        >
-          <Settings size={22} />
-        </ServiceCard>
-
-        <ServiceCard
-          title="Dezynfekcja TUNAP"
-          description="Najskuteczniejsza chemiczna metoda ręczna oczyszczania układu. Eliminacja bakterii, grzybów i nieprzyjemnych zapachów z parownika i kanałów wentylacyjnych."
-          price="250 zł"
-          href="/tunap/"
-        >
-          <ShieldCheck size={22} />
-        </ServiceCard>
-
-        <ServiceCard
-          title="Dezynfekcja ultradźwiękowa"
-          description="Szybka i skuteczna dezynfekcja chemiczna metodą ultradźwiękową. Zapobieganie i usuwanie nieprzyjemnych zapachów. Idealna jako profilaktyczne odświeżenie układu."
-          price="150 zł"
-        >
-          <Zap size={22} />
-        </ServiceCard>
-
-        <ServiceCard
-          title="Wymiana podzespołów"
-          description="Wymiana skraplacza, parownika, przewodów elastycznych i aluminiowych. Naprawa przewodów aluminiowych i aluminiowo-gumowych. Wymiana filtrów kabinowych."
-          price="od 250 zł"
-        >
-          <Layers size={22} />
-        </ServiceCard>
-
-        <ServiceCard
-          title="Dezynfekcja BG"
-          description="Kompleksowa dezynfekcja całego układu klimatyzacji wraz z wnętrzem pojazdu. Usuwa nieprzyjemne zapachy, grzyby i pleśń, poprawia wydajność klimatyzacji."
-          href="/dezynfekcja-bg/"
-        >
-          <Droplet size={22} />
-        </ServiceCard>
-
-        <ServiceCard
-          title="Konserwacja klimatyzacji"
-          description="Coroczny przegląd i serwis profilaktyczny — kontrola szczelności, wydajności, wymiana filtra kabinowego i dezynfekcja parownika."
-          href="/konserwacja/"
-        >
-          <CalendarCheck size={22} />
-        </ServiceCard>
-
-      </div>
-
-      <!-- CTA Banner -->
-      <CTABanner
-        title="Gotowy na serwis klimatyzacji?"
-        subtitle="Zadzwoń: 71 337 14 50 lub umów się online"
-        primaryText="Umów wizytę"
-        primaryHref="/kontakt/"
-        secondaryText="Zobacz cennik"
-        secondaryHref="/cennik/"
-        variant="blue"
-      />
-
+  <PhotoPanel season="summer" eyebrow="Usługi" title="Kompleksowy serwis klimatyzacji" ctaLabel="Zobacz cennik →" ctaHref="/cennik/">
+    <div class="kk-svc">
+      <ServiceCard variant="brand" title="Filtry kabinowe" chip="Od ręki"
+        text="Mamy na miejscu duży wybór filtrów kabinowych — wymienimy od ręki, bez czekania na dostawę.">
+        <Columns4 {...icon} />
+      </ServiceCard>
+      <ServiceCard title="Napełnianie i serwis układu" chip="od 200 zł"
+        text="Odzysk czynnika, wykonanie próżni, kontrola szczelności, napełnienie czystym czynnikiem R134a, R1234yf lub R12. Kontrola ciśnienia podczas pracy. Uzupełnienie oleju i barwnika UV.">
+        <Wind {...icon} />
+      </ServiceCard>
+      <ServiceCard title="Diagnostyka i test szczelności" chip="250 zł"
+        text="Elektroniczne testy szczelności układu z użyciem wykrywacza nieszczelności i barwnika UV. Diagnostyka komputerowa. Diagnostyka kompresora na hamowni.">
+        <Search {...icon} />
+      </ServiceCard>
+      <ServiceCard variant="spotlight" title="R744 i auta elektryczne" chip="Nieliczni w Polsce"
+        tags={['R744 · CO₂', 'Mercedes Klasy S', 'Pompy ciepła', 'Hybrydy i EV']}
+        text="Klimatyzacja na CO₂ (R744) trafia do coraz większej liczby aut. Mamy sprzęt i doświadczenie, żeby ją serwisować — jako jeden z nielicznych warsztatów w Polsce. Obsługujemy też klimatyzację aut elektrycznych i hybrydowych: elektryczne sprężarki wysokiego napięcia i układy z pompą ciepła, z użyciem dedykowanych olejów dielektrycznych.">
+        <Zap {...icon} />
+      </ServiceCard>
+      <ServiceCard variant="image" title="Skuteczne naprawy" image="/images/galeria/k2.jpg"
+        text="Uszkodzone elementy wymieniamy na nowe. Gdy nowa część nie wchodzi w grę, regenerujemy sprężarki wszystkich marek — uszczelnienie, regeneracja kompletnego sprzęgła, płukanie układu z opiłków po zatarciu kompresora.">
+        <Wrench {...icon} />
+      </ServiceCard>
+      <ServiceCard title="Dezynfekcja TUNAP" chip="250 zł" href="/tunap/"
+        text="Najskuteczniejsza chemiczna metoda ręczna oczyszczania układu. Eliminacja bakterii, grzybów i nieprzyjemnych zapachów z parownika i kanałów wentylacyjnych.">
+        <ShieldCheck {...icon} />
+      </ServiceCard>
+      <ServiceCard title="Dezynfekcja ultradźwiękowa" chip="150 zł"
+        text="Szybka i skuteczna dezynfekcja chemiczna metodą ultradźwiękową. Zapobieganie i usuwanie nieprzyjemnych zapachów. Idealna jako profilaktyczne odświeżenie układu.">
+        <AudioWaveform {...icon} />
+      </ServiceCard>
+      <ServiceCard title="Wymiana podzespołów" chip="od 250 zł"
+        text="Wymiana skraplacza, parownika, przewodów elastycznych i aluminiowych. Naprawa przewodów aluminiowych i aluminiowo-gumowych. Wymiana filtrów kabinowych.">
+        <Layers {...icon} />
+      </ServiceCard>
+      <ServiceCard title="Dezynfekcja BG" href="/dezynfekcja-bg/"
+        text="Kompleksowa dezynfekcja całego układu klimatyzacji wraz z wnętrzem pojazdu. Usuwa nieprzyjemne zapachy, grzyby i pleśń, poprawia wydajność klimatyzacji.">
+        <Droplet {...icon} />
+      </ServiceCard>
+      <ServiceCard title="Konserwacja klimatyzacji" href="/konserwacja/"
+        text="Coroczny przegląd i serwis profilaktyczny — kontrola szczelności, wydajności, wymiana filtra kabinowego i dezynfekcja parownika.">
+        <CalendarCheck {...icon} />
+      </ServiceCard>
     </div>
-  </section>
+  </PhotoPanel>
+
+  <CTABanner title="Gotowy na serwis klimatyzacji?" subtitle="Zadzwoń: 71 337 14 50 lub umów się online" />
 </BaseLayout>

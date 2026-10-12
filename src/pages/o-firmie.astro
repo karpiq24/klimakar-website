@@ -1,83 +1,60 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumb from '../components/legacy/Breadcrumb.astro';
-import PageHero from '../components/legacy/PageHero.astro';
-import Timeline from '../components/legacy/Timeline.astro';
-import StatCard from '../components/legacy/StatCard.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import HistoryTimeline from '../components/HistoryTimeline.astro';
+import StatGrid from '../components/StatGrid.astro';
+import CTABanner from '../components/CTABanner.astro';
+
+const history = [
+  { year: "1989", title: "Początek wolnej Polski i początki w chłodnictwie", description: "W tamtym czasie zajmowaliśmy się serwisem zmechanizowanego sprzętu gospodarstwa domowego. Na zdjęciu, przy lodówce stoi przyszły założyciel Klima-Kar – Krzysztof Karpiński.", image: "/images/tata.webp", imageAlt: "Krzysztof Karpiński, przyszły założyciel Klima-Kar, przy lodówce", imagePosition: "0% 30%" },
+  { year: "1993", title: "Klimatyzacja samochodowa", description: "Wprowadziliśmy do swojej oferty pełną obsługę urządzeń klimatyzacyjnych w samochodach osobowych i dostawczych." },
+  { year: "1999", title: "Klima-Kar", description: "Od roku 1999 firma nosi nazwę Klima-Kar i ma siedzibę przy ulicy Grota Roweckiego 129 we Wrocławiu. Od tej chwili skupiliśmy się na klimatyzacjach samochodowych.", image: "/images/1999.webp", imageAlt: "Siedziba Klima-Kar w roku 1999" },
+  { year: "2008", title: "Rozwój", description: "Rozbudowaliśmy nasz serwis o dwa stanowiska z podnośnikami. Dodatkowo wprowadziliśmy do oferty naprawy i montaż ogrzewań postojowych Webasto i Eberspächer. Niedługo później staliśmy się Autoryzowanym Serwisem Webasto i Eberspächer.", image: "/images/galeria/war.JPG", imageAlt: "Warsztat Klima-Kar we Wrocławiu" },
+  { year: "Dziś", title: "Nasz zespół jest tu dla Ciebie", description: "Zakresem naszej działalności są klimatyzacje samochodowe oraz ogrzewania postojowe Webasto, Eberspächer i DEFA. Zapewniamy pełną i profesjonalną obsługę serwisową.", image: "/images/dron-1-1536x960.webp", imageAlt: "Widok z lotu ptaka na siedzibę Klima-Kar we Wrocławiu" },
+];
+
+const stats = [
+  { value: '1989', label: 'początki w chłodnictwie' },
+  { value: '2', label: 'autoryzacje partnerskie' },
+  { value: 'Wrocław', label: 'siedziba od 1999' },
+  { value: 'Rodzinna', label: 'firma dwupokoleniowa' },
+];
 ---
 
 <BaseLayout
   title="O firmie — Klima-Kar"
   description="Klima-Kar — firma rodzinna z dwupokoleniową tradycją w branży chłodnictwa i ogrzewania we Wrocławiu."
 >
-
-  <Breadcrumb items={[
-    { label: "Strona główna", href: "/" },
-    { label: "O firmie" },
-  ]} />
-
   <PageHero
-    label="O firmie"
-    title="Firma rodzinna<br>z dwupokoleniową tradycją"
-    description="Jesteśmy firmą rodzinną z dwupokoleniową tradycją w branży chłodnictwa. Nasza pasja i zaangażowanie sprawiają, że jesteśmy liderem w naprawach klimatyzacji samochodowej we Wrocławiu."
+    crumbs={[{ label: 'Strona główna', href: '/' }, { label: 'O firmie' }]}
+    eyebrow="O firmie"
+    title={"Firma rodzinna z dwu\u00ADpokoleniową tradycją"}
+    lead="Jesteśmy firmą rodzinną z dwupokoleniową tradycją w branży chłodnictwa. Nasza pasja i zaangażowanie sprawiają, że jesteśmy liderem w naprawach klimatyzacji samochodowej we Wrocławiu."
     image="/images/galeria/szyld.JPG"
     imageAlt="Szyld serwisu Klima-Kar we Wrocławiu"
+    tag="Klima-Kar od 1999"
   />
 
-  <!-- ============================================================
-       TIMELINE SECTION
-       ============================================================ -->
-  <section class="bg-[var(--bg-page)] py-16 px-10 max-[600px]:px-5 transition-colors duration-200">
-    <div class="max-w-[1200px] mx-auto">
-      <div class="text-[11px] font-bold uppercase tracking-[0.1em] text-blue-600 font-body mb-6">Historia firmy</div>
-
-      <!-- Workshop photo -->
-      <figure class="mb-10 rounded-[10px] overflow-hidden border border-[var(--border-subtle)] shadow-[var(--shadow-sm)]">
-        <img
-          src="/images/galeria/war.JPG"
-          alt="Warsztat Klima-Kar we Wrocławiu"
-          class="w-full h-full max-h-[420px] object-cover"
-        />
-      </figure>
-
-      <Timeline items={[
-        { year: "1989", title: "Początek wolnej Polski i początki w chłodnictwie", description: "W tamtym czasie zajmowaliśmy się serwisem zmechanizowanego sprzętu gospodarstwa domowego. Na zdjęciu, przy lodówce stoi przyszły założyciel Klima-Kar – Krzysztof Karpiński.", image: "/images/tata.webp", imageAlt: "Krzysztof Karpiński, przyszły założyciel Klima-Kar, przy lodówce" },
-        { year: "1993", title: "Klimatyzacja samochodowa", description: "Wprowadziliśmy do swojej oferty pełną obsługę urządzeń klimatyzacyjnych w samochodach osobowych i dostawczych." },
-        { year: "1999", title: "Klima-Kar", description: "Od roku 1999 firma nosi nazwę Klima-Kar i ma siedzibę przy ulicy Grota Roweckiego 129 we Wrocławiu. Od tej chwili skupiliśmy się na klimatyzacjach samochodowych.", image: "/images/1999.webp", imageAlt: "Siedziba Klima-Kar w roku 1999" },
-        { year: "2008", title: "Rozwój", description: "Rozbudowaliśmy nasz serwis o dwa stanowiska z podnośnikami. Dodatkowo wprowadziliśmy do oferty naprawy i montaż ogrzewań postojowych Webasto i Eberspächer. Niedługo później staliśmy się Autoryzowanym Serwisem Webasto i Eberspächer." },
-        { year: "Dziś", title: "Nasz zespół jest tu dla Ciebie", description: "Zakresem naszej działalności są klimatyzacje samochodowe oraz ogrzewania postojowe Webasto, Eberspächer i DEFA. Zapewniamy pełną i profesjonalną obsługę serwisową.", image: "/images/dron-1-1536x960.webp", imageAlt: "Widok z lotu ptaka na siedzibę Klima-Kar we Wrocławiu" },
-      ]} />
-
-      <!-- ============================================================
-           DLACZEGO KLIMA-KAR?
-           ============================================================ -->
-      <div class="mt-16 grid grid-cols-1 min-[900px]:grid-cols-2 gap-12">
-        <!-- Left column: text -->
-        <div>
-          <h2 class="font-display text-[36px] font-bold text-[var(--text-primary)] leading-[1.1] mb-4">Dlaczego Klima-Kar?</h2>
-          <p class="text-[15px] text-[var(--text-secondary)] leading-[1.65] font-body mb-3">
-            Wyróżnia nas wieloletnie doświadczenie, które pozwala nam świadczyć usługi na najwyższym poziomie. Przeprowadziliśmy niezliczoną ilość interwencji serwisowych, czynności obsługowych i skomplikowanych napraw.
-          </p>
-          <p class="text-[15px] text-[var(--text-secondary)] leading-[1.65] font-body mb-6">
-            Dajemy pewność, że Państwa pojazdem zajmie się osoba odpowiednio przeszkolona. Zapewniamy pełną i profesjonalną obsługę serwisową.
-          </p>
-          <a
-            href="/kontakt/"
-            class="inline-flex items-center bg-blue-700 text-white border-none rounded-[4px] px-6 py-2.5 text-[14px] font-semibold font-body hover:bg-blue-800 transition-colors"
-          >
-            Skontaktuj się z nami
-          </a>
-        </div>
-
-        <!-- Right column: stat cards 2x2 -->
-        <div class="grid grid-cols-2 gap-3">
-          <StatCard value="1989" label="początki w chłodnictwie" />
-          <StatCard value="2" label="autoryzacje partnerskie" />
-          <StatCard value="Wrocław" label="siedziba od 1999" />
-          <StatCard value="Rodzinna" label="firma dwupokoleniowa" />
-        </div>
-      </div>
-    </div>
+  <section class="kk-wrap kk-section">
+    <SectionHeader eyebrow="O firmie" title="Historia firmy" />
+    <HistoryTimeline items={history} />
   </section>
 
+  <StatGrid
+    eyebrow="O firmie"
+    title="Dlaczego Klima-Kar?"
+    paragraphs={[
+      'Wyróżnia nas wieloletnie doświadczenie, które pozwala nam świadczyć usługi na najwyższym poziomie. Przeprowadziliśmy niezliczoną ilość interwencji serwisowych, czynności obsługowych i skomplikowanych napraw.',
+      'Dajemy pewność, że Państwa pojazdem zajmie się osoba odpowiednio przeszkolona. Zapewniamy pełną i profesjonalną obsługę serwisową.',
+    ]}
+    stats={stats}
+    ctaLabel="Skontaktuj się z nami"
+    ctaHref="/kontakt/"
+  />
+
+  <CTABanner
+    title="Skontaktuj się z nami"
+    subtitle="Zadzwoń, napisz lub odwiedź nas osobiście. Jesteśmy do Twojej dyspozycji."
+  />
 </BaseLayout>

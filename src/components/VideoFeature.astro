@@ -4,7 +4,7 @@
 interface Props {
   eyebrow: string;
   title: string;
-  text: string;
+  text?: string;
   videoId: string;
   videoTitle: string;
   poster: string;
@@ -20,7 +20,7 @@ const { eyebrow, title, text, videoId, videoTitle, poster, ctaLabel, ctaHref } =
     <div>
       <p class="kk-eyebrow">{eyebrow}</p>
       <h2 class="kk-h2" style="margin-bottom:18px">{title}</h2>
-      <p>{text}</p>
+      {text && <p>{text}</p>}
       {ctaLabel && ctaHref && <a href={ctaHref} class="kk-btn kk-btn--primary">{ctaLabel}</a>}
     </div>
     <div class="kk-frost kk-video-frame">

@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumb from '../components/legacy/Breadcrumb.astro';
-import PageHero from '../components/legacy/PageHero.astro';
-import ServiceCard from '../components/legacy/ServiceCard.astro';
-import CTABanner from '../components/legacy/CTABanner.astro';
-import { Wrench, Search, CalendarCheck } from 'lucide-astro';
-import webastoLogo from '../assets/logos/webasto.svg';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import ProductCard from '../components/ProductCard.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { CalendarCheck, Search, Wrench } from 'lucide-astro';
 
 const controlSystems = [
   {
@@ -82,103 +82,59 @@ const controlSystems = [
     ],
   },
 ];
+
+
+const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
 ---
 
 <BaseLayout
   title="Webasto — Klima-Kar"
   description="Autoryzowany Serwis Webasto we Wrocławiu. Montaż, naprawa i diagnostyka ogrzewań postojowych Webasto. Systemy sterowania MultiControl, Telestart, ThermoCall."
 >
-  <Breadcrumb items={[
-    { label: "Strona główna", href: "/" },
-    { label: "Ogrzewanie postojowe", href: "/ogrzewanie-postojowe/" },
-    { label: "Webasto" },
-  ]} />
-
   <PageHero
-    label="Webasto"
-    title="Autoryzowany Serwis<br>Webasto"
-    description="Jesteśmy autoryzowanym serwisem Webasto. Nasze wieloletnie doświadczenie i wiedza pozwalają na wykonywanie profesjonalnych napraw i montaży nowych instalacji. Wykonujemy również naprawy gwarancyjne."
+    crumbs={[
+      { label: 'Strona główna', href: '/' },
+      { label: 'Ogrzewanie postojowe', href: '/ogrzewanie-postojowe/' },
+      { label: 'Webasto' },
+    ]}
+    eyebrow="Ogrzewanie postojowe"
+    title="Autoryzowany Serwis Webasto"
+    lead="Jesteśmy autoryzowanym serwisem Webasto. Nasze wieloletnie doświadczenie i wiedza pozwalają na wykonywanie profesjonalnych napraw i montaży nowych instalacji. Wykonujemy również naprawy gwarancyjne."
     image="/images/webastoauto.jpg"
     imageAlt="Montaż ogrzewania postojowego Webasto"
+    tag="Autoryzowany serwis Webasto"
   />
 
-  <!-- Services section -->
-  <section class="bg-[var(--bg-page)] py-14 px-6 sm:px-10">
-    <div class="mx-auto max-w-[1200px]">
-
-      <div class="mb-8">
-        <img src={webastoLogo.src} alt="Webasto" class="partner-logo h-14 w-auto max-w-[280px] object-contain" />
-      </div>
-
-      <h2 class="font-display text-[clamp(24px,3vw,32px)] font-bold text-[var(--text-primary)] mb-6">Nasze usługi</h2>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
-
-        <ServiceCard
-          title="Montaż ogrzewaczy"
-          description="Profesjonalny montaż nowych ogrzewań postojowych Webasto dla pojazdów osobowych i dostawczych. Dobieramy odpowiedni zestaw montażowy do każdego modelu pojazdu."
-        >
-          <Wrench size={22} />
-        </ServiceCard>
-
-        <ServiceCard
-          title="Naprawa i serwis"
-          description="Naprawy gwarancyjne i pogwarancyjne. Pełna diagnostyka komputerowa, wymiana podzespołów, naprawa instalacji. Diagnostyka usterek ogrzewań spalinowych."
-        >
-          <Search size={22} />
-        </ServiceCard>
-
-        <ServiceCard
-          title="Przegląd serwisowy"
-          description="Regularne przeglądy serwisowe ogrzewań Webasto. Kontrola stanu technicznego, czyszczenie, sprawdzenie poprawności działania wszystkich podzespołów."
-        >
-          <CalendarCheck size={22} />
-        </ServiceCard>
-
-      </div>
-
-      <!-- Control systems section -->
-      <h2 class="font-display text-[clamp(24px,3vw,32px)] font-bold text-[var(--text-primary)] mb-2">Systemy sterowania Webasto</h2>
-      <p class="text-[14px] text-[var(--text-secondary)] font-body mb-6 max-w-[680px]">
-        Wybierz sposób sterowania ogrzewaniem postojowym dopasowany do Twoich potrzeb — od prostego programatora po sterowanie smartfonem.
-      </p>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-        {controlSystems.map((system) => (
-          <div class="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-[6px] overflow-hidden shadow-[var(--shadow-xs)] flex flex-col">
-            <div class="bg-white aspect-[4/3] flex items-center justify-center p-5 border-b border-[var(--border-subtle)]">
-              <img
-                src={system.image}
-                alt={`Webasto ${system.name}`}
-                loading="lazy"
-                class="max-w-full max-h-full object-contain"
-              />
-            </div>
-            <div class="p-[22px]">
-              <h3 class="font-display text-[18px] font-bold text-[var(--text-primary)] mb-0.5 leading-[1.2]">{system.name}</h3>
-              <p class="text-[11px] uppercase tracking-wide text-[var(--text-muted)] font-body font-semibold mb-3">{system.type}</p>
-              <ul class="space-y-1.5">
-                {system.features.map((feature) => (
-                  <li class="text-[13px] text-[var(--text-secondary)] leading-relaxed font-body flex items-start gap-2">
-                    <span class="text-[#C8001E] mt-[3px] shrink-0">&#8226;</span>
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <!-- CTA Banner -->
-      <CTABanner
-        title="Zapytaj o montaż lub naprawę Webasto"
-        subtitle="tel. 71 337 14 50 · kom. 605 594 506"
-        primaryText="Umów wizytę"
-        primaryHref="/kontakt/"
-        variant="card"
-      />
-
+  <section class="kk-wrap kk-section">
+    <SectionHeader eyebrow="Webasto" title="Nasze usługi" />
+    <div class="kk-svc">
+      <ServiceCard title="Montaż ogrzewaczy"
+        text="Profesjonalny montaż nowych ogrzewań postojowych Webasto dla pojazdów osobowych i dostawczych. Dobieramy odpowiedni zestaw montażowy do każdego modelu pojazdu.">
+        <Wrench {...icon} />
+      </ServiceCard>
+      <ServiceCard title="Naprawa i serwis"
+        text="Naprawy gwarancyjne i pogwarancyjne. Pełna diagnostyka komputerowa, wymiana podzespołów, naprawa instalacji. Diagnostyka usterek ogrzewań spalinowych.">
+        <Search {...icon} />
+      </ServiceCard>
+      <ServiceCard title="Przegląd serwisowy"
+        text="Regularne przeglądy serwisowe ogrzewań Webasto. Kontrola stanu technicznego, czyszczenie, sprawdzenie poprawności działania wszystkich podzespołów.">
+        <CalendarCheck {...icon} />
+      </ServiceCard>
     </div>
   </section>
+
+  <section class="kk-wrap kk-section">
+    <SectionHeader
+      eyebrow="Webasto"
+      title="Systemy sterowania Webasto"
+      description="Wybierz sposób sterowania ogrzewaniem postojowym dopasowany do Twoich potrzeb — od prostego programatora po sterowanie smartfonem."
+    />
+    <div class="kk-products">
+      {controlSystems.map((system) => (
+        <ProductCard name={system.name} type={system.type} image={system.image} imageAlt={`Webasto ${system.name}`} features={system.features} />
+      ))}
+    </div>
+  </section>
+
+  <CTABanner title="Zapytaj o montaż lub naprawę Webasto" subtitle="tel. 71 337 14 50 · kom. 605 594 506" />
 </BaseLayout>
