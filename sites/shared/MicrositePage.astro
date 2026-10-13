@@ -1,13 +1,13 @@
 ---
 // The one-page brand site (webasto.wroclaw.pl, eberspaecher.wroclaw.pl), in page order:
 // Hero (h1 + wide winter photo with the partner plate) › model ticker › O nas › Serwis (bento) ›
-// Wodne czy powietrzne (season-module halves) › Systemy sterowania › Kontakt + Jak dojechać? ›
+// Wodne czy powietrzne (HeaterTypes) › Systemy sterowania › Kontakt + Jak dojechać? ›
 // Klima-Kar's other services (links to the main site and the sister brand site).
 // Copy: the old one-page sites, plus the main site's heating pages. See sites/shared/brand.ts.
 import MicroLayout from './MicroLayout.astro';
 import SectionHeader from '../../src/components/SectionHeader.astro';
 import ProductCard from '../../src/components/ProductCard.astro';
-import HeaterModels from '../../src/components/HeaterModels.astro';
+import HeaterTypes from '../../src/components/HeaterTypes.astro';
 import { komunikat } from '../../src/data/komunikat';
 import { heaterTypes } from '../../src/data/ogrzewanie';
 import { mainSite } from '../../src/data/strony';
@@ -19,7 +19,7 @@ import markWhite from '../../public/images/brand/mark-white.svg';
 import webastoLogo from '../../public/images/brand/webasto.svg';
 import eberspacherLogo from '../../public/images/brand/eberspacher.svg';
 import defaLogo from '../../public/images/brand/defa.svg';
-import { CalendarCheck, Car, CircleFadingArrowUp, Flame, Info, MapPin, Snowflake, Stethoscope, Truck, Wrench } from 'lucide-astro';
+import { CalendarCheck, CircleFadingArrowUp, Flame, Info, MapPin, Snowflake, Stethoscope, Wrench } from 'lucide-astro';
 
 interface Props {
   brand: Brand;
@@ -27,7 +27,6 @@ interface Props {
 
 const { brand } = Astro.props;
 const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
-const check = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>';
 
 // Only this brand's models; their photos are the ones brand.ts imported.
 const types = heaterTypes(brand.heaters.app, [brand.key]).map((t) => ({
@@ -156,27 +155,8 @@ const ticker = brand.ticker;
     </div>
   </section>
 
-  <!-- WODNE CZY POWIETRZNE: the two halves of the season module, a flame knob between them -->
-  <section class="kk-wrap kk-section" id="ogrzewanie">
-    <SectionHeader eyebrow="Wodne czy powietrzne?" title="Które ogrzewanie dla Ciebie" />
-    <div class="kk-frost kk-seasons mk-types">
-      {types.map((t, i) => (
-        <>
-          {i === 1 && <div class="kk-knob" aria-hidden="true"><span class="kk-blue"><Flame size={20} stroke-width={2} aria-hidden="true" /></span></div>}
-          <div class="kk-half">
-            <span class="kk-ico">{i === 0 ? <Car {...icon} /> : <Truck {...icon} />}</span>
-            <span class="kk-partner-kind">{t.kind}</span>
-            <h3 class="kk-card-title" style="margin:0">{t.title}</h3>
-            <span class="kk-chip kk-chip--tag" style="align-self:flex-start">{t.who}</span>
-            <ul class="kk-checklist mk-type-list">
-              {t.items.map((item) => <li><span class="kk-check" set:html={check} /><span>{item}</span></li>)}
-            </ul>
-            <HeaterModels models={t.models} />
-          </div>
-        </>
-      ))}
-    </div>
-  </section>
+  <!-- WODNE CZY POWIETRZNE -->
+  <HeaterTypes types={types} id="ogrzewanie" />
 
   <!-- SYSTEMY STEROWANIA -->
   <section class="kk-wrap kk-section" id="sterowanie">
@@ -470,38 +450,6 @@ const ticker = brand.ticker;
     right: -46px;
     bottom: auto;
     top: -40px;
-  }
-
-  /* ---------- Wodne czy powietrzne ---------- */
-  .mk-types .kk-half {
-    gap: 12px;
-  }
-  /* Both halves share one row grid (icon, kind, title, who, list, models), so the model cards
-     start on the same line and end together even when one checklist is longer. */
-  @container kk (min-width: 761px) {
-    .mk-types {
-      grid-template-rows: repeat(6, auto);
-    }
-    .mk-types .kk-half {
-      display: grid;
-      grid-row: 1 / span 6;
-      grid-template-rows: subgrid;
-      row-gap: 12px;
-      align-items: start;
-    }
-    .mk-types .kk-knob {
-      grid-row: 1 / -1;
-    }
-    .mk-types .kk-half > :global(.kk-models) {
-      align-self: stretch;
-    }
-  }
-  .mk-types .kk-half > .kk-chip--tag {
-    justify-self: start;
-  }
-  .mk-type-list li {
-    padding: 12px 0;
-    font-size: 16px;
   }
 
   /* ---------- Kontakt ---------- */

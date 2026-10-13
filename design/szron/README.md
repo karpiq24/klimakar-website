@@ -176,5 +176,6 @@ The owner went through an audit of the new site against the old one (39 findings
   (`HeaterModels.astro`, data in `src/data/ogrzewanie.ts`). Wodne: Webasto Thermo Top Evo, Eberspächer
   Hydronic S3. Powietrzne: Webasto Air Top Pro 25, Eberspächer Airtronic S3 D2L. /ogrzewanie-postojowe
   shows one model per type with a Webasto | Eberspächer pill switch (both cards switch together; the owner
-  rejected 4 narrow tiles and wide photo-left rows). Each brand site shows only its own two, one per half. Features and packshots come from webasto.com and
+  rejected 4 narrow tiles and wide photo-left rows). /webasto/, /eberspacher/ and each brand site show only
+  that brand's two models in the season-module halves (`HeaterTypes.astro`), one per half. Features and packshots come from webasto.com and
   eberspaecher.com (product pages, datasheets, press releases, Media service).

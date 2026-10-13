@@ -5,9 +5,13 @@ import SectionHeader from '../components/SectionHeader.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import ProductCard from '../components/ProductCard.astro';
 import CTABanner from '../components/CTABanner.astro';
+import HeaterTypes from '../components/HeaterTypes.astro';
 import { CalendarCheck, Search, Wrench } from 'lucide-astro';
 import { webastoControls } from '../data/sterowanie';
+import { heaterTypes } from '../data/ogrzewanie';
 
+// This brand's water and air heater models only.
+const types = heaterTypes('Webasto ThermoConnect', ['webasto']);
 const controlSystems = webastoControls;
 
 const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
@@ -48,6 +52,8 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
       </ServiceCard>
     </div>
   </section>
+
+  <HeaterTypes types={types} />
 
   <section class="kk-wrap kk-section">
     <SectionHeader
