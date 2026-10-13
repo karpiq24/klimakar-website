@@ -139,4 +139,5 @@ These differ from `homepage.dc.html` and the component previews on purpose. Don'
 - **Ogrzewanie postojowe:** "Które ogrzewanie dla Ciebie" tiles (wodne: auta osobowe; powietrzne: firmy, floty, kampery). Fuel costs are given in litres only; the złoty figures based on 5 zł/l are gone.
 - **Contact form:** optional phone, optional VIN, preferred contact (e-mail/telefon; phone becomes required for telefon). "odpiszemy w ciągu 1 dnia roboczego" is now "odpowiemy na Twoje zapytanie". `contact.php` sets Reply-To to the customer.
 - **Mobile:** a fixed "Zadzwoń do serwisu" call bar below 760px.
+- **Homepage About:** "oraz jesteśmy partnerem sprzedażowym DEFA" removed; the sentence now names only the Webasto and Eberspächer authorisations.
 - **SEO:** page titles name the service and Wrocław; the demo is `noindex`; JSON-LD coordinates corrected to 51.05556, 17.03197 (OpenStreetMap for ul. Grota-Roweckiego 129).
