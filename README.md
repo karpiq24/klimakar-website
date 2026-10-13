@@ -59,6 +59,7 @@ Everything about the design lives in `design/szron/`:
 │   ├── robots.txt, favicon.svg
 ├── design/szron/                  # design system and handoff (reference)
 ├── sites/                         # the two one-page brand sites (see "Brand sites" below)
+├── scripts/og-images.mjs         # link-preview cards (1200×630): `npm run og` after changing one
 ├── content/www/                   # copy of the old website source (reference; the live site wins)
 └── .github/workflows/deploy.yml   # GitHub Pages preview deploy
 ```

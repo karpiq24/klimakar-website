@@ -15,7 +15,8 @@ export interface Brand {
   /** Display name, e.g. "Eberspächer". */
   name: string;
   domain: string;
-  seo: { title: string; description: string };
+  /** image: link-preview card (assets/og.jpg, rendered by scripts/og-images.mjs). */
+  seo: { title: string; description: string; image: string };
   /** Colour logo (public/images/brand/<name>.svg) and its LogoStrip height class. */
   logo: string;
   logoClass: 'kk-lw' | 'kk-le';

@@ -5,6 +5,7 @@ import { webastoControls } from '../../src/data/sterowanie';
 import logo from '../../public/images/brand/webasto.svg';
 import winter from '../../public/images/webastoauto.jpg';
 import flags from './assets/flagi.jpg';
+import og from './assets/og.jpg';
 import mc from '../../public/images/MC.jpg';
 import t99 from '../../public/images/t99.webp';
 import t100 from '../../public/images/t100.jpg';
@@ -22,6 +23,7 @@ export const brand: Brand = {
     title: 'Autoryzowany Serwis Webasto Wrocław — Klima-Kar',
     description:
       'Autoryzowany Serwis Webasto we Wrocławiu. Montaż ogrzewań postojowych, naprawy gwarancyjne i pogwarancyjne Webasto AirTop i ThermoTop, diagnostyka Webasto ThermoTest.',
+    image: og.src,
   },
   logo: logo.src,
   logoClass: 'kk-lw',

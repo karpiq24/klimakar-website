@@ -5,6 +5,7 @@ import { eberspacherControls } from '../../src/data/sterowanie';
 import logo from '../../public/images/brand/eberspacher.svg';
 import winter from '../../public/images/eberspacher-zima.jpg';
 import easyScan from './assets/easyscan.jpg';
+import og from './assets/og.jpg';
 import ess from '../../public/images/ess.jpg';
 import est from '../../public/images/est.jpg';
 import esp from '../../public/images/esp.jpg';
@@ -22,6 +23,7 @@ export const brand: Brand = {
     title: 'Autoryzowany Serwis Eberspächer Wrocław — Klima-Kar',
     description:
       'Autoryzowany Serwis Eberspächer we Wrocławiu. Montaż ogrzewań postojowych, naprawy gwarancyjne i pogwarancyjne Airtronic i Hydronic, diagnostyka Eberspächer EasyScan.',
+    image: og.src,
   },
   logo: logo.src,
   logoClass: 'kk-le',

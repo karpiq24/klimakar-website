@@ -10,6 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "og": "node scripts/og-images.mjs",
     "dev:webasto": "astro dev --config sites/webasto/astro.config.mjs --port 4322",
     "dev:eberspaecher": "astro dev --config sites/eberspaecher/astro.config.mjs --port 4323",
     "build:webasto": "astro build --config sites/webasto/astro.config.mjs",
