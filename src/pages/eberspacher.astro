@@ -6,86 +6,9 @@ import ServiceCard from '../components/ServiceCard.astro';
 import ProductCard from '../components/ProductCard.astro';
 import CTABanner from '../components/CTABanner.astro';
 import { CalendarCheck, Search, Wrench } from 'lucide-astro';
+import { eberspacherControls } from '../data/sterowanie';
 
-const controlSystems = [
-  {
-    name: 'EasyStart Select',
-    type: 'Włącznik z wyświetlaczem',
-    image: '/images/ess.jpg',
-    features: [
-      'Prosta funkcja włączania i wyłączania jednym przyciskiem',
-      'Funkcja wyświetlania informacji zwrotnej',
-      'Przejrzysty wyświetlacz i wygodne przyciski',
-      'Odczyt nastawionej i aktualnej temperatury',
-      'Zalecany do ogrzewań powietrznych',
-    ],
-  },
-  {
-    name: 'EasyStart Timer',
-    type: 'Programator tygodniowy',
-    image: '/images/est.jpg',
-    features: [
-      'Programowanie w cyklu tygodniowym',
-      'Możliwość ustawienia trzech programów',
-      'Przejrzysty wyświetlacz i wygodne przyciski',
-      'Funkcja informacji zwrotnej',
-      'Wybór czasu pracy ogrzewania',
-    ],
-  },
-  {
-    name: 'EasyStart Pro',
-    type: 'Element sterujący z wyświetlaczem',
-    image: '/images/esp.jpg',
-    features: [
-      'Obsługa jednym przyciskiem — obrót i naciśnięcie',
-      'Wyświetlacz: stan pracy, temperatura we wnętrzu, programator',
-      'Kolorowy pierścień LED wskazuje tryb pracy',
-      'Do trzech programów czasowych w tygodniu',
-      'Czas pracy od 10 do 120 minut lub ogrzewanie ciągłe',
-      'Sterowanie maksymalnie dwoma urządzeniami grzewczymi',
-    ],
-  },
-  {
-    name: 'EasyStart Remote',
-    type: 'Pilot radiowy',
-    image: '/images/esr.jpg',
-    features: [
-      'Zasięg do 1000 metrów',
-      'Funkcja informacji zwrotnej',
-      'Prosta obsługa przyciskami Wł. / Wył.',
-      'Wybór grzania lub wentylacji (zima/lato)',
-      'Czas działania od 10 do 60 minut',
-    ],
-  },
-  {
-    name: 'EasyStart Remote+',
-    type: 'Pilot z wyświetlaczem i programowaniem',
-    image: '/images/esr+.jpg',
-    features: [
-      'Zasięg do 1000 metrów z informacją zwrotną',
-      'Programowanie czasu odjazdu (automatyczne)',
-      'Trzy programy w cyklu tygodniowym',
-      'Odczyt temperatury wnętrza pojazdu',
-      'Wybór grzania lub wentylacji (zima/lato)',
-    ],
-  },
-  {
-    name: 'EasyStart Web',
-    type: 'Sterowanie przez internet',
-    image: '/images/esw.jpg',
-    features: [
-      'Sterowanie z dowolnego miejsca przez internet',
-      'Bezpłatna aplikacja na smartfony',
-      'Sterowanie przez przeglądarkę internetową',
-      'Automatyczne programowanie czasu odjazdu',
-      'Informacja o statusie i temperaturze wnętrza',
-      'Nie wymaga karty SIM',
-      'W zestawie przycisk z diodą do szybkiego włączania i wyłączania ogrzewania',
-      'Wymaga abonamentu — 129 zł rocznie (cena na dzień {dzisiaj})',
-    ],
-  },
-];
-
+const controlSystems = eberspacherControls;
 
 const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
 ---

@@ -407,8 +407,7 @@ textarea.kk-input{resize:vertical}
   .kk-price-value{text-align:left}
   .kk-benefits{grid-template-columns:minmax(0,1fr)}
   .kk-benefits-photo .kk-frame-photo{aspect-ratio:4/3}
-  .kk-products{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:4px 16px 18px;scrollbar-width:none}
-  .kk-products>*{flex:0 0 82%;scroll-snap-align:start}
+  .kk-products{grid-template-columns:minmax(0,1fr)}
   .kk-article{grid-template-columns:minmax(0,1fr)}
   .kk-article-side{position:static}
   .kk-faq summary{font-size:16px;padding:16px 16px}

@@ -1,5 +1,7 @@
 ---
 // Footer — frost card: brand blurb with small partner logos, three link columns and a bottom bar.
+// The bottom bar links Klima-Kar's brand sites (src/data/strony.ts; they link back the same way).
+import { strony } from '../data/strony';
 ---
 
 <footer class="kk-wrap kk-footer">
@@ -48,6 +50,7 @@
     </div>
     <div class="kk-foot-bottom">
       <span>© Klima-Kar. Wszelkie prawa zastrzeżone.</span>
+      <span>Nasze serwisy: {strony.filter((s) => s.key !== 'main').map((s, i) => <>{i > 0 && ' · '}<a href={s.url}>{s.label}</a></>)}</span>
       <span><a href="https://www.instagram.com/__klimakar__/" target="_blank" rel="noopener noreferrer">Instagram</a> · <a href="https://www.facebook.com/KlimaKar/" target="_blank" rel="noopener noreferrer">Facebook</a></span>
     </div>
   </div>

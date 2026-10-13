@@ -7,6 +7,9 @@ an icy blue ground, the logo's blues doing all the colour work).
 - **Production:** <https://klima-kar.wroclaw.pl/>. It still runs the **old website**, which stays
   the main source of truth for content (texts, prices, facts) until this site replaces it.
 - **Preview of this site:** <http://demo.klima-kar.pl/>.
+- **Brand sites** (one page each, same repo, same design): <https://webasto.wroclaw.pl/> and
+  <https://eberspaecher.wroclaw.pl/>, built from `sites/`. Previews:
+  <http://demo.klima-kar.pl/strony/webasto/> and <http://demo.klima-kar.pl/strony/eberspaecher/>.
 
 ## Tech stack
 
@@ -55,6 +58,7 @@ Everything about the design lives in `design/szron/`:
 │   ├── CNAME                      # demo.klima-kar.pl (GitHub Pages)
 │   ├── robots.txt, favicon.svg
 ├── design/szron/                  # design system and handoff (reference)
+├── sites/                         # the two one-page brand sites (see "Brand sites" below)
 ├── content/www/                   # copy of the old website source (reference; the live site wins)
 └── .github/workflows/deploy.yml   # GitHub Pages preview deploy
 ```
@@ -80,6 +84,48 @@ Everything about the design lives in `design/szron/`:
 | Kontakt | `/kontakt/` |
 | RODO | `/rodo/` |
 
+## Brand sites (webasto.wroclaw.pl, eberspaecher.wroclaw.pl)
+
+Two one-page sites for the authorised Webasto and Eberspächer service. They replace the old
+HTML5 UP pages (`index.php` on the same OVH hosting) and reuse the main site's stylesheet,
+components and data. Each is its own Astro build with its own domain and `dist-<name>/` output.
+
+```
+sites/
+├── microsite.config.mjs      # shared Astro config (srcDir, outDir, domain, MICROSITE_BASE)
+├── public/                   # copied into both builds: favicon, .htaccess, Google verification file
+├── shared/                   # MicrositePage (all sections), MicroLayout, MicroHeader, MicroFooter, brand.ts
+├── webasto/                  # astro.config.mjs, brand.ts (copy, photos), pages/, assets/ (old banner)
+└── eberspaecher/             # same
+```
+
+- **Content:** `sites/<name>/brand.ts` holds what differs per brand. The copy comes from the old
+  one-page sites plus the main site's heating pages. Shared data lives in `src/data/` and feeds both
+  the main site and the brand sites: `sterowanie.ts` (controllers on /webasto/, /eberspacher/),
+  `ogrzewanie.ts` ("Które ogrzewanie dla Ciebie"), `komunikat.ts` (notice, shown on all three),
+  `strony.ts` (the three sites' URLs; each footer links to the others).
+- **Prices:** the diagnostics price (250 zł brutto) and the installation range (od 6.500 zł) in
+  `sites/shared/MicrositePage.astro` are copied from /cennik and /ogrzewanie-postojowe; update them together.
+- **Images** are imported (`import x from '../../public/images/…'`), so each build ships only the
+  files it uses, and paths follow `base`.
+- **Contact:** no form (GitHub Pages and the old sites had none). "Napisz e-mail" opens a prepared
+  e-mail with the old sites' enquiry list (marka, model, rocznik, silnik, klimatyzacja).
+
+```bash
+npm run dev:webasto          # http://localhost:4322
+npm run dev:eberspaecher     # http://localhost:4323
+npm run build:webasto        # → dist-webasto/
+npm run build:eberspaecher   # → dist-eberspaecher/
+npm run build:all            # main site + both brand sites
+```
+
+**Deploying a brand site** (only when the owner asks): build it without `PUBLIC_NOINDEX`, back up the
+domain's directory on the OVH FTP, delete the old `index.php`, `assets/`, `images/`, `whcookies.js` and
+`google.js`, then upload the contents of `dist-<name>/` (including `.htaccess`). The
+`google9f5b4b661a30a4e0.html` Search Console file is kept. The brand sites link to
+klima-kar.wroclaw.pl's new URLs (`/klimatyzacja/`, `/defa/`, `/rodo/`), so launch them together with
+the main site or after it.
+
 ## Development
 
 ```bash
@@ -95,8 +141,9 @@ Node ≥ 22.12 (see `package.json` › `engines`).
 
 ### Preview: demo.klima-kar.pl (GitHub Pages)
 
-Every push to `main` runs `.github/workflows/deploy.yml`, which builds the site and publishes it
-to GitHub Pages at <http://demo.klima-kar.pl/> (domain set by `public/CNAME`).
+Every push to `main` runs `.github/workflows/deploy.yml`, which builds the site (`npm run build:demo`:
+the main site plus both brand sites under `/strony/webasto/` and `/strony/eberspaecher/`) and publishes
+it to GitHub Pages at <http://demo.klima-kar.pl/> (domain set by `public/CNAME`).
 GitHub Pages serves static files only: `contact.php` does not run there, so the contact form
 can't send on the demo. The workflow builds with `PUBLIC_NOINDEX=true`, so every demo page has
 `<meta name="robots" content="noindex, nofollow">` and the preview stays out of Google.

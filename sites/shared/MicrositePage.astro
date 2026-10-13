@@ -1,0 +1,659 @@
+---
+// The one-page brand site (webasto.wroclaw.pl, eberspaecher.wroclaw.pl), in page order:
+// Hero (h1 + wide winter photo with the partner plate) › model ticker › O nas › Serwis (bento) ›
+// Wodne czy powietrzne (season-module halves) › Systemy sterowania › Kontakt + Jak dojechać? ›
+// Klima-Kar's other services (links to the main site and the sister brand site).
+// Copy: the old one-page sites, plus the main site's heating pages. See sites/shared/brand.ts.
+import MicroLayout from './MicroLayout.astro';
+import SectionHeader from '../../src/components/SectionHeader.astro';
+import ProductCard from '../../src/components/ProductCard.astro';
+import HeaterModels from '../../src/components/HeaterModels.astro';
+import { komunikat } from '../../src/data/komunikat';
+import { heaterTypes } from '../../src/data/ogrzewanie';
+import { mainSite } from '../../src/data/strony';
+import type { Brand } from './brand';
+import { withImages } from './brand';
+import flakeBlue from '../../public/images/brand/flake-blue.svg';
+import flakeWhite from '../../public/images/brand/flake-white.svg';
+import markWhite from '../../public/images/brand/mark-white.svg';
+import webastoLogo from '../../public/images/brand/webasto.svg';
+import eberspacherLogo from '../../public/images/brand/eberspacher.svg';
+import defaLogo from '../../public/images/brand/defa.svg';
+import { CalendarCheck, Car, CircleFadingArrowUp, Flame, Info, MapPin, Snowflake, Stethoscope, Truck, Wrench } from 'lucide-astro';
+
+interface Props {
+  brand: Brand;
+}
+
+const { brand } = Astro.props;
+const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
+const check = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>';
+
+// Only this brand's models; their photos are the ones brand.ts imported.
+const types = heaterTypes(brand.heaters.app, [brand.key]).map((t) => ({
+  ...t,
+  models: withImages(t.models, brand.heaterImages).map((m) => ({ ...m, image: m.imageSrc })),
+}));
+
+const years = [
+  { n: '1989', l: 'Początki w chłodnictwie' },
+  { n: '1999', l: 'Start Klima-Kar' },
+  { n: '2009', l: `Autoryzowany Serwis ${brand.name}` },
+];
+
+// The old sites' enquiry list, also the body of the prepared e-mail.
+const enquiry = ['marka pojazdu', 'model', 'rocznik', 'rodzaj, pojemność i moc silnika', 'klimatyzacja manualna / automatyczna'];
+// CRLF: RFC 6068 wants %0D%0A for line breaks in a mailto body.
+const mailBody = enquiry.map((e) => `${e[0].toUpperCase()}${e.slice(1)}: `).join('\r\n') + '\r\n';
+const mailto = `mailto:serwis@klima-kar.pl?subject=${encodeURIComponent(`Zapytanie o montaż ogrzewania postojowego ${brand.name}`)}&body=${encodeURIComponent(mailBody)}`;
+
+// The sister brand site, DEFA and air conditioning on the main site (texts from the main homepage).
+const sister = brand.key === 'webasto'
+  ? { name: 'Eberspächer', logo: eberspacherLogo.src, cls: 'kk-le', url: 'https://eberspaecher.wroclaw.pl/', label: 'eberspaecher.wroclaw.pl',
+      text: 'Profesjonalny serwis ogrzewań postojowych Eberspächer. Diagnostyka, wymiana podzespołów, naprawy. Autoryzowany serwis z wieloletnim doświadczeniem.' }
+  : { name: 'Webasto', logo: webastoLogo.src, cls: 'kk-lw', url: 'https://webasto.wroclaw.pl/', label: 'webasto.wroclaw.pl',
+      text: 'Autoryzowany serwis ogrzewań postojowych Webasto — montaż nowych instalacji i naprawy, także gwarancyjne, dla pojazdów osobowych i dostawczych.' };
+
+const ticker = brand.ticker;
+---
+
+<MicroLayout brand={brand}>
+  <!-- HERO -->
+  <section class="kk-wrap mk-hero" id="top">
+    {komunikat && <p class="kk-frost kk-notice" role="status"><span class="kk-ico"><Info {...icon} /></span><span>{komunikat}</span></p>}
+    <div class="mk-hero-head">
+      <div>
+        <span class="kk-badge kk-frost"><img src={flakeBlue.src} alt="" aria-hidden="true" class="kk-spin">Klima-Kar · Działamy od 1999 roku</span>
+        <h1 class:list={['kk-h1 kk-grad mk-hero-title', { 'mk-hero-title--long': brand.name.length > 8 }]}>{brand.name}<br>Wrocław</h1>
+      </div>
+      <div class="mk-hero-side">
+        <p class="mk-tagline">Komfortowy klimat w zasięgu ręki</p>
+        <p class="kk-lead">Autoryzowany Serwis {brand.name}: naprawy gwarancyjne i pogwarancyjne, montaż.</p>
+        <div class="kk-actions">
+          <a href="tel:+48713371450" class="kk-btn kk-btn--primary kk-btn--lg">Zadzwoń: 71 337 14 50</a>
+          <a href="#kontakt" class="kk-btn kk-btn--frost kk-btn--lg">Wyślij zapytanie</a>
+        </div>
+      </div>
+    </div>
+    <div class="mk-hero-media">
+      <div class="kk-frost kk-frame"><div class="kk-frame-photo mk-hero-photo"><img src={brand.hero.src} alt={brand.hero.alt} style={brand.hero.position ? `object-position:${brand.hero.position}` : undefined} fetchpriority="high"></div></div>
+      <span class="kk-frost mk-plate">
+        <span class="mk-plate-logo"><img src={brand.logo} alt={brand.name} class={brand.logoClass}></span>
+        <span class="mk-plate-text"><b class="kk-blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></b>Autoryzowany serwis od 2009 roku</span>
+      </span>
+      <span class="kk-blue kk-pagehero-disc mk-hero-disc"><img src={flakeWhite.src} alt="" aria-hidden="true" class="kk-spin" style="width:34px;height:34px"></span>
+    </div>
+  </section>
+
+  <!-- TICKER: model and controller names, a decorative repeat of the sections below -->
+  <div class="kk-wrap mk-ticker-wrap" aria-hidden="true">
+    <div class="kk-frost mk-ticker">
+      <div class="mk-ticker-track">
+        {[0, 1].map(() => (
+          <span class="mk-ticker-set">
+            {ticker.map((t) => <><span class="mk-ticker-item">{t}</span><img src={flakeBlue.src} alt="" class="mk-ticker-flake"></>)}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- O NAS -->
+  <section class="kk-wrap kk-section" id="o-nas">
+    <div class="kk-benefits mk-about">
+      <div class="kk-benefits-photo">
+        <div class="kk-frost kk-frame"><div class="kk-frame-photo"><img src={brand.about.src} alt={brand.about.alt} loading="lazy" style={brand.about.position ? `object-position:${brand.about.position}` : undefined}></div></div>
+        <div class="kk-frost kk-benefits-tag"><span class="kk-sh mk-about-tag">{brand.about.tag}</span></div>
+      </div>
+      <div>
+        <p class="kk-eyebrow">O nas</p>
+        <h2 class="kk-h2" style="margin-bottom:22px">Autoryzowany Serwis {brand.name}</h2>
+        <p class="kk-lead" style="margin:0 0 30px;color:var(--text-strong)">Wieloletnie doświadczenie w zakresie napraw i montaży systemów ogrzewania postojowego {brand.name} pozwala nam profesjonalnie i szybko wykonać każde zlecenie. Specjalizujemy się w obsłudze samochodów osobowych i dostawczych.</p>
+        <div class="mk-years">
+          {years.map((y, i) => (
+            <div class:list={['mk-year', i === years.length - 1 ? 'kk-blue' : 'kk-frost']}>
+              <span class="kk-stat-n">{y.n}</span>
+              <span class="kk-stat-l">{y.l}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERWIS -->
+  <section class="kk-wrap kk-section" id="serwis">
+    <SectionHeader eyebrow="Ogrzewanie postojowe" title={`Serwis ${brand.name}`} description="Montujemy ogrzewania postojowe. Wykonujemy zarówno naprawy gwarancyjne, jak i pogwarancyjne." />
+    <div class="kk-svc mk-bento">
+      <a href="#kontakt" class="kk-card kk-blue kk-svc-card kk-svc-card--brand mk-bento-lead">
+        <img src={markWhite.src} alt="" aria-hidden="true" class="kk-svc-mark">
+        <span class="kk-ico kk-ico--on-brand"><Flame {...icon} /></span>
+        <span class="mk-lead-spacer"></span>
+        <h3 class="mk-lead-title">Montaż ogrzewania postojowego</h3>
+        <span class="kk-svc-text" style="position:relative">Profesjonalny montaż nowych ogrzewań postojowych {brand.name} dla pojazdów osobowych i dostawczych. Dobieramy odpowiedni zestaw montażowy do każdego modelu pojazdu.</span>
+        <span class="kk-more">Zapytaj o montaż →</span>
+      </a>
+      <div class="kk-frost kk-card kk-svc-card">
+        <span class="kk-ico"><Wrench {...icon} /></span>
+        <h3 class="kk-card-title" style="margin:0">{brand.services.repairs}</h3>
+        <p>Naprawy gwarancyjne i pogwarancyjne. Diagnostyka komputerowa, wymiana podzespołów, naprawa instalacji.</p>
+      </div>
+      <div class="kk-frost kk-card kk-svc-card">
+        <span class="kk-svc-top"><span class="kk-ico"><Stethoscope {...icon} /></span><span class="kk-chip">250 zł brutto</span></span>
+        <h3 class="kk-card-title" style="margin:0">{brand.services.diagnostics}</h3>
+        <p>Diagnostyka usterek ogrzewań spalinowych. Kontrola i regulacja procesu spalania.</p>
+      </div>
+      <div class="kk-frost kk-card kk-svc-card">
+        <span class="kk-ico"><CalendarCheck {...icon} /></span>
+        <h3 class="kk-card-title" style="margin:0">Przegląd serwisowy</h3>
+        <p>Regularne przeglądy serwisowe ogrzewań {brand.name}. Kontrola stanu technicznego, czyszczenie, sprawdzenie poprawności działania wszystkich podzespołów.</p>
+      </div>
+      <div class="kk-frost kk-card kk-svc-card">
+        <span class="kk-ico"><CircleFadingArrowUp {...icon} /></span>
+        <h3 class="kk-card-title" style="margin:0">Rozbudowa dogrzewacza do ogrzewania postojowego</h3>
+        <p>Wiele aut fabrycznie wyposażono w dogrzewacze silnika diesla — użytkownicy często nie wiedzą, że ich samochód ma dodatkowe ogrzewanie spalinowe. Takie dogrzewacze można przerobić na pełnoprawne ogrzewanie postojowe. Koszt rozbudowy jest znacznie niższy niż montaż ogrzewania od zera.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WODNE CZY POWIETRZNE: the two halves of the season module, a flame knob between them -->
+  <section class="kk-wrap kk-section" id="ogrzewanie">
+    <SectionHeader eyebrow="Wodne czy powietrzne?" title="Które ogrzewanie dla Ciebie" />
+    <div class="kk-frost kk-seasons mk-types">
+      {types.map((t, i) => (
+        <>
+          {i === 1 && <div class="kk-knob" aria-hidden="true"><span class="kk-blue"><Flame size={20} stroke-width={2} aria-hidden="true" /></span></div>}
+          <div class="kk-half">
+            <span class="kk-ico">{i === 0 ? <Car {...icon} /> : <Truck {...icon} />}</span>
+            <span class="kk-partner-kind">{t.kind}</span>
+            <h3 class="kk-card-title" style="margin:0">{t.title}</h3>
+            <span class="kk-chip kk-chip--tag" style="align-self:flex-start">{t.who}</span>
+            <ul class="kk-checklist mk-type-list">
+              {t.items.map((item) => <li><span class="kk-check" set:html={check} /><span>{item}</span></li>)}
+            </ul>
+            <HeaterModels models={t.models} />
+          </div>
+        </>
+      ))}
+    </div>
+  </section>
+
+  <!-- SYSTEMY STEROWANIA -->
+  <section class="kk-wrap kk-section" id="sterowanie">
+    <SectionHeader eyebrow={brand.name} title={`Systemy sterowania ${brand.name}`} description={brand.controls.description} />
+    <div class="kk-products">
+      {brand.controls.items.map((c) => (
+        <ProductCard name={c.name} type={c.type} image={c.imageSrc} imageAlt={`${brand.name} ${c.name}`} features={c.features} retired={c.retired} />
+      ))}
+    </div>
+  </section>
+
+  <!-- KONTAKT + JAK DOJECHAĆ? -->
+  <section class="kk-wrap kk-section--lg" id="kontakt" style="position:relative">
+    <div aria-hidden="true" class="kk-glow kk-glow--brand kk-drift"></div>
+    <div aria-hidden="true" class="kk-glow kk-glow--ice kk-drift2"></div>
+    <div class="kk-frost kk-contact">
+      <div class="mk-contact-info">
+        <p class="kk-eyebrow">Kontakt</p>
+        <h2 class="kk-h2" style="margin-bottom:16px">Skontaktuj się z nami</h2>
+        <p class="kk-muted" style="margin:0 0 28px">Zadzwoń, napisz lub odwiedź nas osobiście. Jesteśmy do Twojej dyspozycji.</p>
+        <div class="kk-g2" style="gap:10px;margin-bottom:10px">
+          <div class="kk-info"><div class="kk-info-label">Adres</div>ul. gen. Stefana Grota Roweckiego 129<br>52-214 Wrocław</div>
+          <div class="kk-info"><div class="kk-info-label">Telefon</div><a href="tel:+48713371450">tel. 71 337 14 50</a><br><a href="tel:+48605594506">kom. 605 594 506</a></div>
+          <div class="kk-info"><div class="kk-info-label">E-mail</div><a href="mailto:serwis@klima-kar.pl">serwis@klima-kar.pl</a></div>
+          <div class="kk-info"><div class="kk-info-label">Godziny otwarcia</div>Pon-Pt: 9:00-17:00<br>Sob-Nd: nieczynne</div>
+        </div>
+        <div class="mk-map" id="dojazd">
+          <p class="mk-map-label"><MapPin size={18} stroke-width={2} aria-hidden="true" /><span><b>Jak dojechać?</b> ul. Grota Roweckiego 129, Wrocław, dzielnica Krzyki</span></p>
+          <div class="kk-map">
+            <iframe
+              src="https://maps.google.com/maps?q=Klima-Kar+ul.+Grota+Roweckiego+129+Wroc%C5%82aw&output=embed&hl=pl&z=16"
+              title="Mapa: Klima-Kar, ul. Grota Roweckiego 129"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="kk-form">
+        <h3 class="kk-h3">Wyślij zapytanie</h3>
+        <p class="kk-muted" style="margin:0">Ze względu na różnice techniczne pomiędzy modelami do każdego pojazdu przewidziano inny zestaw montażowy. Cena różni się w zależności od modelu pojazdu, wybranej mocy agregatu, elementów sterujących i stopnia integracji z systemem wentylacji.</p>
+        <p class="kk-muted" style="margin:0">Dostępnych rozwiązań jest bardzo wiele, ale możemy podać orientacyjny przedział od 6.500 zł w przypadku ogrzewań powietrznych do busów, do kilkunastu tysięcy zł w przypadku skomplikowanych instalacji w autach osobowych. Szczegółowej wyceny udzielamy po podaniu danych pojazdu.</p>
+        <p class="mk-enquiry-h">Wysyłając zapytanie o montaż ogrzewania postojowego prosimy pamiętać o podaniu:</p>
+        <ol class="mk-enquiry">
+          {enquiry.map((e, i) => <li><span class="kk-check">{i + 1}</span><span>{e}</span></li>)}
+        </ol>
+        <div class="kk-actions">
+          <a href={mailto} class="kk-btn kk-btn--primary kk-btn--lg">Napisz e-mail</a>
+          <a href="tel:+48713371450" class="kk-btn kk-btn--lg mk-btn-soft">Zadzwoń: 71 337 14 50</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KLIMA-KAR: links to the main site and the sister brand site -->
+  <section class="kk-wrap kk-section" id="klima-kar">
+    <SectionHeader eyebrow="Klima-Kar" title="Klimatyzacja i ogrzewanie Twojego auta" description="Profesjonalny serwis klimatyzacji samochodowej oraz ogrzewań postojowych Webasto, Eberspächer i DEFA we Wrocławiu." />
+    <div class="kk-g3 mk-sites">
+      <a href={`${mainSite}/klimatyzacja/`} class="kk-card kk-blue kk-svc-card kk-svc-card--brand">
+        <img src={markWhite.src} alt="" aria-hidden="true" class="kk-svc-mark">
+        <span class="kk-ico kk-ico--on-brand"><Snowflake {...icon} /></span>
+        <span class="kk-card-title" style="position:relative">Kompleksowy serwis klimatyzacji</span>
+        <span class="kk-svc-text" style="position:relative">Napełnianie, diagnostyka, naprawy i wymiana podzespołów. Obsługa czynników R12, R134a, R1234yf oraz R744.</span>
+        <span class="kk-more">klima-kar.wroclaw.pl →</span>
+      </a>
+      <a href={sister.url} class="kk-frost kk-card kk-partner">
+        <span class="kk-partner-logo"><img src={sister.logo} alt={sister.name} class={sister.cls}></span>
+        <span class="kk-partner-kind">Niezależne ogrzewanie spalinowe</span>
+        <p>{sister.text}</p>
+        <span class="kk-more">{sister.label} →</span>
+      </a>
+      <a href={`${mainSite}/defa/`} class="kk-frost kk-card kk-partner">
+        <span class="kk-partner-logo"><img src={defaLogo.src} alt="DEFA" class="kk-ld"></span>
+        <span class="kk-partner-kind">Elektryczne ogrzewanie postojowe</span>
+        <p>Sprzedaż, montaż i serwis DEFA — elektryczne ogrzewanie silnika, wnętrza i ładowanie akumulatora. Idealne dla miejsc z dostępem do prądu.</p>
+        <span class="kk-more">klima-kar.wroclaw.pl/defa →</span>
+      </a>
+    </div>
+  </section>
+</MicroLayout>
+
+<style>
+  /* ---------- Hero: editorial split over a wide framed winter photo ---------- */
+  .mk-hero {
+    position: relative;
+    padding-top: clamp(40px, 6cqi, 88px);
+  }
+  .kk-notice {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    max-width: 720px;
+    margin: 0 0 28px;
+    border-radius: var(--radius-card-sm);
+    padding: 12px 20px 12px 12px;
+    background: var(--frost-card);
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .mk-hero-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 28px 64px;
+    align-items: end;
+  }
+  .mk-hero-title {
+    margin: calc(26px - 0.16em) 0 -0.16em;
+    font-size: clamp(40px, 6.6cqi, 96px);
+  }
+  /* "Eberspächer" is half again as wide as "Webasto". */
+  .mk-hero-title--long {
+    font-size: clamp(36px, 5.6cqi, 80px);
+  }
+  .mk-hero-side .kk-lead {
+    margin: 12px 0 28px;
+    max-width: 520px;
+  }
+  .mk-tagline {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(20px, 2cqi, 28px);
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    color: var(--brand);
+    text-wrap: balance;
+  }
+  .mk-hero-media {
+    position: relative;
+    margin-top: clamp(32px, 4.5cqi, 56px);
+  }
+  .mk-hero-photo {
+    aspect-ratio: 21 / 8;
+  }
+  .mk-hero-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .mk-plate {
+    position: absolute;
+    left: clamp(16px, 3cqi, 40px);
+    bottom: calc(-1 * clamp(28px, 3cqi, 40px));
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    border-radius: var(--radius-card-sm);
+    padding: 12px 22px 12px 12px;
+    background: var(--frost-tile);
+  }
+  .mk-plate-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 168px;
+    height: 76px;
+    padding: 0 22px;
+    border-radius: var(--radius-icon);
+    background: var(--white);
+  }
+  .mk-plate-logo .kk-lw {
+    height: 30px;
+  }
+  .mk-plate-logo .kk-le {
+    height: 46px;
+  }
+  .mk-plate-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+  }
+  .mk-plate-text b {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+
+  /* ---------- Ticker ---------- */
+  .mk-ticker-wrap {
+    padding-top: clamp(64px, 7cqi, 88px);
+  }
+  .mk-ticker {
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+    padding: 18px 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .mk-ticker-track {
+    display: flex;
+    width: max-content;
+    animation: mk-ticker 38s linear infinite;
+  }
+  .mk-ticker-set {
+    display: flex;
+    align-items: center;
+    flex: none;
+  }
+  .mk-ticker-item {
+    padding: 0 26px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(18px, 1.9cqi, 26px);
+    letter-spacing: -0.03em;
+    color: var(--navy);
+    white-space: nowrap;
+  }
+  .mk-ticker-flake {
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+  }
+  @keyframes mk-ticker {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mk-ticker-track {
+      animation: none;
+    }
+  }
+
+  /* ---------- O nas ---------- */
+  .mk-about {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .mk-about :global(.kk-frame-photo) {
+    aspect-ratio: 4 / 3;
+  }
+  .mk-about-tag {
+    white-space: normal;
+  }
+  .mk-years {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .mk-year {
+    border-radius: var(--radius-photo);
+    padding: 18px 18px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .mk-year .kk-stat-n {
+    font-size: clamp(26px, 2.6cqi, 36px);
+  }
+  .mk-year.kk-blue .kk-stat-n {
+    color: var(--white);
+  }
+  .mk-year.kk-blue .kk-stat-l {
+    color: var(--on-brand-muted);
+  }
+  .mk-year .kk-stat-l {
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  /* ---------- Serwis: bento, montaż leads across two rows ---------- */
+  .mk-bento .mk-bento-lead {
+    grid-row: span 2;
+    min-height: 420px;
+  }
+  .mk-lead-spacer {
+    flex: 1;
+  }
+  .mk-lead-title {
+    position: relative;
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(26px, 2.6cqi, 36px);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .mk-bento-lead .kk-svc-mark {
+    width: 220px;
+    right: -46px;
+    bottom: auto;
+    top: -40px;
+  }
+
+  /* ---------- Wodne czy powietrzne ---------- */
+  .mk-types .kk-half {
+    gap: 12px;
+  }
+  /* Both halves share one row grid (icon, kind, title, who, list, models), so the model cards
+     start on the same line and end together even when one checklist is longer. */
+  @container kk (min-width: 761px) {
+    .mk-types {
+      grid-template-rows: repeat(6, auto);
+    }
+    .mk-types .kk-half {
+      display: grid;
+      grid-row: 1 / span 6;
+      grid-template-rows: subgrid;
+      row-gap: 12px;
+      align-items: start;
+    }
+    .mk-types .kk-knob {
+      grid-row: 1 / -1;
+    }
+    .mk-types .kk-half > :global(.kk-models) {
+      align-self: stretch;
+    }
+  }
+  .mk-types .kk-half > .kk-chip--tag {
+    justify-self: start;
+  }
+  .mk-type-list li {
+    padding: 12px 0;
+    font-size: 16px;
+  }
+
+  /* ---------- Kontakt ---------- */
+  .mk-contact-info {
+    display: flex;
+    flex-direction: column;
+  }
+  .mk-map {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 6px;
+    scroll-margin-top: 24px;
+  }
+  .mk-map .kk-map {
+    flex: 1;
+    min-height: 240px;
+  }
+  .mk-map-label {
+    margin: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 15px;
+    color: var(--text-strong);
+  }
+  .mk-map-label b {
+    color: var(--navy);
+  }
+  .mk-map-label :global(svg) {
+    flex: none;
+    margin-top: 2px;
+    color: var(--brand);
+  }
+  .mk-btn-soft {
+    background: var(--brand-tint);
+    color: var(--brand);
+    border: 1px solid var(--brand-line);
+  }
+  .kk-map iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .mk-enquiry-h {
+    margin: 6px 0 0;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .mk-enquiry {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .mk-enquiry li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: var(--radius-icon);
+    padding: 10px 14px 10px 10px;
+    background: var(--brand-tint);
+    color: var(--text-strong);
+  }
+  .mk-enquiry .kk-check {
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  /* ---------- Klima-Kar sites ---------- */
+  .mk-sites > * {
+    min-height: 100%;
+  }
+
+  /* O nas is two columns down to 761px; below ~960px three year tiles don't fit side by side
+     ("Autoryzowany Serwis Eberspächer" overflowed), so they stack as rows. */
+  @container kk (max-width: 960px) {
+    .mk-years {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .mk-year {
+      flex-direction: row;
+      align-items: baseline;
+      gap: 14px;
+      padding: 14px 16px;
+    }
+  }
+  @container kk (max-width: 1100px) {
+    .mk-hero-head {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .mk-hero-photo {
+      aspect-ratio: 16 / 9;
+    }
+  }
+  @container kk (max-width: 760px) {
+    .mk-hero-title {
+      font-size: 12.4cqi;
+    }
+    .mk-hero-title--long {
+      font-size: 11.6cqi;
+    }
+    .mk-hero-photo {
+      aspect-ratio: 4 / 3;
+    }
+    .mk-plate {
+      position: relative;
+      left: auto;
+      bottom: auto;
+      margin: -36px 12px 0;
+      gap: 12px;
+      padding: 8px 14px 8px 8px;
+    }
+    .mk-plate-logo {
+      min-width: 0;
+      height: 56px;
+      padding: 0 14px;
+    }
+    .mk-plate-logo .kk-lw {
+      height: 20px;
+    }
+    .mk-plate-logo .kk-le {
+      height: 32px;
+    }
+    .mk-plate-text {
+      font-size: 13px;
+    }
+    .mk-plate-text b {
+      display: none;
+    }
+    .mk-hero-disc {
+      right: 10px;
+      top: 10px;
+      width: 54px;
+      height: 54px;
+    }
+    .mk-about {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .mk-bento .mk-bento-lead {
+      grid-row: auto;
+      min-height: 0;
+    }
+    .mk-lead-spacer {
+      display: none;
+    }
+    .mk-ticker {
+      padding: 14px 0;
+    }
+  }
+</style>

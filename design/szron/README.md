@@ -115,6 +115,8 @@ All five steps are complete: 15 pages build, and each was checked at 1440px and 
     somewhere (brand blue; white on brand and spotlight cards; underlined on card hover).
   - `.kk-years` lays out any number of year buttons in equal columns (was fixed at three; the homepage
     YearTimeline has four since the 2009 authorisation got its own year); on mobile they form a 2×2 grid. Each `.kk-year` is a top-aligned flex column, so years line up when one label wraps to more lines (buttons centre their content by default).
+  - mobile: `.kk-products` (ProductCard grid) stacks the cards in one column instead of the side-scrolling
+    row (owner, 2026-10-13: no horizontal scroll anywhere).
 
 ## Changes after the migration (owner requests, 2026-10-12)
 
@@ -162,3 +164,17 @@ The owner went through an audit of the new site against the old one (39 findings
 - **Galeria:** 10 photos for now; more will be added later.
 - **Komunikat:** `src/data/komunikat.ts` replaces the old site's `komunikat.html` (closures, heat-wave delays). Empty text hides it.
 - Kept as they are, by decision: the "Gwarancja na usługi" block and FAQ on /gwarancja, the T91/T99 split, the Webasto/Eberspächer "Nasze usługi" cards (minus "Pełna"), "liderem" on /o-firmie, the Instagram link, and the shortened controller texts (no ThermoConnect extras, no intro sentences).
+
+### Brand sites, 2026-10-13
+
+- webasto.wroclaw.pl and eberspaecher.wroclaw.pl are rebuilt in Szron as one-page sites (`sites/`,
+  see the main README). `szron.css` is unchanged; their own layout (editorial hero over a wide photo
+  with the partner plate, model ticker, bento service grid, water/air heaters in the season-module
+  halves) is scoped CSS in `sites/shared/MicrositePage.astro`, using tokens only.
+- The main site's footer bottom bar links both brand sites ("Nasze serwisy"); their footers link back.
+- **Heater models** (owner request): "Które ogrzewanie dla Ciebie" shows the models we fit as ProductCards
+  (`HeaterModels.astro`, data in `src/data/ogrzewanie.ts`). Wodne: Webasto Thermo Top Evo, Eberspächer
+  Hydronic S3. Powietrzne: Webasto Air Top Pro 25, Eberspächer Airtronic S3 D2L. /ogrzewanie-postojowe
+  shows one model per type with a Webasto | Eberspächer pill switch (both cards switch together; the owner
+  rejected 4 narrow tiles and wide photo-left rows). Each brand site shows only its own two, one per half. Features and packshots come from webasto.com and
+  eberspaecher.com (product pages, datasheets, press releases, Media service).

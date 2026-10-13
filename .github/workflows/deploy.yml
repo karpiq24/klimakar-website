@@ -28,6 +28,8 @@ jobs:
           PUBLIC_NOINDEX: 'true'
         with:
           node-version: 22
+          # Main site plus the brand sites under /strony/webasto/ and /strony/eberspaecher/.
+          build-cmd: npm run build:demo
 
   deploy:
     needs: build

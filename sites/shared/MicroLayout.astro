@@ -1,0 +1,83 @@
+---
+// Layout for the one-page brand sites: same <head> rules as src/layouts/BaseLayout.astro (SEO,
+// Open Graph, fonts, JSON-LD), with the brand's own domain as canonical URL.
+import '../../src/styles/global.css';
+import '../../src/styles/szron.css';
+import MicroHeader from './MicroHeader.astro';
+import MicroFooter from './MicroFooter.astro';
+import MobileCallBar from '../../src/components/MobileCallBar.astro';
+import type { Brand } from './brand';
+
+interface Props {
+  brand: Brand;
+}
+
+const { brand } = Astro.props;
+const siteUrl = `https://${brand.domain}/`;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+// The demo build sets PUBLIC_NOINDEX=true (see .github/workflows/deploy.yml); production must not.
+const noindex = import.meta.env.PUBLIC_NOINDEX === 'true';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AutoRepair',
+  name: `Klima-Kar — Autoryzowany Serwis ${brand.name}`,
+  description: brand.seo.description,
+  url: siteUrl,
+  telephone: ['+48713371450', '+48605594506'],
+  email: 'serwis@klima-kar.pl',
+  address: { '@type': 'PostalAddress', streetAddress: 'ul. Grota Roweckiego 129', addressLocality: 'Wrocław', postalCode: '52-214', addressCountry: 'PL' },
+  geo: { '@type': 'GeoCoordinates', latitude: 51.05556, longitude: 17.03197 },
+  openingHoursSpecification: { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '09:00', closes: '17:00' },
+  image: 'https://klima-kar.wroclaw.pl/images/logo.svg',
+  areaServed: { '@type': 'City', name: 'Wrocław' },
+  brand: { '@type': 'Brand', name: brand.name },
+  sameAs: ['https://klima-kar.wroclaw.pl/', 'https://www.facebook.com/KlimaKar/', 'https://www.instagram.com/__klimakar__/'],
+};
+---
+
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+
+    <!-- SEO -->
+    <title>{brand.seo.title}</title>
+    <meta name="description" content={brand.seo.description} />
+    <link rel="canonical" href={siteUrl} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={brand.seo.title} />
+    <meta property="og:description" content={brand.seo.description} />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={`Klima-Kar — Autoryzowany Serwis ${brand.name}`} />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:image" content={new URL(brand.hero.src, siteUrl).href} />
+
+    <!-- Google Fonts: Onest (body) + Unbounded (display) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Onest:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <div class="kk-root kk-dots">
+      <div aria-hidden="true" class="kk-glow kk-drift" style="right:-160px;top:-120px;width:760px;height:640px;background:var(--brand-ice);opacity:.35"></div>
+      <div aria-hidden="true" class="kk-glow kk-drift2" style="left:-220px;top:380px;width:620px;height:520px;background:var(--brand);opacity:.18"></div>
+      <MicroHeader brand={brand} />
+      <main>
+        <slot />
+      </main>
+      <MicroFooter brand={brand} />
+      <MobileCallBar />
+    </div>
+  </body>
+</html>

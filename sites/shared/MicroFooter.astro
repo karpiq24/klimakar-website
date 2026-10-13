@@ -1,0 +1,61 @@
+---
+// Brand-site footer: the Footer frost card with the page's sections, Klima-Kar's three websites
+// (the cross-links between the main site and both brand sites) and contact details.
+import type { Brand } from './brand';
+import { sections } from './brand';
+import { strony, mainSite } from '../../src/data/strony';
+import logoColor from '../../public/images/brand/logo-color.svg';
+
+interface Props {
+  brand: Brand;
+}
+
+const { brand } = Astro.props;
+---
+
+<footer class="kk-wrap kk-footer">
+  <div class="kk-frost">
+    <div class="kk-foot">
+      <div>
+        <img src={logoColor.src} alt="Klima-Kar" style="height:46px;width:auto;display:block">
+        <p style="margin:16px 0;max-width:300px">Firma rodzinna z dwupokoleniową tradycją w branży chłodnictwa. Wrocław — w chłodnictwie od 1989 roku, jako Klima-Kar od 1999.</p>
+        <div class="kk-foot-logos"><img src={brand.logo} alt={`Autoryzowany Serwis ${brand.name}`} class={brand.logoClass}></div>
+      </div>
+      <div>
+        <div class="kk-foot-h">Na stronie</div>
+        <div class="kk-foot-list">
+          {sections.map((s) => <a href={`#${s.id}`}>{s.label}</a>)}
+        </div>
+      </div>
+      <div>
+        <div class="kk-foot-h">Nasze strony</div>
+        <div class="kk-foot-list">
+          {strony.map((s) => (s.key === brand.key ? <span aria-current="page" class="mk-here">{s.label}</span> : <a href={s.url}>{s.label}</a>))}
+          <a href={`${mainSite}/ogrzewanie-postojowe/`}>Ogrzewanie postojowe</a>
+          <a href={`${mainSite}/cennik/`}>Cennik</a>
+        </div>
+      </div>
+      <div>
+        <div class="kk-foot-h">Kontakt</div>
+        <div class="kk-foot-list">
+          <span>ul. Grota Roweckiego 129, 52-214 Wrocław</span>
+          <a href="tel:+48713371450">71 337 14 50</a>
+          <a href="tel:+48605594506">605 594 506</a>
+          <a href="mailto:serwis@klima-kar.pl">serwis@klima-kar.pl</a>
+          <span>Pon–Pt: 9:00–17:00, Sob–Nd: nieczynne</span>
+        </div>
+      </div>
+    </div>
+    <div class="kk-foot-bottom">
+      <span>© Klima-Kar. Wszelkie prawa zastrzeżone. · <a href={`${mainSite}/rodo/`}>RODO</a></span>
+      <span><a href="https://www.instagram.com/__klimakar__/" target="_blank" rel="noopener noreferrer">Instagram</a> · <a href="https://www.facebook.com/KlimaKar/" target="_blank" rel="noopener noreferrer">Facebook</a></span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .mk-here {
+    color: var(--brand);
+    font-weight: 600;
+  }
+</style>

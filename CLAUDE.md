@@ -1,6 +1,7 @@
 # Klima-Kar website: notes for Claude
 
-Static Astro 6 site in the **Szron** design. `README.md` covers the stack, structure and deploy;
+Static Astro 6 site in the **Szron** design, plus two one-page brand sites in `sites/`
+(webasto.wroclaw.pl, eberspaecher.wroclaw.pl; see README › Brand sites). `README.md` covers the stack, structure and deploy;
 `design/szron/BRAND.md` is the brand book. Read it before changing a page.
 
 ## Content
@@ -41,15 +42,24 @@ Static Astro 6 site in the **Szron** design. `README.md` covers the stack, struc
 
 ## Checks before committing
 
-- `npm run build` passes (16 pages).
+- `npm run build` passes (16 pages); after changes to `sites/`, `src/data/` or shared components,
+  `npm run build:all` too.
 - Look at changed pages at 1440px and 390px (and ~1024/1366 for anything in grids or bars).
   No text may overflow its column; long Polish words in display headings may need a soft
   hyphen (`{"Bezpieczeń\u00ADstwo"}`; a JS expression, since quoted attributes don't unescape).
 - No `/_blob/`, Barlow, `data-theme` or `kk-theme`; no "rok założenia" with 1989.
 
+## Brand sites
+
+- Old sources: `/mnt/klimakar/webasto/`, `/mnt/klimakar/eberspaecher/` (read-only mount, never modify).
+- Same rules as the main site: Szron classes only, copy from the old sites or the main site.
+  Per-brand content goes in `sites/<name>/brand.ts`; anything shared with the main site in `src/data/`.
+- Each brand page shows only its own brand's photos and products; the other brand appears only as
+  a link card.
+
 ## Git and deploy
 
-- Pushing to `main` deploys the preview to http://demo.klima-kar.pl/ (GitHub Pages, built with
+- Pushing to `main` deploys the preview to http://demo.klima-kar.pl/, brand sites under `/strony/<name>/` (GitHub Pages, built with
   `PUBLIC_NOINDEX=true` so every page has `noindex`; PHP and the
   contact form don't run there).
 - Production is https://klima-kar.wroclaw.pl/ on OVH and still serves the old site. Going live means

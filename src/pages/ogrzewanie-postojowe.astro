@@ -7,7 +7,9 @@ import FeatureList from '../components/FeatureList.astro';
 import ContentSection from '../components/ContentSection.astro';
 import CTABanner from '../components/CTABanner.astro';
 import SectionHeader from '../components/SectionHeader.astro';
+import HeaterModels from '../components/HeaterModels.astro';
 import { Car, Truck } from 'lucide-astro';
+import { heaterTypes } from '../data/ogrzewanie';
 
 const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
 
@@ -35,29 +37,7 @@ const brands = [
   },
 ];
 
-// Which heater for whom: water (wet) vs air (dry) heaters, with the matching kind of customer.
-const types = [
-  {
-    kind: 'Ogrzewanie wodne',
-    title: 'Komfort w aucie osobowym i ochrona silnika',
-    who: 'Klient indywidualny · auta osobowe',
-    items: [
-      'Nagrzany silnik, ciepłe wnętrze i odmrożone szyby rano',
-      'Mniejsze zużycie elementów silnika podczas rozruchu',
-      'Sterowanie z aplikacji: Webasto ThermoConnect lub Eberspächer EasyStart Web',
-    ],
-  },
-  {
-    kind: 'Ogrzewanie powietrzne',
-    title: 'Ciepła kabina w busie, dostawczaku i kamperze',
-    who: 'Firmy, floty, kampery · auta dostawcze, busy, pojazdy specjalne',
-    items: [
-      'Ciepło w kabinie w trasie i na postoju, także do spania w pojeździe',
-      'Montaż pod fotelem lub w zabudowie',
-      'Większość napraw robimy tego samego dnia, żeby bus mógł ruszyć w trasę',
-    ],
-  },
-];
+const types = heaterTypes('Webasto ThermoConnect lub Eberspächer EasyStart Web');
 const check = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>';
 
 const benefits = [
@@ -96,7 +76,7 @@ const benefits = [
 
   <section class="kk-wrap kk-section">
     <SectionHeader eyebrow="Wodne czy powietrzne?" title="Które ogrzewanie dla Ciebie" />
-    <div class="kk-g2" style="gap:var(--svc-gap)">
+    <div class="kk-g2 kk-types" style="gap:var(--svc-gap)">
       {types.map((t, i) => (
         <div class="kk-frost kk-card kk-type">
           <span class="kk-ico">{i === 0 ? <Car {...icon} /> : <Truck {...icon} />}</span>
@@ -106,6 +86,7 @@ const benefits = [
           <ul class="kk-checklist">
             {t.items.map((item) => <li><span class="kk-check" set:html={check} /><span>{item}</span></li>)}
           </ul>
+          <HeaterModels models={t.models} />
         </div>
       ))}
     </div>
@@ -171,6 +152,26 @@ const benefits = [
   }
   .kk-type .kk-card-title {
     margin: 0;
+  }
+  .kk-type > .kk-chip--tag {
+    justify-self: start;
+  }
+  /* Both cards share one row grid (icon, kind, title, who, list, models), so the model cards
+     start on the same line and end together even when one checklist is longer. */
+  @container kk (min-width: 761px) {
+    .kk-types {
+      grid-template-rows: repeat(6, auto);
+    }
+    .kk-types .kk-type {
+      display: grid;
+      grid-row: 1 / span 6;
+      grid-template-rows: subgrid;
+      row-gap: 12px;
+      align-items: start;
+    }
+    .kk-types .kk-type > :global(.kk-models) {
+      align-self: stretch;
+    }
   }
   .kk-type .kk-checklist li {
     padding: 12px 0;

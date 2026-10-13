@@ -1,0 +1,127 @@
+---
+// HeaterModels — the heater models we fit for one heater type (src/data/ogrzewanie.ts), as upright
+// ProductCards (photo above the features) inside a "Które ogrzewanie dla Ciebie" card.
+// With several models (main site) a Webasto | Eberspächer pill switch shows one at a time; every
+// switch on the page follows the last choice. The models share one grid cell and inactive ones are
+// only invisible, so the card keeps its height when switching. Without JS the first model shows.
+import ProductCard from './ProductCard.astro';
+
+interface Props {
+  models: { brand: string; name: string; image: string; features: string[] }[];
+}
+
+const { models } = Astro.props;
+const brandLabel: Record<string, string> = { webasto: 'Webasto', eberspaecher: 'Eberspächer' };
+const uid = `hm-${Math.random().toString(36).slice(2, 8)}`;
+const tabs = models.length > 1;
+---
+
+{models.length > 0 && (
+  <div class="kk-models" data-heater-models>
+    {tabs && (
+      <div class="kk-models-switch" role="tablist" aria-label="Producent">
+        {models.map((m, i) => (
+          <button type="button" role="tab" id={`${uid}-tab-${i}`} aria-controls={`${uid}-panel-${i}`}
+            aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-heater-brand={m.brand}>{brandLabel[m.brand] ?? m.brand}</button>
+        ))}
+      </div>
+    )}
+    <div class="kk-models-panels">
+      {models.map((m, i) => (
+        <div class="kk-models-panel" data-heater-brand={m.brand} data-active={i === 0 ? 'true' : 'false'}
+          {...(tabs ? { role: 'tabpanel', id: `${uid}-panel-${i}`, 'aria-labelledby': `${uid}-tab-${i}` } : {})}>
+          <ProductCard name={m.name} image={m.image} imageAlt={m.name} features={m.features} />
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+<script>
+  // Selecting a brand in one switch selects it in all of them.
+  const select = (brand: string, focus?: HTMLElement) => {
+    document.querySelectorAll<HTMLElement>('[data-heater-models]').forEach((box) => {
+      if (!box.querySelector(`.kk-models-panel[data-heater-brand="${brand}"]`)) return;
+      box.querySelectorAll<HTMLButtonElement>('[role="tab"]').forEach((tab) => {
+        const on = tab.dataset.heaterBrand === brand;
+        tab.setAttribute('aria-selected', String(on));
+        tab.tabIndex = on ? 0 : -1;
+      });
+      box.querySelectorAll<HTMLElement>('.kk-models-panel').forEach((panel) => {
+        panel.dataset.active = String(panel.dataset.heaterBrand === brand);
+      });
+    });
+    focus?.focus();
+  };
+  document.querySelectorAll<HTMLElement>('.kk-models-switch').forEach((list) => {
+    const tabs = [...list.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => select(tab.dataset.heaterBrand!));
+      tab.addEventListener('keydown', (e) => {
+        const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!step) return;
+        e.preventDefault();
+        const next = tabs[(i + step + tabs.length) % tabs.length];
+        select(next.dataset.heaterBrand!, next);
+      });
+    });
+  });
+</script>
+
+<style>
+  .kk-models {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  /* Pill switch: same active look as the header nav. */
+  .kk-models-switch {
+    align-self: flex-start;
+    display: inline-flex;
+    gap: 4px;
+    padding: 4px;
+    border-radius: var(--radius-pill);
+    background: var(--brand-tint);
+    border: 1px solid var(--brand-line);
+  }
+  .kk-models-switch button {
+    border: 0;
+    border-radius: var(--radius-pill);
+    padding: 9px 18px;
+    background: none;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  }
+  .kk-models-switch button[aria-selected='true'] {
+    background: var(--white);
+    color: var(--brand);
+    box-shadow: var(--shadow-nav-active);
+  }
+  .kk-models-panels {
+    flex: 1;
+    display: grid;
+  }
+  .kk-models-panel {
+    grid-area: 1 / 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .kk-models-panel[data-active='false'] {
+    visibility: hidden;
+  }
+  .kk-models :global(.kk-product) {
+    flex: 1;
+    background: var(--frost-tile);
+  }
+  .kk-models :global(.kk-product-shot) {
+    height: 170px;
+  }
+  .kk-models :global(.kk-product-name) {
+    font-size: 19px;
+  }
+</style>
