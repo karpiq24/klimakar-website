@@ -1,6 +1,7 @@
 ---
-// Brand-site footer: the Footer frost card with the page's sections, Klima-Kar's three websites
-// (the cross-links between the main site and both brand sites) and contact details.
+// Brand-site footer: the Footer frost card with the page's sections, links to the main site and
+// contact details. Owner 2026-10-13: a brand site links only to the main site, never to the other
+// brand's site.
 import type { Brand } from './brand';
 import { sections } from './brand';
 import { strony, mainSite } from '../../src/data/strony';
@@ -30,7 +31,7 @@ const { brand } = Astro.props;
       <div>
         <div class="kk-foot-h">Nasze strony</div>
         <div class="kk-foot-list">
-          {strony.map((s) => (s.key === brand.key ? <span aria-current="page" class="mk-here">{s.label}</span> : <a href={s.url}>{s.label}</a>))}
+          {strony.filter((s) => s.key === 'main' || s.key === brand.key).map((s) => (s.key === brand.key ? <span aria-current="page" class="mk-here">{s.label}</span> : <a href={s.url}>{s.label}</a>))}
           <a href={`${mainSite}/ogrzewanie-postojowe/`}>Ogrzewanie postojowe</a>
           <a href={`${mainSite}/cennik/`}>Cennik</a>
         </div>

@@ -55,7 +55,7 @@ Static Astro 6 site in the **Szron** design, plus two one-page brand sites in `s
 - Same rules as the main site: Szron classes only, copy from the old sites or the main site.
   Per-brand content goes in `sites/<name>/brand.ts`; anything shared with the main site in `src/data/`.
 - Each brand page shows only its own brand's photos and products. No links to the other brand, DEFA
-  or air conditioning in the page body (owner, 2026-10-13); the footer keeps the links to all three sites.
+  or air conditioning anywhere (owner, 2026-10-13); the footer links only to the main site.
 
 ## Git and deploy
 
