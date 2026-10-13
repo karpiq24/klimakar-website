@@ -114,7 +114,7 @@ All five steps are complete: 15 pages build, and each was checked at 1440px and 
   - `.kk-more` is the "Dowiedz się więcej →" line that ServiceCard and PartnerCard show when they link
     somewhere (brand blue; white on brand and spotlight cards; underlined on card hover).
   - `.kk-years` lays out any number of year buttons in equal columns (was fixed at three; the homepage
-    YearTimeline has four since the 2009 authorisation got its own year); on mobile they form a 2×2 grid.
+    YearTimeline has four since the 2009 authorisation got its own year); on mobile they form a 2×2 grid. Each `.kk-year` is a top-aligned flex column, so years line up when one label wraps to more lines (buttons centre their content by default).
 
 ## Changes after the migration (owner requests, 2026-10-12)
 
