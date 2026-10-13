@@ -5,6 +5,9 @@ Static Astro 6 site in the **Szron** design. `README.md` covers the stack, struc
 
 ## Content
 
+- Source of truth for content is the live old site, <https://klima-kar.wroclaw.pl/> (production).
+  `content/www/` is an older local copy; when they differ, the live site wins. Owner corrections
+  recorded below and in `design/szron/README.md` override both.
 - All copy is Polish, informal "Ty" in marketing text. Never invent copy, numbers or facts.
   Subpages keep their existing text, data and prices exactly; only markup changes.
 - Fixed facts:
@@ -42,4 +45,6 @@ Static Astro 6 site in the **Szron** design. `README.md` covers the stack, struc
 ## Git and deploy
 
 - Pushing to `main` deploys the preview to http://demo.klima-kar.pl/ (GitHub Pages; PHP and the
-  contact form don't run there). Production is OVH: upload `dist/` by FTP.
+  contact form don't run there).
+- Production is https://klima-kar.wroclaw.pl/ on OVH and still serves the old site. Going live means
+  uploading `dist/` there by FTP; only do that when the owner asks.

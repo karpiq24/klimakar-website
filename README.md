@@ -4,6 +4,10 @@ Website for **Klima-Kar**, a family car air-conditioning and parking-heater work
 (ul. Grota Roweckiego 129). Static Astro site in the **Szron** design ("frost": frosted glass over
 an icy blue ground, the logo's blues doing all the colour work).
 
+- **Production:** <https://klima-kar.wroclaw.pl/>. It still runs the **old website**, which stays
+  the main source of truth for content (texts, prices, facts) until this site replaces it.
+- **Preview of this site:** <http://demo.klima-kar.pl/>.
+
 ## Tech stack
 
 - **[Astro](https://astro.build/) 6**: static output, clean directory URLs (`/cennik/index.html`).
@@ -50,7 +54,7 @@ Everything about the design lives in `design/szron/`:
 │   ├── CNAME                      # demo.klima-kar.pl (GitHub Pages)
 │   ├── robots.txt, favicon.svg
 ├── design/szron/                  # design system and handoff (reference)
-├── content/www/                   # old website source (reference only)
+├── content/www/                   # copy of the old website source (reference; the live site wins)
 └── .github/workflows/deploy.yml   # GitHub Pages preview deploy
 ```
 
@@ -94,7 +98,9 @@ to GitHub Pages at <http://demo.klima-kar.pl/> (domain set by `public/CNAME`).
 GitHub Pages serves static files only: `contact.php` does not run there, so the contact form
 can't send on the demo.
 
-### Production: OVH web hosting
+### Production: klima-kar.wroclaw.pl (OVH web hosting)
+
+The domain currently serves the old website. Replacing it with this site:
 
 1. `npm run build`.
 2. Upload the **entire contents** of `dist/` (including `.htaccess`) to the hosting `www/`
@@ -107,7 +113,9 @@ is reachable and HTTP redirects to HTTPS.
 
 ## SEO
 
-Each page has a Polish title and meta description, a canonical URL and Open Graph tags
+Canonical URLs and the sitemap use the production domain (`site` in `astro.config.mjs`,
+`siteUrl` in `BaseLayout`), also on the demo. Each page has a Polish title and meta description,
+a canonical URL and Open Graph tags
 (`pl_PL`). `BaseLayout` adds JSON-LD `AutoRepair` data (address, phones, opening hours,
 services). `@astrojs/sitemap` generates the sitemap at build time.
 
