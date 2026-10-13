@@ -5,10 +5,11 @@ import SectionHeader from '../components/SectionHeader.astro';
 import PriceCards from '../components/PriceCards.astro';
 import PriceGroup from '../components/PriceGroup.astro';
 import CTABanner from '../components/CTABanner.astro';
+import Today from '../components/Today.astro';
 
-// Date the owner last confirmed these prices. Update it (by hand) whenever the prices are checked.
-const pricesUpdated = '13.10.2026';
-const pricesYear = pricesUpdated.slice(-4);
+// "Ceny aktualne na dzień …" always shows today's date (owner's decision, 2026-10-13): the prices on
+// this page are the ones in force, so when they change, change them here first.
+const pricesYear = new Date().getFullYear();
 
 // "Zakres obsługi układu klimatyzacji", word for word from the old site's cennik.
 const scope = [
@@ -39,8 +40,8 @@ const groups = [
   {
     title: 'Dezynfekcja',
     rows: [
-      { service: 'Dezynfekcja chemiczna metodą ultradźwiękową — usuwanie nieprzyjemnych zapachów', price: '150 zł' },
-      { service: 'Dezynfekcja TUNAP — odgrzybianie najskuteczniejszą, chemiczną metodą ręczną', price: '250 zł' },
+      { service: 'Dezynfekcja chemiczna metodą ultradźwiękową — preparat rozpylamy urządzeniem ultradźwiękowym w postaci mgiełki, przy włączonym nawiewie', price: '150 zł' },
+      { service: 'Dezynfekcja TUNAP — preparat podajemy lancą natryskową pod wysokim ciśnieniem bezpośrednio na parownik', price: '250 zł' },
     ],
   },
   {
@@ -61,6 +62,12 @@ const groups = [
     ],
   },
   {
+    title: 'Robocizna',
+    rows: [
+      { service: 'Standardowa roboczogodzina', price: '250 zł' },
+    ],
+  },
+  {
     title: 'Ogrzewanie postojowe',
     note: 'Montaż wyceniamy indywidualnie po podaniu danych pojazdu — orientacyjnie od 6.500 zł w przypadku ogrzewań powietrznych do busów, do kilkunastu tysięcy zł w przypadku skomplikowanych instalacji w autach osobowych.',
     rows: [
@@ -72,18 +79,18 @@ const groups = [
 
 <BaseLayout
   title="Cennik klimatyzacji i ogrzewania postojowego — Klima-Kar Wrocław"
-  description="Cennik usług serwisu klimatyzacji samochodowej i ogrzewań postojowych Klima-Kar we Wrocławiu. Przejrzyste ceny, wycena po diagnozie."
+  description="Cennik usług serwisu klimatyzacji samochodowej i ogrzewań postojowych Klima-Kar we Wrocławiu. Przejrzyste ceny brutto."
 >
   <PageHero
     crumbs={[{ label: 'Strona główna', href: '/' }, { label: 'Cennik' }]}
     eyebrow="Cennik"
     title={`Cennik usług ${pricesYear}`}
-    lead="Przejrzyste ceny usług klimatyzacji samochodowej i ogrzewań postojowych. Podane ceny są cenami orientacyjnymi — dokładna wycena po diagnozie pojazdu."
+    lead="Przejrzyste ceny usług klimatyzacji samochodowej i ogrzewań postojowych."
   />
 
   <section class="kk-wrap kk-section">
-    <SectionHeader eyebrow="Klimatyzacja" title="Obsługa układu klimatyzacji">
-      <span slot="aside" class="kk-chip"><span class="kk-dot"></span>Ceny aktualne na dzień {pricesUpdated}</span>
+    <SectionHeader eyebrow="Klimatyzacja — samochody osobowe" title="Obsługa układu klimatyzacji">
+      <span slot="aside" class="kk-chip"><span class="kk-dot"></span>Ceny aktualne na dzień <Today /></span>
     </SectionHeader>
     <PriceCards cards={refrigerants} columns={2} />
     <div class="kk-frost kk-price-group kk-scope">
@@ -99,15 +106,25 @@ const groups = [
     <div class="kk-price-groups">
       {groups.map((g) => <div><PriceGroup {...g} /></div>)}
     </div>
-    <p class="kk-fineprint" style="margin-top:24px;text-align:center">Podane ceny są orientacyjne. Dokładna wycena po diagnozie pojazdu. Ceny brutto. Ceny aktualne na dzień {pricesUpdated}.</p>
+    <p class="kk-fineprint" style="margin-top:24px;text-align:center">Ceny brutto. Ceny aktualne na dzień <Today />.</p>
   </section>
 
   <CTABanner title="Masz pytania o cennik?" subtitle="Zadzwoń: 71 337 14 50 lub 605 594 506" />
 </BaseLayout>
 
+<script>
+  // The hero year follows today's date too (the build year is the fallback).
+  const heroTitle = document.querySelector('.kk-pagehero-title');
+  if (heroTitle) heroTitle.textContent = `Cennik usług ${new Date().getFullYear()}`;
+</script>
+
 <style>
   .kk-scope {
     margin-top: 16px;
+  }
+  /* An odd last group spans the full row instead of leaving a hole. */
+  .kk-price-groups > div:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
   }
   .kk-scope-cols {
     display: grid;

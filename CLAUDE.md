@@ -19,8 +19,9 @@ Static Astro 6 site in the **Szron** design. `README.md` covers the stack, struc
 - Company tagline: "Komfortowy klimat w zasięgu ręki" (under the homepage h1).
 - No unprovable comparisons ("jeden z nielicznych w Polsce") and no absolute promises
   ("bezawaryjnie", reply "w ciągu 1 dnia"). Name the equipment and experience instead.
-- Prices on /cennik carry a hand-set date (`pricesUpdated` in `cennik.astro`); change it only when
-  the owner confirms the prices. Never make it update itself.
+- "Ceny aktualne na dzień …" (on /cennik and the EasyStart Web subscription) always shows today's
+  date, set in the browser by `Today.astro` (owner's decision, 2026-10-13). The site's prices are
+  the ones in force, so when prices change, update /cennik first.
 - No emoji and no exclamation marks in new copy. Motifs: car, AC and heating only.
 - Prices on /cennik are copied exactly. Never round or rephrase them.
 - Don't use one brand's photos on another brand's page (`webastoauto.jpg` is Webasto's).

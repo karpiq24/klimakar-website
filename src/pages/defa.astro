@@ -17,7 +17,7 @@ const modules = [
   },
   {
     title: 'Ogrzewacz wnętrza',
-    description: 'Ogrzewacz wnętrza zapewnia komfortową temperaturę wnętrza pojazdu. Ciepłe wnętrze pozwala zapomnieć o parowaniu szyb i porannym skrobaniu lodu. Bezpiecznie jest jeździć z czystymi i odlodzonymi szybami.',
+    description: 'Niebezpiecznie jest jeździć z zaparowanymi i zamarzniętymi szybami. Ogrzewacz wnętrza zapewnia komfortową temperaturę wnętrza pojazdu. Ciepłe wnętrze pozwala zapomnieć o parowaniu szyb i porannym skrobaniu lodu.',
     icon: 'fan',
     image: '/images/defa-wnetrze.png',
     imageAlt: 'DEFA — ogrzewacz wnętrza pojazdu',
@@ -74,7 +74,9 @@ const benefits = [
     </div>
   </section>
 
-  <FeatureList season="winter" eyebrow="DEFA" title="Korzyści" items={benefits} image="/images/defa-warmup.jpg" imageAlt="Samochód podłączony do ogrzewania DEFA na zaśnieżonym parkingu" />
+  <FeatureList season="winter" eyebrow="DEFA" title="Korzyści" items={benefits}
+    description="Ogrzewanie postojowe DEFA to same korzyści dla pojazdu, jego właściciela oraz dla środowiska."
+    image="/images/defa-warmup.jpg" imageAlt="Samochód podłączony do ogrzewania DEFA na zaśnieżonym parkingu" />
 
   <CTABanner title="Zapytaj o montaż systemu DEFA" subtitle="tel. 71 337 14 50 · kom. 605 594 506" />
 </BaseLayout>

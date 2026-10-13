@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import ContentSection from '../components/ContentSection.astro';
+import PriceGroup from '../components/PriceGroup.astro';
 import CTABanner from '../components/CTABanner.astro';
 ---
 
@@ -21,7 +22,7 @@ import CTABanner from '../components/CTABanner.astro';
     image="/images/bg-podczas.png"
     imageAlt="Podczas dezynfekcji BG"
     tag="Układ klimatyzacji i wnętrze"
-    actions={[{ label: 'Umów wizytę', href: '/kontakt/' }, { label: 'Zobacz cennik', href: '/cennik/' }]}
+    actions={[{ label: 'Umów wizytę', href: '/kontakt/' }]}
   />
 
   <ContentSection eyebrow="Dezynfekcja BG" title="Regularna dezynfekcja to podstawa">
@@ -32,14 +33,27 @@ import CTABanner from '../components/CTABanner.astro';
   </ContentSection>
 
   <ContentSection eyebrow="Dezynfekcja BG" title="Dlaczego dezynfekcja BG?">
-    <p>Na rynku dostępnych jest szereg technologii, których celem jest dezynfekcja wybranych elementów, niekoniecznie działających kompleksowo na cały układ klimatyzacji wraz z wnętrzem pojazdu. Jak we wszystkich dziedzinach mamy wybór, dlatego warto zapoznać się z oferowanymi metodami i sprawdzić, czy po ich zastosowaniu powietrze w pojeździe będzie cały czas świeże i pozbawione wszelkich zanieczyszczeń i drobnoustrojów, które mogą być przyczyną groźnych chorób układu oddechowego. Metodą, która działa kompleksowo na cały układ klimatyzacji i wnętrze pojazdu, jest procedura oferowana przez firmę BG. Zastosowanie serwisu układu klimatyzacji BG oczyści cały układ oraz poprawi jego wydajność. Nieprzyjemne zapachy, grzyby, pleśń zostaną zlikwidowane, a wnętrze pojazdu odświeżone.</p>
-    <img src="/images/bg-po.jpg" alt="Po dezynfekcji BG" loading="lazy">
-    <div class="kk-fineprint">Źródło: BG Poland</div>
+    <p>Dezynfekcję BG stosujemy w autach, w których dostęp do parownika jest utrudniony i nie da się wykonać <a href="/tunap/">dezynfekcji TUNAP</a> lancą natryskową.</p>
+    <p>Do parownika nie trzeba wtedy docierać lancą. Preparat BG Frigi-Clean wprowadzamy wężykiem bezpośrednio do obudowy parownika. Tam zamienia się w gęstą, aktywną pianę, która wypełnia cały parownik i usuwa nagromadzony brud, osady i pozostałości dymu papierosowego. Razem z nimi znika źródło nieprzyjemnych zapachów.</p>
+    <p>Drugi etap obejmuje cały układ wentylacji. Przy włączonym nawiewie rozpylamy preparat BG Frigi-Fresh do wlotu świeżego powietrza, a nawiew rozprowadza go po kanałach i kabinie. Preparat ogranicza rozwój grzybów i pleśni w parowniku i kanałach.</p>
+    <p>Czysty parownik to też swobodny przepływ powietrza, więc chłodzenie i ogrzewanie znów działają wydajnie.</p>
+    <img src="/images/bg-po.jpg" alt="Parownik po dezynfekcji BG" loading="lazy">
+    <div class="kk-fineprint">Zdjęcie: BG Poland</div>
   </ContentSection>
 
-  <ContentSection eyebrow="Dezynfekcja BG" title="Cennik">
-    <img src="/images/bg-cennik.jpg" alt="BG cennik" loading="lazy" style="max-width:507px">
-  </ContentSection>
+  <section class="kk-wrap kk-section">
+    <div style="max-width:760px">
+      <!-- Prices from the BG price sheet (formerly the bg-cennik.jpg image). BG only; not on /cennik. -->
+      <PriceGroup
+        title="Odgrzybianie układu klimatyzacji BG"
+        rows={[
+          { service: 'Wariant 1 — chemiczne czyszczenie układu klimatyzacji', price: '129 zł' },
+          { service: 'Wariant 2 — mycie parownika', price: '219 zł' },
+          { service: 'Wariant 3 — oferta specjalna: chemiczne czyszczenie układu klimatyzacji i serwis czyszczenia parownika', price: '299 zł', extra: 'oszczędzasz 49 zł' },
+        ]}
+      />
+    </div>
+  </section>
 
   <CTABanner title="Umów dezynfekcję BG" subtitle="Zadzwoń: 71 337 14 50 lub 605 594 506" />
 </BaseLayout>

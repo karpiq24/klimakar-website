@@ -7,7 +7,8 @@ import ProductCard from '../components/ProductCard.astro';
 import CTABanner from '../components/CTABanner.astro';
 import { CalendarCheck, Search, Wrench } from 'lucide-astro';
 
-const controlSystems = [
+// Retired products (no longer sold, still serviced) go last and render greyed out.
+const controlSystems: { name: string; type: string; retired?: boolean; image: string; features: string[] }[] = [
   {
     name: 'MultiControl',
     type: 'Programator z wyświetlaczem',
@@ -16,20 +17,7 @@ const controlSystems = [
       'Menu w języku polskim',
       'Przejrzysty wyświetlacz i wygodny przycisk',
       '3 czasy włączania na dzień, programowanie na 7 dni',
-      'Wbudowany czujnik temperatury',
       'Montaż możliwy bez wiercenia',
-    ],
-  },
-  {
-    name: 'Telestart T91',
-    type: 'Pilot radiowy',
-    image: '/images/t91.jpg',
-    features: [
-      'Zasięg do 1000 metrów',
-      'Prosta obsługa przyciskami On / Off',
-      'Wybór grzania lub wentylacji (zima/lato)',
-      'Czas działania od 10 do 120 minut',
-      'Eleganckie wzornictwo, wytrzymała obudowa',
     ],
   },
   {
@@ -50,22 +38,10 @@ const controlSystems = [
     image: '/images/t100.jpg',
     features: [
       'Zasięg do 1000 metrów z informacją zwrotną',
-      'Programowanie czasu odjazdu (auto C1-C5)',
+      'Programowanie czasu odjazdu: pilot sam obliczy czas ogrzewania na podstawie temperatury i poziomu komfortu C1–C5',
       'Odczyt temperatury wnętrza pojazdu',
       'Prosta obsługa przyciskami On / Off i lewo / prawo',
       'Wybór grzania lub wentylacji (zima/lato)',
-    ],
-  },
-  {
-    name: 'ThermoCall',
-    type: 'Sterowanie GSM',
-    image: '/images/TC.png',
-    features: [
-      'Sterowanie z dowolnego miejsca w zasięgu GSM',
-      'Bezpłatna aplikacja mobilna',
-      'Programowanie z 24h wyprzedzeniem',
-      'Informacja o statusie, temperaturze, napięciu',
-      'Wymaga aktywnej karty SIM',
     ],
   },
   {
@@ -78,7 +54,35 @@ const controlSystems = [
       'Uruchamianie oparte na pozycji GPS',
       'Lokalizacja pojazdu i geo-fencing',
       'Obsługa wielu urządzeń z jednej aplikacji',
+      'Nie wymaga karty SIM',
+      'W zestawie przycisk z diodą do szybkiego włączania i wyłączania ogrzewania',
       'Pierwszy rok bezpłatny, każdy kolejny — abonament 35 € rocznie',
+    ],
+  },
+  {
+    name: 'Telestart T91',
+    type: 'Pilot radiowy',
+    retired: true,
+    image: '/images/t91.jpg',
+    features: [
+      'Zasięg do 1000 metrów',
+      'Prosta obsługa przyciskami On / Off',
+      'Wybór grzania lub wentylacji (zima/lato)',
+      'Czas działania od 10 do 120 minut',
+      'Eleganckie wzornictwo, wytrzymała obudowa',
+    ],
+  },
+  {
+    name: 'ThermoCall',
+    type: 'Sterowanie GSM',
+    retired: true,
+    image: '/images/TC.png',
+    features: [
+      'Sterowanie z dowolnego miejsca w zasięgu GSM',
+      'Bezpłatna aplikacja mobilna',
+      'Programowanie z 24h wyprzedzeniem',
+      'Informacja o statusie, temperaturze, napięciu',
+      'Wymaga aktywnej karty SIM',
     ],
   },
 ];
@@ -89,7 +93,7 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
 
 <BaseLayout
   title="Autoryzowany serwis Webasto Wrocław — Klima-Kar"
-  description="Autoryzowany Serwis Webasto we Wrocławiu. Montaż, naprawa i diagnostyka ogrzewań postojowych Webasto. Systemy sterowania MultiControl, Telestart, ThermoCall."
+  description="Autoryzowany Serwis Webasto we Wrocławiu. Montaż, naprawa i diagnostyka ogrzewań postojowych Webasto. Systemy sterowania MultiControl, Telestart, ThermoConnect."
 >
   <PageHero
     crumbs={[
@@ -108,12 +112,12 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
   <section class="kk-wrap kk-section">
     <SectionHeader eyebrow="Webasto" title="Nasze usługi" />
     <div class="kk-svc">
-      <ServiceCard title="Montaż ogrzewaczy"
+      <ServiceCard title="Montaż ogrzewań"
         text="Profesjonalny montaż nowych ogrzewań postojowych Webasto dla pojazdów osobowych i dostawczych. Dobieramy odpowiedni zestaw montażowy do każdego modelu pojazdu.">
         <Wrench {...icon} />
       </ServiceCard>
       <ServiceCard title="Naprawa i serwis"
-        text="Naprawy gwarancyjne i pogwarancyjne. Pełna diagnostyka komputerowa, wymiana podzespołów, naprawa instalacji. Diagnostyka usterek ogrzewań spalinowych.">
+        text="Naprawy gwarancyjne i pogwarancyjne. Diagnostyka komputerowa, wymiana podzespołów, naprawa instalacji. Diagnostyka usterek ogrzewań spalinowych.">
         <Search {...icon} />
       </ServiceCard>
       <ServiceCard title="Przegląd serwisowy"
@@ -131,7 +135,7 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
     />
     <div class="kk-products">
       {controlSystems.map((system) => (
-        <ProductCard name={system.name} type={system.type} image={system.image} imageAlt={`Webasto ${system.name}`} features={system.features} />
+        <ProductCard name={system.name} type={system.type} image={system.image} imageAlt={`Webasto ${system.name}`} features={system.features} retired={system.retired} />
       ))}
     </div>
   </section>

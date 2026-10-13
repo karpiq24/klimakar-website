@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import VideoFeature from '../components/VideoFeature.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import GalleryGrid from '../components/GalleryGrid.astro';
 import CTABanner from '../components/CTABanner.astro';
@@ -14,10 +13,8 @@ const galleryImages = [
   { src: "/images/galeria/lamb.JPG", alt: "Serwis klimatyzacji w Lamborghini" },
   { src: "/images/galeria/sub.jpg", alt: "Serwis klimatyzacji w Subaru" },
   { src: "/images/manometry50p.webp", alt: "Manometry do obsługi klimatyzacji samochodowej" },
-  { src: "/images/webastoauto.jpg", alt: "Montaż ogrzewania postojowego Webasto" },
   { src: "/images/dron-1-1536x960.webp", alt: "Widok z lotu ptaka na serwis Klima-Kar" },
   { src: "/images/merc2.jpg", alt: "Realizacja serwisu klimatyzacji w Mercedesie" },
-  { src: "/images/tunap-przedipo.webp", alt: "Czyszczenie klimatyzacji — efekty przed i po" },
   { src: "/images/us1.JPG", alt: "Stanowisko serwisowe Klima-Kar" },
 ];
 ---
@@ -35,22 +32,13 @@ const galleryImages = [
     imageAlt="Serwis klimatyzacji w Lamborghini"
   />
 
-  <VideoFeature
-    eyebrow="Galeria"
-    title="Film z warsztatu"
-    videoId="yUBazwim6so"
-    videoTitle="Klima-Kar — film z warsztatu"
-    poster="/images/dron-1-1536x960.webp"
-  />
-
   <section class="kk-wrap kk-section">
     <SectionHeader eyebrow="Galeria" title="Nasze realizacje" />
     <GalleryGrid images={galleryImages} />
   </section>
 
   <CTABanner
-    title="Chcesz zobaczyć nasz serwis na żywo?"
-    subtitle="Umów się na wizytę — chętnie pokażemy Ci nasz warsztat."
-    actionLabel="Skontaktuj się"
+    title="Umów wizytę w serwisie"
+    subtitle="Zadzwoń: 71 337 14 50 lub 605 594 506"
   />
 </BaseLayout>

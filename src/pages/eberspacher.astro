@@ -79,7 +79,9 @@ const controlSystems = [
       'Sterowanie przez przeglądarkę internetową',
       'Automatyczne programowanie czasu odjazdu',
       'Informacja o statusie i temperaturze wnętrza',
-      'Wymaga abonamentu — 129 zł rocznie (cena na dzień 12.10.2026)',
+      'Nie wymaga karty SIM',
+      'W zestawie przycisk z diodą do szybkiego włączania i wyłączania ogrzewania',
+      'Wymaga abonamentu — 129 zł rocznie (cena na dzień {dzisiaj})',
     ],
   },
 ];
@@ -109,12 +111,12 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
   <section class="kk-wrap kk-section">
     <SectionHeader eyebrow="Eberspächer" title="Nasze usługi" />
     <div class="kk-svc">
-      <ServiceCard title="Montaż ogrzewaczy"
+      <ServiceCard title="Montaż ogrzewań"
         text="Profesjonalny montaż nowych ogrzewań postojowych Eberspächer dla pojazdów osobowych i dostawczych. Dobieramy odpowiedni zestaw montażowy do każdego modelu pojazdu.">
         <Wrench {...icon} />
       </ServiceCard>
       <ServiceCard title="Naprawa i serwis"
-        text="Naprawy gwarancyjne i pogwarancyjne. Pełna diagnostyka komputerowa, wymiana podzespołów, naprawa instalacji. Diagnostyka usterek ogrzewań spalinowych.">
+        text="Naprawy gwarancyjne i pogwarancyjne. Diagnostyka komputerowa, wymiana podzespołów, naprawa instalacji. Diagnostyka usterek ogrzewań spalinowych.">
         <Search {...icon} />
       </ServiceCard>
       <ServiceCard title="Przegląd serwisowy"

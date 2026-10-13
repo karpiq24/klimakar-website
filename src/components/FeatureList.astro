@@ -5,13 +5,15 @@ interface Props {
   eyebrow: string;
   title: string;
   items: string[];
+  /** Optional intro paragraph between the heading and the checklist. */
+  description?: string;
   season: 'summer' | 'winter';
   /** Overrides the seasonal photo (e.g. a brand page that must not show another brand's car). */
   image?: string;
   imageAlt?: string;
 }
 
-const { eyebrow, title, items, season, image, imageAlt = '' } = Astro.props;
+const { eyebrow, title, items, season, description, image, imageAlt = '' } = Astro.props;
 const seasonal = season === 'summer'
   ? { src: '/images/lato-1.webp', alt: 'Parking w upalny dzień — auto z działającą klimatyzacją', line: 'Latem chłodzimy.' }
   : { src: '/images/webastoauto.jpg', alt: 'Samochód z ogrzewaniem postojowym zimą', line: 'Zimą grzejemy.' };
@@ -27,6 +29,7 @@ const photo = image ? { ...seasonal, src: image, alt: imageAlt } : seasonal;
     <div>
       <p class="kk-eyebrow">{eyebrow}</p>
       <h2 class="kk-h2" style="margin-bottom:18px">{title}</h2>
+      {description && <p class="kk-muted" style="margin:0 0 18px">{description}</p>}
       <ul class="kk-checklist">
         {items.map((item) => (
           <li><span class="kk-check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span><span>{item}</span></li>

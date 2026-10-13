@@ -10,7 +10,7 @@ const serviceScope = [
   'Kontrola działania, wydajności i szczelności',
   'Wymiana filtra kabinowego przeciwpyłkowego',
   'Dezynfekcja — odgrzybianie parownika',
-  'Uzupełnienie czynnika chłodniczego, oleju i barwnika UV',
+  'W razie potrzeby uzupełnienie czynnika chłodniczego i środka smarującego',
 ];
 ---
 
@@ -33,22 +33,31 @@ const serviceScope = [
     actions={[{ label: 'Umów wizytę', href: '/kontakt/' }, { label: 'Zobacz cennik', href: '/cennik/' }]}
   />
 
-  <ContentSection eyebrow="Konserwacja" title="Dlaczego coroczny serwis jest ważny?">
-    <p>Przez węże i ich połączenia może uciec rocznie do 10% czynnika chłodniczego. Olej zawarty w czynniku smaruje sprężarkę — jego brak oznacza ryzyko niedostatecznego smarowania, co może skończyć się całkowitą awarią układu. Koszty naprawy mogą sięgać kilku tysięcy złotych. Niedobór czynnika powoduje też dodatkowe zużycie paliwa, ponieważ sprężarka musi pracować częściej i dłużej.</p>
+  <ContentSection eyebrow="Konserwacja" title="Dlaczego coroczny serwis się opłaca?">
+    <p>Olej zawarty w czynniku chłodniczym smaruje sprężarkę klimatyzacji. Gdy brakuje czynnika i oleju, sprężarka jest niedostatecznie smarowana, a w najgorszym wypadku kończy się to całkowitą awarią układu — naprawa może kosztować kilka tysięcy złotych. Niedobór czynnika zwiększa też zużycie paliwa, bo sprężarka musi pracować częściej i dłużej, żeby ochłodzić wnętrze. Tych wydatków możesz uniknąć.</p>
+    <p>Używane auta z klimatyzacją osiągają z reguły wyższą cenę odsprzedaży — pod warunkiem, że klimatyzacja działa bez zarzutu. Pieniądze zainwestowane w regularną konserwację zwiększają więc wartość auta i zwracają się przy jego sprzedaży.</p>
   </ContentSection>
 
-  <FeatureList season="summer" eyebrow="Konserwacja" title="Co obejmuje prawidłowy serwis?" items={serviceScope} />
+  <FeatureList season="summer" eyebrow="Konserwacja" title="Co roku — przegląd klimatyzacji" items={serviceScope}
+    description="Klimatyzacja wykonuje ciężką pracę, dlatego wymaga uwagi. Coroczny przegląd obejmuje:" />
+
+  <ContentSection eyebrow="Konserwacja" title="Klimatyzacja nie jest bezobsługowa">
+    <p>Klimatyzacja chłodzi naprawdę dobrze tylko wtedy, gdy jest regularnie serwisowana. Przez węże i ich połączenia może rocznie uciec do 10% czynnika chłodniczego — w drodze naturalnego parowania i z powodu wibracji. Wydajność chłodzenia spada przez to w stosunkowo krótkim czasie.</p>
+  </ContentSection>
 
   <ContentSection eyebrow="Konserwacja" title="Zdrowie i higiena">
-    <p>Filtr pyłkowy przepuszcza duże ilości powietrza, zatrzymując pył, kurz i zarodniki — po roku jest nasycony i wymaga wymiany. Parownik, znajdujący się w wilgotnym i ciemnym otoczeniu pod tablicą rozdzielczą, stanowi idealną przestrzeń dla bakterii i grzybów. Zarazki przechodzą przez wentylację do wnętrza pojazdu, mogąc wywoływać reakcje alergiczne: kichanie, kaszel, łzawienie oczu. Regularna dezynfekcja parownika trwale usuwa zarazki.</p>
+    <p>Filtr pyłkowy pracuje bardzo intensywnie: co godzinę przepuszcza duże ilości powietrza z zewnątrz, zatrzymując pył, kurz, zarodniki i inne zanieczyszczenia. Po około roku jest już nasycony i trzeba go wymienić.</p>
+    <p>Szczególnej uwagi wymaga też parownik. Znajduje się pod deską rozdzielczą, w wilgotnym i ciemnym otoczeniu — to idealne miejsce dla bakterii, grzybów i innych mikroorganizmów. Zarazki przechodzą przez wentylację do wnętrza auta i u osób wrażliwych mogą wywoływać reakcje alergiczne: kichanie, kaszel, łzawienie oczu.</p>
+    <p>Nie czekaj więc z konserwacją, aż nieprzyjemny zapach z nawiewów przypomni Ci o problemie. Regularna dezynfekcja parownika trwale usuwa zarazki, a klimatyzacja nie budzi wątpliwości pod względem higienicznym.</p>
   </ContentSection>
 
   <ContentSection eyebrow="Konserwacja" title={"Bezpieczeń\u00ADstwo jazdy"}>
-    <p>Gdy we wnętrzu pojazdu jest gorąco, organizm szybciej ulega zmęczeniu — reakcje są spowolnione, koncentracja słabsza, co znacząco zwiększa ryzyko wypadku. Sprawna klimatyzacja zapewnia odpowiednią temperaturę. Zimą włączenie klimatyzacji skutecznie przeciwdziała zaparowaniu szyb, zapewniając niczym nie ograniczoną widoczność.</p>
+    <p>Gdy w aucie jest gorąco, organizm szybciej się męczy: reakcje są wolniejsze, a koncentracja słabsza, co wyraźnie zwiększa ryzyko wypadku. Sprawna klimatyzacja utrzymuje we wnętrzu odpowiednią temperaturę, ale tylko wtedy, gdy działa bez zarzutu — a to wymaga regularnej konserwacji.</p>
+    <p>Zimą włączona klimatyzacja skutecznie zapobiega parowaniu szyb. Dzięki temu masz nieograniczoną widoczność, niezbędną, by właściwie zareagować w niebezpiecznej sytuacji.</p>
   </ContentSection>
 
-  <ContentSection eyebrow="Konserwacja" title="Kiedy serwisować klimatyzację?">
-    <p>Klimatyzację należy serwisować <strong>co 12 miesięcy</strong> lub wtedy, gdy zauważysz spadek wydajności chłodzenia. Używane pojazdy z działającą klimatyzacją osiągają wyższą cenę odsprzedaży — pieniądze zainwestowane w regularną konserwację zwiększają wartość pojazdu i zwracają się przy odsprzedaży. Konserwacja powinna być wykonywana tylko w fachowych warsztatach posiadających specjalne narzędzia i przeszkolony personel.</p>
+  <ContentSection eyebrow="Konserwacja" title="Tylko w fachowym warsztacie">
+    <p>Układy klimatyzacji są bardzo złożone, a ich konserwacja wymaga specjalnych narzędzi kontrolnych, naprawczych i serwisowych. Personel warsztatu powinien być przeszkolony i mieć odpowiednią wiedzę oraz doświadczenie — to mogą zaoferować tylko fachowcy. Dlatego przy serwisie i naprawie klimatyzacji cena nie może być jedynym kryterium wyboru warsztatu.</p>
   </ContentSection>
 
   <CTABanner title="Umów przegląd klimatyzacji" subtitle="Zadzwoń: 71 337 14 50 lub 605 594 506" />

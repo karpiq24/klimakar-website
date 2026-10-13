@@ -12,7 +12,8 @@ import GalleryGrid from '../components/GalleryGrid.astro';
 import YearTimeline from '../components/YearTimeline.astro';
 import ContactSection from '../components/ContactSection.astro';
 import ProcessSteps from '../components/ProcessSteps.astro';
-import { Columns4, ShieldCheck, Search, Zap, Wrench } from 'lucide-astro';
+import { Columns4, ShieldCheck, Search, Zap, Wrench, Info } from 'lucide-astro';
+import { komunikat } from '../data/komunikat';
 
 const gallery = [
   { src: '/images/galeria/lamb.JPG', alt: 'Serwis klimatyzacji w Lamborghini' },
@@ -24,7 +25,8 @@ const gallery = [
 const years = [
   { year: '1989', label: 'Początki w chłodnictwie', src: '/images/tata.webp', alt: 'Krzysztof Karpiński, przyszły założyciel Klima-Kar, przy lodówce (1989)', position: '0% 30%' },
   { year: '1999', label: 'Start Klima-Kar', src: '/images/1999.webp', alt: 'Siedziba Klima-Kar przy ul. Grota Roweckiego 129 w 1999 roku' },
-  { year: '2008', label: 'Autoryzacja Webasto', src: '/images/galeria/war.JPG', alt: 'Warsztat Klima-Kar ze stanowiskami z podnośnikami' },
+  { year: '2008', label: 'Rozbudowa serwisu', src: '/images/galeria/war.JPG', alt: 'Warsztat Klima-Kar ze stanowiskami z podnośnikami' },
+  { year: '2009', label: 'Autoryzacja Webasto i Eberspächer', src: '/images/2009-autoryzacja.webp', alt: 'Logo Webasto i Eberspächer' },
 ];
 
 const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
@@ -36,6 +38,7 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
 >
   <!-- HERO -->
   <section class="kk-wrap kk-hero">
+    {komunikat && <p class="kk-frost kk-notice" role="status"><span class="kk-ico"><Info {...icon} /></span><span>{komunikat}</span></p>}
     <Badge>Działamy od 1999 roku · Wrocław</Badge>
     <h1 class="kk-h1 kk-grad">Klimatyzacja i ogrzewanie Twojego auta</h1>
     <p class="kk-hero-tagline">Komfortowy klimat w zasięgu ręki</p>
@@ -67,7 +70,7 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
         <Columns4 {...icon} />
       </ServiceCard>
       <ServiceCard title="Dezynfekcja klimatyzacji" href="/tunap/"
-        text="Metoda chemiczna TUNAP i ultradźwiękowa. Skuteczne odgrzybianie i odkażanie układu klimatyzacji.">
+        text="TUNAP: preparat podajemy lancą natryskową pod wysokim ciśnieniem bezpośrednio na parownik. Wykonujemy też dezynfekcję ultradźwiękową.">
         <ShieldCheck {...icon} />
       </ServiceCard>
       <ServiceCard title="Diagnostyka i testy" href="/klimatyzacja/"
@@ -80,7 +83,7 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
         <Zap {...icon} />
       </ServiceCard>
       <ServiceCard variant="image" title="Skuteczne naprawy" href="/klimatyzacja/" image="/images/galeria/k2.jpg"
-        text="Uszkodzone elementy wymieniamy na nowe — sprężarki, skraplacze, parowniki, przewody, zawory rozprężne. Gdy nowa część nie wchodzi w grę, regenerujemy sprężarki i przewody.">
+        text="Uszkodzone elementy wymieniamy na nowe — sprężarki, skraplacze, parowniki, przewody, zawory rozprężne. Popularne części zamienne mamy na miejscu. Gdy nowa część nie wchodzi w grę, regenerujemy sprężarki i naprawiamy przewody.">
         <Wrench {...icon} />
       </ServiceCard>
     </div>
@@ -97,9 +100,9 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
   >
     <div class="kk-g3">
       <PartnerCard brand="webasto" href="/webasto/" kind="Niezależne ogrzewanie spalinowe" tags={['Autoryzowany serwis', 'Montaż', 'Naprawa']}
-        text="Autoryzowany serwis ogrzewaczy spalinowych i elektrycznych Webasto — montaż, naprawy gwarancyjne i pogwarancyjne dla pojazdów osobowych i dostawczych." />
+        text="Autoryzowany serwis ogrzewań postojowych Webasto — montaż nowych instalacji i naprawy, także gwarancyjne, dla pojazdów osobowych i dostawczych." />
       <PartnerCard brand="eberspacher" href="/eberspacher/" kind="Niezależne ogrzewanie spalinowe" tags={['Autoryzowany serwis', 'Montaż', 'Naprawa']}
-        text="Profesjonalny serwis ogrzewaczy Eberspächer. Diagnostyka, wymiana podzespołów, naprawy. Autoryzowany serwis z wieloletnim doświadczeniem." />
+        text="Profesjonalny serwis ogrzewań postojowych Eberspächer. Diagnostyka, wymiana podzespołów, naprawy. Autoryzowany serwis z wieloletnim doświadczeniem." />
       <PartnerCard brand="defa" href="/defa/" kind="Elektryczne ogrzewanie postojowe" tags={['Doradztwo', 'Montaż', 'Serwis']}
         text="Sprzedaż, montaż i serwis DEFA — elektryczne ogrzewanie silnika, wnętrza i ładowanie akumulatora. Idealne dla miejsc z dostępem do prądu." />
     </div>
@@ -126,7 +129,7 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
     <div class="kk-about-text">
       <p class="kk-eyebrow">O nas</p>
       <h2 class="kk-h2" style="margin-bottom:22px">Firma rodzinna z tradycją od 1989</h2>
-      <p style="margin:0 0 14px;color:var(--text-strong)">Jesteśmy firmą rodzinną z dwupokoleniową tradycją w branży chłodnictwa. W 1999 roku przyjęliśmy nazwę Klima-Kar i osiedliliśmy się na ul. Grota Roweckiego 129 we Wrocławiu.</p>
+      <p style="margin:0 0 14px;color:var(--text-strong)">Jesteśmy firmą rodzinną z dwupokoleniową tradycją w branży chłodnictwa. W 1999 roku przyjęliśmy nazwę Klima-Kar i osiedliliśmy się przy ul. Grota Roweckiego 129 we Wrocławiu.</p>
       <p class="kk-muted" style="margin:0 0 28px">Posiadamy autoryzacje Webasto i Eberspächer — co gwarantuje najwyższy standard usług i oryginalne części zamienne. Tysiące udanych napraw i zadowolonych klientów.</p>
       <div class="kk-actions">
         <a href="/o-firmie/" class="kk-btn kk-btn--primary">Historia firmy</a>
@@ -149,6 +152,22 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
     letter-spacing: -0.025em;
     color: var(--brand);
     text-wrap: balance;
+  }
+  .kk-notice {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    max-width: 720px;
+    margin: 0 auto 28px;
+    border-radius: var(--radius-card-sm);
+    padding: 12px 20px 12px 12px;
+    background: var(--frost-card);
+    text-align: left;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .kk-notice .kk-ico {
+    flex: none;
   }
   .kk-hero-tagline + .kk-lead {
     margin-top: 16px;

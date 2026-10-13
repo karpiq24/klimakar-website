@@ -113,6 +113,8 @@ All five steps are complete: 15 pages build, and each was checked at 1440px and 
   - `.kk-price-cards--2` is a 2-column variant of the refrigerant price cards (four cards on /cennik);
   - `.kk-more` is the "Dowiedz się więcej →" line that ServiceCard and PartnerCard show when they link
     somewhere (brand blue; white on brand and spotlight cards; underlined on card hover).
+  - `.kk-years` lays out any number of year buttons in equal columns (was fixed at three; the homepage
+    YearTimeline has four since the 2009 authorisation got its own year); on mobile they form a 2×2 grid.
 
 ## Changes after the migration (owner requests, 2026-10-12)
 
@@ -125,7 +127,7 @@ These differ from `homepage.dc.html` and the component previews on purpose. Don'
 - **Klimatyzacja:** a "Ważna informacja dla naszych Klientów" ContentSection (full service only, own parts only), with a warning IconTile through ContentSection's `icon` slot.
 - **Gwarancja:** the "Części dostarczone przez klienta" answer now states the own-parts-only rule.
 - **Ogrzewanie postojowe:** "Serwisujemy ponadto ogrzewania Ardic." is a frost pill under the brand cards.
-- **Eberspächer:** EasyStart Pro product card (Eberspächer press packshot, features from the Polish operating manual); EasyStart Web subscription "129 zł rocznie (cena na dzień 12.10.2026)".
+- **Eberspächer:** EasyStart Pro product card (Eberspächer press packshot, features from the Polish operating manual); EasyStart Web subscription "129 zł rocznie (cena na dzień …)".
 - **Photos:** `webastoauto.jpg` is used only for Webasto/heating in general. Eberspächer uses `eberspacher-zima.jpg` and DEFA uses `defa-warmup.jpg` (manufacturer press images; FeatureList takes an `image` prop for this).
 - **Headings:** Unbounded's "j" has no descender hook by design; the owner chose to keep it.
 
@@ -135,9 +137,28 @@ These differ from `homepage.dc.html` and the component previews on purpose. Don'
 - **R744 spotlight** (homepage and /klimatyzacja): chip "Doświadczenie w R744" and "Mamy specjalistyczny sprzęt do układów R744 i duże doświadczenie w ich serwisie" replace "Nieliczni w Polsce" / "jako jeden z nielicznych warsztatów w Polsce".
 - **Jak pracujemy:** new ProcessSteps section (przyjęcie → diagnostyka i wycena → telefon i decyzja klienta → naprawa) on the homepage (before the gallery) and on /klimatyzacja, plus a new page /jak-pracujemy/. The "Ważna informacja" box on /klimatyzacja moved there as "Zasady przyjmowania zleceń"; its last sentence no longer promises "bezawaryjnie".
 - **Klimatyzacja:** "Napełnianie i serwis układu" chip is "od 250 zł" (the lowest refrigerant price; "od 200 zł" was never on the old site) and links to /cennik.
-- **Cennik:** "Zakres obsługi układu klimatyzacji" restored from the old site; title "Cennik usług 2026" and a hand-set "Ceny aktualne na dzień …" date.
+- **Cennik:** "Zakres obsługi układu klimatyzacji" restored from the old site; title "Cennik usług 2026" and a "Ceny aktualne na dzień …" date (hand-set at first; now automatic, see below).
 - **Ogrzewanie postojowe:** "Które ogrzewanie dla Ciebie" tiles (wodne: auta osobowe; powietrzne: firmy, floty, kampery). Fuel costs are given in litres only; the złoty figures based on 5 zł/l are gone.
 - **Contact form:** optional phone, optional VIN, preferred contact (e-mail/telefon; phone becomes required for telefon). "odpiszemy w ciągu 1 dnia roboczego" is now "odpowiemy na Twoje zapytanie". `contact.php` sets Reply-To to the customer.
 - **Mobile:** a fixed "Zadzwoń do serwisu" call bar below 760px.
 - **Homepage About:** "oraz jesteśmy partnerem sprzedażowym DEFA" removed; the sentence now names only the Webasto and Eberspächer authorisations.
 - **SEO:** page titles name the service and Wrocław; the demo is `noindex`; JSON-LD coordinates corrected to 51.05556, 17.03197 (OpenStreetMap for ul. Grota-Roweckiego 129).
+
+### Owner decisions from the content audit, 2026-10-13
+
+The owner went through an audit of the new site against the old one (39 findings) and decided each point.
+
+- **History:** 2008 is "Rozbudowa serwisu" (two lifts, heaters added to the offer); the Webasto and Eberspächer authorisation is its own year, **2009**, on the homepage YearTimeline and on /o-firmie. Its image `2009-autoryzacja.webp` is the two white brand logos on the Szron gradient (composed from `public/images/brand/`).
+- **Cennik:** "Robocizna — Standardowa roboczogodzina 250 zł" is back; the refrigerant section is labelled "samochody osobowe"; the ultrasonic disinfection row describes how it is done (mist from an ultrasonic device with the blower on), not its purpose; no "ceny orientacyjne", but "Ceny brutto" stays.
+- **Webasto:** Telestart T91 and ThermoCall are no longer sold. They come last, greyed out, with a "Produkt wycofany" chip (ProductCard `retired`). MultiControl has no "Wbudowany czujnik temperatury". ThermoConnect and EasyStart Web both list "Nie wymaga karty SIM" and the LED push button.
+- **Klimatyzacja:** components are listed as replaced, never repaired; we repair only compressors and hoses.
+- **Ogrzewanie postojowe:** the air-heater tile says most repairs are done the same day so the van can get back on the road ("Serwis w trybie pilnym" and "Niezawodne" are gone).
+- **Kontakt:** only "w dzielnicy Krzyki"; there is no other street to enter from and no customer car park claim.
+- **Galeria:** no YouTube film; no Webasto or TUNAP press photos among "Nasze realizacje".
+- **Price dates:** every "na dzień …" next to a price shows today's date (`src/components/Today.astro`, set in the browser; the build date is the no-JS fallback), and the /cennik title year follows it. Earlier the date was set by hand. When prices change, update /cennik first.
+- **History:** /o-firmie 1993 shows `manometry50p.webp`.
+- **Disinfection:** describe how it is done, not what it is for. Ultrasonic: mist from an ultrasonic device with the blower on (/cennik row and /klimatyzacja card). TUNAP: a spray lance at high pressure straight onto the evaporator, hence the most effective against fungi, mould and bacteria (new first section on /tunap, its meta description and price row, the /cennik row, and the cards on the homepage and /klimatyzacja).
+- **Dezynfekcja BG:** no "Zobacz cennik" button; the BG price sheet image is now a PriceGroup table (129 / 219 / 299 zł) on that page only, not on /cennik. "Dlaczego dezynfekcja BG?" is rewritten (the BG Poland marketing paragraph is gone): BG is used where the evaporator is hard to reach and TUNAP can't be done; Frigi-Clean foam goes into the evaporator housing through a tube, then Frigi-Fresh is sprayed into the fresh-air intake with the blower on. Facts from bgpoland.pl and bgprod.com.
+- **Galeria:** 10 photos for now; more will be added later.
+- **Komunikat:** `src/data/komunikat.ts` replaces the old site's `komunikat.html` (closures, heat-wave delays). Empty text hides it.
+- Kept as they are, by decision: the "Gwarancja na usługi" block and FAQ on /gwarancja, the T91/T99 split, the Webasto/Eberspächer "Nasze usługi" cards (minus "Pełna"), "liderem" on /o-firmie, the Instagram link, and the shortened controller texts (no ThermoConnect extras, no intro sentences).
