@@ -14,7 +14,8 @@ export interface HeaterModel {
 // Owner request 2026-10-13: Thermo Top Evo and Hydronic S3 for water, Air Top Pro 25 and
 // Airtronic S3 D2L for air, shown as example models ("Przykładowy model"). Owner feedback: models of
 // one type are listed with the same rows ("Label: value"), in the same order and the same words, so
-// they can be compared; only the values differ. Sources: webasto.com › Thermo Top Evo, Air Top Pro 25
+// they can be compared; only the values differ. Owner 2026-10-13 (second round): the power is a
+// regulation range ("Regulacja mocy grzewczej"), weight dropped, controls as he listed them. Sources: webasto.com › Thermo Top Evo, Air Top Pro 25
 // (+ press release 2025); eberspaecher.com › Hydronic S3 Economy datasheet, Airtronic 3 technical
 // description 04.2024 (S3 D2L data table, altitude 4000 m) and press release 2021. Photos: the same.
 const models: Record<'wodne' | 'powietrzne', HeaterModel[]> = {
@@ -24,13 +25,13 @@ const models: Record<'wodne' | 'powietrzne', HeaterModel[]> = {
       name: 'Webasto Thermo Top Evo',
       image: '/images/webasto-thermo-top-evo.webp',
       features: [
-        'Moc grzewcza: 2,5–5 kW (zależnie od wersji)',
+        'Regulacja mocy grzewczej: od 2,5 do 5 kW, zależnie od wersji',
         'Paliwo: benzyna lub olej napędowy',
         'Napięcie: 12 V',
         'Działanie: nagrzewa silnik, a przez nawiew auta ogrzewa wnętrze i rozmraża szyby',
         'Budowa: kompaktowa, do ciasnych komór silnika',
         'Montaż: zestawy dopasowane do konkretnych modeli aut',
-        'Sterowanie: pilot lub aplikacja ThermoConnect',
+        'Sterowanie: pilot, programator lub aplikacja ThermoConnect',
       ],
     },
     {
@@ -38,7 +39,7 @@ const models: Record<'wodne' | 'powietrzne', HeaterModel[]> = {
       name: 'Eberspächer Hydronic S3',
       image: '/images/eberspacher-hydronic-s3.webp',
       features: [
-        'Moc grzewcza: 1,3–5 kW (zależnie od wersji)',
+        'Regulacja mocy grzewczej: od 1,3 do 5 kW, zależnie od wersji',
         'Paliwo: benzyna lub olej napędowy',
         'Napięcie: 12 V',
         'Działanie: nagrzewa silnik, a przez nawiew auta ogrzewa wnętrze i rozmraża szyby',
@@ -54,14 +55,13 @@ const models: Record<'wodne' | 'powietrzne', HeaterModel[]> = {
       name: 'Webasto Air Top Pro 25',
       image: '/images/webasto-air-top-pro-25.webp',
       features: [
-        'Moc grzewcza: 0,7–2,5 kW, regulowana płynnie',
+        'Regulacja mocy grzewczej: płynna, od 0,7 do 2,5 kW',
         'Paliwo: olej napędowy lub HVO, wersja na benzynę',
         'Napięcie: 12 V lub 24 V',
-        'Waga: 2,95 kg',
         'Silnik: bezszczotkowy',
         'Korekta wysokości: automatyczna, do 5500 m n.p.m.',
         'Montaż: w pojeździe lub na zewnątrz, pod podwoziem',
-        'Sterowanie: panel Webasto lub aplikacja ThermoConnect',
+        'Sterowanie: programator MultiControl lub aplikacja ThermoConnect',
       ],
     },
     {
@@ -69,14 +69,13 @@ const models: Record<'wodne' | 'powietrzne', HeaterModel[]> = {
       name: 'Eberspächer Airtronic S3 D2L',
       image: '/images/eberspacher-airtronic-s3.webp',
       features: [
-        'Moc grzewcza: 0,85–2,2 kW, regulowana płynnie',
-        'Paliwo: olej napędowy lub HVO',
+        'Regulacja mocy grzewczej: płynna, od 0,85 do 2,2 kW',
+        'Paliwo: olej napędowy lub HVO, wersja na benzynę: Airtronic S3 B2L',
         'Napięcie: 12 V lub 24 V',
-        'Waga: 2,5 kg',
         'Silnik: bezszczotkowy',
         'Korekta wysokości: automatyczna, do 4000 m n.p.m.',
         'Montaż: w pojeździe lub na zewnątrz, pod podwoziem',
-        'Sterowanie: panel EasyStart Pro lub aplikacja EasyStart Web',
+        'Sterowanie: panel EasyStart Pro, pilot EasyStart R+ TP7 lub aplikacja EasyStart Web',
       ],
     },
   ],

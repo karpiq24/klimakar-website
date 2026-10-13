@@ -1,8 +1,9 @@
 ---
 // The one-page brand site (webasto.wroclaw.pl, eberspaecher.wroclaw.pl), in page order:
 // Hero (h1 + wide winter photo with the partner plate) › model ticker › O nas › Serwis (bento) ›
-// Wodne czy powietrzne (HeaterTypes) › Systemy sterowania › Kontakt + Jak dojechać? ›
-// Klima-Kar's other services (links to the main site and the sister brand site).
+// Wodne czy powietrzne (HeaterTypes) › Systemy sterowania › Kontakt + Jak dojechać?
+// Owner 2026-10-13: no links to the other brand, DEFA or air conditioning on the page; the
+// cross-links between the three sites stay in the footer only.
 // Copy: the old one-page sites, plus the main site's heating pages. See sites/shared/brand.ts.
 import MicroLayout from './MicroLayout.astro';
 import SectionHeader from '../../src/components/SectionHeader.astro';
@@ -10,16 +11,12 @@ import ProductCard from '../../src/components/ProductCard.astro';
 import HeaterTypes from '../../src/components/HeaterTypes.astro';
 import { komunikat } from '../../src/data/komunikat';
 import { heaterTypes } from '../../src/data/ogrzewanie';
-import { mainSite } from '../../src/data/strony';
 import type { Brand } from './brand';
 import { withImages } from './brand';
 import flakeBlue from '../../public/images/brand/flake-blue.svg';
 import flakeWhite from '../../public/images/brand/flake-white.svg';
 import markWhite from '../../public/images/brand/mark-white.svg';
-import webastoLogo from '../../public/images/brand/webasto.svg';
-import eberspacherLogo from '../../public/images/brand/eberspacher.svg';
-import defaLogo from '../../public/images/brand/defa.svg';
-import { CalendarCheck, CircleFadingArrowUp, Flame, Info, MapPin, Snowflake, Stethoscope, Wrench } from 'lucide-astro';
+import { CalendarCheck, CircleFadingArrowUp, Flame, Info, MapPin, Stethoscope, Wrench } from 'lucide-astro';
 
 interface Props {
   brand: Brand;
@@ -45,13 +42,6 @@ const enquiry = ['marka pojazdu', 'model', 'rocznik', 'rodzaj, pojemność i moc
 // CRLF: RFC 6068 wants %0D%0A for line breaks in a mailto body.
 const mailBody = enquiry.map((e) => `${e[0].toUpperCase()}${e.slice(1)}: `).join('\r\n') + '\r\n';
 const mailto = `mailto:serwis@klima-kar.pl?subject=${encodeURIComponent(`Zapytanie o montaż ogrzewania postojowego ${brand.name}`)}&body=${encodeURIComponent(mailBody)}`;
-
-// The sister brand site, DEFA and air conditioning on the main site (texts from the main homepage).
-const sister = brand.key === 'webasto'
-  ? { name: 'Eberspächer', logo: eberspacherLogo.src, cls: 'kk-le', url: 'https://eberspaecher.wroclaw.pl/', label: 'eberspaecher.wroclaw.pl',
-      text: 'Profesjonalny serwis ogrzewań postojowych Eberspächer. Diagnostyka, wymiana podzespołów, naprawy. Autoryzowany serwis z wieloletnim doświadczeniem.' }
-  : { name: 'Webasto', logo: webastoLogo.src, cls: 'kk-lw', url: 'https://webasto.wroclaw.pl/', label: 'webasto.wroclaw.pl',
-      text: 'Autoryzowany serwis ogrzewań postojowych Webasto — montaż nowych instalacji i naprawy, także gwarancyjne, dla pojazdów osobowych i dostawczych.' };
 
 const ticker = brand.ticker;
 ---
@@ -212,31 +202,6 @@ const ticker = brand.ticker;
     </div>
   </section>
 
-  <!-- KLIMA-KAR: links to the main site and the sister brand site -->
-  <section class="kk-wrap kk-section" id="klima-kar">
-    <SectionHeader eyebrow="Klima-Kar" title="Klimatyzacja i ogrzewanie Twojego auta" description="Profesjonalny serwis klimatyzacji samochodowej oraz ogrzewań postojowych Webasto, Eberspächer i DEFA we Wrocławiu." />
-    <div class="kk-g3 mk-sites">
-      <a href={`${mainSite}/klimatyzacja/`} class="kk-card kk-blue kk-svc-card kk-svc-card--brand">
-        <img src={markWhite.src} alt="" aria-hidden="true" class="kk-svc-mark">
-        <span class="kk-ico kk-ico--on-brand"><Snowflake {...icon} /></span>
-        <span class="kk-card-title" style="position:relative">Kompleksowy serwis klimatyzacji</span>
-        <span class="kk-svc-text" style="position:relative">Napełnianie, diagnostyka, naprawy i wymiana podzespołów. Obsługa czynników R12, R134a, R1234yf oraz R744.</span>
-        <span class="kk-more">klima-kar.wroclaw.pl →</span>
-      </a>
-      <a href={sister.url} class="kk-frost kk-card kk-partner">
-        <span class="kk-partner-logo"><img src={sister.logo} alt={sister.name} class={sister.cls}></span>
-        <span class="kk-partner-kind">Niezależne ogrzewanie spalinowe</span>
-        <p>{sister.text}</p>
-        <span class="kk-more">{sister.label} →</span>
-      </a>
-      <a href={`${mainSite}/defa/`} class="kk-frost kk-card kk-partner">
-        <span class="kk-partner-logo"><img src={defaLogo.src} alt="DEFA" class="kk-ld"></span>
-        <span class="kk-partner-kind">Elektryczne ogrzewanie postojowe</span>
-        <p>Sprzedaż, montaż i serwis DEFA — elektryczne ogrzewanie silnika, wnętrza i ładowanie akumulatora. Idealne dla miejsc z dostępem do prądu.</p>
-        <span class="kk-more">klima-kar.wroclaw.pl/defa →</span>
-      </a>
-    </div>
-  </section>
 </MicroLayout>
 
 <style>
@@ -521,11 +486,6 @@ const ticker = brand.ticker;
   .mk-enquiry .kk-check {
     font-size: 13px;
     font-weight: 700;
-  }
-
-  /* ---------- Klima-Kar sites ---------- */
-  .mk-sites > * {
-    min-height: 100%;
   }
 
   /* O nas is two columns down to 761px; below ~960px three year tiles don't fit side by side

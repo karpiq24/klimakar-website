@@ -54,8 +54,8 @@ Static Astro 6 site in the **Szron** design, plus two one-page brand sites in `s
 - Old sources: `/mnt/klimakar/webasto/`, `/mnt/klimakar/eberspaecher/` (read-only mount, never modify).
 - Same rules as the main site: Szron classes only, copy from the old sites or the main site.
   Per-brand content goes in `sites/<name>/brand.ts`; anything shared with the main site in `src/data/`.
-- Each brand page shows only its own brand's photos and products; the other brand appears only as
-  a link card.
+- Each brand page shows only its own brand's photos and products. No links to the other brand, DEFA
+  or air conditioning in the page body (owner, 2026-10-13); the footer keeps the links to all three sites.
 
 ## Git and deploy
 
