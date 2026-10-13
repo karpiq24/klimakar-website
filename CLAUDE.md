@@ -1,0 +1,45 @@
+# Klima-Kar website: notes for Claude
+
+Static Astro 6 site in the **Szron** design. `README.md` covers the stack, structure and deploy;
+`design/szron/BRAND.md` is the brand book. Read it before changing a page.
+
+## Content
+
+- All copy is Polish, informal "Ty" in marketing text. Never invent copy, numbers or facts.
+  Subpages keep their existing text, data and prices exactly; only markup changes.
+- Fixed facts:
+  - Klima-Kar started in **1999**. 1989 is only "Początki w chłodnictwie", never the founding year.
+  - Always "Ogrzewanie postojowe", never "Ogrzewacze postojowe".
+  - Repairs replace parts with new ones first; regeneration is only the fallback ("Skuteczne naprawy").
+  - R744/CO₂ and EV service is the differentiator. Cabin filters are in stock, fitted on the spot.
+  - Only full on-site service with the workshop's own parts; no customer-supplied parts.
+- Company tagline: "Komfortowy klimat w zasięgu ręki" (under the homepage h1).
+- No emoji and no exclamation marks in new copy. Motifs: car, AC and heating only.
+- Prices on /cennik are copied exactly. Never round or rephrase them.
+- Don't use one brand's photos on another brand's page (`webastoauto.jpg` is Webasto's).
+
+## Design and code
+
+- Colours, radii, shadows and component classes come only from `src/styles/szron.css`
+  (`kk-` classes, `--` tokens). No Tailwind, no dark mode, no other hues; `#1C5EA6` leads.
+- Build pages from the components in `src/components/`. Subpages are always
+  Header › PageHero › content › CTABanner › Footer (see BRAND.md › Subpages).
+- `src/styles/szron.css` is a patched copy of `design/szron/szron.css`. When you change it,
+  add the change to the list in `design/szron/README.md`.
+- Post-migration owner decisions that differ from the design files are listed in
+  `design/szron/README.md` › "Changes after the migration". Don't revert them.
+- Icons: `lucide-astro`, 24px, stroke 1.8. Interactive bits are small vanilla `<script>`s.
+- Gradient text (`kk-grad`) clips to its box; the class pads for descenders. Keep that.
+
+## Checks before committing
+
+- `npm run build` passes (15 pages).
+- Look at changed pages at 1440px and 390px (and ~1024/1366 for anything in grids or bars).
+  No text may overflow its column; long Polish words in display headings may need a soft
+  hyphen (`{"Bezpieczeń\u00ADstwo"}`; a JS expression, since quoted attributes don't unescape).
+- No `/_blob/`, Barlow, `data-theme` or `kk-theme`; no "rok założenia" with 1989.
+
+## Git and deploy
+
+- Pushing to `main` deploys the preview to http://demo.klima-kar.pl/ (GitHub Pages; PHP and the
+  contact form don't run there). Production is OVH: upload `dist/` by FTP.

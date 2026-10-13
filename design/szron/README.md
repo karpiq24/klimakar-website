@@ -95,7 +95,7 @@ Verified: `npm run build` passes (Node 22.23.1, 15 pages), and the built HTML ha
 
 ## Migration done (2026-10-12)
 
-All five steps are complete on branch `szron-design-handoff`: 15 pages build, and each was checked at 1440px and 390px.
+All five steps are complete: 15 pages build, and each was checked at 1440px and 390px (later also at 800, 1024, 1280, 1366 and 1920px). The site is merged into `main` and published at <http://demo.klima-kar.pl/> on every push (`.github/workflows/deploy.yml`).
 
 - Components live in `src/components/` (one per design-system component, plus `PriceCards`/`PriceGroup` and `Seasons`). Tailwind is removed; `src/styles/global.css` is only a document reset.
 - `src/styles/szron.css` is this folder's `szron.css` with these fixes, found while checking pages:
@@ -105,5 +105,24 @@ All five steps are complete on branch `szron-design-handoff`: 15 pages build, an
   - `.kk-round.kk-blue` sets the brand background (the burger rendered white on white);
   - `.kk-article p`, `.kk-stats p` and `.kk-video p` skip `.kk-eyebrow` (they turned eyebrows grey and 17px);
   - mobile: buttons may wrap, the month-banner CTA spans the full width, and StatGrid numbers scale down;
-  - `.kk-h2` and `.kk-pagehero-title` get `overflow-wrap: break-word` as a safety net;
-  - `.kk-foot-bottom a` has no underline, as on the approved homepage.
+  - `.kk-h2`, `.kk-pagehero-title` and `.kk-card-title` get `overflow-wrap: break-word` as a safety net;
+  - `.kk-foot-bottom a` has no underline, as on the approved homepage;
+  - `.kk-grad` pads its box by `.16em` top and bottom (cancelled by negative margins): `background-clip: text` only paints inside the box, so descenders of the hero h1 and the StatGrid numbers were cut;
+  - StatGrid numbers are `clamp(22px, 3.1cqi, 44px)` (were up to 64px), so "Wrocław" and "Rodzinna" fit their quarter of the bar at every width;
+  - footer logos are larger (20 / 31 / 33px, same 24:37:40 balance) and wrap when narrow;
+  - `.kk-price-cards--2` is a 2-column variant of the refrigerant price cards (four cards on /cennik).
+
+## Changes after the migration (owner requests, 2026-10-12)
+
+These differ from `homepage.dc.html` and the component previews on purpose. Don't revert them from the design files.
+
+- **Homepage hero:** the badge reads "Działamy od 1999 roku · Wrocław" (was "W chłodnictwie od 1989 roku"), and the company tagline "Komfortowy klimat w zasięgu ręki" sits under the h1.
+- **Footer:** Klima-Kar logo 46px.
+- **Contact map:** the live Google Maps embed replaces the placeholder photo; the embed's own "Otwórz w Mapach" link replaces the overlaid pill.
+- **Cennik:** a fourth refrigerant card, R744 (wybrane modele pojazdów, 900 zł).
+- **Klimatyzacja:** a "Ważna informacja dla naszych Klientów" ContentSection (full service only, own parts only), with a warning IconTile through ContentSection's `icon` slot.
+- **Gwarancja:** the "Części dostarczone przez klienta" answer now states the own-parts-only rule.
+- **Ogrzewanie postojowe:** "Serwisujemy ponadto ogrzewania Ardic." is a frost pill under the brand cards.
+- **Eberspächer:** EasyStart Pro product card (Eberspächer press packshot, features from the Polish operating manual); EasyStart Web subscription "129 zł rocznie (cena na dzień 12.10.2026)".
+- **Photos:** `webastoauto.jpg` is used only for Webasto/heating in general. Eberspächer uses `eberspacher-zima.jpg` and DEFA uses `defa-warmup.jpg` (manufacturer press images; FeatureList takes an `image` prop for this).
+- **Headings:** Unbounded's "j" has no descender hook by design; the owner chose to keep it.

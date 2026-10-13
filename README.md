@@ -1,50 +1,58 @@
-# Klima-Kar — Website Rebuild
+# Klima-Kar — website
 
-Modern website for **Klima-Kar**, an HVAC/AC service business in Wroclaw, Poland. Rebuilt from the ground up with a state-of-the-art design system and optimized tech stack.
+Website for **Klima-Kar**, a family car air-conditioning and parking-heater workshop in Wrocław
+(ul. Grota Roweckiego 129). Static Astro site in the **Szron** design ("frost": frosted glass over
+an icy blue ground, the logo's blues doing all the colour work).
 
-## Tech Stack
+## Tech stack
 
-- **Static Site Generator**: [Astro](https://astro.build/) v5 — zero client JS by default, outputs static HTML
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/) v4 + CSS custom properties (design tokens)
-- **Icons**: [Lucide](https://lucide.dev/) (stroke-width 1.5)
-- **Typography**: Barlow (body) + Barlow Condensed (display) via Google Fonts
-- **Contact Form Backend**: PHP (`mail()`) — compatible with OVH shared hosting
-- **Hosting Target**: OVH Web Hosting (Apache, PHP)
+- **[Astro](https://astro.build/) 6**: static output, clean directory URLs (`/cennik/index.html`).
+- **Styling**: one stylesheet, `src/styles/szron.css` (Szron tokens as CSS variables plus every
+  `kk-` component class). `src/styles/global.css` is only a document reset. No Tailwind, no dark mode.
+- **Fonts**: Onest (body) + Unbounded (display), from Google Fonts.
+- **Icons**: [`lucide-astro`](https://lucide.dev/), 24px, stroke 1.8, always inside an IconTile.
+- **Interactivity**: a few small vanilla scripts (burger menu, month banner, year timeline,
+  gallery lightbox, click-to-load video, contact form). No client framework.
+- **Contact form backend**: `public/contact.php` (PHP `mail()`), for OVH shared hosting.
 
-## Project Structure
+## Design system
+
+Everything about the design lives in `design/szron/`:
+
+| File | What |
+|---|---|
+| `BRAND.md` | Brand book: content rules, colour, type, spacing, motion, and which components each subpage uses. Read it before changing any page. |
+| `README.md` | The migration handoff and the list of fixes made to `szron.css` in `src/`. |
+| `components/<Name>.html` + `.md` | Reference markup and usage rules for each component. |
+| `homepage.dc.html` | The approved homepage design (source of truth for its markup). |
+| `szron.css`, `tokens.json` | The original stylesheet and tokens. `src/styles/szron.css` is a patched copy. |
+
+## Project structure
 
 ```
 ├── src/
-│   ├── layouts/         # BaseLayout (SEO, dark mode, JSON-LD)
-│   ├── components/      # Shared Astro components
-│   │   ├── Header.astro, Footer.astro
-│   │   ├── PageHero.astro, ServiceCard.astro, PartnerCard.astro
-│   │   ├── PriceTable.astro, Timeline.astro, CTABanner.astro
-│   │   ├── StatCard.astro, Breadcrumb.astro
-│   │   └── ContactSection.astro, ContactForm.astro
-│   ├── pages/           # 13 route pages
-│   ├── styles/          # global.css with design tokens
-│   └── assets/logos/    # 5 SVG logo variants
+│   ├── layouts/BaseLayout.astro   # <head>, SEO, JSON-LD, fonts, kk-root wrapper + ambient glows
+│   ├── components/                # one Astro component per design-system component
+│   │   ├── Header, Footer, PageHero, CTABanner
+│   │   ├── Button, Badge, Chip, IconTile, SectionHeader
+│   │   ├── Seasons (season module + month banner), LogoStrip, PhotoPanel
+│   │   ├── ServiceCard, PartnerCard, ProductCard, GalleryGrid
+│   │   ├── YearTimeline (homepage), HistoryTimeline (o-firmie), StatGrid
+│   │   ├── ContentSection, FeatureList, FAQ, VideoFeature
+│   │   ├── PriceCards, PriceGroup (cennik)
+│   │   └── ContactSection, ContactForm
+│   ├── pages/                     # 15 routes
+│   └── styles/                    # szron.css + global.css
 ├── public/
-│   ├── images/          # Photos, product images, gallery
-│   ├── contact.php      # Form handler backend
-│   ├── .htaccess        # HTTPS redirect, gzip, caching
-│   ├── robots.txt
-│   └── favicon.svg
-├── content/www/         # Old website source (reference only)
-└── klima-kar-design-system/  # Design handoff (reference only)
+│   ├── images/                    # photos, product shots; images/brand/ = logos, K mark, snowflakes
+│   ├── contact.php                # form handler
+│   ├── .htaccess                  # HTTPS redirect, gzip, caching, security headers (OVH)
+│   ├── CNAME                      # demo.klima-kar.pl (GitHub Pages)
+│   ├── robots.txt, favicon.svg
+├── design/szron/                  # design system and handoff (reference)
+├── content/www/                   # old website source (reference only)
+└── .github/workflows/deploy.yml   # GitHub Pages preview deploy
 ```
-
-## Design Tokens
-
-Colors, typography, spacing, shadows, and radii are defined in `src/styles/global.css`:
-
-- **Brand colors**: Blue scale (#1C5EA6 primary, #3388BF secondary, #40B0D9 accent) from logo
-- **Dark scale**: From #060D16 (deepest) to #E8EFF4 (lightest neutral)
-- **Status**: Success/warning/error semantic colors
-- **Partner brands**: Webasto #C8001E, Eberspächer #E85D00, DEFA #006BB4
-- **Fonts**: Barlow Condensed (display), Barlow (body)
-- **Dark mode**: `[data-theme="dark"]` overrides on `<html>`, persisted via `localStorage` key `kk-theme`
 
 ## Pages
 
@@ -53,74 +61,64 @@ Colors, typography, spacing, shadows, and radii are defined in `src/styles/globa
 | Strona główna | `/` |
 | Klimatyzacja | `/klimatyzacja/` |
 | Konserwacja | `/konserwacja/` |
+| Dezynfekcja TUNAP | `/tunap/` |
+| Dezynfekcja BG | `/dezynfekcja-bg/` |
 | Cennik | `/cennik/` |
 | Ogrzewanie postojowe | `/ogrzewanie-postojowe/` |
 | Webasto | `/webasto/` |
-| Eberspacher | `/eberspacher/` |
+| Eberspächer | `/eberspacher/` |
 | DEFA | `/defa/` |
 | O firmie | `/o-firmie/` |
+| Galeria | `/galeria/` |
 | Gwarancja | `/gwarancja/` |
 | Kontakt | `/kontakt/` |
-| Galeria | `/galeria/` |
 | RODO | `/rodo/` |
 
 ## Development
 
 ```bash
 npm install
-npm run dev        # Start dev server at localhost:4321
+npm run dev        # dev server at http://localhost:4321
+npm run build      # static site in dist/
+npm run preview    # serve dist/ locally
 ```
 
-## Build
+Node ≥ 22.12 (see `package.json` › `engines`).
 
-```bash
-npm run build      # Output to dist/
-```
+## Deployment
 
-The build produces:
-- 13 static HTML pages with clean URLs (e.g. `/cennik/index.html`)
-- Optimized assets in `dist/_astro/` (CSS, hashed filenames)
-- `images/` directory with all photos/logos
-- `contact.php` (form handler)
-- `.htaccess` (HTTPS, gzip, caching, security headers)
-- `robots.txt`, `sitemap-index.xml`, `sitemap-0.xml`
-- `favicon.svg`
+### Preview: demo.klima-kar.pl (GitHub Pages)
 
-## Deploy to OVH Hosting
+Every push to `main` runs `.github/workflows/deploy.yml`, which builds the site and publishes it
+to GitHub Pages at <http://demo.klima-kar.pl/> (domain set by `public/CNAME`).
+GitHub Pages serves static files only: `contact.php` does not run there, so the contact form
+can't send on the demo.
 
-1. Run `npm run build` locally.
-2. Upload the **entire contents** of `dist/` to your OVH hosting `www/` directory via FTP/SFTP.
-   - The included `SETUP_FTP.sh` script can mount OVH FTP locally for easier syncing (Linux only, requires `curlftpfs`).
-   - Otherwise, use FileZilla / Cyberduck / `lftp`.
-3. Verify PHP is enabled on the hosting plan (default on OVH shared hosting).
-4. The `.htaccess` file handles HTTPS redirect, gzip compression, browser caching, and security headers automatically.
-5. The contact form posts to `/contact.php` and emails `serwis@klima-kar.pl` via PHP `mail()`.
+### Production: OVH web hosting
 
-### File checklist after deployment
-- `index.html` at root → loads home page
-- `contact.php` accessible at `/contact.php` (test via curl POST)
-- `sitemap-index.xml` accessible (Google Search Console)
-- `.htaccess` in place (verify HTTPS redirect works)
+1. `npm run build`.
+2. Upload the **entire contents** of `dist/` (including `.htaccess`) to the hosting `www/`
+   directory over FTP/SFTP (FileZilla, Cyberduck, `lftp`).
+3. PHP must be enabled (the default on OVH shared hosting).
+4. `.htaccess` handles the HTTPS redirect, gzip, browser caching and security headers.
+
+After deploying, check that `/` loads, `/contact.php` answers a POST, `/sitemap-index.xml`
+is reachable and HTTP redirects to HTTPS.
 
 ## SEO
 
-Each page has:
-- Polish meta title & description
-- Canonical URL
-- Open Graph tags (locale `pl_PL`)
-- JSON-LD `AutoRepair` / `LocalBusiness` schema (in `BaseLayout`)
-- BreadcrumbList structured data (in `Breadcrumb` component)
+Each page has a Polish title and meta description, a canonical URL and Open Graph tags
+(`pl_PL`). `BaseLayout` adds JSON-LD `AutoRepair` data (address, phones, opening hours,
+services). `@astrojs/sitemap` generates the sitemap at build time.
 
-The sitemap is auto-generated at build time by `@astrojs/sitemap`.
+## Contact form
 
-## Contact Form
+`src/components/ContactForm.astro` validates on the client and posts JSON to `/contact.php`
+with `fetch`. The fields are `name` and `email` (required), `car`, `message`, plus a hidden
+`website` honeypot. The PHP handler:
 
-The contact form (`src/components/ContactForm.astro`) posts JSON to `/contact.php` via `fetch`. The PHP handler:
-- Validates HTTP method (POST only, returns 405 otherwise)
-- Sanitizes input via `htmlspecialchars(strip_tags(trim(...)))`
-- Checks honeypot field (silently returns success for bots)
-- Validates required fields (name, phone, service)
-- Emails `serwis@klima-kar.pl` via native `mail()`
-- Returns JSON `{success, message}` for the frontend toast
-
-No external dependencies — pure PHP, OVH-compatible.
+- accepts POST only (405 otherwise);
+- returns success silently when the honeypot is filled;
+- sanitises input and requires `name` and `email`;
+- emails `serwis@klima-kar.pl` via PHP `mail()`;
+- returns JSON `{success, message}`, shown as a toast.
