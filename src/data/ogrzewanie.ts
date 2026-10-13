@@ -45,7 +45,7 @@ const models: Record<'wodne' | 'powietrzne', HeaterModel[]> = {
         'Działanie: nagrzewa silnik, a przez nawiew auta ogrzewa wnętrze i rozmraża szyby',
         'Budowa: kompaktowa, do ciasnych komór silnika',
         'Montaż: zestawy dopasowane do konkretnych modeli aut',
-        'Sterowanie: pilot lub aplikacja EasyStart Web',
+        'Sterowanie: pilot, programator lub aplikacja EasyStart Web',
       ],
     },
   ],
