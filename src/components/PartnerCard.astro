@@ -1,5 +1,6 @@
 ---
 // PartnerCard — denser frost card per heater brand: logo, category line, description, three tags.
+// With `href` it ends in a visible "Dowiedz się więcej →".
 interface Props {
   brand: 'webasto' | 'eberspacher' | 'defa';
   kind: string;
@@ -24,4 +25,5 @@ const Tag = href ? 'a' : 'div';
   <span class="kk-partner-kind">{kind}</span>
   <p>{text}</p>
   <span class="kk-chips">{tags.map((t) => <span class="kk-chip kk-chip--tag">{t}</span>)}</span>
+  {href && <span class="kk-more">Dowiedz się więcej →</span>}
 </Tag>

@@ -23,6 +23,9 @@ jobs:
         uses: actions/checkout@v7
       - name: Build with Astro
         uses: withastro/action@v6
+        env:
+          # The preview must not be indexed (BaseLayout adds <meta name="robots" content="noindex">).
+          PUBLIC_NOINDEX: 'true'
         with:
           node-version: 22
 

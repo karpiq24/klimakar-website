@@ -226,6 +226,9 @@
 .kk-partner-kind{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--brand)}
 .kk-partner p{margin:0;color:var(--text-muted);font-size:15px;flex:1}
 .kk-partner .kk-chips{display:flex;flex-wrap:wrap;gap:6px}
+.kk-more{margin-top:auto;position:relative;font-size:15px;font-weight:600;color:var(--brand);text-underline-offset:4px}
+.kk-svc-card--brand .kk-more,.kk-svc-card--spotlight .kk-more{color:var(--white)}
+.kk-card:hover .kk-more{text-decoration:underline}
 
 /* ---------- Gallery ---------- */
 .kk-g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:start;gap:var(--grid-gap)}

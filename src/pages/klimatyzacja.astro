@@ -3,15 +3,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import PhotoPanel from '../components/PhotoPanel.astro';
 import ServiceCard from '../components/ServiceCard.astro';
-import ContentSection from '../components/ContentSection.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
 import CTABanner from '../components/CTABanner.astro';
-import { Columns4, Wind, Search, Zap, Wrench, ShieldCheck, AudioWaveform, Layers, Droplet, CalendarCheck, TriangleAlert } from 'lucide-astro';
+import { Columns4, Wind, Search, Zap, Wrench, ShieldCheck, AudioWaveform, Layers, Droplet, CalendarCheck } from 'lucide-astro';
 
 const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
 ---
 
 <BaseLayout
-  title="Klimatyzacja samochodowa — Klima-Kar"
+  title="Serwis klimatyzacji samochodowej Wrocław — Klima-Kar"
   description="Profesjonalny serwis klimatyzacji samochodowej we Wrocławiu. Napełnianie, diagnostyka, naprawy i wymiana podzespołów, dezynfekcja."
 >
   <PageHero
@@ -31,17 +31,17 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
         text="Mamy na miejscu duży wybór filtrów kabinowych — wymienimy od ręki, bez czekania na dostawę.">
         <Columns4 {...icon} />
       </ServiceCard>
-      <ServiceCard title="Napełnianie i serwis układu" chip="od 200 zł"
-        text="Odzysk czynnika, wykonanie próżni, kontrola szczelności, napełnienie czystym czynnikiem R134a, R1234yf lub R12. Kontrola ciśnienia podczas pracy. Uzupełnienie oleju i barwnika UV.">
+      <ServiceCard title="Napełnianie i serwis układu" chip="od 250 zł" href="/cennik/"
+        text="Odzysk czynnika, wykonanie próżni, kontrola szczelności, napełnienie czystym czynnikiem R134a, R1234yf, R12 lub R744. Kontrola ciśnienia podczas pracy. Uzupełnienie oleju i barwnika UV.">
         <Wind {...icon} />
       </ServiceCard>
       <ServiceCard title="Diagnostyka i test szczelności" chip="250 zł"
         text="Elektroniczne testy szczelności układu z użyciem wykrywacza nieszczelności i barwnika UV. Diagnostyka komputerowa. Diagnostyka kompresora na hamowni.">
         <Search {...icon} />
       </ServiceCard>
-      <ServiceCard variant="spotlight" title="R744 i auta elektryczne" chip="Nieliczni w Polsce"
+      <ServiceCard variant="spotlight" title="R744 i auta elektryczne" chip="Doświadczenie w R744"
         tags={['R744 · CO₂', 'Mercedes Klasy S', 'Pompy ciepła', 'Hybrydy i EV']}
-        text="Klimatyzacja na CO₂ (R744) trafia do coraz większej liczby aut. Mamy sprzęt i doświadczenie, żeby ją serwisować — jako jeden z nielicznych warsztatów w Polsce. Obsługujemy też klimatyzację aut elektrycznych i hybrydowych: elektryczne sprężarki wysokiego napięcia i układy z pompą ciepła, z użyciem dedykowanych olejów dielektrycznych.">
+        text="Klimatyzacja na CO₂ (R744) trafia do coraz większej liczby aut. Mamy specjalistyczny sprzęt do układów R744 i duże doświadczenie w ich serwisie. Obsługujemy też klimatyzację aut elektrycznych i hybrydowych: elektryczne sprężarki wysokiego napięcia i układy z pompą ciepła, z użyciem dedykowanych olejów dielektrycznych.">
         <Zap {...icon} />
       </ServiceCard>
       <ServiceCard variant="image" title="Skuteczne naprawy" image="/images/galeria/k2.jpg"
@@ -71,17 +71,9 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
     </div>
   </PhotoPanel>
 
-  <ContentSection eyebrow="Klimatyzacja" title="Ważna informacja dla naszych Klientów">
-    <TriangleAlert slot="icon" {...icon} />
-    <p>W trosce o najwyższą jakość, trwałość napraw oraz Państwa bezpieczeństwo, w naszym serwisie świadczymy wyłącznie kompleksowe usługi od A do Z.</p>
-    <h3 class="kk-card-title">Nasze zasady w skrócie:</h3>
-    <ul class="kk-checklist">
-      <li><span class="kk-check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span><span><strong>Tylko pełna obsługa na miejscu:</strong> Przyjmujemy pojazdy/urządzenia w całości. Nie naprawiamy pojedynczych podzespołów (np. sprężarek czy przewodów) dostarczonych „luzem” (tzw. usługi na wynos).</span></li>
-      <li><span class="kk-check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span><span><strong>Pracujemy wyłącznie na własnych częściach:</strong> Nie montujemy części powierzonych przez klientów. Pozwala to uniknąć sporów gwarancyjnych z zewnętrznymi dostawcami (którzy w razie awarii często winą obarczają montaż) i daje Państwu pełną, jednoznaczną gwarancję na całą usługę.</span></li>
-    </ul>
-    <h3 class="kk-card-title">Dlaczego to robimy?</h3>
-    <p>Tylko diagnostyka, naprawa i montaż wykonane w całości przez naszych fachowców dają pewność, że problem został skutecznie rozwiązany, a system będzie działał bezawaryjnie. Dziękujemy za zrozumienie!</p>
-  </ContentSection>
+  <ProcessSteps>
+    <a href="/jak-pracujemy/" class="kk-link">Zasady przyjmowania zleceń →</a>
+  </ProcessSteps>
 
   <CTABanner title="Gotowy na serwis klimatyzacji?" subtitle="Zadzwoń: 71 337 14 50 lub umów się online" />
 </BaseLayout>

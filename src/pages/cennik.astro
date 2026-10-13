@@ -6,6 +6,28 @@ import PriceCards from '../components/PriceCards.astro';
 import PriceGroup from '../components/PriceGroup.astro';
 import CTABanner from '../components/CTABanner.astro';
 
+// Date the owner last confirmed these prices. Update it (by hand) whenever the prices are checked.
+const pricesUpdated = '13.10.2026';
+const pricesYear = pricesUpdated.slice(-4);
+
+// "Zakres obsługi układu klimatyzacji", word for word from the old site's cennik.
+const scope = [
+  'odzysk czynnika',
+  'wykonanie próżni',
+  'kontrola szczelności',
+  'napełnienie czystym czynnikiem',
+  'kontrola ciśnienia podczas pracy klimatyzacji',
+  'kontrola wzrokowa oraz wydajnościowa układu klimatyzacji',
+];
+const scopeIfNeeded = [
+  'identyfikacja i analiza czynnika w układzie',
+  'uzupełnienie ubytku czynnika chłodniczego',
+  'uzupełnienie oleju',
+  'podanie barwnika UV',
+  'opłukanie skraplacza z kurzu',
+];
+const check = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>';
+
 const refrigerants = [
   { code: 'R134a', cars: 'Auta od 1993 r. do 2014 r. i niektóre po 2014 r.', price: '250 zł', extra: '+ 40 zł/100g powyżej 50g', service: 'Serwis układu, uzupełnienie czynnika R134a, oleju, UV' },
   { code: 'R1234yf', cars: 'Niektóre auta od 2014 r. i większość od 2017 r.', price: '300 zł', extra: '+ 10 zł/10g powyżej 50g', service: 'Serwis układu, uzupełnienie czynnika R1234yf, oleju, UV' },
@@ -49,24 +71,78 @@ const groups = [
 ---
 
 <BaseLayout
-  title="Cennik — Klima-Kar"
+  title="Cennik klimatyzacji i ogrzewania postojowego — Klima-Kar Wrocław"
   description="Cennik usług serwisu klimatyzacji samochodowej i ogrzewań postojowych Klima-Kar we Wrocławiu. Przejrzyste ceny, wycena po diagnozie."
 >
   <PageHero
     crumbs={[{ label: 'Strona główna', href: '/' }, { label: 'Cennik' }]}
     eyebrow="Cennik"
-    title="Cennik usług"
+    title={`Cennik usług ${pricesYear}`}
     lead="Przejrzyste ceny usług klimatyzacji samochodowej i ogrzewań postojowych. Podane ceny są cenami orientacyjnymi — dokładna wycena po diagnozie pojazdu."
   />
 
   <section class="kk-wrap kk-section">
-    <SectionHeader eyebrow="Klimatyzacja" title="Obsługa układu klimatyzacji" />
+    <SectionHeader eyebrow="Klimatyzacja" title="Obsługa układu klimatyzacji">
+      <span slot="aside" class="kk-chip"><span class="kk-dot"></span>Ceny aktualne na dzień {pricesUpdated}</span>
+    </SectionHeader>
     <PriceCards cards={refrigerants} columns={2} />
+    <div class="kk-frost kk-price-group kk-scope">
+      <h3 class="kk-price-title" style="margin:0 0 14px">Zakres obsługi układu klimatyzacji:</h3>
+      <div class="kk-scope-cols">
+        <ul>{scope.map((item) => <li><span class="kk-check" set:html={check} /><span>{item}</span></li>)}</ul>
+        <div>
+          <p class="kk-scope-sub">W razie potrzeby:</p>
+          <ul>{scopeIfNeeded.map((item) => <li><span class="kk-check" set:html={check} /><span>{item}</span></li>)}</ul>
+        </div>
+      </div>
+    </div>
     <div class="kk-price-groups">
       {groups.map((g) => <div><PriceGroup {...g} /></div>)}
     </div>
-    <p class="kk-fineprint" style="margin-top:24px;text-align:center">Podane ceny są orientacyjne. Dokładna wycena po diagnozie pojazdu. Ceny brutto.</p>
+    <p class="kk-fineprint" style="margin-top:24px;text-align:center">Podane ceny są orientacyjne. Dokładna wycena po diagnozie pojazdu. Ceny brutto. Ceny aktualne na dzień {pricesUpdated}.</p>
   </section>
 
   <CTABanner title="Masz pytania o cennik?" subtitle="Zadzwoń: 71 337 14 50 lub 605 594 506" />
 </BaseLayout>
+
+<style>
+  .kk-scope {
+    margin-top: 16px;
+  }
+  .kk-scope-cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 40px;
+  }
+  .kk-scope ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .kk-scope li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 9px 0;
+    border-top: 1px solid var(--brand-line);
+    color: var(--text-strong);
+  }
+  .kk-scope li:first-child {
+    border-top: 0;
+  }
+  .kk-scope .kk-check {
+    width: 24px;
+    height: 24px;
+    flex: none;
+  }
+  .kk-scope-sub {
+    margin: 9px 0 0;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  @container kk (max-width: 760px) {
+    .kk-scope-cols {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

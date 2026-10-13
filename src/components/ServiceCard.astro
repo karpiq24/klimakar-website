@@ -5,6 +5,7 @@
 //   spotlight — navy gradient, two columns wide, outlined CO₂ and fact tags (the differentiator)
 //   image     — frost card led by a real workshop photo
 // The icon (Lucide, stroke 1.8) goes in the default slot. `chip` shows a status or price next to it.
+// With `href` the whole card is a link and ends in a visible "Dowiedz się więcej →".
 interface Props {
   variant?: 'standard' | 'brand' | 'spotlight' | 'image';
   title: string;
@@ -36,6 +37,7 @@ const classes = {
       <span class="kk-ico"><slot /></span>
       <span class="kk-card-title">{title}</span>
       <span class="kk-svc-text">{text}</span>
+      {href && <span class="kk-more">Dowiedz się więcej →</span>}
     </span>
   </Tag>
 ) : (
@@ -54,5 +56,6 @@ const classes = {
     <span class={variant === 'spotlight' ? 'kk-spot-title' : 'kk-card-title'} style={variant === 'brand' ? 'position:relative' : undefined}>{title}</span>
     <span class="kk-svc-text" style={variant === 'brand' ? 'position:relative' : undefined}>{text}</span>
     {tags.length > 0 && <span class="kk-tags">{tags.map((t) => <span class="kk-chip kk-chip--outline">{t}</span>)}</span>}
+    {href && <span class="kk-more">Dowiedz się więcej →</span>}
   </Tag>
 )}

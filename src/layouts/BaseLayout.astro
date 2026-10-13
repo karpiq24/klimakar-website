@@ -3,6 +3,7 @@ import '../styles/global.css';
 import '../styles/szron.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import MobileCallBar from '../components/MobileCallBar.astro';
 
 interface Props {
   title: string;
@@ -13,6 +14,9 @@ interface Props {
 const { title, description, canonicalPath } = Astro.props;
 const siteUrl = 'https://klima-kar.wroclaw.pl';
 const canonicalUrl = canonicalPath ? `${siteUrl}${canonicalPath}` : `${siteUrl}${Astro.url.pathname}`;
+// The demo build (GitHub Pages, see .github/workflows/deploy.yml) sets PUBLIC_NOINDEX=true so the preview
+// stays out of Google. The production build for OVH must be made without it.
+const noindex = import.meta.env.PUBLIC_NOINDEX === 'true';
 ---
 
 <!DOCTYPE html>
@@ -26,6 +30,7 @@ const canonicalUrl = canonicalPath ? `${siteUrl}${canonicalPath}` : `${siteUrl}$
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
@@ -44,7 +49,7 @@ const canonicalUrl = canonicalPath ? `${siteUrl}${canonicalPath}` : `${siteUrl}$
     />
 
     <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify({"@context":"https://schema.org","@type":"AutoRepair","name":"Klima-Kar","description":"Profesjonalny serwis klimatyzacji samochodowej oraz ogrzewań postojowych Webasto, Eberspächer i DEFA we Wrocławiu.","url":"https://klima-kar.wroclaw.pl","telephone":["+48713371450","+48605594506"],"email":"serwis@klima-kar.pl","address":{"@type":"PostalAddress","streetAddress":"ul. Grota Roweckiego 129","addressLocality":"Wrocław","postalCode":"52-214","addressCountry":"PL"},"geo":{"@type":"GeoCoordinates","latitude":"51.0678","longitude":"17.0247"},"openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"17:00"},"image":"https://klima-kar.wroclaw.pl/images/logo.svg","priceRange":"$$","areaServed":{"@type":"City","name":"Wrocław"},"hasOfferCatalog":{"@type":"OfferCatalog","name":"Usługi","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Klimatyzacja samochodowa"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Ogrzewanie postojowe Webasto"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Ogrzewanie postojowe Eberspächer"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Ogrzewanie postojowe DEFA"}}]}})} />
+    <script type="application/ld+json" set:html={JSON.stringify({"@context":"https://schema.org","@type":"AutoRepair","name":"Klima-Kar","description":"Profesjonalny serwis klimatyzacji samochodowej oraz ogrzewań postojowych Webasto, Eberspächer i DEFA we Wrocławiu.","url":"https://klima-kar.wroclaw.pl","telephone":["+48713371450","+48605594506"],"email":"serwis@klima-kar.pl","address":{"@type":"PostalAddress","streetAddress":"ul. Grota Roweckiego 129","addressLocality":"Wrocław","postalCode":"52-214","addressCountry":"PL"},"geo":{"@type":"GeoCoordinates","latitude":51.05556,"longitude":17.03197},"openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"17:00"},"image":"https://klima-kar.wroclaw.pl/images/logo.svg","priceRange":"$$","areaServed":{"@type":"City","name":"Wrocław"},"hasOfferCatalog":{"@type":"OfferCatalog","name":"Usługi","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Klimatyzacja samochodowa"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Ogrzewanie postojowe Webasto"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Ogrzewanie postojowe Eberspächer"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Ogrzewanie postojowe DEFA"}}]}})} />
 
   </head>
   <body>
@@ -56,6 +61,7 @@ const canonicalUrl = canonicalPath ? `${siteUrl}${canonicalPath}` : `${siteUrl}$
         <slot />
       </main>
       <Footer />
+      <MobileCallBar />
     </div>
   </body>
 </html>

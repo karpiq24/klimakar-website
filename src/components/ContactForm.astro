@@ -1,20 +1,34 @@
 ---
 // ContactForm — the enquiry form on the 0.92 frost-form surface. Posts JSON to /contact.php;
-// field names (name, email, car, message, website honeypot) match public/contact.php.
+// field names (name, email, phone, contact, car, vin, message, website honeypot) match public/contact.php.
+// Phone is optional unless the customer prefers a phone call.
 ---
 
 <form id="contact-form" class="kk-form" novalidate>
   <h3 class="kk-h3">Wyślij zapytanie</h3>
-  <p class="kk-muted" style="margin:0 0 8px">Wypełnij formularz — odpiszemy w ciągu 1 dnia roboczego.</p>
+  <p class="kk-muted" style="margin:0 0 8px">Wypełnij formularz, a odpowiemy na Twoje zapytanie.</p>
   <div class="kk-g2" style="gap:14px">
     <label class="kk-field">Imię i nazwisko *<input id="cf-name" name="name" class="kk-input" type="text" placeholder="Jan Kowalski" required autocomplete="name"><span class="kk-field-error" hidden>Pole wymagane</span></label>
     <label class="kk-field">Adres e-mail *<input id="cf-email" name="email" class="kk-input" type="email" placeholder="np. jan@example.com" required autocomplete="email"><span class="kk-field-error" hidden>Pole wymagane</span></label>
   </div>
-  <label class="kk-field">Marka i model pojazdu, rocznik<input id="cf-car" name="car" class="kk-input" type="text" placeholder="np. Volkswagen Golf 2020"></label>
+  <div class="kk-g2" style="gap:14px">
+    <label class="kk-field"><span>Telefon <span id="cf-phone-mark">(opcjonalnie)</span></span><input id="cf-phone" name="phone" class="kk-input" type="tel" placeholder="np. 600 100 200" autocomplete="tel"><span class="kk-field-error" hidden>Podaj numer, jeśli wolisz kontakt telefoniczny</span></label>
+    <fieldset class="kk-field kk-choice">
+      <legend>Preferowana forma kontaktu</legend>
+      <div class="kk-choice-row">
+        <label><input type="radio" name="contact" value="email" checked><span>E-mail</span></label>
+        <label><input type="radio" name="contact" value="telefon"><span>Telefon</span></label>
+      </div>
+    </fieldset>
+  </div>
+  <div class="kk-g2" style="gap:14px">
+    <label class="kk-field">Marka i model pojazdu, rocznik<input id="cf-car" name="car" class="kk-input" type="text" placeholder="np. Volkswagen Golf 2020"></label>
+    <label class="kk-field">Numer VIN (opcjonalnie)<input id="cf-vin" name="vin" class="kk-input" type="text" placeholder="np. WVWZZZ1KZ6W000000" maxlength="17" autocapitalize="characters" spellcheck="false" autocomplete="off"></label>
+  </div>
   <label class="kk-field">Dodatkowe informacje<textarea id="cf-message" name="message" class="kk-input" rows="4" placeholder="Opisz problem lub dodaj informacje..."></textarea></label>
   <div style="display:none" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
   <button type="submit" class="kk-btn kk-btn--primary kk-btn--lg">Wyślij zapytanie</button>
-  <p class="kk-fineprint">Prosimy o podanie marki, modelu i rocznika pojazdu — ułatwi to wycenę usługi. W przypadku zapytania o montaż ogrzewania postojowego prosimy podać również rodzaj, pojemność i moc silnika oraz typ klimatyzacji (manualna / automatyczna).</p>
+  <p class="kk-fineprint">Prosimy o podanie marki, modelu i rocznika pojazdu — ułatwi to wycenę usługi. Numer VIN pomoże nam dobrać właściwe części. W przypadku zapytania o montaż ogrzewania postojowego prosimy podać również rodzaj, pojemność i moc silnika oraz typ klimatyzacji (manualna / automatyczna).</p>
 </form>
 
 <div id="contact-toast" class="kk-toast kk-frost" role="alert" hidden></div>
@@ -31,6 +45,18 @@
     toast.hidden = false;
     toastTimer = setTimeout(() => (toast.hidden = true), 5000);
   }
+
+  const phone = form.querySelector<HTMLInputElement>('#cf-phone')!;
+  const phoneMark = form.querySelector<HTMLElement>('#cf-phone-mark')!;
+  const contactChoice = () => form.querySelector<HTMLInputElement>('input[name="contact"]:checked')?.value ?? 'email';
+
+  // Preferring a phone call makes the phone number required.
+  function syncPhoneRequired() {
+    phone.required = contactChoice() === 'telefon';
+    phoneMark.textContent = phone.required ? '*' : '(opcjonalnie)';
+    if (!phone.required) validateField(phone);
+  }
+  form.querySelectorAll<HTMLInputElement>('input[name="contact"]').forEach((radio) => radio.addEventListener('change', syncPhoneRequired));
 
   function validateField(field: HTMLInputElement | HTMLTextAreaElement): boolean {
     const error = field.parentElement?.querySelector<HTMLElement>('.kk-field-error');
@@ -62,7 +88,10 @@
     const data = {
       name: value('#cf-name'),
       email: value('#cf-email'),
+      phone: value('#cf-phone'),
+      contact: contactChoice(),
       car: value('#cf-car'),
+      vin: value('#cf-vin').toUpperCase(),
       message: value('#cf-message'),
       website: honeypot?.value ?? '',
     };
@@ -82,6 +111,7 @@
       if (result.success) {
         showToast(result.message || 'Dziękujemy! Skontaktujemy się wkrótce.', true);
         form.reset();
+        syncPhoneRequired();
         fields.forEach((field) => field.removeAttribute('aria-invalid'));
         form.querySelectorAll<HTMLElement>('.kk-field-error').forEach((el) => (el.hidden = true));
       } else {
@@ -102,6 +132,58 @@
   .kk-input[aria-invalid] {
     border-color: var(--brand);
     box-shadow: var(--shadow-field-focus);
+  }
+  #cf-vin {
+    text-transform: uppercase;
+  }
+  #cf-vin::placeholder {
+    text-transform: none;
+  }
+  .kk-choice {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+  .kk-choice legend {
+    padding: 0;
+    margin-bottom: 6px;
+  }
+  .kk-choice-row {
+    display: flex;
+    gap: 8px;
+  }
+  .kk-choice-row label {
+    flex: 1;
+    position: relative;
+  }
+  .kk-choice-row input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+  .kk-choice-row span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 48px;
+    border-radius: var(--radius-icon);
+    border: 1px solid var(--brand-field-line);
+    background: var(--field);
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+  .kk-choice-row input:checked + span {
+    background: var(--brand);
+    border-color: var(--brand);
+    color: var(--white);
+  }
+  .kk-choice-row input:focus-visible + span {
+    outline: 3px solid var(--brand);
+    outline-offset: 3px;
   }
   .kk-field-error {
     font-size: 13px;

@@ -11,6 +11,7 @@ import SectionHeader from '../components/SectionHeader.astro';
 import GalleryGrid from '../components/GalleryGrid.astro';
 import YearTimeline from '../components/YearTimeline.astro';
 import ContactSection from '../components/ContactSection.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
 import { Columns4, ShieldCheck, Search, Zap, Wrench } from 'lucide-astro';
 
 const gallery = [
@@ -30,7 +31,7 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
 ---
 
 <BaseLayout
-  title="Klima-Kar — Klimatyzacja samochodowa Wrocław"
+  title="Klima-Kar — klimatyzacja samochodowa i ogrzewanie postojowe Wrocław"
   description="Profesjonalny serwis klimatyzacji samochodowej oraz ogrzewań postojowych Webasto, Eberspächer i DEFA we Wrocławiu. Firma rodzinna z tradycją od 1989 roku."
 >
   <!-- HERO -->
@@ -73,9 +74,9 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
         text="Elektroniczne testy szczelności, diagnostyka komputerowa, kontrola UV. Sprawdzenie kompresora na hamowni.">
         <Search {...icon} />
       </ServiceCard>
-      <ServiceCard variant="spotlight" title="R744 i auta elektryczne" chip="Nieliczni w Polsce" href="/klimatyzacja/"
+      <ServiceCard variant="spotlight" title="R744 i auta elektryczne" chip="Doświadczenie w R744" href="/klimatyzacja/"
         tags={['R744 · CO₂', 'Mercedes Klasy S', 'Pompy ciepła', 'Hybrydy i EV']}
-        text="Klimatyzacja na CO₂ (R744) trafia do coraz większej liczby aut. Mamy sprzęt i doświadczenie, żeby ją serwisować — jako jeden z nielicznych warsztatów w Polsce. Obsługujemy też klimatyzację aut elektrycznych i hybrydowych: elektryczne sprężarki wysokiego napięcia i układy z pompą ciepła, z użyciem dedykowanych olejów dielektrycznych.">
+        text="Klimatyzacja na CO₂ (R744) trafia do coraz większej liczby aut. Mamy specjalistyczny sprzęt do układów R744 i duże doświadczenie w ich serwisie. Obsługujemy też klimatyzację aut elektrycznych i hybrydowych: elektryczne sprężarki wysokiego napięcia i układy z pompą ciepła, z użyciem dedykowanych olejów dielektrycznych.">
         <Zap {...icon} />
       </ServiceCard>
       <ServiceCard variant="image" title="Skuteczne naprawy" href="/klimatyzacja/" image="/images/galeria/k2.jpg"
@@ -103,6 +104,11 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
         text="Sprzedaż, montaż i serwis DEFA — elektryczne ogrzewanie silnika, wnętrza i ładowanie akumulatora. Idealne dla miejsc z dostępem do prądu." />
     </div>
   </PhotoPanel>
+
+  <!-- HOW WE WORK -->
+  <ProcessSteps>
+    <a href="/jak-pracujemy/" class="kk-link">Zasady przyjmowania zleceń →</a>
+  </ProcessSteps>
 
   <!-- GALLERY -->
   <section class="kk-wrap kk-section">

@@ -110,7 +110,9 @@ All five steps are complete: 15 pages build, and each was checked at 1440px and 
   - `.kk-grad` pads its box by `.16em` top and bottom (cancelled by negative margins): `background-clip: text` only paints inside the box, so descenders of the hero h1 and the StatGrid numbers were cut;
   - StatGrid numbers are `clamp(22px, 3.1cqi, 44px)` (were up to 64px), so "Wrocław" and "Rodzinna" fit their quarter of the bar at every width;
   - footer logos are larger (20 / 31 / 33px, same 24:37:40 balance) and wrap when narrow;
-  - `.kk-price-cards--2` is a 2-column variant of the refrigerant price cards (four cards on /cennik).
+  - `.kk-price-cards--2` is a 2-column variant of the refrigerant price cards (four cards on /cennik);
+  - `.kk-more` is the "Dowiedz się więcej →" line that ServiceCard and PartnerCard show when they link
+    somewhere (brand blue; white on brand and spotlight cards; underlined on card hover).
 
 ## Changes after the migration (owner requests, 2026-10-12)
 
@@ -126,3 +128,15 @@ These differ from `homepage.dc.html` and the component previews on purpose. Don'
 - **Eberspächer:** EasyStart Pro product card (Eberspächer press packshot, features from the Polish operating manual); EasyStart Web subscription "129 zł rocznie (cena na dzień 12.10.2026)".
 - **Photos:** `webastoauto.jpg` is used only for Webasto/heating in general. Eberspächer uses `eberspacher-zima.jpg` and DEFA uses `defa-warmup.jpg` (manufacturer press images; FeatureList takes an `image` prop for this).
 - **Headings:** Unbounded's "j" has no descender hook by design; the owner chose to keep it.
+
+### Owner requests, 2026-10-13
+
+- **Linked cards:** every ServiceCard/PartnerCard with `href` ends in "Dowiedz się więcej →" (it wasn't clear they were links).
+- **R744 spotlight** (homepage and /klimatyzacja): chip "Doświadczenie w R744" and "Mamy specjalistyczny sprzęt do układów R744 i duże doświadczenie w ich serwisie" replace "Nieliczni w Polsce" / "jako jeden z nielicznych warsztatów w Polsce".
+- **Jak pracujemy:** new ProcessSteps section (przyjęcie → diagnostyka i wycena → telefon i decyzja klienta → naprawa) on the homepage (before the gallery) and on /klimatyzacja, plus a new page /jak-pracujemy/. The "Ważna informacja" box on /klimatyzacja moved there as "Zasady przyjmowania zleceń"; its last sentence no longer promises "bezawaryjnie".
+- **Klimatyzacja:** "Napełnianie i serwis układu" chip is "od 250 zł" (the lowest refrigerant price; "od 200 zł" was never on the old site) and links to /cennik.
+- **Cennik:** "Zakres obsługi układu klimatyzacji" restored from the old site; title "Cennik usług 2026" and a hand-set "Ceny aktualne na dzień …" date.
+- **Ogrzewanie postojowe:** "Które ogrzewanie dla Ciebie" tiles (wodne: auta osobowe; powietrzne: firmy, floty, kampery). Fuel costs are given in litres only; the złoty figures based on 5 zł/l are gone.
+- **Contact form:** optional phone, optional VIN, preferred contact (e-mail/telefon; phone becomes required for telefon). "odpiszemy w ciągu 1 dnia roboczego" is now "odpowiemy na Twoje zapytanie". `contact.php` sets Reply-To to the customer.
+- **Mobile:** a fixed "Zadzwoń do serwisu" call bar below 760px.
+- **SEO:** page titles name the service and Wrocław; the demo is `noindex`; JSON-LD coordinates corrected to 51.05556, 17.03197 (OpenStreetMap for ul. Grota-Roweckiego 129).

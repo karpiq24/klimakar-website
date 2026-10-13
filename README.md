@@ -43,14 +43,15 @@ Everything about the design lives in `design/szron/`:
 │   │   ├── ServiceCard, PartnerCard, ProductCard, GalleryGrid
 │   │   ├── YearTimeline (homepage), HistoryTimeline (o-firmie), StatGrid
 │   │   ├── ContentSection, FeatureList, FAQ, VideoFeature
+│   │   ├── ProcessSteps ("Jak pracujemy"), MobileCallBar (mobile call button)
 │   │   ├── PriceCards, PriceGroup (cennik)
 │   │   └── ContactSection, ContactForm
-│   ├── pages/                     # 15 routes
+│   ├── pages/                     # 16 routes
 │   └── styles/                    # szron.css + global.css
 ├── public/
 │   ├── images/                    # photos, product shots; images/brand/ = logos, K mark, snowflakes
 │   ├── contact.php                # form handler
-│   ├── .htaccess                  # HTTPS redirect, gzip, caching, security headers (OVH)
+│   ├── .htaccess                  # old ?strona= URL redirects, HTTPS, gzip, caching, headers (OVH)
 │   ├── CNAME                      # demo.klima-kar.pl (GitHub Pages)
 │   ├── robots.txt, favicon.svg
 ├── design/szron/                  # design system and handoff (reference)
@@ -68,6 +69,7 @@ Everything about the design lives in `design/szron/`:
 | Dezynfekcja TUNAP | `/tunap/` |
 | Dezynfekcja BG | `/dezynfekcja-bg/` |
 | Cennik | `/cennik/` |
+| Jak pracujemy | `/jak-pracujemy/` |
 | Ogrzewanie postojowe | `/ogrzewanie-postojowe/` |
 | Webasto | `/webasto/` |
 | Eberspächer | `/eberspacher/` |
@@ -96,20 +98,28 @@ Node ≥ 22.12 (see `package.json` › `engines`).
 Every push to `main` runs `.github/workflows/deploy.yml`, which builds the site and publishes it
 to GitHub Pages at <http://demo.klima-kar.pl/> (domain set by `public/CNAME`).
 GitHub Pages serves static files only: `contact.php` does not run there, so the contact form
-can't send on the demo.
+can't send on the demo. The workflow builds with `PUBLIC_NOINDEX=true`, so every demo page has
+`<meta name="robots" content="noindex, nofollow">` and the preview stays out of Google.
 
 ### Production: klima-kar.wroclaw.pl (OVH web hosting)
 
 The domain currently serves the old website. Replacing it with this site:
 
-1. `npm run build`.
-2. Upload the **entire contents** of `dist/` (including `.htaccess`) to the hosting `www/`
-   directory over FTP/SFTP (FileZilla, Cyberduck, `lftp`).
-3. PHP must be enabled (the default on OVH shared hosting).
-4. `.htaccess` handles the HTTPS redirect, gzip, browser caching and security headers.
+1. Before the switch, export Google Search Console data for the last 16 months (Skuteczność:
+   pages, queries, clicks, impressions) to compare after the launch.
+2. `npm run build` **without** `PUBLIC_NOINDEX` (check: `grep -r noindex dist` finds nothing).
+3. Download a backup of the server's `www/` (old site and its `.htaccess`).
+4. Delete the old site's files from `www/` (above all `index.php`), then upload the **entire
+   contents** of `dist/` (including `.htaccess`) over FTP/SFTP (FileZilla, Cyberduck, `lftp`).
+5. PHP must be enabled (the default on OVH shared hosting).
+6. `.htaccess` sends every old `/?strona=…` URL to its new page with one 301 (e.g.
+   `?strona=klimatyzacja-samochodowa` → `/klimatyzacja/`, `?strona=bg` → `/dezynfekcja-bg/`,
+   `?strona=promocja` → `/cennik/`), and handles HTTPS, www, gzip, caching and security headers.
 
-After deploying, check that `/` loads, `/contact.php` answers a POST, `/sitemap-index.xml`
-is reachable and HTTP redirects to HTTPS.
+After deploying, check that `/` loads, that `https://klima-kar.wroclaw.pl/?strona=cennik` lands on
+`/cennik/`, that the form sends an e-mail (and "Odpowiedz" reaches the customer), that
+`/sitemap-index.xml` is reachable and that HTTP redirects to HTTPS. Then submit
+`sitemap-index.xml` in Search Console.
 
 ## SEO
 

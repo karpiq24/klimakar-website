@@ -2,11 +2,11 @@ Klima-Kar is a family car air-conditioning and parking-heater workshop in Wrocł
 
 ## Content fundamentals
 
-- **Polish, informal "Ty".** Address the driver directly: "Twojego auta", "Zadzwoń, napisz lub odwiedź nas", "Wypełnij formularz — odpiszemy w ciągu 1 dnia roboczego."
+- **Polish, informal "Ty".** Address the driver directly: "Twojego auta", "Zadzwoń, napisz lub odwiedź nas", "Wypełnij formularz, a odpowiemy na Twoje zapytanie."
 - **Concrete over clever.** Name refrigerants (R12, R134a, R1234yf, R744), brands (Webasto, Eberspächer, DEFA) and methods (TUNAP, ultradźwięki, hamownia). Season lines are the only wordplay: "Latem chłodzimy." / "Zimą grzejemy."
 - **Sentence case** for headings, with no trailing period, except the two season lines, which end with one. Eyebrows are UPPERCASE via CSS; write them in normal case.
 - **CTAs are imperatives:** "Umów wizytę", "Zobacz cennik", "Wyślij zapytanie". Add " →" only when the link leaves the section.
-- **Fixed facts.** In refrigeration since 1989; Klima-Kar since 1999. Never call 1989 the founding year. Say "Ogrzewanie postojowe", never "Ogrzewacze postojowe". Cabin filters are in stock and fitted on the spot. Repairs replace parts with new ones first and regenerate only as a fallback. R744/CO₂ and EV service are rare in Poland, so give them prominence.
+- **Fixed facts.** In refrigeration since 1989; Klima-Kar since 1999. Never call 1989 the founding year. Say "Ogrzewanie postojowe", never "Ogrzewacze postojowe". Cabin filters are in stock and fitted on the spot. Repairs replace parts with new ones first and regenerate only as a fallback. R744/CO₂ and EV service are the differentiator, so give them prominence, but state equipment and experience, never "one of the few in Poland".
 - **No emoji, no exclamation marks, no invented stats.**
 
 ## Visual foundations

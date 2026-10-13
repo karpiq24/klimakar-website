@@ -1,10 +1,57 @@
-# Force HTTPS
-RewriteEngine On
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# Klima-Kar — production (OVH, Apache). Ignored on the GitHub Pages preview.
+# Test the redirects after changes (README › Deployment).
 
-# Clean URLs — serve /cennik/ as /cennik/index.html
-DirectoryIndex index.html index.php
+# Clean URLs — serve /cennik/ as /cennik/index.html. index.php is deliberately not listed:
+# the old site's index.php must not answer / (delete it from the server anyway).
+DirectoryIndex index.html
+
+RewriteEngine On
+
+# Old site: /?strona=<page> and /index.php?strona=<page> → new pages, 1:1.
+# Straight to the final https URL (one hop). The trailing "?" drops the old query string.
+RewriteCond %{QUERY_STRING} (?:^|&)strona=o-firmie(?:&|$) [NC]
+RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/o-firmie/? [R=301,L]
+RewriteCond %{QUERY_STRING} (?:^|&)strona=gwarancja(?:&|$) [NC]
+RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/gwarancja/? [R=301,L]
+RewriteCond %{QUERY_STRING} (?:^|&)strona=klimatyzacja-samochodowa(?:&|$) [NC]
+RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/klimatyzacja/? [R=301,L]
+RewriteCond %{QUERY_STRING} (?:^|&)strona=konserwacja(?:&|$) [NC]
+RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/konserwacja/? [R=301,L]
+RewriteCond %{QUERY_STRING} (?:^|&)strona=cennik(?:&|$) [NC]
+RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/cennik/? [R=301,L]
+RewriteCond %{QUERY_STRING} (?:^|&)strona=tunap(?:&|$) [NC]
+RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/tunap/? [R=301,L]
+RewriteCond %{QUERY_STRING} (?:^|&)strona=bg(?:&|$) [NC]
+RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/dezynfekcja-bg/? [R=301,L]
+RewriteCond %{QUERY_STRING} (?:^|&)strona=ogrzewanie-postojowe(?:&|$) [NC]
+RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/ogrzewanie-postojowe/? [R=301,L]
+RewriteCond %{QUERY_STRING} (?:^|&)strona=webasto(?:&|$) [NC]
+RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/webasto/? [R=301,L]
+RewriteCond %{QUERY_STRING} (?:^|&)strona=eberspacher(?:&|$) [NC]
+RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/eberspacher/? [R=301,L]
+RewriteCond %{QUERY_STRING} (?:^|&)strona=defa(?:&|$) [NC]
+RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/defa/? [R=301,L]
+RewriteCond %{QUERY_STRING} (?:^|&)strona=galeria(?:&|$) [NC]
+RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/galeria/? [R=301,L]
+RewriteCond %{QUERY_STRING} (?:^|&)strona=kontakt(?:&|$) [NC]
+RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/kontakt/? [R=301,L]
+RewriteCond %{QUERY_STRING} (?:^|&)strona=rodo(?:&|$) [NC]
+RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/rodo/? [R=301,L]
+# The 2020 pre-season promotion has no new page; its prices live on /cennik/.
+RewriteCond %{QUERY_STRING} (?:^|&)strona=promocja(?:&|$) [NC]
+RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/cennik/? [R=301,L]
+# Any other ?strona= value, and a bare /index.php → home page.
+RewriteCond %{QUERY_STRING} (?:^|&)strona= [NC]
+RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/? [R=301,L]
+RewriteRule ^index\.php$ https://klima-kar.wroclaw.pl/ [R=301,L]
+
+# Old sitemap → new sitemap
+RewriteRule ^sitemap\.xml$ https://klima-kar.wroclaw.pl/sitemap-index.xml [R=301,L]
+
+# https and no www (same as the old server did). OVH's documented https test is the port.
+RewriteCond %{SERVER_PORT} 80 [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://klima-kar.wroclaw.pl%{REQUEST_URI} [R=301,L]
 
 # GZIP Compression
 <IfModule mod_deflate.c>

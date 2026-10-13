@@ -6,6 +6,10 @@ import PartnerCard from '../components/PartnerCard.astro';
 import FeatureList from '../components/FeatureList.astro';
 import ContentSection from '../components/ContentSection.astro';
 import CTABanner from '../components/CTABanner.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { Car, Truck } from 'lucide-astro';
+
+const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
 
 const brands = [
   {
@@ -31,6 +35,31 @@ const brands = [
   },
 ];
 
+// Which heater for whom: water (wet) vs air (dry) heaters, with the matching kind of customer.
+const types = [
+  {
+    kind: 'Ogrzewanie wodne',
+    title: 'Komfort w aucie osobowym i ochrona silnika',
+    who: 'Klient indywidualny · auta osobowe',
+    items: [
+      'Nagrzany silnik, ciepłe wnętrze i odmrożone szyby rano',
+      'Mniejsze zużycie elementów silnika podczas rozruchu',
+      'Sterowanie z aplikacji: Webasto ThermoConnect lub Eberspächer EasyStart Web',
+    ],
+  },
+  {
+    kind: 'Ogrzewanie powietrzne',
+    title: 'Ciepła kabina w busie, dostawczaku i kamperze',
+    who: 'Firmy, floty, kampery · auta dostawcze, busy, pojazdy specjalne',
+    items: [
+      'Niezawodne ciepło w kabinie w trasie i na postoju, także do spania w pojeździe',
+      'Montaż pod fotelem lub w zabudowie',
+      'Serwis w trybie pilnym',
+    ],
+  },
+];
+const check = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>';
+
 const benefits = [
   'Podgrzany do odpowiedniej temperatury silnik — brak efektu zimnego startu.',
   'Ciepłe i przyjazne warunki wewnątrz pojazdu natychmiast po wejściu.',
@@ -42,7 +71,7 @@ const benefits = [
 ---
 
 <BaseLayout
-  title="Ogrzewanie postojowe — Klima-Kar"
+  title="Ogrzewanie postojowe Webasto, Eberspächer, DEFA Wrocław — Klima-Kar"
   description="Autoryzowany serwis ogrzewań postojowych Webasto, Eberspächer i DEFA we Wrocławiu. Montaż, naprawa, diagnostyka i serwis ogrzewaczy niezależnych."
 >
   <PageHero
@@ -65,6 +94,23 @@ const benefits = [
     </div>
   </PhotoPanel>
 
+  <section class="kk-wrap kk-section">
+    <SectionHeader eyebrow="Wodne czy powietrzne?" title="Które ogrzewanie dla Ciebie" />
+    <div class="kk-g2" style="gap:var(--svc-gap)">
+      {types.map((t, i) => (
+        <div class="kk-frost kk-card kk-type">
+          <span class="kk-ico">{i === 0 ? <Car {...icon} /> : <Truck {...icon} />}</span>
+          <span class="kk-partner-kind">{t.kind}</span>
+          <h3 class="kk-card-title">{t.title}</h3>
+          <span class="kk-chip kk-chip--tag" style="align-self:flex-start">{t.who}</span>
+          <ul class="kk-checklist">
+            {t.items.map((item) => <li><span class="kk-check" set:html={check} /><span>{item}</span></li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
   <FeatureList season="winter" eyebrow="Ogrzewanie postojowe" title="Zalety ogrzewania postojowego" items={benefits} />
 
   <ContentSection eyebrow="Ogrzewanie postojowe" title="Jak działa ogrzewanie wodne?">
@@ -81,9 +127,9 @@ const benefits = [
   </ContentSection>
 
   <ContentSection eyebrow="Ogrzewanie postojowe" title="Koszty eksploatacji">
-    <p>W przypadku ogrzewania wodnego jeden trzydziestominutowy cykl ogrzewania samochodu osobowego w zimowy poranek kosztuje około złotówkę*. Warto zwrócić uwagę na fakt, że koszt eksploatacji częściowo się zwraca, ponieważ oszczędzamy na paliwie, którego większą ilość potrzebowałby nienagrzany silnik.</p>
-    <p>Przykładowe ogrzewanie powietrzne Airtronic D2 o mocy 2 kW pobiera w zależności od warunków od 0,1 do 0,28 litra na godzinę pracy, co daje od 0,50 zł do 1,40 zł na godzinę*. Gdy temperatura nie spada, urządzenie przechodzi w tryb czuwania — koszt może być jeszcze niższy.</p>
-    <div class="kk-fineprint">*Koszt orientacyjny przyjęty dla paliwa w cenie 5 zł za litr.</div>
+    <p>W przypadku ogrzewania wodnego jeden trzydziestominutowy cykl ogrzewania samochodu osobowego w zimowy poranek zużywa około 0,2 litra paliwa*. Warto zwrócić uwagę na fakt, że koszt eksploatacji częściowo się zwraca, ponieważ oszczędzamy na paliwie, którego większą ilość potrzebowałby nienagrzany silnik.</p>
+    <p>Przykładowe ogrzewanie powietrzne Airtronic D2 o mocy 2 kW pobiera w zależności od warunków od 0,1 do 0,28 litra paliwa na godzinę pracy*. Gdy temperatura nie spada, urządzenie przechodzi w tryb czuwania — zużycie może być jeszcze niższe.</p>
+    <div class="kk-fineprint">*Wartości orientacyjne. Rzeczywiste zużycie paliwa zależy od modelu urządzenia, jego mocy i warunków pracy.</div>
   </ContentSection>
 
   <ContentSection eyebrow="Ogrzewanie postojowe" title="Koszty montażu">
@@ -114,5 +160,19 @@ const benefits = [
   }
   .kk-ardic strong {
     font-weight: 700;
+  }
+  .kk-type {
+    border-radius: var(--radius-card);
+    padding: var(--card-pad);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .kk-type .kk-card-title {
+    margin: 0;
+  }
+  .kk-type .kk-checklist li {
+    padding: 12px 0;
+    font-size: 16px;
   }
 </style>

@@ -17,6 +17,10 @@ Static Astro 6 site in the **Szron** design. `README.md` covers the stack, struc
   - R744/CO₂ and EV service is the differentiator. Cabin filters are in stock, fitted on the spot.
   - Only full on-site service with the workshop's own parts; no customer-supplied parts.
 - Company tagline: "Komfortowy klimat w zasięgu ręki" (under the homepage h1).
+- No unprovable comparisons ("jeden z nielicznych w Polsce") and no absolute promises
+  ("bezawaryjnie", reply "w ciągu 1 dnia"). Name the equipment and experience instead.
+- Prices on /cennik carry a hand-set date (`pricesUpdated` in `cennik.astro`); change it only when
+  the owner confirms the prices. Never make it update itself.
 - No emoji and no exclamation marks in new copy. Motifs: car, AC and heating only.
 - Prices on /cennik are copied exactly. Never round or rephrase them.
 - Don't use one brand's photos on another brand's page (`webastoauto.jpg` is Webasto's).
@@ -36,7 +40,7 @@ Static Astro 6 site in the **Szron** design. `README.md` covers the stack, struc
 
 ## Checks before committing
 
-- `npm run build` passes (15 pages).
+- `npm run build` passes (16 pages).
 - Look at changed pages at 1440px and 390px (and ~1024/1366 for anything in grids or bars).
   No text may overflow its column; long Polish words in display headings may need a soft
   hyphen (`{"Bezpieczeń\u00ADstwo"}`; a JS expression, since quoted attributes don't unescape).
@@ -44,7 +48,9 @@ Static Astro 6 site in the **Szron** design. `README.md` covers the stack, struc
 
 ## Git and deploy
 
-- Pushing to `main` deploys the preview to http://demo.klima-kar.pl/ (GitHub Pages; PHP and the
+- Pushing to `main` deploys the preview to http://demo.klima-kar.pl/ (GitHub Pages, built with
+  `PUBLIC_NOINDEX=true` so every page has `noindex`; PHP and the
   contact form don't run there).
 - Production is https://klima-kar.wroclaw.pl/ on OVH and still serves the old site. Going live means
-  uploading `dist/` there by FTP; only do that when the owner asks.
+  uploading `dist/` there by FTP; only do that when the owner asks. Build it without
+  `PUBLIC_NOINDEX`, and follow README › Deployment (old-URL redirects in `public/.htaccess`).

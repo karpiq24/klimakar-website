@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import ContentSection from '../components/ContentSection.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { ClipboardCheck } from 'lucide-astro';
+
+const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
+const check = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>';
+---
+
+<BaseLayout
+  title="Jak pracujemy — Klima-Kar Wrocław"
+  description="Przebieg naprawy w Klima-Kar we Wrocławiu: przyjęcie auta, diagnostyka i wycena, telefon z decyzją klienta, naprawa. Zasady przyjmowania zleceń."
+>
+  <PageHero
+    crumbs={[{ label: 'Strona główna', href: '/' }, { label: 'Jak pracujemy' }]}
+    eyebrow="Jak pracujemy"
+    title="Jak pracujemy"
+    lead="Od przyjęcia auta do naprawy, krok po kroku. Zanim cokolwiek naprawimy, dzwonimy i mówimy, co trzeba zrobić i ile to będzie kosztować."
+  />
+
+  <ProcessSteps eyebrow="Przebieg naprawy" title="Cztery kroki" />
+
+  <ContentSection eyebrow="Jak pracujemy" title="Zasady przyjmowania zleceń">
+    <ClipboardCheck slot="icon" {...icon} />
+    <p>W trosce o jakość i trwałość napraw świadczymy wyłącznie kompleksowe usługi od A do Z.</p>
+    <ul class="kk-checklist">
+      <li><span class="kk-check" set:html={check} /><span><strong>Tylko pełna obsługa na miejscu:</strong> Przyjmujemy pojazdy/urządzenia w całości. Nie naprawiamy pojedynczych podzespołów (np. sprężarek czy przewodów) dostarczonych „luzem” (tzw. usługi na wynos).</span></li>
+      <li><span class="kk-check" set:html={check} /><span><strong>Pracujemy wyłącznie na własnych częściach:</strong> Nie montujemy części powierzonych przez klientów. Pozwala to uniknąć sporów gwarancyjnych z zewnętrznymi dostawcami (którzy w razie awarii często winą obarczają montaż) i daje Ci pełną, jednoznaczną gwarancję na całą usługę.</span></li>
+    </ul>
+    <h3 class="kk-card-title">Dlaczego to robimy?</h3>
+    <p>Gdy diagnostykę, naprawę i montaż wykonujemy w całości sami, możemy rzetelnie ustalić przyczynę usterki, naprawić ją zgodnie z procedurą i odpowiadać za całą usługę. Szczegóły znajdziesz na stronie <a href="/gwarancja/">Gwarancja</a>.</p>
+  </ContentSection>
+
+  <CTABanner title="Umów wizytę w serwisie" subtitle="Zadzwoń: 71 337 14 50 lub 605 594 506" />
+</BaseLayout>
