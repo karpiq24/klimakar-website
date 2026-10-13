@@ -1,6 +1,7 @@
 ---
 // HeaterModels — the heater models we fit for one heater type (src/data/ogrzewanie.ts), as upright
-// ProductCards (photo above the features) inside a "Które ogrzewanie dla Ciebie" card.
+// ProductCards (photo above the features) inside a "Które ogrzewanie dla Ciebie" card, chipped
+// "Przykładowy model" (owner: we fit various models) with the spec rows' labels in bold.
 // With several models (main site) a Webasto | Eberspächer pill switch shows one at a time; every
 // switch on the page follows the last choice. The models share one grid cell and inactive ones are
 // only invisible, so the card keeps its height when switching. Without JS the first model shows.
@@ -30,7 +31,7 @@ const tabs = models.length > 1;
       {models.map((m, i) => (
         <div class="kk-models-panel" data-heater-brand={m.brand} data-active={i === 0 ? 'true' : 'false'}
           {...(tabs ? { role: 'tabpanel', id: `${uid}-panel-${i}`, 'aria-labelledby': `${uid}-tab-${i}` } : {})}>
-          <ProductCard name={m.name} image={m.image} imageAlt={m.name} features={m.features} />
+          <ProductCard name={m.name} type="Przykładowy model" image={m.image} imageAlt={m.name} features={m.features} labels />
         </div>
       ))}
     </div>

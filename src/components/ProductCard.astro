@@ -3,6 +3,7 @@
 // Place cards inside <div class="kk-products">. `description` replaces the list (DEFA modules).
 // A feature may contain `{dzisiaj}`, rendered as today's date ("cena na dzień {dzisiaj}").
 // `retired` greys the card out and adds a "Produkt wycofany" chip (no longer sold; list it last).
+// `labels` shows features written as "Label: value" with the label in bold (spec rows, e.g. heaters).
 import Today from './Today.astro';
 
 interface Props {
@@ -13,9 +14,14 @@ interface Props {
   features?: string[];
   description?: string;
   retired?: boolean;
+  labels?: boolean;
 }
 
-const { name, type, image, imageAlt, features = [], description, retired = false } = Astro.props;
+const { name, type, image, imageAlt, features = [], description, retired = false, labels = false } = Astro.props;
+const split = (f: string) => {
+  const i = labels ? f.indexOf(': ') : -1;
+  return i > 0 ? { label: f.slice(0, i + 1), value: f.slice(i + 2) } : { label: '', value: f };
+};
 ---
 
 <div class:list={['kk-frost kk-card kk-product', { 'kk-product--retired': retired }]}>
@@ -32,7 +38,7 @@ const { name, type, image, imageAlt, features = [], description, retired = false
     {features.length > 0 && (
       <ul class="kk-product-feats">
         {features.map((f) => (
-          <li><span class="kk-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span><span>{f.includes('{dzisiaj}') ? <>{f.split('{dzisiaj}')[0]}<Today />{f.split('{dzisiaj}')[1]}</> : f}</span></li>
+          <li><span class="kk-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span><span>{f.includes('{dzisiaj}') ? <>{f.split('{dzisiaj}')[0]}<Today />{f.split('{dzisiaj}')[1]}</> : split(f).label ? <><strong class="kk-product-label">{split(f).label}</strong> {split(f).value}</> : f}</span></li>
         ))}
       </ul>
     )}
@@ -44,6 +50,10 @@ const { name, type, image, imageAlt, features = [], description, retired = false
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
+  }
+  .kk-product-label {
+    font-weight: 600;
+    color: var(--navy);
   }
   .kk-product--retired {
     opacity: 0.62;

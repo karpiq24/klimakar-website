@@ -177,5 +177,7 @@ The owner went through an audit of the new site against the old one (39 findings
   Hydronic S3. Powietrzne: Webasto Air Top Pro 25, Eberspächer Airtronic S3 D2L. /ogrzewanie-postojowe
   shows one model per type with a Webasto | Eberspächer pill switch (both cards switch together; the owner
   rejected 4 narrow tiles and wide photo-left rows). /webasto/, /eberspacher/ and each brand site show only
-  that brand's two models in the season-module halves (`HeaterTypes.astro`), one per half. Features and packshots come from webasto.com and
+  that brand's two models in the season-module halves (`HeaterTypes.astro`), one per half.
+  Owner feedback: models of one type use the same "Label: value" rows in the same order and words (only
+  values differ, labels bold via ProductCard `labels`), and each card is chipped "Przykładowy model". Features and packshots come from webasto.com and
   eberspaecher.com (product pages, datasheets, press releases, Media service).
