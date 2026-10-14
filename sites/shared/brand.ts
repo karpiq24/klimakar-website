@@ -50,11 +50,14 @@ export function withImages<T extends { image: string }>(items: T[], images: Reco
   });
 }
 
-/** One-page sections, in page order: header nav, footer list and the scroll spy. */
-export const sections = [
+/**
+ * One-page sections, in page order: header nav, footer list and the scroll spy.
+ * `footerOnly`: listed in the footer, not the header (the directions are a small note under Kontakt).
+ */
+export const sections: { id: string; label: string; footerOnly?: boolean }[] = [
   { id: 'o-nas', label: 'O nas' },
   { id: 'serwis', label: 'Serwis' },
   { id: 'sterowanie', label: 'Sterowanie' },
   { id: 'kontakt', label: 'Kontakt' },
-  { id: 'dojazd', label: 'Jak dojechać?' },
+  { id: 'dojazd', label: 'Jak dojechać?', footerOnly: true },
 ];

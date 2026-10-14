@@ -1,5 +1,6 @@
 ---
-// Header — floating frosted pill. Below 760px: phone button + burger opening the frosted mobile menu.
+// Header — floating frosted pill, sticky at the top, with a highlight that slides between links
+// (src/scripts/header.ts). Below 760px: a burger (the phone is in the bottom call bar) opening the frosted mobile menu.
 const navLinks = [
   { label: 'Strona główna', href: '/', match: ['/'] },
   { label: 'Klimatyzacja', href: '/klimatyzacja/', match: ['/klimatyzacja/', '/konserwacja/', '/tunap/', '/dezynfekcja-bg/'] },
@@ -13,7 +14,7 @@ const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.ur
 const current = (link: (typeof navLinks)[number]) => (link.match.includes(path) ? 'page' : undefined);
 ---
 
-<div class="kk-wrap" style="position:relative;padding-top:18px">
+<div class="kk-wrap kk-headbar" id="kk-headbar">
   <header class="kk-header kk-frost">
     <a href="/" class="kk-header-logo" aria-label="Klima-Kar — strona główna"><img src="/images/brand/logo-color.svg" alt="Klima-Kar" width="125" height="30"></a>
     <nav class="kk-nav" aria-label="Główna">
@@ -21,7 +22,6 @@ const current = (link: (typeof navLinks)[number]) => (link.match.includes(path) 
     </nav>
     <a href="/kontakt/" class="kk-btn kk-btn--primary kk-btn--sm">Umów wizytę</a>
     <div class="kk-burger">
-      <a href="tel:+48713371450" class="kk-round" aria-label="Zadzwoń: 71 337 14 50"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path></svg></a>
       <button type="button" class="kk-round kk-blue" aria-label="Menu" aria-expanded="false" aria-controls="kk-mnav" id="kk-burger"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"></path></svg></button>
     </div>
   </header>
@@ -32,6 +32,10 @@ const current = (link: (typeof navLinks)[number]) => (link.match.includes(path) 
 </div>
 
 <script>
+  import { initHeader } from '../scripts/header';
+
+  initHeader(document.getElementById('kk-headbar'));
+
   const burger = document.getElementById('kk-burger');
   const menu = document.getElementById('kk-mnav');
   burger?.addEventListener('click', () => {

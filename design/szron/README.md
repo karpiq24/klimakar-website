@@ -117,6 +117,16 @@ All five steps are complete: 15 pages build, and each was checked at 1440px and 
     YearTimeline has four since the 2009 authorisation got its own year); on mobile they form a 2×2 grid. Each `.kk-year` is a top-aligned flex column, so years line up when one label wraps to more lines (buttons centre their content by default).
   - mobile: `.kk-products` (ProductCard grid) stacks the cards in one column instead of the side-scrolling
     row (owner, 2026-10-13: no horizontal scroll anywhere).
+  - `.kk-headbar` makes the header wrapper sticky (UX request, 2026-10-14); once scrolled (`is-stuck`) the
+    pill uses `--frost-form`, a `--brand-line` border and the new `--shadow-sticky` token, so it stands
+    out from the light ground and white cards (it blended in with the white frost edge), and the mobile menu scrolls if taller than
+    the screen. On mobile `.kk-headbar.is-hidden` slides it away while scrolling down and back on scroll up,
+    so it and the bottom call bar don't both cover the content (owner, 2026-10-14). `.kk-nav--pill` / `.kk-nav-pill` is the floating highlight that slides between nav links
+    (set up by `src/scripts/header.ts`; without JS the current link keeps its own white background).
+    `global.css` adds `scroll-padding-top` so anchors land below the header.
+  - the two page-background glows behind the header are classes (`.kk-glow--top-ice`, `.kk-glow--top-brand`,
+    were inline styles in the layouts); on mobile they are smaller and fainter (owner, 2026-10-14: the
+    760px ice glow turned the whole top of the phone screen blue). Desktop is unchanged.
 
 ## Changes after the migration (owner requests, 2026-10-12)
 
@@ -187,3 +197,9 @@ The owner went through an audit of the new site against the old one (39 findings
 - **Ogrzewanie postojowe:** the PageHero photo is `2009-autoryzacja.webp` (the same as 2009 in the history), not the workshop photo.
 - **Airtronic S3 D2L:** automatic altitude correction up to 3000 m n.p.m. (owner; the datasheet table says 4000 m).
 - **Eberspächer controllers** (main site and brand site): EasyStart Pro no longer lists "Sterowanie maksymalnie dwoma urządzeniami grzewczymi". EasyStart Select and Timer show "Odczyt błędów urządzenia" instead of the feedback function; Remote+ lists it too; Remote keeps "Funkcja informacji zwrotnej". EasyStart Web: "Aplikacja dostępna w Google Play i App Store" replaces "Bezpłatna aplikacja na smartfony" (it needs a subscription).
+- **Mobile call bar:** it slides away while the homepage hero buttons or the brand-site hero's "Zadzwoń"
+  button (`data-callbar-hide`) are on screen, so the first screen stays clean and doesn't show two blue
+  call buttons (owner, 2026-10-14). Near the
+  contact card and the CTABanner it stays, by the owner's choice. Its shadow is the new `--shadow-callbar` token: a white
+  ring plus a navy drop shadow, so it stays distinct over brand-blue cards (it used `--shadow-brand` and
+  blended in). The mobile header has no phone button; the call bar covers it.

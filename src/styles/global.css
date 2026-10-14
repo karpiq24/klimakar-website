@@ -3,6 +3,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Anchored sections land below the sticky header. */
+  scroll-padding-top: 96px;
 }
 
 body {

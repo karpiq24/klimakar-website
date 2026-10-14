@@ -12,6 +12,10 @@ interface Props {
 }
 
 const { brand } = Astro.props;
+// Domains wrap only before ".wroclaw.pl" (not at the hyphen in "klima-kar"); a narrow column can't fit them.
+const sites = strony
+  .filter((s) => s.key === 'main' || s.key === brand.key)
+  .map((s) => ({ ...s, here: s.key === brand.key, name: s.label.split('.')[0], tld: s.label.slice(s.label.indexOf('.')) }));
 ---
 
 <footer class="kk-wrap kk-footer">
@@ -31,7 +35,10 @@ const { brand } = Astro.props;
       <div>
         <div class="kk-foot-h">Nasze strony</div>
         <div class="kk-foot-list">
-          {strony.filter((s) => s.key === 'main' || s.key === brand.key).map((s) => (s.key === brand.key ? <span aria-current="page" class="mk-here">{s.label}</span> : <a href={s.url}>{s.label}</a>))}
+          {sites.map((s) => {
+            const label = <><span class="mk-nowrap">{s.name}</span><wbr /><span class="mk-nowrap">{s.tld}</span></>;
+            return s.here ? <span aria-current="page" class="mk-here">{label}</span> : <a href={s.url}>{label}</a>;
+          })}
           <a href={`${mainSite}/ogrzewanie-postojowe/`}>Ogrzewanie postojowe</a>
           <a href={`${mainSite}/cennik/`}>Cennik</a>
         </div>
@@ -58,5 +65,8 @@ const { brand } = Astro.props;
   .mk-here {
     color: var(--brand);
     font-weight: 600;
+  }
+  .mk-nowrap {
+    white-space: nowrap;
   }
 </style>
