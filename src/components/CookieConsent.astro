@@ -1,0 +1,149 @@
+---
+// CookieConsent — the cookie banner for Google Tag Manager (GA4 and Google Ads conversions).
+// BaseLayout sets Consent Mode v2 to "denied" in <head> and replays a saved choice before GTM loads;
+// this banner asks once, saves the choice under localStorage `kk-consent` ({ v: 1, analytics, ads, t })
+// and sends gtag('consent', 'update') plus a `consent_update` dataLayer event for GTM triggers.
+// "Odrzuć" is the neutral frost button (owner, 2026-10-14) but keeps the same size and position as
+// "Akceptuj", so rejecting stays as easy as accepting (EU rules). Any element with
+// `data-consent-open` (footer link, /rodo/) shows the banner again so the choice can be changed.
+// The banner shows on the demo too, so the owner can see it, but GTM loads only in production builds
+// (ConsentHead.astro). The brand sites have no /rodo/, so they pass the main site's policy URL.
+interface Props {
+  policyUrl?: string;
+}
+
+const { policyUrl = '/rodo/#cookies' } = Astro.props;
+---
+
+<section id="kk-consent" class="kk-consent kk-frost" aria-labelledby="kk-consent-title" hidden>
+  <p id="kk-consent-title" class="kk-consent-h">Pliki cookies</p>
+  <p>Za Twoją zgodą używamy Google Analytics i Google Ads, żeby sprawdzać, jak korzystasz ze strony i które reklamy prowadzą do kontaktu z nami. Bez zgody strona działa tak samo. Szczegóły znajdziesz w <a href={policyUrl}>polityce prywatności</a>.</p>
+  <div class="kk-consent-actions">
+    <button type="button" class="kk-btn kk-btn--frost kk-btn--sm" data-consent="reject">Odrzuć</button>
+    <button type="button" class="kk-btn kk-btn--primary kk-btn--sm" data-consent="accept">Akceptuj</button>
+  </div>
+</section>
+
+<script>
+  type Gtag = (...args: unknown[]) => void;
+  const w = window as typeof window & { gtag?: Gtag; dataLayer?: unknown[] };
+  const KEY = 'kk-consent';
+  const VERSION = 1; // raise it when the banner text or the tools change, so everyone is asked again
+  const banner = document.getElementById('kk-consent');
+
+  function saved(): boolean {
+    try {
+      const choice = JSON.parse(localStorage.getItem(KEY) ?? 'null');
+      return !!choice && choice.v === VERSION;
+    } catch {
+      return false;
+    }
+  }
+
+  // After a withdrawn consent, remove the cookies GA4 and Google Ads already set on this domain.
+  function clearGoogleCookies() {
+    const domain = location.hostname.replace(/^www\./, '');
+    document.cookie
+      .split(';')
+      .map((c) => c.split('=')[0].trim())
+      .filter((name) => /^(_ga|_gid|_gcl)/.test(name))
+      .forEach((name) => {
+        document.cookie = `${name}=; max-age=0; path=/`;
+        document.cookie = `${name}=; max-age=0; path=/; domain=.${domain}`;
+      });
+  }
+
+  function choose(granted: boolean) {
+    try {
+      localStorage.setItem(KEY, JSON.stringify({ v: VERSION, analytics: granted, ads: granted, t: Date.now() }));
+    } catch {
+      // Storage blocked: the choice holds for this page view only.
+    }
+    const value = granted ? 'granted' : 'denied';
+    if (typeof w.gtag === 'function') {
+      w.gtag('consent', 'update', { ad_storage: value, ad_user_data: value, ad_personalization: value, analytics_storage: value });
+      w.dataLayer?.push({ event: 'consent_update' });
+    }
+    if (!granted) clearGoogleCookies();
+    if (banner) banner.hidden = true;
+  }
+
+  if (banner) {
+    banner.querySelectorAll<HTMLButtonElement>('[data-consent]').forEach((button) =>
+      button.addEventListener('click', () => choose(button.dataset.consent === 'accept')),
+    );
+    document.querySelectorAll('[data-consent-open]').forEach((opener) =>
+      opener.addEventListener('click', () => {
+        banner.hidden = false;
+        banner.querySelector<HTMLButtonElement>('[data-consent]')?.focus();
+      }),
+    );
+    if (!saved()) banner.hidden = false;
+  }
+</script>
+
+<style>
+  .kk-consent {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    z-index: 45;
+    width: min(440px, calc(100vw - 40px));
+    padding: 22px 24px;
+    border-radius: var(--radius-card-sm);
+    background: var(--frost-form);
+    box-shadow: var(--shadow-form);
+    font-size: 15px;
+    color: var(--text-muted);
+  }
+  .kk-consent p {
+    margin: 0;
+  }
+  .kk-consent .kk-consent-h {
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .kk-consent a {
+    color: var(--brand);
+    font-weight: 600;
+  }
+  .kk-consent-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .kk-consent-actions .kk-btn {
+    flex: 1;
+  }
+  /* On the white card the frost button would have no visible edge; a light brand fill and line keep
+     "Odrzuć" clearly a button while staying quieter than "Akceptuj". */
+  .kk-consent-actions .kk-btn--frost {
+    background: var(--brand-tint);
+    border-color: var(--brand-field-line);
+    box-shadow: none;
+  }
+  /* Phones: full width, above the "Zadzwoń do serwisu" bar (12px + 56px + 12px gap). */
+  @container kk (max-width: 760px) {
+    .kk-consent {
+      left: 12px;
+      right: 12px;
+      width: auto;
+      bottom: calc(80px + env(safe-area-inset-bottom));
+      padding: 18px 20px;
+    }
+  }
+</style>
+
+<style is:global>
+  /* "Ustawienia cookies" in the main and brand-site footers: a button that looks like the links around it. */
+  .kk-foot-btn {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+</style>

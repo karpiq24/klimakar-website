@@ -1,11 +1,14 @@
 ---
 // Layout for the one-page brand sites: same <head> rules as src/layouts/BaseLayout.astro (SEO,
-// Open Graph, fonts, JSON-LD), with the brand's own domain as canonical URL.
+// Open Graph, fonts, JSON-LD, consent + GTM), with the brand's own domain as canonical URL.
 import '../../src/styles/global.css';
 import '../../src/styles/szron.css';
 import MicroHeader from './MicroHeader.astro';
 import MicroFooter from './MicroFooter.astro';
 import MobileCallBar from '../../src/components/MobileCallBar.astro';
+import ConsentHead from '../../src/components/ConsentHead.astro';
+import CookieConsent from '../../src/components/CookieConsent.astro';
+import { mainSite } from '../../src/data/strony';
 import type { Brand } from './brand';
 
 interface Props {
@@ -44,6 +47,7 @@ const jsonLd = {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <ConsentHead />
 
     <!-- SEO -->
     <title>{brand.seo.title}</title>
@@ -85,6 +89,7 @@ const jsonLd = {
       </main>
       <MicroFooter brand={brand} />
       <MobileCallBar />
+      <CookieConsent policyUrl={`${mainSite}/rodo/#cookies`} />
     </div>
   </body>
 </html>

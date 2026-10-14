@@ -109,6 +109,8 @@
       const result = await response.json();
 
       if (result.success) {
+        // Conversion for GTM (Google Ads, GA4); only after contact.php confirms the e-mail went out.
+        (window as typeof window & { dataLayer?: unknown[] }).dataLayer?.push({ event: 'form_submit_success', form_id: 'kontakt' });
         showToast(result.message || 'Dziękujemy! Skontaktujemy się wkrótce.', true);
         form.reset();
         syncPhoneRequired();

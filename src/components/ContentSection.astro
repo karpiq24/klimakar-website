@@ -7,14 +7,16 @@ interface Props {
   eyebrow: string;
   title: string;
   as?: 'h2' | 'h3';
+  /** Anchor for links to this section (e.g. /rodo/#cookies). */
+  id?: string;
 }
 
-const { eyebrow, title, as: Heading = 'h2' } = Astro.props;
+const { eyebrow, title, as: Heading = 'h2', id } = Astro.props;
 const hasCallout = Astro.slots.has('callout');
 const hasIcon = Astro.slots.has('icon');
 ---
 
-<section class="kk-wrap kk-section">
+<section class="kk-wrap kk-section" id={id}>
   <div class="kk-frost kk-article">
     <div class="kk-article-side">{hasIcon && <span class="kk-ico" style="margin-bottom:20px"><slot name="icon" /></span>}<p class="kk-eyebrow">{eyebrow}</p><Heading class="kk-h2">{title}</Heading></div>
     <div class="kk-article-body">

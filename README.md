@@ -112,6 +112,9 @@ sites/
   files it uses, and paths follow `base`.
 - **Contact:** no form (GitHub Pages and the old sites had none). "Napisz e-mail" opens a prepared
   e-mail with the old sites' enquiry list (marka, model, rocznik, silnik, klimatyzacja).
+- **Measurement:** the same Google Tag Manager container and cookie banner as the main site
+  (`src/components/ConsentHead.astro`, `CookieConsent.astro`), production builds only. The banner's policy
+  link goes to the main site's /rodo/#cookies; "Ustawienia cookies" in the footer reopens it.
 
 ```bash
 npm run dev:webasto          # http://localhost:4322

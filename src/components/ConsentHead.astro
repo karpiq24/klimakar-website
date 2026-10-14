@@ -1,0 +1,26 @@
+---
+// ConsentHead — goes first in <head> on the main site (BaseLayout) and the brand sites (MicroLayout).
+// Consent Mode v2 starts with everything denied, a choice saved by CookieConsent.astro (localStorage
+// `kk-consent`, one per domain) is replayed, and then Google Tag Manager loads (GTM-WCWVTWN: GA4 and
+// Google Ads conversions). Only in production builds: not in `astro dev` and not on the demo
+// (PUBLIC_NOINDEX=true), where test clicks on the phone numbers would count as Ads conversions.
+const gtm = import.meta.env.PROD && import.meta.env.PUBLIC_NOINDEX !== 'true';
+---
+
+{gtm && (
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500});
+    gtag('set', 'ads_data_redaction', true);
+    gtag('set', 'url_passthrough', true);
+    try {
+      var kkConsent = JSON.parse(localStorage.getItem('kk-consent') || 'null');
+      if (kkConsent && kkConsent.v === 1) {
+        var kkAds = kkConsent.ads ? 'granted' : 'denied';
+        gtag('consent', 'update', {ad_storage: kkAds, ad_user_data: kkAds, ad_personalization: kkAds, analytics_storage: kkConsent.analytics ? 'granted' : 'denied'});
+      }
+    } catch (e) {}
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WCWVTWN');
+  </script>
+)}

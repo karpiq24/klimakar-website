@@ -4,6 +4,8 @@ import '../styles/szron.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import MobileCallBar from '../components/MobileCallBar.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+import ConsentHead from '../components/ConsentHead.astro';
 
 interface Props {
   title: string;
@@ -29,6 +31,8 @@ const imageUrl = new URL(image, noindex ? 'https://demo.klima-kar.pl' : siteUrl)
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <ConsentHead />
 
     <!-- SEO -->
     <title>{title}</title>
@@ -72,6 +76,7 @@ const imageUrl = new URL(image, noindex ? 'https://demo.klima-kar.pl' : siteUrl)
       </main>
       <Footer />
       <MobileCallBar />
+      <CookieConsent />
     </div>
   </body>
 </html>

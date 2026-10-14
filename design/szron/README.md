@@ -203,3 +203,12 @@ The owner went through an audit of the new site against the old one (39 findings
   contact card and the CTABanner it stays, by the owner's choice. Its shadow is the new `--shadow-callbar` token: a white
   ring plus a navy drop shadow, so it stays distinct over brand-blue cards (it used `--shadow-brand` and
   blended in). The mobile header has no phone button; the call bar covers it.
+
+### Cookies and measurement, 2026-10-14
+
+- Production builds of the main site and both brand sites load Google Tag Manager (`GTM-WCWVTWN`: Google Ads
+  conversions, GA4) behind Consent Mode v2 (`ConsentHead.astro`, in BaseLayout and MicroLayout).
+  `CookieConsent.astro` is a frost-form card, bottom left; on phones it is full width above the call bar. "Odrzuć" is the neutral `kk-btn--frost` button and "Akceptuj" the primary one (owner, 2026-10-14); both have the same size and sit side by side, so rejecting is as easy as accepting (EU requirement).
+  "Ustawienia cookies" in every footer and on /rodo/ (new "Pliki cookies i narzędzia Google" section) reopens it;
+  on the brand sites the banner's policy link goes to the main site's /rodo/#cookies.
+  `szron.css` is unchanged; the styles are scoped in the component.
