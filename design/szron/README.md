@@ -212,8 +212,9 @@ The owner went through an audit of the new site against the old one (39 findings
 - **Ozonowanie** is offered only as an add-on to a regular disinfection and is not promoted (owner): one
   `kk-fineprint` line under the method cards, nothing else (no card, heading, price, image, hero, CTA or meta text).
 - **Ultrasound does not remove fungus** (owner): the device only turns the disinfecting liquid into a mist. Never
-  write "odgrzybimy … ultradźwiękami"; describe it as a preparation sprayed as a mist by an ultrasonic device.
-  The /dezynfekcja/ hero lead and the May tip in `Seasons.astro` were corrected.
+  write "odgrzybimy … ultradźwiękami"; "metodą ultradźwiękową" is only the method's name and is fine
+  ("Odgrzybimy klimatyzację metodą TUNAP lub ultradźwiękową", the /dezynfekcja/ hero lead and the May tip in
+  `Seasons.astro`).
 - Linked from the header match list, the footer, the /klimatyzacja/ ultrasonic card and the /cennik "Dezynfekcja"
   group (`PriceGroup` `link` prop). /tunap/ and /dezynfekcja-bg/ breadcrumbs go through it.
   `szron.css` is unchanged.
