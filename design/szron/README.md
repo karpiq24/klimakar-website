@@ -181,3 +181,9 @@ The owner went through an audit of the new site against the old one (39 findings
   Owner feedback: models of one type use the same "Label: value" rows in the same order and words (only
   values differ, labels bold via ProductCard `labels`), and each card is chipped "Przykładowy model". Features and packshots come from webasto.com and
   eberspaecher.com (product pages, datasheets, press releases, Media service).
+
+### Owner corrections, 2026-10-14
+
+- **Ogrzewanie postojowe:** the PageHero photo is `2009-autoryzacja.webp` (the same as 2009 in the history), not the workshop photo.
+- **Airtronic S3 D2L:** automatic altitude correction up to 3000 m n.p.m. (owner; the datasheet table says 4000 m).
+- **Eberspächer controllers** (main site and brand site): EasyStart Pro no longer lists "Sterowanie maksymalnie dwoma urządzeniami grzewczymi". EasyStart Select and Timer show "Odczyt błędów urządzenia" instead of the feedback function; Remote+ lists it too; Remote keeps "Funkcja informacji zwrotnej". EasyStart Web: "Aplikacja dostępna w Google Play i App Store" replaces "Bezpłatna aplikacja na smartfony" (it needs a subscription).

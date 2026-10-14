@@ -98,7 +98,7 @@ export const eberspacherControls: ControlSystem[] = [
     image: '/images/ess.jpg',
     features: [
       'Prosta funkcja włączania i wyłączania jednym przyciskiem',
-      'Funkcja wyświetlania informacji zwrotnej',
+      'Odczyt błędów urządzenia',
       'Przejrzysty wyświetlacz i wygodne przyciski',
       'Odczyt nastawionej i aktualnej temperatury',
       'Zalecany do ogrzewań powietrznych',
@@ -112,7 +112,7 @@ export const eberspacherControls: ControlSystem[] = [
       'Programowanie w cyklu tygodniowym',
       'Możliwość ustawienia trzech programów',
       'Przejrzysty wyświetlacz i wygodne przyciski',
-      'Funkcja informacji zwrotnej',
+      'Odczyt błędów urządzenia',
       'Wybór czasu pracy ogrzewania',
     ],
   },
@@ -126,7 +126,6 @@ export const eberspacherControls: ControlSystem[] = [
       'Kolorowy pierścień LED wskazuje tryb pracy',
       'Do trzech programów czasowych w tygodniu',
       'Czas pracy od 10 do 120 minut lub ogrzewanie ciągłe',
-      'Sterowanie maksymalnie dwoma urządzeniami grzewczymi',
     ],
   },
   {
@@ -150,6 +149,7 @@ export const eberspacherControls: ControlSystem[] = [
       'Programowanie czasu odjazdu (automatyczne)',
       'Trzy programy w cyklu tygodniowym',
       'Odczyt temperatury wnętrza pojazdu',
+      'Odczyt błędów urządzenia',
       'Wybór grzania lub wentylacji (zima/lato)',
     ],
   },
@@ -159,7 +159,7 @@ export const eberspacherControls: ControlSystem[] = [
     image: '/images/esw.jpg',
     features: [
       'Sterowanie z dowolnego miejsca przez internet',
-      'Bezpłatna aplikacja na smartfony',
+      'Aplikacja dostępna w Google Play i App Store',
       'Sterowanie przez przeglądarkę internetową',
       'Automatyczne programowanie czasu odjazdu',
       'Informacja o statusie i temperaturze wnętrza',
