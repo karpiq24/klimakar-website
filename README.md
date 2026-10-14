@@ -57,10 +57,10 @@ Everything about the design lives in `design/szron/`:
 │   ├── .htaccess                  # old ?strona= URL redirects, HTTPS, gzip, caching, headers (OVH)
 │   ├── CNAME                      # demo.klima-kar.pl (GitHub Pages)
 │   ├── robots.txt, favicon.svg
+│   ├── google9f5b4b661a30a4e0.html  # Search Console verification (same file as the old site)
 ├── design/szron/                  # design system and handoff (reference)
 ├── sites/                         # the two one-page brand sites (see "Brand sites" below)
 ├── scripts/og-images.mjs         # link-preview cards (1200×630): `npm run og` after changing one
-├── content/www/                   # copy of the old website source (reference; the live site wins)
 └── .github/workflows/deploy.yml   # GitHub Pages preview deploy
 ```
 
@@ -151,14 +151,17 @@ can't send on the demo. The workflow builds with `PUBLIC_NOINDEX=true`, so every
 
 ### Production: klima-kar.wroclaw.pl (OVH web hosting)
 
-The domain currently serves the old website. Replacing it with this site:
+The domain currently serves the old website. Replacing it with this site (the full step-by-step
+launch checklist, in Polish, is `WDROZENIE.md`):
 
 1. Before the switch, export Google Search Console data for the last 16 months (Skuteczność:
    pages, queries, clicks, impressions) to compare after the launch.
 2. `npm run build` **without** `PUBLIC_NOINDEX` (check: `grep -r noindex dist` finds nothing).
 3. Download a backup of the server's `www/` (old site and its `.htaccess`).
-4. Delete the old site's files from `www/` (above all `index.php`), then upload the **entire
-   contents** of `dist/` (including `.htaccess`) over FTP/SFTP (FileZilla, Cyberduck, `lftp`).
+4. Delete the old site's files from `www/` (above all `index.php`), but keep `.ovhconfig` (OVH's
+   PHP settings). Then upload the **entire contents** of `dist/` (including `.htaccess` and the
+   `google9f5b4b661a30a4e0.html` Search Console file; `CNAME` is only for GitHub Pages and can be
+   skipped) over FTP/SFTP (FileZilla, Cyberduck, `lftp`).
 5. PHP must be enabled (the default on OVH shared hosting).
 6. `.htaccess` sends every old `/?strona=…` URL to its new page with one 301 (e.g.
    `?strona=klimatyzacja-samochodowa` → `/klimatyzacja/`, `?strona=bg` → `/dezynfekcja-bg/`,

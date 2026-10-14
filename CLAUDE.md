@@ -7,8 +7,7 @@ Static Astro 6 site in the **Szron** design, plus two one-page brand sites in `s
 ## Content
 
 - Source of truth for content is the live old site, <https://klima-kar.wroclaw.pl/> (production).
-  `content/www/` is an older local copy; when they differ, the live site wins. Owner corrections
-  recorded below and in `design/szron/README.md` override both.
+  Owner corrections recorded below and in `design/szron/README.md` override it.
 - All copy is Polish, informal "Ty" in marketing text. Never invent copy, numbers or facts.
   Subpages keep their existing text, data and prices exactly; only markup changes.
 - Fixed facts:
