@@ -61,6 +61,7 @@ Everything about the design lives in `design/szron/`:
 ├── design/szron/                  # design system and handoff (reference)
 ├── sites/                         # the two one-page brand sites (see "Brand sites" below)
 ├── scripts/og-images.mjs         # link-preview cards (1200×630): `npm run og` after changing one
+├── archive/produkcja-2026-10-14.tar.gz  # old sites' code from OVH (www/, webasto/, eberspaecher/, pl/)
 └── .github/workflows/deploy.yml   # GitHub Pages preview deploy
 ```
 
@@ -158,8 +159,7 @@ launch checklist, in Polish, is `WDROZENIE.md`):
    pages, queries, clicks, impressions) to compare after the launch.
 2. `npm run build` **without** `PUBLIC_NOINDEX` (check: `grep -r noindex dist` finds nothing).
 3. Download a backup of the server's `www/` (old site and its `.htaccess`).
-4. Delete the old site's files from `www/` (above all `index.php`), but keep `.ovhconfig` (OVH's
-   PHP settings). Then upload the **entire contents** of `dist/` (including `.htaccess` and the
+4. Delete the old site's files from `www/` (above all `index.php`). Then upload the **entire contents** of `dist/` (including `.htaccess` and the
    `google9f5b4b661a30a4e0.html` Search Console file; `CNAME` is only for GitHub Pages and can be
    skipped) over FTP/SFTP (FileZilla, Cyberduck, `lftp`).
 5. PHP must be enabled (the default on OVH shared hosting).

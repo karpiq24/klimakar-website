@@ -7,7 +7,9 @@ Static Astro 6 site in the **Szron** design, plus two one-page brand sites in `s
 ## Content
 
 - Source of truth for content is the live old site, <https://klima-kar.wroclaw.pl/> (production).
-  Owner corrections recorded below and in `design/szron/README.md` override it.
+  `archive/produkcja-2026-10-14.tar.gz` is a snapshot of its code (and of the old brand sites),
+  for when the live site is gone. Owner corrections recorded below and in `design/szron/README.md`
+  override both.
 - All copy is Polish, informal "Ty" in marketing text. Never invent copy, numbers or facts.
   Subpages keep their existing text, data and prices exactly; only markup changes.
 - Fixed facts:
@@ -50,7 +52,8 @@ Static Astro 6 site in the **Szron** design, plus two one-page brand sites in `s
 
 ## Brand sites
 
-- Old sources: `/mnt/klimakar/webasto/`, `/mnt/klimakar/eberspaecher/` (read-only mount, never modify).
+- Old sources: `/mnt/klimakar/webasto/`, `/mnt/klimakar/eberspaecher/` (read-only mount, never modify),
+  also in `archive/produkcja-2026-10-14.tar.gz`.
 - Same rules as the main site: Szron classes only, copy from the old sites or the main site.
   Per-brand content goes in `sites/<name>/brand.ts`; anything shared with the main site in `src/data/`.
 - Each brand page shows only its own brand's photos and products. No links to the other brand, DEFA
