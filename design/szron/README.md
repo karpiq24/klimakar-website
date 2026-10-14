@@ -209,6 +209,8 @@ The owner went through an audit of the new site against the old one (39 findings
 - **/dezynfekcja/** (new, also the Google Ads landing page for "Odgrzybianie i dezynfekcja"): methods in the
   owner's order, TUNAP (recommended, the one brand card) › ultradźwiękowa › BG, then the /cennik disinfection
   rows. Copy is recombined from /tunap/, /dezynfekcja-bg/, /klimatyzacja/, /konserwacja/ and /cennik/.
+- Hero photo `dezynfekcja-lanca.webp` is AI-generated (agy image generator, 2026-10-14): a gloved hand with a lance
+  behind the open glovebox, no brands or text. The old hero `tunap-mycie.webp` (549×403) was too small for the frame.
 - **Ozonowanie** is offered only as an add-on to a regular disinfection and is not promoted (owner): one
   `kk-fineprint` line under the method cards, nothing else (no card, heading, price, image, hero, CTA or meta text).
 - Linked from the header match list, the footer, the /klimatyzacja/ ultrasonic card and the /cennik "Dezynfekcja"
