@@ -4,14 +4,16 @@
 interface Props {
   title: string;
   note?: string;
+  /** Optional link in the head, to the page that describes these services. */
+  link?: { label: string; href: string };
   rows: { service: string; price: string; extra?: string }[];
 }
 
-const { title, note, rows } = Astro.props;
+const { title, note, link, rows } = Astro.props;
 ---
 
 <div class="kk-frost kk-price-group">
-  <div class="kk-price-head"><h3 class="kk-price-title" style="margin:0">{title}</h3>{note && <span class="kk-price-note">{note}</span>}</div>
+  <div class="kk-price-head"><h3 class="kk-price-title" style="margin:0">{title}</h3>{note && <span class="kk-price-note">{note}</span>}{link && <a href={link.href} class="kk-link" style="font-size:14px">{link.label}</a>}</div>
   {rows.map((r) => (
     <div class="kk-price-row"><span class="kk-price-item">{r.service}</span><span class="kk-price-dots" aria-hidden="true"></span><span class="kk-price-value">{r.price}{r.extra && <small>{r.extra}</small>}</span></div>
   ))}

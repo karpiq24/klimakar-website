@@ -81,6 +81,7 @@ Every subpage keeps its existing copy (with the fixed facts) and is rebuilt from
 | Ogrzewanie postojowe | Heating PhotoPanel with PartnerCards › FeatureList (Zalety) › ContentSection × n (wodne, powietrzne, koszty, rozbudowa) |
 | Webasto, Eberspächer | ServiceCards (Nasze usługi) › ProductCard grid (Systemy sterowania) |
 | DEFA | ContentSection (System DEFA WarmUp) › ProductCard (modules) › FeatureList (Korzyści) |
+| Dezynfekcja klimatyzacji | ContentSection › ServiceCards (methods: TUNAP brand card, ultradźwiękowa, BG) › PriceTable group |
 | Konserwacja, TUNAP, Dezynfekcja BG | ContentSection × n › FeatureList for lists › PriceTable group where prices exist |
 | Cennik | PriceTable (refrigerant cards + groups) |
 | Galeria | VideoFeature › Gallery (all photos) |

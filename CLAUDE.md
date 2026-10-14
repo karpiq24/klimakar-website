@@ -43,7 +43,7 @@ Static Astro 6 site in the **Szron** design, plus two one-page brand sites in `s
 
 ## Checks before committing
 
-- `npm run build` passes (16 pages); after changes to `sites/`, `src/data/` or shared components,
+- `npm run build` passes (17 pages); after changes to `sites/`, `src/data/` or shared components,
   `npm run build:all` too.
 - Look at changed pages at 1440px and 390px (and ~1024/1366 for anything in grids or bars).
   No text may overflow its column; long Polish words in display headings may need a soft

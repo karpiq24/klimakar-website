@@ -1,0 +1,83 @@
+---
+// Overview of the disinfection methods, in the owner's order: TUNAP (recommended), ultrasonic, BG.
+// Also the Google Ads landing page for "Odgrzybianie i dezynfekcja". Ozonowanie is done only on a
+// customer's explicit request and is not recommended (owner, 2026-10-14): one fine-print line under
+// the methods, never a card, heading, price, image, hero or CTA. Copy comes from /tunap/,
+// /dezynfekcja-bg/, /klimatyzacja/, /konserwacja/ and /cennik/; prices exactly as on /cennik.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ContentSection from '../components/ContentSection.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import PriceGroup from '../components/PriceGroup.astro';
+import CTABanner from '../components/CTABanner.astro';
+import Today from '../components/Today.astro';
+import { ShieldCheck, AudioWaveform, Droplet } from 'lucide-astro';
+
+const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
+---
+
+<BaseLayout
+  title="Odgrzybianie i dezynfekcja klimatyzacji Wrocław — Klima-Kar"
+  description="Odgrzybianie i dezynfekcja klimatyzacji samochodowej we Wrocławiu: metoda TUNAP, z preparatem podawanym lancą natryskową bezpośrednio na parownik, oraz dezynfekcja ultradźwiękowa."
+>
+  <PageHero
+    crumbs={[
+      { label: 'Strona główna', href: '/' },
+      { label: 'Klimatyzacja', href: '/klimatyzacja/' },
+      { label: 'Dezynfekcja klimatyzacji' },
+    ]}
+    eyebrow="Klimatyzacja"
+    title="Odgrzybianie i dezynfekcja klimatyzacji"
+    lead="Nieprzyjemne zapachy z nawiewów powstają z biegiem czasu na skutek gromadzenia się bakterii i grzybów w układzie klimatyzacji. Odgrzybimy klimatyzację metodą TUNAP lub ultradźwiękami."
+    image="/images/tunap-mycie.webp"
+    imageAlt="Dezynfekcja TUNAP: preparat podawany lancą natryskową na parownik"
+    imagePosition="40% 50%"
+    tag="Prosto na parownik"
+    actions={[{ label: 'Umów wizytę', href: '/kontakt/' }, { label: 'Zobacz cennik', href: '/cennik/' }]}
+  />
+
+  <ContentSection eyebrow="Dezynfekcja klimatyzacji" title="Dlaczego warto odgrzybiać klimatyzację?">
+    <p>Parownik znajduje się pod deską rozdzielczą, w wilgotnym i ciemnym otoczeniu — to idealne miejsce dla bakterii, grzybów i innych mikroorganizmów. Zarazki przechodzą przez wentylację do wnętrza auta i u osób wrażliwych mogą wywoływać reakcje alergiczne: kichanie, kaszel, łzawienie oczu.</p>
+    <p>Brud, pozostałości dymu papierosowego, pyłki itp. zatykają przestrzenie pomiędzy elementami parownika, co utrudnia przepływ powietrza przez system wentylacyjny.</p>
+    <Fragment slot="callout">Firma TUNAP zaleca 1 do 2 razy w roku przeprowadzenie profesjonalnej dezynfekcji parownika oraz kanałów powietrznych.</Fragment>
+  </ContentSection>
+
+  <section class="kk-wrap kk-section">
+    <SectionHeader eyebrow="Nasze metody" title="Metody dezynfekcji klimatyzacji"
+      description="Polecamy dezynfekcję TUNAP: to najskuteczniejsza metoda usuwania grzybów, pleśni i bakterii z układu klimatyzacji." />
+    <div class="kk-svc">
+      <ServiceCard variant="brand" title="Dezynfekcja TUNAP" chip="250 zł" href="/tunap/"
+        text="Preparat Contra Sept 180 podajemy lancą natryskową pod wysokim ciśnieniem bezpośrednio na parownik, czyli tam, gdzie gromadzi się najwięcej osadów.">
+        <ShieldCheck {...icon} />
+      </ServiceCard>
+      <ServiceCard title={"Dezynfekcja ultra­dźwiękowa"} chip="150 zł"
+        text="Dezynfekcja chemiczna metodą ultradźwiękową: preparat rozpylamy urządzeniem ultradźwiękowym w postaci mgiełki, przy uruchomionym nawiewie w samochodzie.">
+        <AudioWaveform {...icon} />
+      </ServiceCard>
+      <ServiceCard title="Dezynfekcja BG" href="/dezynfekcja-bg/"
+        text="Stosujemy ją w autach, w których dostęp do parownika jest utrudniony i nie da się wykonać dezynfekcji TUNAP lancą natryskową. Preparat BG Frigi-Clean wprowadzamy wężykiem bezpośrednio do obudowy parownika.">
+        <Droplet {...icon} />
+      </ServiceCard>
+    </div>
+    <p class="kk-fineprint" style="margin-top:20px">Na wyraźne życzenie klienta wykonujemy też ozonowanie, ale polecamy metody opisane powyżej.</p>
+  </section>
+
+  <section class="kk-wrap kk-section">
+    <SectionHeader eyebrow="Cennik" title="Ile kosztuje odgrzybianie klimatyzacji?">
+      <span slot="aside" class="kk-chip"><span class="kk-dot"></span>Ceny aktualne na dzień <Today /></span>
+    </SectionHeader>
+    <div style="max-width:760px">
+      <PriceGroup
+        title="Dezynfekcja"
+        rows={[
+          { service: 'Dezynfekcja TUNAP — preparat podajemy lancą natryskową pod wysokim ciśnieniem bezpośrednio na parownik', price: '250 zł' },
+          { service: 'Dezynfekcja chemiczna metodą ultradźwiękową — preparat rozpylamy urządzeniem ultradźwiękowym w postaci mgiełki, przy włączonym nawiewie', price: '150 zł' },
+        ]}
+      />
+      <p class="kk-fineprint" style="margin-top:16px">Ceny brutto. Ceny aktualne na dzień <Today />.</p>
+    </div>
+  </section>
+
+  <CTABanner title="Umów dezynfekcję klimatyzacji" subtitle="Zadzwoń: 71 337 14 50 lub 605 594 506" />
+</BaseLayout>

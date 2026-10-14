@@ -49,7 +49,7 @@ Everything about the design lives in `design/szron/`:
 │   │   ├── ProcessSteps ("Jak pracujemy"), MobileCallBar (mobile call button)
 │   │   ├── PriceCards, PriceGroup (cennik)
 │   │   └── ContactSection, ContactForm
-│   ├── pages/                     # 16 routes
+│   ├── pages/                     # 17 routes
 │   └── styles/                    # szron.css + global.css
 ├── public/
 │   ├── images/                    # photos, product shots; images/brand/ = logos, K mark, snowflakes
@@ -72,6 +72,7 @@ Everything about the design lives in `design/szron/`:
 | Strona główna | `/` |
 | Klimatyzacja | `/klimatyzacja/` |
 | Konserwacja | `/konserwacja/` |
+| Dezynfekcja klimatyzacji | `/dezynfekcja/` |
 | Dezynfekcja TUNAP | `/tunap/` |
 | Dezynfekcja BG | `/dezynfekcja-bg/` |
 | Cennik | `/cennik/` |

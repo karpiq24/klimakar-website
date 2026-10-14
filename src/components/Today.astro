@@ -1,6 +1,7 @@
 ---
 // Today — today's date (dd.mm.yyyy) or year, set in the browser so the static build never freezes it.
 // The build date is the fallback when JavaScript is off. Used for "Ceny aktualne na dzień …".
+// The script follows the span with no whitespace, which would otherwise show before a following full stop.
 interface Props {
   format?: 'date' | 'year';
 }
@@ -11,9 +12,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
 const text = format === 'year' ? String(now.getFullYear()) : `${pad(now.getDate())}.${pad(now.getMonth() + 1)}.${now.getFullYear()}`;
 ---
 
-<span data-today={format}>{text}</span>
-
-<script>
+<span data-today={format}>{text}</span><script>
   const now = new Date();
   const pad = (n: number) => String(n).padStart(2, '0');
   document.querySelectorAll<HTMLElement>('[data-today]').forEach((el) => {
