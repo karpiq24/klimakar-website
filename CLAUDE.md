@@ -6,10 +6,10 @@ Static Astro 6 site in the **Szron** design, plus two one-page brand sites in `s
 
 ## Content
 
-- Source of truth for content is the live old site, <https://klima-kar.wroclaw.pl/> (production).
-  `archive/produkcja-2026-10-14.tar.gz` is a snapshot of its code (and of the old brand sites),
-  for when the live site is gone. Owner corrections recorded below and in `design/szron/README.md`
-  override both.
+- Since 2026-10-15 this site is live at <https://klima-kar.wroclaw.pl/>, so the repo is the source
+  of truth for content. The old site's code (and the old brand sites') is in
+  `archive/produkcja-2026-10-14.tar.gz`. Owner corrections recorded below and in
+  `design/szron/README.md` override it.
 - All copy is Polish, informal "Ty" in marketing text. Never invent copy, numbers or facts.
   Subpages keep their existing text, data and prices exactly; only markup changes.
 - Fixed facts:
@@ -56,8 +56,8 @@ Static Astro 6 site in the **Szron** design, plus two one-page brand sites in `s
 
 ## Brand sites
 
-- Old sources: `/mnt/klimakar/webasto/`, `/mnt/klimakar/eberspaecher/` (read-only mount, never modify),
-  also in `archive/produkcja-2026-10-14.tar.gz`.
+- Old sources: `archive/produkcja-2026-10-14.tar.gz`. `/mnt/klimakar/` is the live production
+  hosting now; never modify it unless the user asks for an upload.
 - Same rules as the main site: Szron classes only, copy from the old sites or the main site.
   Per-brand content goes in `sites/<name>/brand.ts`; anything shared with the main site in `src/data/`.
 - Each brand page shows only its own brand's photos and products. No links to the other brand, DEFA
@@ -68,6 +68,7 @@ Static Astro 6 site in the **Szron** design, plus two one-page brand sites in `s
 - Pushing to `main` deploys the preview to http://demo.klima-kar.pl/, brand sites under `/strony/<name>/` (GitHub Pages, built with
   `PUBLIC_NOINDEX=true` so every page has `noindex`; PHP and the
   contact form don't run there).
-- Production is https://klima-kar.wroclaw.pl/ on OVH and still serves the old site. Going live means
-  uploading `dist/` there by FTP; only do that when the owner asks. Build it without
-  `PUBLIC_NOINDEX`, and follow README › Deployment (old-URL redirects in `public/.htaccess`).
+- Production is https://klima-kar.wroclaw.pl/ on OVH and serves this site since 2026-10-15
+  (brand sites too). Uploading changes means copying the changed files of `dist/` (or `dist-<name>/`)
+  there; only when the user asks. Build without `PUBLIC_NOINDEX`, never delete/mirror on the server,
+  see README › Deployment.

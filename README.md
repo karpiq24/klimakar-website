@@ -4,8 +4,8 @@ Website for **Klima-Kar**, a family car air-conditioning and parking-heater work
 (ul. Grota-Roweckiego 129). Static Astro site in the **Szron** design ("frost": frosted glass over
 an icy blue ground, the logo's blues doing all the colour work).
 
-- **Production:** <https://klima-kar.wroclaw.pl/>. It still runs the **old website**, which stays
-  the main source of truth for content (texts, prices, facts) until this site replaces it.
+- **Production:** <https://klima-kar.wroclaw.pl/> on OVH runs this site since **2026-10-15**
+  (the brand sites too). The old sites' code is in `archive/produkcja-2026-10-14.tar.gz`.
 - **Preview of this site:** <http://demo.klima-kar.pl/>.
 - **Brand sites** (one page each, same repo, same design): <https://webasto.wroclaw.pl/> and
   <https://eberspaecher.wroclaw.pl/>, built from `sites/`. Previews:
@@ -130,7 +130,8 @@ npm run build:all            # main site + both brand sites
 **Deploying a brand site** (only when the owner asks): build it without `PUBLIC_NOINDEX`, back up the
 domain's directory on the OVH FTP, delete the old `index.php`, `assets/`, `images/`, `whcookies.js` and
 `google.js`, then upload the contents of `dist-<name>/` (including `.htaccess`). The
-`google9f5b4b661a30a4e0.html` Search Console file is kept. The brand sites link to
+`google9f5b4b661a30a4e0.html` and `google9331dac41cc0c6e9.html` (webasto.wroclaw.pl, added at the
+launch) Search Console files come from `sites/public/`. The brand sites link to
 klima-kar.wroclaw.pl's new URLs (`/klimatyzacja/`, `/defa/`, `/rodo/`), so launch them together with
 the main site or after it.
 
@@ -158,8 +159,9 @@ can't send on the demo. The workflow builds with `PUBLIC_NOINDEX=true`, so every
 
 ### Production: klima-kar.wroclaw.pl (OVH web hosting)
 
-The domain currently serves the old website. Replacing it with this site (the full step-by-step
-launch checklist, in Polish, is `WDROZENIE.md`):
+Live since 2026-10-15; the launch checklist (Polish) is `WDROZENIE.md`. To publish changes, build
+without `PUBLIC_NOINDEX` and upload the changed files of `dist/` to `www/` on the OVH hosting (never
+with a delete/mirror option: `www/` also holds the Search Console file). The first launch went:
 
 1. Before the switch, export Google Search Console data for the last 16 months (Skuteczność:
    pages, queries, clicks, impressions) to compare after the launch.
@@ -189,11 +191,12 @@ services). `@astrojs/sitemap` generates the sitemap at build time.
 ## Contact form
 
 `src/components/ContactForm.astro` validates on the client and posts JSON to `/contact.php`
-with `fetch`. The fields are `name` and `email` (required), `car`, `message`, plus a hidden
-`website` honeypot. The PHP handler:
+with `fetch`. The fields are `name` and `email` (required), `phone` (required when
+the preferred contact is `telefon`), `contact`, `car`, `vin`, `message`, plus a hidden `website`
+honeypot. After a confirmed send it pushes `form_submit_success` to the dataLayer (GTM conversion). The PHP handler:
 
 - accepts POST only (405 otherwise);
 - returns success silently when the honeypot is filled;
 - sanitises input and requires `name` and `email`;
 - emails `serwis@klima-kar.pl` via PHP `mail()`;
-- returns JSON `{success, message}`, shown as a toast.
+- returns JSON `{success, message}`, shown under the submit button.
