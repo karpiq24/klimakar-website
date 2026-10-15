@@ -60,7 +60,7 @@ Everything about the design lives in `design/szron/`:
 │   ├── google9f5b4b661a30a4e0.html  # Search Console verification (same file as the old site)
 ├── design/szron/                  # design system and handoff (reference)
 ├── sites/                         # the two one-page brand sites (see "Brand sites" below)
-├── scripts/og-images.mjs         # link-preview cards (1200×630): `npm run og` after changing one
+├── scripts/og-images.mjs         # link-preview cards (1200×630, text in the centred square): `npm run og`
 ├── scripts/check-ads.mjs         # `npm run check:ads`: validates ads/campaigns.yaml
 ├── ads/                           # Google Ads campaigns as data + change log (see ads/README.md)
 ├── archive/produkcja-2026-10-14.tar.gz  # old sites' code from OVH (www/, webasto/, eberspaecher/, pl/)

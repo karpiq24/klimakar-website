@@ -26,40 +26,49 @@ function findChrome() {
   return 'google-chrome';
 }
 
+// Facebook shows link images at 1.91:1 in posts, but crops them to a centred square elsewhere (comments,
+// some feed layouts). So every card keeps its text, logo and badge inside the centred 630×630 square
+// (SAFE, with margin), and only decorative photos sit in the side bands that a square crop cuts off.
+// Facebook caches images by URL: after changing the main card, give it a new file name (-v3, …) and update
+// the default in src/layouts/BaseLayout.astro. The brand cards get a new hashed URL from Astro by themselves.
+const W = 1200;
+const H = 630;
+const SAFE = 560; // width of the text column, centred; fits a 1:1 crop (630px) with 35px to spare per side
+
 const flake = `<img src="${file('public/images/brand/flake-blue.svg')}" alt="">`;
-const photo = (src, caption, position = '50% 50%') => `
-  <figure class="kk-frost kk-frame og-frame">
+const side = (where, src, position = '50% 50%') => `
+  <figure aria-hidden="true" class="kk-frost kk-frame og-side og-side--${where}">
     <div class="kk-frame-photo og-photo"><img src="${file(src)}" alt="" style="object-position:${position}"></div>
-    ${caption ? `<figcaption class="kk-frost og-cap">${caption}</figcaption>` : ''}
   </figure>`;
 
 const cards = [
   {
-    out: 'public/images/og/klima-kar.jpg',
+    out: 'public/images/og/klima-kar-v2.jpg',
     text: `
       <img class="og-logo" src="${file('public/images/brand/logo-color.svg')}" alt="">
-      <h1 class="kk-h1 kk-grad og-h1">Klimatyzacja i ogrzewanie Twojego auta</h1>
+      <h1 class="kk-h1 kk-grad og-h1">Klimatyzacja<br>i ogrzewanie<br>Twojego auta</h1>
       <p class="og-tagline">Komfortowy klimat w zasięgu ręki</p>
       <span class="kk-badge kk-frost og-badge">${flake}Działamy od 1999 roku · Wrocław</span>`,
-    media: `<div class="og-stack">
-      ${photo('public/images/lato-1.webp', 'Latem chłodzimy.')}
-      ${photo('public/images/webastoauto.jpg', 'Zimą grzejemy.')}
-    </div>`,
+    sides: [side('left', 'public/images/lato-1.webp', '30% 50%'), side('right', 'public/images/webastoauto.jpg', '36% 50%')],
   },
   ...[
-    { key: 'webasto', name: 'Webasto', logo: 'webasto.svg', cls: 'kk-lw', photo: 'public/images/webastoauto.jpg', position: '50% 50%' },
-    { key: 'eberspaecher', name: 'Eberspächer', logo: 'eberspacher.svg', cls: 'kk-le', photo: 'public/images/eberspacher-zima.jpg', position: '50% 60%' },
+    {
+      key: 'webasto', name: 'Webasto', logo: 'webasto.svg', cls: 'kk-lw',
+      left: ['public/images/webastoauto.jpg', '36% 50%'], right: ['sites/webasto/assets/flagi.jpg', '62% 50%'],
+    },
+    {
+      key: 'eberspaecher', name: 'Eberspächer', logo: 'eberspacher.svg', cls: 'kk-le',
+      left: ['public/images/eberspacher-zima.jpg', '22% 50%'], right: ['sites/eberspaecher/assets/easyscan.jpg', '44% 50%'],
+    },
   ].map((b) => ({
     out: `sites/${b.key}/assets/og.jpg`,
     text: `
-      <span class="kk-badge kk-frost og-badge og-badge--top">${flake}Klima-Kar · Działamy od 1999 roku</span>
+      <span class="og-plate-logo"><img src="${file(`public/images/brand/${b.logo}`)}" alt="" class="${b.cls}"></span>
       <h1 class="kk-h1 kk-grad og-h1 og-h1--brand${b.name.length > 8 ? ' og-h1--long' : ''}">${b.name}<br>Wrocław</h1>
-      <p class="og-tagline">Autoryzowany Serwis ${b.name}</p>
-      <p class="og-lead">Naprawy gwarancyjne i pogwarancyjne, montaż.</p>`,
-    media: `<div class="og-single">
-      ${photo(b.photo, '', b.position)}
-      <span class="kk-frost og-plate"><span class="og-plate-logo"><img src="${file(`public/images/brand/${b.logo}`)}" alt="" class="${b.cls}"></span></span>
-    </div>`,
+      <p class="og-tagline og-tagline--brand">Autoryzowany Serwis ${b.name}</p>
+      <p class="og-lead">Naprawy gwarancyjne i pogwarancyjne, montaż.</p>
+      <span class="kk-badge kk-frost og-badge">${flake}Klima-Kar · Działamy od 1999 roku</span>`,
+    sides: [side('left', ...b.left), side('right', ...b.right)],
   })),
 ];
 
@@ -69,36 +78,33 @@ const page = (card) => `<!DOCTYPE html>
 <link rel="stylesheet" href="${file('src/styles/global.css')}">
 <link rel="stylesheet" href="${file('src/styles/szron.css')}">
 <style>
-  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
-  .og { box-sizing: border-box; width: 1200px; height: 630px; display: grid; grid-template-columns: 600px minmax(0, 1fr); align-items: center; gap: 40px; padding: 0 56px 0 64px; }
-  .og-text { position: relative; display: flex; flex-direction: column; align-items: flex-start; }
-  .og-logo { height: 62px; margin-bottom: 34px; }
-  .og-h1 { font-size: 58px; }
-  .og-h1--brand { font-size: 84px; }
-  .og-h1--brand.og-h1--long { font-size: 72px; }
-  .og-tagline { margin: 22px 0 0; font-family: var(--font-display); font-weight: 600; font-size: 26px; line-height: 1.2; letter-spacing: -.025em; color: var(--brand); }
-  .og-lead { margin: 12px 0 0; font-size: 21px; color: var(--text-muted); }
-  .og-badge { margin-top: 34px; font-size: 17px; padding: 8px 20px 8px 10px; }
-  .og-badge img { width: 26px; height: 26px; }
-  .og-badge--top { margin: 0 0 30px; }
-  .og-media { position: relative; }
-  .og-frame { position: relative; margin: 0; }
-  .og-photo { aspect-ratio: auto; }
+  html, body { margin: 0; width: ${W}px; height: ${H}px; overflow: hidden; }
+  .og { box-sizing: border-box; width: ${W}px; height: ${H}px; display: flex; align-items: center; justify-content: center; }
+  .og-text { position: relative; width: ${SAFE}px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .og-logo { height: 54px; margin-bottom: 30px; }
+  .og-h1 { font-size: 54px; }
+  .og-h1--brand { font-size: 72px; }
+  .og-h1--brand.og-h1--long { font-size: 60px; }
+  .og-tagline { margin: 22px 0 0; font-family: var(--font-display); font-weight: 600; font-size: 22px; line-height: 1.2; letter-spacing: -.025em; color: var(--brand); }
+  .og-tagline--brand { margin-top: 20px; }
+  .og-lead { margin: 10px 0 0; font-size: 19px; color: var(--text-muted); }
+  .og-badge { margin-top: 30px; font-size: 16px; padding: 8px 20px 8px 10px; }
+  .og-badge img { width: 24px; height: 24px; }
+  .og-plate-logo { display: flex; align-items: center; justify-content: center; min-width: 200px; height: 84px; padding: 0 26px; margin-bottom: 28px; border-radius: var(--radius-icon); background: var(--white); box-shadow: var(--shadow-frost); }
+  .og-plate-logo .kk-lw { height: 36px; }
+  .og-plate-logo .kk-le { height: 54px; }
+  /* Decorative side photos: they end at x=270 / start at x=930, outside the centred 630px square (285–915). */
+  .og-side { position: absolute; top: 60px; width: 330px; height: ${H - 120}px; margin: 0; }
+  .og-side--left { left: -60px; }
+  .og-side--right { right: -60px; }
+  .og-photo { aspect-ratio: auto; height: 100%; }
   .og-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .og-stack { display: grid; gap: 16px; }
-  .og-stack .og-photo { height: 222px; }
-  .og-single .og-photo { height: 470px; }
-  .og-cap { position: absolute; left: 22px; bottom: 22px; margin: 0; border-radius: var(--radius-pill); padding: 8px 18px; font-family: var(--font-display); font-weight: 600; font-size: 18px; letter-spacing: -.01em; color: var(--navy); background: var(--frost-tile); }
-  .og-plate { position: absolute; left: -36px; bottom: 34px; border-radius: var(--radius-card-sm); padding: 12px; background: var(--frost-tile); }
-  .og-plate-logo { display: flex; align-items: center; justify-content: center; min-width: 210px; height: 92px; padding: 0 26px; border-radius: var(--radius-icon); background: var(--white); }
-  .og-plate-logo .kk-lw { height: 38px; }
-  .og-plate-logo .kk-le { height: 58px; }
 </style></head>
 <body><div class="kk-root kk-dots og">
-  <div aria-hidden="true" class="kk-glow" style="right:-160px;top:-160px;width:760px;height:640px;background:var(--brand-ice);opacity:.35;filter:blur(var(--blur-glow))"></div>
-  <div aria-hidden="true" class="kk-glow" style="left:-220px;top:300px;width:620px;height:520px;background:var(--brand);opacity:.18;filter:blur(var(--blur-glow))"></div>
+  <div aria-hidden="true" class="kk-glow" style="left:240px;top:-260px;width:720px;height:560px;background:var(--brand-ice);opacity:.3;filter:blur(var(--blur-glow))"></div>
+  <div aria-hidden="true" class="kk-glow" style="left:300px;top:380px;width:600px;height:460px;background:var(--brand);opacity:.16;filter:blur(var(--blur-glow))"></div>
+  ${card.sides.join('')}
   <div class="og-text">${card.text}</div>
-  <div class="og-media">${card.media}</div>
 </div></body></html>`;
 
 const chrome = findChrome();
@@ -109,10 +115,10 @@ for (const [i, card] of cards.entries()) {
   writeFileSync(html, page(card));
   execFileSync(chrome, [
     '--headless', '--disable-gpu', '--hide-scrollbars', '--allow-file-access-from-files',
-    '--window-size=1200,630', '--virtual-time-budget=8000', `--screenshot=${png}`, pathToFileURL(html).href,
+    `--window-size=${W},${H}`, '--virtual-time-budget=8000', `--screenshot=${png}`, pathToFileURL(html).href,
   ], { stdio: 'ignore' });
   const out = join(root, card.out);
   mkdirSync(dirname(out), { recursive: true });
-  await sharp(png).resize(1200, 630, { fit: 'cover', position: 'top' }).jpeg({ quality: 86, mozjpeg: true }).toFile(out);
+  await sharp(png).resize(W, H, { fit: 'cover', position: 'top' }).jpeg({ quality: 86, mozjpeg: true }).toFile(out);
   console.log(card.out);
 }

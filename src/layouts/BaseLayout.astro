@@ -15,7 +15,7 @@ interface Props {
   image?: string;
 }
 
-const { title, description, canonicalPath, image = '/images/og/klima-kar.jpg' } = Astro.props;
+const { title, description, canonicalPath, image = '/images/og/klima-kar-v2.jpg' } = Astro.props;
 const siteUrl = 'https://klima-kar.wroclaw.pl';
 const canonicalUrl = canonicalPath ? `${siteUrl}${canonicalPath}` : `${siteUrl}${Astro.url.pathname}`;
 // The demo build (GitHub Pages, see .github/workflows/deploy.yml) sets PUBLIC_NOINDEX=true so the preview
