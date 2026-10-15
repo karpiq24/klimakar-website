@@ -49,6 +49,10 @@ Static Astro 6 site in the **Szron** design, plus two one-page brand sites in `s
   No text may overflow its column; long Polish words in display headings may need a soft
   hyphen (`{"Bezpieczeń\u00ADstwo"}`; a JS expression, since quoted attributes don't unescape).
 - No `/_blob/`, Barlow, `data-theme` or `kk-theme`; no "rok założenia" with 1989.
+- Google Ads texts are copied from the site (`ads/campaigns.yaml`, workflow in `ads/README.md`).
+  After changing copy, prices, address, hours, phone numbers or page URLs, run `npm run check:ads`,
+  update the affected ad texts and add the Ads change to `ads/CHANGES.md` › Pending. Never change
+  anything in Google Ads itself without the user's yes.
 
 ## Brand sites
 

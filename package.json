@@ -16,11 +16,15 @@
     "build:webasto": "astro build --config sites/webasto/astro.config.mjs",
     "build:eberspaecher": "astro build --config sites/eberspaecher/astro.config.mjs",
     "build:all": "npm run build && npm run build:webasto && npm run build:eberspaecher",
-    "build:demo": "npm run build && MICROSITE_BASE=/strony/webasto/ npm run build:webasto && MICROSITE_BASE=/strony/eberspaecher/ npm run build:eberspaecher && rm -rf dist/strony && mkdir -p dist/strony/webasto dist/strony/eberspaecher && cp -a dist-webasto/. dist/strony/webasto/ && cp -a dist-eberspaecher/. dist/strony/eberspaecher/"
+    "build:demo": "npm run build && MICROSITE_BASE=/strony/webasto/ npm run build:webasto && MICROSITE_BASE=/strony/eberspaecher/ npm run build:eberspaecher && rm -rf dist/strony && mkdir -p dist/strony/webasto dist/strony/eberspaecher && cp -a dist-webasto/. dist/strony/webasto/ && cp -a dist-eberspaecher/. dist/strony/eberspaecher/",
+    "check:ads": "node scripts/check-ads.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
     "astro": "^6.2.2",
     "lucide-astro": "^0.556.0"
+  },
+  "devDependencies": {
+    "yaml": "^2.9.1"
   }
 }

@@ -61,6 +61,8 @@ Everything about the design lives in `design/szron/`:
 ├── design/szron/                  # design system and handoff (reference)
 ├── sites/                         # the two one-page brand sites (see "Brand sites" below)
 ├── scripts/og-images.mjs         # link-preview cards (1200×630): `npm run og` after changing one
+├── scripts/check-ads.mjs         # `npm run check:ads`: validates ads/campaigns.yaml
+├── ads/                           # Google Ads campaigns as data + change log (see ads/README.md)
 ├── archive/produkcja-2026-10-14.tar.gz  # old sites' code from OVH (www/, webasto/, eberspaecher/, pl/)
 └── .github/workflows/deploy.yml   # GitHub Pages preview deploy
 ```
