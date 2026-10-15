@@ -4,12 +4,29 @@ import PageHero from '../components/PageHero.astro';
 import ContentSection from '../components/ContentSection.astro';
 import CTABanner from '../components/CTABanner.astro';
 
+const purposes = [
+  'Zawarcie i wykonanie umowy, w tym odpowiedź na zapytanie wysłane przez formularz, e-mailem lub telefonicznie przed zawarciem umowy — <strong>art. 6 ust. 1 lit. b RODO</strong>.',
+  'Wystawienie faktur i rachunków oraz przechowywanie dokumentacji księgowej i podatkowej — <strong>art. 6 ust. 1 lit. c RODO</strong> (obowiązek prawny).',
+  'Ustalenie, dochodzenie lub obrona roszczeń — <strong>art. 6 ust. 1 lit. f RODO</strong> (prawnie uzasadniony interes administratora).',
+  'Statystyki odwiedzin strony i pomiar skuteczności reklam Google Ads z użyciem plików cookies — <strong>art. 6 ust. 1 lit. a RODO</strong> (zgoda); pomiar bez plików cookies przed wyrażeniem zgody — <strong>art. 6 ust. 1 lit. f RODO</strong>. Szczegóły w sekcji „Pliki cookies i narzędzia Google”.',
+  'Wyświetlenie mapy Google Maps z dojazdem do warsztatu — <strong>art. 6 ust. 1 lit. f RODO</strong>.',
+];
+
+const retention = [
+  'Dane związane z umową — przez czas jej wykonywania, a następnie do upływu terminów przedawnienia roszczeń.',
+  'Faktury, rachunki i inne dokumenty księgowe — przez okres wymagany przepisami podatkowymi i przepisami o rachunkowości.',
+  'Zapytania, które nie prowadzą do zawarcia umowy — przez czas potrzebny do udzielenia odpowiedzi i prowadzenia związanej z nią korespondencji.',
+  'Dane przetwarzane na podstawie zgody — do jej wycofania; na podstawie prawnie uzasadnionego interesu — do czasu wniesienia skutecznego sprzeciwu.',
+];
+
 const rights = [
   'Na podstawie art. 15 RODO — <strong>prawo dostępu</strong> do danych osobowych Pani/Pana dotyczących.',
   'Na podstawie art. 16 RODO — <strong>prawo do sprostowania</strong> Pani/Pana danych osobowych.',
   'Na podstawie art. 17 RODO — <strong>prawo do usunięcia danych</strong>, z wyjątkiem gdy przetwarzanie danych jest konieczne do wywiązania się z prawnego obowiązku lub do ustalenia, dochodzenia lub obrony roszczeń.',
   'Na podstawie art. 18 RODO — <strong>prawo żądania od administratora ograniczenia przetwarzania</strong> danych osobowych z zastrzeżeniem przypadków, o których mowa w art. 18 ust. 2 RODO.',
-  'Na podstawie art. 20 RODO — <strong>prawo do przenoszenia danych</strong>.',
+  'Na podstawie art. 20 RODO — <strong>prawo do przenoszenia danych</strong> przetwarzanych na podstawie umowy lub zgody.',
+  'Na podstawie art. 21 RODO — <strong>prawo sprzeciwu</strong> wobec przetwarzania danych na podstawie prawnie uzasadnionego interesu administratora (art. 6 ust. 1 lit. f RODO).',
+  'Na podstawie art. 7 ust. 3 RODO — <strong>prawo do wycofania zgody</strong> w dowolnym momencie, bez wpływu na zgodność z prawem przetwarzania, którego dokonano przed jej wycofaniem.',
   '<strong>Prawo do wniesienia skargi</strong> do Prezesa Urzędu Ochrony Danych Osobowych, gdy uzna Pani/Pan, że przetwarzanie danych osobowych Pani/Pana dotyczących narusza przepisy RODO.',
 ];
 ---
@@ -37,14 +54,38 @@ const rights = [
     <p>W sprawach dotyczących przetwarzania danych należy kontaktować się na adres <a href="mailto:serwis@klima-kar.pl">serwis@klima-kar.pl</a>.</p>
   </ContentSection>
 
-  <ContentSection eyebrow="RODO" title="Cel i zakres przetwarzania danych">
-    <p>Pani/Pana dane osobowe przetwarzamy w celu zawarcia i wykonania umowy. Zakres przetwarzanych danych: imię, nazwisko, adres pocztowy, nr telefonu, adres e-mail, NIP (w przypadku osób prowadzących działalność gospodarczą), nr rachunku bankowego, dane dotyczące samochodu oraz generowane przez samochód, historia samochodu.</p>
-    <p>Pobieramy tylko te dane, bez których dana usługa nie może zostać wykonana. Niepodanie danych niezbędnych do zawarcia umowy i wykonania usługi spowoduje, że nie będziemy mogli zawrzeć umowy lub wykonać usługi. Dotyczy to także danych, które musimy zebrać z uwagi na ciążący na nas obowiązek prawny (np. dane do faktur/rachunków itp.). Okres przechowywania danych jest powiązany z celami i podstawami ich przetwarzania.</p>
+  <ContentSection eyebrow="RODO" title="Cele i podstawy prawne przetwarzania">
+    <p>Pani/Pana dane osobowe przetwarzamy w następujących celach:</p>
+    <ol class="kk-checklist">
+      {purposes.map((item, i) => <li><span class="kk-check">{i + 1}</span><span set:html={item} /></li>)}
+    </ol>
+  </ContentSection>
+
+  <ContentSection eyebrow="RODO" title={"Zakres przetwa\u00ADrzanych danych"}>
+    <p>Zakres przetwarzanych danych: imię, nazwisko, adres pocztowy, nr telefonu, adres e-mail, NIP (w przypadku osób prowadzących działalność gospodarczą), nr rachunku bankowego, dane dotyczące samochodu oraz generowane przez samochód, historia samochodu. Przez formularz kontaktowy zbieramy: imię i nazwisko, adres e-mail, nr telefonu (opcjonalnie), markę, model i rocznik pojazdu, numer VIN (opcjonalnie) oraz treść wiadomości.</p>
+    <p>Pobieramy tylko te dane, bez których dana usługa nie może zostać wykonana. Niepodanie danych niezbędnych do zawarcia umowy i wykonania usługi spowoduje, że nie będziemy mogli zawrzeć umowy lub wykonać usługi. Dotyczy to także danych, które musimy zebrać z uwagi na ciążący na nas obowiązek prawny (np. dane do faktur/rachunków itp.).</p>
+  </ContentSection>
+
+  <ContentSection eyebrow="RODO" title="Odbiorcy danych">
+    <p>Pani/Pana dane mogą otrzymać podmioty, które przetwarzają je na nasze zlecenie: dostawca hostingu strony internetowej i poczty e-mail (OVH) oraz podmioty świadczące nam usługi księgowe i informatyczne. W zakresie opisanym w sekcji „Pliki cookies i narzędzia Google” odbiorcą danych jest Google Ireland Limited. Dane udostępniamy także organom publicznym, gdy wymagają tego przepisy prawa.</p>
+  </ContentSection>
+
+  <ContentSection eyebrow="RODO" title="Przekazywanie danych poza EOG">
+    <p>Google może przetwarzać dane także poza Europejskim Obszarem Gospodarczym, w tym w USA. Podstawą przekazania jest decyzja Komisji Europejskiej stwierdzająca odpowiedni stopień ochrony danych (EU-US Data Privacy Framework), w którym uczestniczy Google LLC. Pozostałe dane przetwarzamy na terenie Europejskiego Obszaru Gospodarczego.</p>
+  </ContentSection>
+
+  <ContentSection eyebrow="RODO" title={"Okres przechowy\u00ADwania danych"}>
+    <ul class="kk-checklist">
+      {retention.map((item) => <li><span class="kk-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span><span>{item}</span></li>)}
+    </ul>
   </ContentSection>
 
   <ContentSection eyebrow="Cookies" title="Pliki cookies i narzędzia Google" id="cookies">
     <p>Strony klima-kar.wroclaw.pl, webasto.wroclaw.pl i eberspaecher.wroclaw.pl korzystają z narzędzi Google: Google Tag Manager, Google Analytics 4 oraz pomiaru konwersji Google Ads. Służą one do zbierania statystyk odwiedzin stron oraz do sprawdzania, czy reklamy Google Ads prowadzą do kontaktu z nami (kliknięcie w numer telefonu lub adres e-mail, wysłanie formularza).</p>
-    <p>Pliki cookies Google Analytics i Google Ads są zapisywane wyłącznie po wyrażeniu zgody w okienku wyświetlanym przy pierwszej wizycie. Bez zgody narzędzia Google nie zapisują plików cookies, a strony działają w pełni. Podstawą prawną jest zgoda (art. 6 ust. 1 lit. a RODO). Dostawcą narzędzi jest Google Ireland Limited; szczegóły opisuje <a href="https://policies.google.com/privacy?hl=pl" target="_blank" rel="noopener noreferrer">polityka prywatności Google</a>.</p>
+    <p>Pliki cookies Google Analytics i Google Ads są zapisywane wyłącznie po wyrażeniu zgody w okienku wyświetlanym przy pierwszej wizycie. Podstawą prawną jest wtedy zgoda (art. 6 ust. 1 lit. a RODO).</p>
+    <p>Google Tag Manager wczytuje się przy każdej wizycie. Dopóki nie wyrazi Pani/Pan zgody, narzędzia Google działają w trybie ograniczonym (tryb uzyskiwania zgody Google): nie zapisują ani nie odczytują plików cookies, ale przesyłają do Google podstawowe informacje bez identyfikatorów plików cookies — adres odwiedzanej strony, rodzaj przeglądarki i urządzenia, adres IP oraz informację, że zgoda nie została udzielona. Po kliknięciu reklamy Google Ads identyfikator kliknięcia może być przekazywany w adresach kolejnych podstron. Google wykorzystuje te informacje w formie zbiorczej do szacowania liczby odwiedzin i konwersji. Podstawą prawną jest nasz prawnie uzasadniony interes, czyli pomiar skuteczności reklam (art. 6 ust. 1 lit. f RODO); wobec tego przetwarzania przysługuje Pani/Panu prawo sprzeciwu.</p>
+    <p>W sekcji kontaktu osadzona jest mapa Google Maps. Jej wyświetlenie łączy przeglądarkę z serwerami Google (przekazywany jest m.in. adres IP), a Google może przy tym zapisywać własne pliki cookies. Mapę pokazujemy, żeby ułatwić dojazd do warsztatu (art. 6 ust. 1 lit. f RODO).</p>
+    <p>Dostawcą narzędzi jest Google Ireland Limited; szczegóły opisuje <a href="https://policies.google.com/privacy?hl=pl" target="_blank" rel="noopener noreferrer">polityka prywatności Google</a>.</p>
     <p>Wybór jest zapisywany w pamięci przeglądarki, osobno dla każdej z tych stron. Zgodę można w każdej chwili zmienić lub wycofać przyciskiem „Ustawienia cookies” w stopce każdej strony, a dla tej strony także poniżej.</p>
     <p><button type="button" class="kk-btn kk-btn--primary kk-btn--sm" data-consent-open>Ustawienia cookies</button></p>
   </ContentSection>
@@ -56,11 +97,8 @@ const rights = [
     </ol>
   </ContentSection>
 
-  <ContentSection eyebrow="RODO" title="Ograniczenia praw">
-    <p>Nie przysługuje Pani/Panu:</p>
-    <ul class="kk-checklist">
-      <li><span class="kk-check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg></span><span>Na podstawie art. 21 RODO prawo sprzeciwu wobec przetwarzania danych osobowych, gdyż podstawą prawną przetwarzania Pani/Pana danych osobowych jest art. 6 ust. 1 lit. b RODO.</span></li>
-    </ul>
+  <ContentSection eyebrow="RODO" title="Zautomatyzowane decyzje">
+    <p>Nie podejmujemy wobec Pani/Pana decyzji opartych wyłącznie na zautomatyzowanym przetwarzaniu, w tym profilowaniu, które wywoływałyby skutki prawne lub w podobny sposób istotnie na Panią/Pana wpływały (art. 22 RODO).</p>
   </ContentSection>
 
   <CTABanner
