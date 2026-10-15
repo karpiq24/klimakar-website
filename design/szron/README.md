@@ -236,6 +236,8 @@ The owner went through an audit of the new site against the old one (39 findings
 - R12 itself is banned: the site names R134a, R1234yf, R744 and "zamiennik R12", and /klimatyzacja/ mentions
   the R12 → R134a retrofit. R744 service has no UV dye.
 - "Jak pracujemy": booking by phone or e-mail, cars are also taken without an appointment.
+- /gwarancja/: the 24 months cover every service and part, not only AC repairs (owner, 2026-10-15):
+  "24 miesiące gwarancji na wykonane usługi"; title and meta description say the same.
 - /konserwacja/: oil circulates with the refrigerant (it isn't part of it); the yearly loss is permeation
   through rubber and seals, not "parowanie".
 - /rodo/ rewritten as a full art. 13 clause (owner, 2026-10-15): purposes with legal bases (b, c, f, a),
