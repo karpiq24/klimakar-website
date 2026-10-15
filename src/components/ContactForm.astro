@@ -28,22 +28,20 @@
   <label class="kk-field">Dodatkowe informacje<textarea id="cf-message" name="message" class="kk-input" rows="4" placeholder="Opisz problem lub dodaj informacje..."></textarea></label>
   <div style="display:none" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
   <button type="submit" class="kk-btn kk-btn--primary kk-btn--lg">Wyślij zapytanie</button>
+  <div id="contact-toast" class="kk-toast" role="status" aria-live="polite" hidden></div>
   <p class="kk-fineprint">Prosimy o podanie marki, modelu i rocznika pojazdu — ułatwi to wycenę usługi. Numer VIN pomoże nam dobrać właściwe części. W przypadku zapytania o montaż ogrzewania postojowego prosimy podać również rodzaj, pojemność i moc silnika oraz typ klimatyzacji (manualna / automatyczna).</p>
 </form>
-
-<div id="contact-toast" class="kk-toast kk-frost" role="alert" hidden></div>
 
 <script>
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const toast = document.getElementById('contact-toast') as HTMLDivElement;
-  let toastTimer: ReturnType<typeof setTimeout> | undefined;
 
+  // The result stays under the submit button (a fixed corner toast hid behind the floating header).
   function showToast(message: string, success: boolean) {
-    clearTimeout(toastTimer);
     toast.textContent = message;
     toast.dataset.state = success ? 'ok' : 'error';
     toast.hidden = false;
-    toastTimer = setTimeout(() => (toast.hidden = true), 5000);
+    toast.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
   }
 
   const phone = form.querySelector<HTMLInputElement>('#cf-phone')!;
@@ -70,6 +68,7 @@
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    toast.hidden = true;
 
     let isValid = true;
     fields.forEach((field) => {
@@ -193,11 +192,6 @@
     color: var(--brand);
   }
   .kk-toast {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 50;
-    max-width: min(380px, calc(100vw - 40px));
     border-radius: var(--radius-card-sm);
     padding: 16px 20px;
     background: var(--frost-form);
@@ -206,9 +200,8 @@
     box-shadow: var(--shadow-form);
   }
   .kk-toast[data-state='ok'] {
-    background: var(--brand);
-    border-color: var(--brand);
-    color: var(--white);
+    background: var(--brand-tint);
+    color: var(--brand);
   }
   [disabled] {
     opacity: 0.7;
