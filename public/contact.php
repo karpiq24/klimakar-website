@@ -28,15 +28,19 @@ if (!empty($input['website'])) {
     exit;
 }
 
-// Sanitize
+// Sanitize (no `??`: it has to run on the hosting's old PHP too)
+function field($input, $key) {
+    return isset($input[$key]) && is_scalar($input[$key]) ? (string) $input[$key] : '';
+}
 function clean_field($input, $key, $max = 200) {
-    $value = mb_substr(trim(strip_tags((string) ($input[$key] ?? ''))), 0, $max, 'UTF-8');
+    $value = trim(strip_tags(field($input, $key)));
+    $value = function_exists('mb_substr') ? mb_substr($value, 0, $max, 'UTF-8') : substr($value, 0, $max);
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 }
 $name    = clean_field($input, 'name');
-$email   = trim((string) ($input['email'] ?? ''));
+$email   = trim(field($input, 'email'));
 $phone   = preg_replace('/[^0-9+()\- ]/', '', clean_field($input, 'phone', 30));
-$contact = ($input['contact'] ?? '') === 'telefon' ? 'telefon' : 'e-mail';
+$contact = field($input, 'contact') === 'telefon' ? 'telefon' : 'e-mail';
 $car     = clean_field($input, 'car');
 $vin     = strtoupper(preg_replace('/[^A-Za-z0-9]/', '', clean_field($input, 'vin', 17)));
 $message = clean_field($input, 'message', 5000);
