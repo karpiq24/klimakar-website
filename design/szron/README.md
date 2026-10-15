@@ -227,3 +227,19 @@ The owner went through an audit of the new site against the old one (39 findings
   "Ustawienia cookies" in every footer and on /rodo/ (new "Pliki cookies i narzędzia Google" section) reopens it;
   on the brand sites the banner's policy link goes to the main site's /rodo/#cookies.
   `szron.css` is unchanged; the styles are scoped in the component.
+
+### Content corrections, 2026-10-15
+
+- Street name is hyphenated everywhere: "ul. Grota-Roweckiego 129" (TERYT spelling). The design files still say
+  "Grota Roweckiego"; don't copy that back.
+- TUNAP: the lance works with workshop compressed air, so no "pod wysokim ciśnieniem".
+- R12 itself is banned: the site names R134a, R1234yf, R744 and "zamiennik R12", and /klimatyzacja/ mentions
+  the R12 → R134a retrofit. R744 service has no UV dye.
+- "Jak pracujemy": booking by phone or e-mail, cars are also taken without an appointment.
+- /konserwacja/: oil circulates with the refrigerant (it isn't part of it); the yearly loss is permeation
+  through rubber and seals, not "parowanie".
+- /rodo/ rewritten as a full art. 13 clause (owner, 2026-10-15): purposes with legal bases (b, c, f, a),
+  recipients (OVH, accounting/IT, Google), transfer outside the EEA (DPF), retention, objection and consent
+  withdrawal rights, no automated decisions. GTM stays in advanced Consent Mode (loads before consent,
+  cookieless pings, `url_passthrough`); the cookies section describes that and the Google Maps embed.
+  If ConsentHead changes, update that section.

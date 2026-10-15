@@ -1,7 +1,7 @@
 # Klima-Kar — website
 
 Website for **Klima-Kar**, a family car air-conditioning and parking-heater workshop in Wrocław
-(ul. Grota Roweckiego 129). Static Astro site in the **Szron** design ("frost": frosted glass over
+(ul. Grota-Roweckiego 129). Static Astro site in the **Szron** design ("frost": frosted glass over
 an icy blue ground, the logo's blues doing all the colour work).
 
 - **Production:** <https://klima-kar.wroclaw.pl/>. It still runs the **old website**, which stays
