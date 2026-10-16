@@ -245,3 +245,21 @@ The owner went through an audit of the new site against the old one (39 findings
   withdrawal rights, no automated decisions. GTM stays in advanced Consent Mode (loads before consent,
   cookieless pings, `url_passthrough`); the cookies section describes that and the Google Maps embed.
   If ConsentHead changes, update that section.
+
+### Owner requests, 2026-10-16
+
+- **Live opening status** next to the phone numbers and hours (`OpenStatus.astro`, logic in
+  `src/scripts/open-status.ts`): Mon–Fri 9:00–17:00 Wrocław time, closed on Polish public holidays
+  (incl. 24 December). Open: pulsing brand dot, "Teraz otwarte (do 17:00) — zadzwoń" (tel link).
+  Closed: grey still dot, "Teraz nieczynne — otwieramy dziś / jutro / w poniedziałek o 9:00 (zostaw
+  wiadomość w formularzu)"; the brand sites say "napisz e-mail" (mailto, they have no form). The phone
+  numbers always stay visible (owner). Shown in ContactSection's hours tile, the CTABanner, both footers,
+  under /kontakt's hours and in the brand-site hero and contact tile. Hidden without JS. The owner's
+  green dot is the brand blue: no other hues.
+- **Mobile call bar when closed:** "Zostaw wiadomość" (brand sites: "Napisz e-mail") leads the bar, the
+  number stays beside it as a second tap target; during opening hours the bar is unchanged.
+- **Month banner** (`Seasons.astro`): CTAs that invite a visit ("Umów …") link to /kontakt/; the
+  informational ones ("Ogrzewanie postojowe", "Dezynfekcja klimatyzacji", …) still go to the service page.
+- **Ultrasound wording:** "dezynfekcja metodą ultradźwiękową", never "dezynfekcja ultradźwiękowa" or
+  "ultradźwiękami" (homepage card, /dezynfekcja/ meta description, the Odgrzybianie ad).
+- `szron.css`: new `.kk-open`, `.kk-open-dot` (reuses `.kk-dot`) after the chip rules.

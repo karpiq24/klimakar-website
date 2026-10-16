@@ -1,0 +1,22 @@
+---
+// OpenStatus — "Teraz otwarte (do 17:00) — zadzwoń" / "Teraz nieczynne — otwieramy … o 9:00
+// (zostaw wiadomość w formularzu)" next to the phone numbers and opening hours (owner, 2026-10-16).
+// Set on the client by src/scripts/open-status.ts; hidden without JS so a static build never shows
+// a stale state. Brand sites have no form, so they pass their own message link (e-mail).
+interface Props {
+  msgHref?: string;
+  msgLabel?: string;
+}
+
+const { msgHref = '/kontakt/#contact-form', msgLabel = 'zostaw wiadomość w formularzu' } = Astro.props;
+---
+
+<span class="kk-open" data-open hidden>
+  <span class="kk-dot kk-open-dot" aria-hidden="true"></span>
+  <span data-open-yes>Teraz otwarte (do 17:00) — <a href="tel:+48713371450">zadzwoń</a></span>
+  <span data-open-no hidden>Teraz nieczynne — otwieramy <span data-open-next>jutro</span> o 9:00 (<a href={msgHref}>{msgLabel}</a>)</span>
+</span>
+
+<script>
+  import '../scripts/open-status';
+</script>

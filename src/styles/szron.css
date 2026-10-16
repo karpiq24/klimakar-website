@@ -128,6 +128,10 @@
 .kk-chip--outline{background:none;border:1px solid var(--on-dark-line);color:var(--white)}
 .kk-dot{width:8px;height:8px;border-radius:50%;background:currentColor;flex:none;animation:kk-pulse 1.8s ease-in-out infinite}
 .kk-chip--ice .kk-dot{background:var(--brand-ice)}
+.kk-open{display:flex;align-items:flex-start;gap:8px;margin-top:8px;font-size:14px;line-height:20px;color:var(--text-muted)}
+.kk-open a{color:var(--brand);font-weight:600}
+.kk-open-dot{margin-top:6px;color:var(--brand)}
+.kk-open.is-closed .kk-open-dot{color:var(--text-subtle);opacity:.55;animation:none}
 
 /* ---------- Icon tile ---------- */
 .kk-ico{width:54px;height:54px;border-radius:var(--radius-icon);background:var(--brand-tint);border:1px solid var(--brand-line);display:flex;align-items:center;justify-content:center;flex:none;color:var(--brand);transition:background .3s,color .3s,box-shadow .3s}

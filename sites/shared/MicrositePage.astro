@@ -9,6 +9,7 @@ import MicroLayout from './MicroLayout.astro';
 import SectionHeader from '../../src/components/SectionHeader.astro';
 import ProductCard from '../../src/components/ProductCard.astro';
 import HeaterTypes from '../../src/components/HeaterTypes.astro';
+import OpenStatus from '../../src/components/OpenStatus.astro';
 import { komunikat } from '../../src/data/komunikat';
 import { heaterTypes } from '../../src/data/ogrzewanie';
 import type { Brand } from './brand';
@@ -62,6 +63,7 @@ const ticker = brand.ticker;
           <a href="tel:+48713371450" class="kk-btn kk-btn--primary kk-btn--lg" data-callbar-hide>Zadzwoń: 71 337 14 50</a>
           <a href="#kontakt" class="kk-btn kk-btn--frost kk-btn--lg">Wyślij zapytanie</a>
         </div>
+        <OpenStatus msgHref={mailto} msgLabel="napisz e-mail" />
       </div>
     </div>
     <div class="mk-hero-media">
@@ -171,7 +173,7 @@ const ticker = brand.ticker;
           <div class="kk-info"><div class="kk-info-label">Adres</div>ul. gen. Stefana Grota-Roweckiego 129<br>52-214 Wrocław</div>
           <div class="kk-info"><div class="kk-info-label">Telefon</div><a href="tel:+48713371450">tel. 71 337 14 50</a><br><a href="tel:+48605594506">kom. 605 594 506</a></div>
           <div class="kk-info"><div class="kk-info-label">E-mail</div><a href="mailto:serwis@klima-kar.pl">serwis@klima-kar.pl</a></div>
-          <div class="kk-info"><div class="kk-info-label">Godziny otwarcia</div>Pon-Pt: 9:00-17:00<br>Sob-Nd: nieczynne</div>
+          <div class="kk-info"><div class="kk-info-label">Godziny otwarcia</div>Pon-Pt: 9:00-17:00<br>Sob-Nd: nieczynne<OpenStatus msgHref={mailto} msgLabel="napisz e-mail" /></div>
         </div>
         <div class="mk-map" id="dojazd">
           <p class="mk-map-label"><MapPin size={18} stroke-width={2} aria-hidden="true" /><span><b>Jak dojechać?</b> ul. Grota-Roweckiego 129, Wrocław, dzielnica Krzyki</span></p>

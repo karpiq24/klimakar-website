@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import ContactSection from '../components/ContactSection.astro';
 import ContentSection from '../components/ContentSection.astro';
+import OpenStatus from '../components/OpenStatus.astro';
 
 const hours = [
   ['Poniedziałek - Piątek', '9:00 - 17:00'],
@@ -36,6 +37,7 @@ const hours = [
       {hours.map(([day, time]) => (
         <div class="kk-price-row"><span class="kk-price-item">{day}</span><span class="kk-price-dots" aria-hidden="true"></span><span class="kk-price-value">{time}</span></div>
       ))}
+      <OpenStatus />
     </div>
   </ContentSection>
 </BaseLayout>

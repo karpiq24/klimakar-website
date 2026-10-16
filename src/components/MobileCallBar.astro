@@ -4,13 +4,29 @@
 // While an element marked `data-callbar-hide` is on screen (the homepage hero buttons, the brand-site
 // hero's "Zadzwoń" button), the bar slides away: the first screen stays clean and there aren't two
 // blue call buttons at once. Near the contact card and CTABanner it stays (owner). Without JS it always shows.
+// Outside opening hours (src/scripts/open-status.ts sets `is-closed`) the bar leads with the message
+// link (form, or e-mail on the brand sites) and keeps the number next to it (owner, 2026-10-16).
+interface Props {
+  msgHref?: string;
+  msgLabel?: string;
+}
+
+const { msgHref = '/kontakt/#contact-form', msgLabel = 'Zostaw wiadomość' } = Astro.props;
+const phone = '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path>';
+const mail = '<rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>';
 ---
 
-<a href="tel:+48713371450" class="kk-callbar" id="kk-callbar" aria-label="Zadzwoń do serwisu: 71 337 14 50">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path></svg>
-  <span>Zadzwoń do serwisu</span>
-  <span class="kk-callbar-num">71 337 14 50</span>
-</a>
+<div class="kk-callbar" id="kk-callbar">
+  <a href={msgHref} class="kk-callbar-msg">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={mail} />
+    <span>{msgLabel}</span>
+  </a>
+  <a href="tel:+48713371450" class="kk-callbar-tel" aria-label="Zadzwoń do serwisu: 71 337 14 50">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={phone} />
+    <span class="kk-callbar-label">Zadzwoń do serwisu</span>
+    <span class="kk-callbar-num">71 337 14 50</span>
+  </a>
+</div>
 
 <style>
   .kk-callbar {
@@ -24,21 +40,44 @@
       bottom: calc(12px + env(safe-area-inset-bottom));
       z-index: 40;
       display: flex;
+      min-height: 56px;
+      border-radius: var(--radius-pill);
+      background: var(--brand);
+      box-shadow: var(--shadow-callbar);
+    }
+    .kk-callbar a {
+      flex: 1 1 auto;
+      display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      min-height: 56px;
       padding: 0 20px;
-      border-radius: var(--radius-pill);
-      background: var(--brand);
       color: var(--white);
       font-weight: 600;
       text-decoration: none;
-      box-shadow: var(--shadow-callbar);
+      white-space: nowrap;
     }
     .kk-callbar-num {
       font-weight: 400;
       color: var(--on-brand-muted);
+    }
+    .kk-callbar-msg {
+      display: none !important;
+    }
+    .kk-callbar.is-closed .kk-callbar-msg {
+      display: flex !important;
+      padding: 0 12px 0 16px;
+    }
+    .kk-callbar.is-closed .kk-callbar-tel {
+      flex: none;
+      gap: 8px;
+      padding: 0 18px 0 12px;
+      border-left: 1px solid var(--on-dark-line);
+      margin: 12px 0;
+    }
+    .kk-callbar.is-closed .kk-callbar-label,
+    .kk-callbar.is-closed .kk-callbar-tel svg {
+      display: none;
     }
     .kk-callbar.is-ready {
       transition: transform 0.3s ease, opacity 0.3s;
@@ -57,6 +96,8 @@
 </style>
 
 <script>
+  import '../scripts/open-status';
+
   const bar = document.getElementById('kk-callbar');
   const twins = document.querySelectorAll('[data-callbar-hide]');
   if (bar && twins.length) {

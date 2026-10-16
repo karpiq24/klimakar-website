@@ -2,18 +2,19 @@
 // Seasons — SeasonModule (two linked halves joined by a snowflake knob) + MonthBanner.
 // The month, its tip, CTA, bar segments, the tinted half and the "Teraz" chip are set on the
 // client from MONTHS, so a static build never freezes the month. Build-time month is the fallback.
+// CTAs that invite a visit ("Umów …") lead to /kontakt/; the others to the service page (owner, 2026-10-16).
 const MONTHS = [
   ['Styczeń', 'zima', 'Zimny start to obciążenie dla silnika — ogrzewanie postojowe nagrzeje go, zanim przekręcisz kluczyk.', 'Ogrzewanie postojowe', '/ogrzewanie-postojowe/'],
-  ['Luty', 'zima', 'Ogrzewanie nie startuje albo dymi? Zdiagnozujemy i naprawimy Webasto i Eberspächer.', 'Umów naprawę ogrzewania', '/ogrzewanie-postojowe/'],
-  ['Marzec', 'lato', 'Zima za nami — sprawdź klimatyzację, zanim przyjdą ciepłe dni.', 'Umów serwis klimatyzacji', '/klimatyzacja/'],
-  ['Kwiecień', 'lato', 'Zrób serwis klimatyzacji przed pierwszym upałem.', 'Umów serwis klimatyzacji', '/klimatyzacja/'],
+  ['Luty', 'zima', 'Ogrzewanie nie startuje albo dymi? Zdiagnozujemy i naprawimy Webasto i Eberspächer.', 'Umów naprawę ogrzewania', '/kontakt/'],
+  ['Marzec', 'lato', 'Zima za nami — sprawdź klimatyzację, zanim przyjdą ciepłe dni.', 'Umów serwis klimatyzacji', '/kontakt/'],
+  ['Kwiecień', 'lato', 'Zrób serwis klimatyzacji przed pierwszym upałem.', 'Umów serwis klimatyzacji', '/kontakt/'],
   ['Maj', 'lato', 'Nieprzyjemny zapach z nawiewów? Odgrzybimy klimatyzację metodą TUNAP lub ultradźwiękową.', 'Dezynfekcja klimatyzacji', '/dezynfekcja/'],
-  ['Czerwiec', 'lato', 'Klimatyzacja słabo chłodzi? Sprawdzimy szczelność układu i napełnimy go czynnikiem.', 'Umów diagnostykę', '/klimatyzacja/'],
-  ['Lipiec', 'lato', 'Upał w aucie? Przyjedź — sprawdzimy i naprawimy klimatyzację.', 'Umów wizytę', '/klimatyzacja/'],
+  ['Czerwiec', 'lato', 'Klimatyzacja słabo chłodzi? Sprawdzimy szczelność układu i napełnimy go czynnikiem.', 'Umów diagnostykę', '/kontakt/'],
+  ['Lipiec', 'lato', 'Upał w aucie? Przyjedź — sprawdzimy i naprawimy klimatyzację.', 'Umów wizytę', '/kontakt/'],
   ['Sierpień', 'lato', 'Sprężarka hałasuje albo się nie załącza? Naprawimy lub wymienimy ją na nową.', 'Skuteczne naprawy', '/klimatyzacja/'],
   ['Wrzesień', 'zima', 'Lato się kończy — to dobry moment na montaż ogrzewania postojowego.', 'Webasto · Eberspächer · DEFA', '/ogrzewanie-postojowe/'],
-  ['Październik', 'zima', 'Sprawdź ogrzewanie, zanim spadnie pierwszy śnieg.', 'Umów przegląd Webasto / Eberspächer', '/ogrzewanie-postojowe/'],
-  ['Listopad', 'zima', 'Ciepłe auto bez skrobania szyb — montujemy Webasto, Eberspächer i DEFA.', 'Umów montaż', '/ogrzewanie-postojowe/'],
+  ['Październik', 'zima', 'Sprawdź ogrzewanie, zanim spadnie pierwszy śnieg.', 'Umów przegląd Webasto / Eberspächer', '/kontakt/'],
+  ['Listopad', 'zima', 'Ciepłe auto bez skrobania szyb — montujemy Webasto, Eberspächer i DEFA.', 'Umów montaż', '/kontakt/'],
   ['Grudzień', 'zima', 'Szron na szybach? Z ogrzewaniem postojowym auto jest ciepłe, zanim do niego wsiądziesz.', 'Ogrzewanie postojowe', '/ogrzewanie-postojowe/'],
 ];
 
