@@ -13,7 +13,8 @@ export interface SiteStatus {
   dniWolne: DayOff[];
 }
 
-const URL_STATUS = 'https://klima-kar.wroclaw.pl/status.json';
+// The demo (PUBLIC_NOINDEX build, `npm run build:demo`) shows the example in demo/status-demo.json instead.
+const URL_STATUS = import.meta.env.PUBLIC_NOINDEX === 'true' ? '/status-demo.json' : 'https://klima-kar.wroclaw.pl/status.json';
 let pending: Promise<SiteStatus | null> | undefined;
 
 export function siteStatus(): Promise<SiteStatus | null> {

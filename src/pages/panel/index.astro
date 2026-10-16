@@ -1,7 +1,7 @@
 ---
 // /panel/ — the owner's panel for the notice and the extra days off (owner, 2026-10-17). A static page that
 // talks to public/panel/api.php; the result is www/status.json, read by all three sites. Not in the
-// sitemap, noindex, disallowed in robots.txt; no GTM, header or footer. Works only on the production
+// sitemap, noindex (not in robots.txt, which would only advertise it); no GTM, header or footer. Works only on the production
 // server (PHP); on the demo it says so.
 import '../../styles/global.css';
 import '../../styles/szron.css';
@@ -33,6 +33,7 @@ import { Plus, Trash2 } from 'lucide-astro';
 
         <form class="kk-form" id="pn-login" hidden>
           <label class="kk-field">Hasło<input id="pn-password" class="kk-input" type="password" autocomplete="current-password" required></label>
+          <div class="pn-hp" aria-hidden="true"><label>Strona www<input id="pn-website" type="text" tabindex="-1" autocomplete="off"></label></div>
           <button type="submit" class="kk-btn kk-btn--primary kk-btn--lg">Zaloguj</button>
           <p class="kk-toast" data-msg role="status" aria-live="polite" hidden></p>
         </form>
@@ -138,7 +139,7 @@ import { Plus, Trash2 } from 'lucide-astro';
   login.addEventListener('submit', async (e) => {
     e.preventDefault();
     say(login, '');
-    const state = await api({ akcja: 'zaloguj', haslo: $<HTMLInputElement>('pn-password').value }).catch(() => ({ zalogowany: false, error: 'Brak połączenia z serwerem.' }));
+    const state = await api({ akcja: 'zaloguj', haslo: $<HTMLInputElement>('pn-password').value, website: $<HTMLInputElement>('pn-website').value }).catch(() => ({ zalogowany: false, error: 'Brak połączenia z serwerem.' }));
     if (state.error) return say(login, state.error);
     $<HTMLInputElement>('pn-password').value = '';
     show(state);
@@ -178,6 +179,14 @@ import { Plus, Trash2 } from 'lucide-astro';
     max-width: 760px;
     padding-top: 40px;
     padding-bottom: 80px;
+  }
+  /* Honeypot: off-screen, not display:none, so bots still see and fill it. */
+  .pn-hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
   }
   .pn-logo {
     display: inline-block;

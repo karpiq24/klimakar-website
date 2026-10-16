@@ -2,6 +2,8 @@
 // ContactForm — the enquiry form on the 0.92 frost-form surface. Posts JSON to /contact.php;
 // field names (name, email, phone, contact, car, vin, message, website honeypot) match public/contact.php.
 // Phone is optional unless the customer prefers a phone call.
+// Spam (see the top of contact.php): the `website` honeypot sits off-screen (bots skip display:none
+// fields), and the form sends a time token it fetches from contact.php on first focus.
 // The brand sites pass their own intro (installation prices, enquiry list) in the default slot and
 // drop the fine print, which repeats that list. contact.php sits next to the page (BASE_URL).
 interface Props {
@@ -33,7 +35,7 @@ const { fineprint = true } = Astro.props;
     <label class="kk-field">Numer VIN (opcjonalnie)<input id="cf-vin" name="vin" class="kk-input" type="text" placeholder="np. WVWZZZ1KZ6W000000" maxlength="17" autocapitalize="characters" spellcheck="false" autocomplete="off"></label>
   </div>
   <label class="kk-field">Dodatkowe informacje<textarea id="cf-message" name="message" class="kk-input" rows="4" placeholder="Opisz problem lub dodaj informacje..."></textarea></label>
-  <div style="display:none" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
+  <div class="cf-hp" aria-hidden="true"><label>Strona www<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
   <button type="submit" class="kk-btn kk-btn--primary kk-btn--lg">Wyślij zapytanie</button>
   <div id="contact-toast" class="kk-toast" role="status" aria-live="polite" hidden></div>
   {fineprint && <p class="kk-fineprint">Prosimy o podanie marki, modelu i rocznika pojazdu — ułatwi to wycenę usługi. Numer VIN pomoże nam dobrać właściwe części. W przypadku zapytania o montaż ogrzewania postojowego prosimy podać również rodzaj, pojemność i moc silnika oraz typ klimatyzacji (manualna / automatyczna).</p>}
@@ -73,6 +75,17 @@ const { fineprint = true } = Astro.props;
 
   const fields = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('.kk-input')];
 
+  // Time token from contact.php, fetched once the visitor starts on the form.
+  const endpoint = `${import.meta.env.BASE_URL.replace(/\/?$/, '/')}contact.php`;
+  let token: Promise<string> | undefined;
+  let tokenAt = 0;
+  const getToken = () =>
+    (token ??= (tokenAt = Date.now(), fetch(`${endpoint}?token=1`, { cache: 'no-store' })
+      .then((r) => r.json())
+      .then((d) => String(d.token ?? ''))
+      .catch(() => { token = undefined; return ''; })));
+  form.addEventListener('focusin', () => getToken(), { once: true });
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     toast.hidden = true;
@@ -107,10 +120,13 @@ const { fineprint = true } = Astro.props;
     submitBtn.textContent = 'Wysyłanie...';
 
     try {
-      const response = await fetch(`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}contact.php`, {
+      // The server ignores tokens younger than 3 s (bots); a very quick person waits out the rest.
+      const fresh = await getToken();
+      await new Promise((resolve) => setTimeout(resolve, Math.max(0, 3200 - (Date.now() - tokenAt))));
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, token: fresh }),
       });
       const result = await response.json();
 
@@ -137,6 +153,14 @@ const { fineprint = true } = Astro.props;
 </script>
 
 <style>
+  /* Honeypot: off-screen, not display:none, so bots still see and fill it. */
+  .cf-hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
   .kk-input[aria-invalid] {
     border-color: var(--brand);
     box-shadow: var(--shadow-field-focus);

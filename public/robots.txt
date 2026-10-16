@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /panel/
 
 Sitemap: https://klima-kar.wroclaw.pl/sitemap-index.xml

@@ -201,7 +201,12 @@ the preferred contact is `telefon`), `contact`, `car`, `vin`, `message`, plus a 
 honeypot. After a confirmed send it pushes `form_submit_success` to the dataLayer (GTM conversion). The PHP handler:
 
 - accepts POST only (405 otherwise);
-- returns success silently when the honeypot is filled;
+- returns success silently when the honeypot is filled (`website`, off-screen, not `display:none`);
+- spam checks (2026-10-17): a signed time token (`GET contact.php?token`, fetched by the form on first
+  focus; missing or forged → error, younger than 3 s → silently dropped, older than a day → error),
+  at most 5 enquiries per IP per hour, no links in the name or car fields and at most one in the message.
+  The HMAC key (`klimakar-formularz.key`) and the counts (`klimakar-formularz-limity.json`) are created
+  automatically in the FTP root next to `www/`, shared by the three domains; don't delete or upload them;
 - sanitises input and requires `name` and `email`;
 - emails `serwis@klima-kar.pl` via PHP `mail()`;
 - returns JSON `{success, message}`, shown under the submit button.
@@ -211,7 +216,7 @@ honeypot. After a confirmed send it pushes `form_submit_success` to the dataLaye
 The owner edits the notice (komunikat) and extra days off at <https://klima-kar.wroclaw.pl/panel/>
 (owner, 2026-10-17). No rebuild or upload is needed for these.
 
-- `src/pages/panel/index.astro` is the page (noindex, not in the sitemap, `Disallow` in robots.txt);
+- `src/pages/panel/index.astro` is the page (noindex, not in the sitemap or robots.txt);
   `public/panel/api.php` logs in (password, PHP session, 5 failed tries per IP per 15 minutes) and
   writes **`www/status.json`** on the server: `{komunikat, dniWolne: [{od, do?}], zmieniono}`.
 - All three sites read that file in the browser (`src/scripts/site-status.ts`; the brand sites and the
@@ -223,4 +228,8 @@ The owner edits the notice (komunikat) and extra days off at <https://klima-kar.
   `prywatne/klimakar-panel.php` (only the PBKDF2 hash) and `prywatne/panel-haslo.txt` (the password, for
   the owner). `prywatne/` is git-ignored. Upload `klimakar-panel.php` to the FTP root, **next to** `www/`,
   not into it. Uploading a new one changes the password.
-- The panel works only on production (PHP); the demo page says so.
+- The panel works only on production (PHP); the demo page says so. The demo's sites show the example
+  notice and days off from `demo/status-demo.json` (copied to `dist/` by `npm run build:demo` only;
+  the PUBLIC_NOINDEX build reads `/status-demo.json`).
+- Login has a honeypot field too (counts as a wrong password) and the failed-login counter
+  (`klimakar-panel-proby.json`, FTP root) is locked while it's updated.

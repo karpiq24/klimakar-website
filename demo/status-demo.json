@@ -1,0 +1,5 @@
+{
+  "komunikat": "Przykładowy komunikat (tylko na stronie demo): W dniach 28–31 grudnia nasza firma będzie nieczynna.",
+  "dniWolne": [{ "od": "2026-12-28", "do": "2026-12-31" }],
+  "zmieniono": null
+}

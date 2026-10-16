@@ -9,6 +9,6 @@ export default defineConfig({
   build: {
     format: 'directory',
   },
-  // The owner's panel stays out of the sitemap (and is noindex, disallowed in robots.txt).
+  // The owner's panel stays out of the sitemap (and is noindex; not in robots.txt, which would advertise it).
   integrations: [sitemap({ filter: (page) => !page.includes('/panel/') })],
 });
