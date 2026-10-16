@@ -113,8 +113,9 @@ sites/
   `sites/shared/MicrositePage.astro` are copied from /cennik and /ogrzewanie-postojowe; update them together.
 - **Images** are imported (`import x from '../../public/images/…'`), so each build ships only the
   files it uses, and paths follow `base`.
-- **Contact:** no form (GitHub Pages and the old sites had none). "Napisz e-mail" opens a prepared
-  e-mail with the old sites' enquiry list (marka, model, rocznik, silnik, klimatyzacja).
+- **Contact:** the main site's `ContactForm` (owner, 2026-10-16), under the old sites' installation
+  prices and enquiry list (marka, model, rocznik, silnik, klimatyzacja). The build copies
+  `public/contact.php` into `dist-<name>/`; the e-mail subject names the domain it came from.
 - **Measurement:** the same Google Tag Manager container and cookie banner as the main site
   (`src/components/ConsentHead.astro`, `CookieConsent.astro`), production builds only. The banner's policy
   link goes to the main site's /rodo/#cookies; "Ustawienia cookies" in the footer reopens it.
@@ -129,7 +130,8 @@ npm run build:all            # main site + both brand sites
 
 **Deploying a brand site** (only when the owner asks): build it without `PUBLIC_NOINDEX`, back up the
 domain's directory on the OVH FTP, delete the old `index.php`, `assets/`, `images/`, `whcookies.js` and
-`google.js`, then upload the contents of `dist-<name>/` (including `.htaccess`). The
+`google.js`, then upload the contents of `dist-<name>/` (including `.htaccess` and `contact.php`; after the
+upload, send a test enquiry and check it arrives). The
 `google9f5b4b661a30a4e0.html` and `google9331dac41cc0c6e9.html` (webasto.wroclaw.pl, added at the
 launch) Search Console files come from `sites/public/`. The brand sites link to
 klima-kar.wroclaw.pl's new URLs (`/klimatyzacja/`, `/defa/`, `/rodo/`), so launch them together with

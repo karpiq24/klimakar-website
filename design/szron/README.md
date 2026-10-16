@@ -267,3 +267,7 @@ The owner went through an audit of the new site against the old one (39 findings
   to `#kontakt` and "zostaw wiadomość" to `#contact-form`; menu and breadcrumb links stay. The mobile menu
   closes on a link tap.
 - `szron.css`: new `.kk-open`, `.kk-open-dot` (reuses `.kk-dot`) after the chip rules.
+- **Brand-site contact form** (owner): the Kontakt section's right card is the main site's `ContactForm`,
+  with the installation prices and the numbered enquiry list as its intro (default slot) and without the
+  fine print. "Napisz e-mail" and the second "Zadzwoń" button are gone; the status and call bar say
+  "zostaw wiadomość" and point to `#contact-form`.

@@ -2,11 +2,18 @@
 // ContactForm — the enquiry form on the 0.92 frost-form surface. Posts JSON to /contact.php;
 // field names (name, email, phone, contact, car, vin, message, website honeypot) match public/contact.php.
 // Phone is optional unless the customer prefers a phone call.
+// The brand sites pass their own intro (installation prices, enquiry list) in the default slot and
+// drop the fine print, which repeats that list. contact.php sits next to the page (BASE_URL).
+interface Props {
+  fineprint?: boolean;
+}
+
+const { fineprint = true } = Astro.props;
 ---
 
 <form id="contact-form" class="kk-form" novalidate>
   <h3 class="kk-h3">Wyślij zapytanie</h3>
-  <p class="kk-muted" style="margin:0 0 8px">Wypełnij formularz, a odpowiemy na Twoje zapytanie.</p>
+  {Astro.slots.has('default') ? <slot /> : <p class="kk-muted" style="margin:0 0 8px">Wypełnij formularz, a odpowiemy na Twoje zapytanie.</p>}
   <div class="kk-g2" style="gap:14px">
     <label class="kk-field">Imię i nazwisko *<input id="cf-name" name="name" class="kk-input" type="text" placeholder="Jan Kowalski" required autocomplete="name"><span class="kk-field-error" hidden>Pole wymagane</span></label>
     <label class="kk-field">Adres e-mail *<input id="cf-email" name="email" class="kk-input" type="email" placeholder="np. jan@example.com" required autocomplete="email"><span class="kk-field-error" hidden>Pole wymagane</span></label>
@@ -29,7 +36,7 @@
   <div style="display:none" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
   <button type="submit" class="kk-btn kk-btn--primary kk-btn--lg">Wyślij zapytanie</button>
   <div id="contact-toast" class="kk-toast" role="status" aria-live="polite" hidden></div>
-  <p class="kk-fineprint">Prosimy o podanie marki, modelu i rocznika pojazdu — ułatwi to wycenę usługi. Numer VIN pomoże nam dobrać właściwe części. W przypadku zapytania o montaż ogrzewania postojowego prosimy podać również rodzaj, pojemność i moc silnika oraz typ klimatyzacji (manualna / automatyczna).</p>
+  {fineprint && <p class="kk-fineprint">Prosimy o podanie marki, modelu i rocznika pojazdu — ułatwi to wycenę usługi. Numer VIN pomoże nam dobrać właściwe części. W przypadku zapytania o montaż ogrzewania postojowego prosimy podać również rodzaj, pojemność i moc silnika oraz typ klimatyzacji (manualna / automatyczna).</p>}
 </form>
 
 <script>
@@ -100,7 +107,7 @@
     submitBtn.textContent = 'Wysyłanie...';
 
     try {
-      const response = await fetch('/contact.php', {
+      const response = await fetch(`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}contact.php`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),

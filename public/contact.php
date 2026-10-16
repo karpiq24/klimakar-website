@@ -54,7 +54,9 @@ if (empty($name) || !filter_var($email, FILTER_VALIDATE_EMAIL) || ($contact === 
 
 // Build email
 $to = 'serwis@klima-kar.pl';
-$subject = "Nowe zapytanie ze strony www";
+// Which site it came from (klima-kar, webasto or eberspaecher.wroclaw.pl); the host is filtered.
+$host = preg_replace('/[^a-z0-9.\-]/', '', strtolower(isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : ''));
+$subject = $host ? "Nowe zapytanie ze strony $host" : "Nowe zapytanie ze strony www";
 $body  = "Imię i nazwisko: $name\n";
 $body .= "E-mail: $email\n";
 if ($phone)   $body .= "Telefon: $phone\n";

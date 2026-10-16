@@ -4,6 +4,7 @@
 // MICROSITE_BASE sets a sub-path for previews (the demo deploy puts them under /strony/<name>/).
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import { copyFileSync } from 'node:fs';
 
 export function microsite(name, domain) {
   return defineConfig({
@@ -14,6 +15,10 @@ export function microsite(name, domain) {
     outDir: `./dist-${name}`,
     cacheDir: `./node_modules/.astro-${name}`,
     output: 'static',
-    integrations: [sitemap()],
+    // The contact form posts to the main site's handler, copied next to each brand page.
+    integrations: [sitemap(), {
+      name: 'contact-php',
+      hooks: { 'astro:build:done': ({ dir }) => copyFileSync('public/contact.php', new URL('contact.php', dir)) },
+    }],
   });
 }
