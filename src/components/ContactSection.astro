@@ -1,6 +1,9 @@
 ---
 // ContactSection (ContactPanel) — two blurred glows behind one frost panel with info tiles,
 // map and the enquiry form. On /kontakt the PageHero already carries the heading, so `intro` is off.
+// On a page with this section (homepage, /kontakt) the buttons that lead to /kontakt/ scroll to it
+// instead, and the "zostaw wiadomość" links to the form below (owner, 2026-10-16). Without JS they
+// still go to /kontakt/. Plain menu and breadcrumb links to /kontakt/ stay as they are.
 import ContactForm from './ContactForm.astro';
 import OpenStatus from './OpenStatus.astro';
 
@@ -42,6 +45,11 @@ const { intro = true } = Astro.props;
     <ContactForm />
   </div>
 </section>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('a.kk-btn[href="/kontakt/"]').forEach((a) => a.setAttribute('href', '#kontakt'));
+  document.querySelectorAll<HTMLAnchorElement>('a[href="/kontakt/#contact-form"]').forEach((a) => a.setAttribute('href', '#contact-form'));
+</script>
 
 <style>
   /* Live Google map in the kk-map frame. The embed carries its own "Otwórz w Mapach" link. */

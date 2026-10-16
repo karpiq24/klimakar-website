@@ -262,4 +262,8 @@ The owner went through an audit of the new site against the old one (39 findings
   informational ones ("Ogrzewanie postojowe", "Dezynfekcja klimatyzacji", …) still go to the service page.
 - **Ultrasound wording:** "dezynfekcja metodą ultradźwiękową", never "dezynfekcja ultradźwiękowa" or
   "ultradźwiękami" (homepage card, /dezynfekcja/ meta description, the Odgrzybianie ad).
+- **Contact on the same page** (owner): where the page has the ContactSection (homepage, /kontakt), the
+  buttons to /kontakt/ ("Umów wizytę" in the header and hero, the month banner's "Umów …", "Kontakt") scroll
+  to `#kontakt` and "zostaw wiadomość" to `#contact-form`; menu and breadcrumb links stay. The mobile menu
+  closes on a link tap.
 - `szron.css`: new `.kk-open`, `.kk-open-dot` (reuses `.kk-dot`) after the chip rules.

@@ -44,4 +44,10 @@ const current = (link: (typeof navLinks)[number]) => (link.match.includes(path) 
     menu.hidden = !open;
     burger.setAttribute('aria-expanded', String(open));
   });
+  // Links within the page (e.g. "Umów wizytę" → #kontakt on the homepage) close the menu.
+  menu?.addEventListener('click', (e) => {
+    if (!(e.target as Element).closest('a') || !burger) return;
+    menu.hidden = true;
+    burger.setAttribute('aria-expanded', 'false');
+  });
 </script>
