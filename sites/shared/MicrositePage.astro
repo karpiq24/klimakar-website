@@ -11,14 +11,14 @@ import ProductCard from '../../src/components/ProductCard.astro';
 import HeaterTypes from '../../src/components/HeaterTypes.astro';
 import OpenStatus from '../../src/components/OpenStatus.astro';
 import ContactForm from '../../src/components/ContactForm.astro';
-import { komunikat } from '../../src/data/komunikat';
+import Komunikat from '../../src/components/Komunikat.astro';
 import { heaterTypes } from '../../src/data/ogrzewanie';
 import type { Brand } from './brand';
 import { withImages } from './brand';
 import flakeBlue from '../../public/images/brand/flake-blue.svg';
 import flakeWhite from '../../public/images/brand/flake-white.svg';
 import markWhite from '../../public/images/brand/mark-white.svg';
-import { CalendarCheck, CircleFadingArrowUp, Flame, Info, MapPin, Stethoscope, Wrench } from 'lucide-astro';
+import { CalendarCheck, CircleFadingArrowUp, Flame, MapPin, Stethoscope, Wrench } from 'lucide-astro';
 
 interface Props {
   brand: Brand;
@@ -48,7 +48,7 @@ const ticker = brand.ticker;
 <MicroLayout brand={brand}>
   <!-- HERO -->
   <section class="kk-wrap mk-hero" id="top">
-    {komunikat && <p class="kk-frost kk-notice" role="status"><span class="kk-ico"><Info {...icon} /></span><span>{komunikat}</span></p>}
+    <Komunikat start />
     <div class="mk-hero-head">
       <div>
         <span class="kk-badge kk-frost"><img src={flakeBlue.src} alt="" aria-hidden="true" class="kk-spin">Klima-Kar · Działamy od 1999 roku</span>
@@ -204,18 +204,6 @@ const ticker = brand.ticker;
   .mk-hero {
     position: relative;
     padding-top: clamp(40px, 6cqi, 88px);
-  }
-  .kk-notice {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    max-width: 720px;
-    margin: 0 0 28px;
-    border-radius: var(--radius-card-sm);
-    padding: 12px 20px 12px 12px;
-    background: var(--frost-card);
-    font-weight: 600;
-    color: var(--navy);
   }
   .mk-hero-head {
     display: grid;

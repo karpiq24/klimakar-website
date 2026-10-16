@@ -27,3 +27,6 @@ pnpm-debug.log*
 dist-webasto/
 dist-eberspaecher/
 ads/upload/
+
+# panel password (scripts/panel-haslo.mjs); never commit
+prywatne/

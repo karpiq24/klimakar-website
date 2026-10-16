@@ -12,8 +12,8 @@ import GalleryGrid from '../components/GalleryGrid.astro';
 import YearTimeline from '../components/YearTimeline.astro';
 import ContactSection from '../components/ContactSection.astro';
 import ProcessSteps from '../components/ProcessSteps.astro';
-import { Columns4, ShieldCheck, Search, Zap, Wrench, Info } from 'lucide-astro';
-import { komunikat } from '../data/komunikat';
+import { Columns4, ShieldCheck, Search, Zap, Wrench } from 'lucide-astro';
+import Komunikat from '../components/Komunikat.astro';
 
 const gallery = [
   { src: '/images/galeria/lamb.JPG', alt: 'Serwis klimatyzacji w Lamborghini' },
@@ -38,7 +38,7 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
 >
   <!-- HERO -->
   <section class="kk-wrap kk-hero">
-    {komunikat && <p class="kk-frost kk-notice" role="status"><span class="kk-ico"><Info {...icon} /></span><span>{komunikat}</span></p>}
+    <Komunikat />
     <Badge>Działamy od 1999 roku · Wrocław</Badge>
     <h1 class="kk-h1 kk-grad">Klimatyzacja i ogrzewanie Twojego auta</h1>
     <p class="kk-hero-tagline">Komfortowy klimat w zasięgu ręki</p>
@@ -152,22 +152,6 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
     letter-spacing: -0.025em;
     color: var(--brand);
     text-wrap: balance;
-  }
-  .kk-notice {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    max-width: 720px;
-    margin: 0 auto 28px;
-    border-radius: var(--radius-card-sm);
-    padding: 12px 20px 12px 12px;
-    background: var(--frost-card);
-    text-align: left;
-    font-weight: 600;
-    color: var(--navy);
-  }
-  .kk-notice .kk-ico {
-    flex: none;
   }
   .kk-hero-tagline + .kk-lead {
     margin-top: 16px;

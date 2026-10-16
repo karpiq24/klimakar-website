@@ -107,7 +107,8 @@ sites/
 - **Content:** `sites/<name>/brand.ts` holds what differs per brand. The copy comes from the old
   one-page sites plus the main site's heating pages. Shared data lives in `src/data/` and feeds both
   the main site and the brand sites: `sterowanie.ts` (controllers on /webasto/, /eberspacher/),
-  `ogrzewanie.ts` ("Które ogrzewanie dla Ciebie"), `komunikat.ts` (notice, shown on all three),
+  `ogrzewanie.ts` ("Które ogrzewanie dla Ciebie"), the notice and days off come from the panel
+  (see "Panel" below),
   `strony.ts` (the three sites' URLs; each footer links to the others).
 - **Prices:** the diagnostics price (250 zł brutto) and the installation range (od 6.500 zł) in
   `sites/shared/MicrositePage.astro` are copied from /cennik and /ogrzewanie-postojowe; update them together.
@@ -177,6 +178,8 @@ with a delete/mirror option: `www/` also holds the Search Console file). The fir
    `?strona=klimatyzacja-samochodowa` → `/klimatyzacja/`, `?strona=bg` → `/dezynfekcja-bg/`,
    `?strona=promocja` → `/cennik/`), and handles HTTPS, www, gzip, caching and security headers.
 
+For the panel, also upload `prywatne/klimakar-panel.php` to the FTP root once (see "Panel" below).
+
 After deploying, check that `/` loads, that `https://klima-kar.wroclaw.pl/?strona=cennik` lands on
 `/cennik/`, that the form sends an e-mail (and "Odpowiedz" reaches the customer), that
 `/sitemap-index.xml` is reachable and that HTTP redirects to HTTPS. Then submit
@@ -202,3 +205,22 @@ honeypot. After a confirmed send it pushes `form_submit_success` to the dataLaye
 - sanitises input and requires `name` and `email`;
 - emails `serwis@klima-kar.pl` via PHP `mail()`;
 - returns JSON `{success, message}`, shown under the submit button.
+
+## Panel: notice and days off
+
+The owner edits the notice (komunikat) and extra days off at <https://klima-kar.wroclaw.pl/panel/>
+(owner, 2026-10-17). No rebuild or upload is needed for these.
+
+- `src/pages/panel/index.astro` is the page (noindex, not in the sitemap, `Disallow` in robots.txt);
+  `public/panel/api.php` logs in (password, PHP session, 5 failed tries per IP per 15 minutes) and
+  writes **`www/status.json`** on the server: `{komunikat, dniWolne: [{od, do?}], zmieniono}`.
+- All three sites read that file in the browser (`src/scripts/site-status.ts`; the brand sites and the
+  demo cross-origin, allowed in `.htaccess`). `Komunikat.astro` shows the notice whenever the text isn't
+  empty, regardless of the dates. `open-status.ts` treats the days off like public holidays. If the file
+  can't be loaded: no notice, public holidays only.
+- `status.json` exists only on the server. It is never in `dist/`; don't create or upload one.
+- **Password:** `npm run panel:haslo` (random) or `npm run panel:haslo -- "<hasło>"` writes
+  `prywatne/klimakar-panel.php` (only the PBKDF2 hash) and `prywatne/panel-haslo.txt` (the password, for
+  the owner). `prywatne/` is git-ignored. Upload `klimakar-panel.php` to the FTP root, **next to** `www/`,
+  not into it. Uploading a new one changes the password.
+- The panel works only on production (PHP); the demo page says so.

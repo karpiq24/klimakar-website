@@ -80,3 +80,15 @@ RewriteRule ^ https://klima-kar.wroclaw.pl%{REQUEST_URI} [R=301,L]
   Header set X-Frame-Options "SAMEORIGIN"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
+
+# The owner's notice and days off (written by /panel/api.php, never uploaded from dist/): read by
+# all three sites, the brand sites cross-origin, and always revalidated.
+<Files "status.json">
+  <IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Cache-Control "no-cache"
+  </IfModule>
+</Files>
+<Files "status.json.tmp">
+  Require all denied
+</Files>

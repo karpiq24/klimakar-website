@@ -1,11 +1,15 @@
 // Live opening status (owner, 2026-10-16): Mon–Fri 9:00–17:00, Wrocław time, closed on Polish
-// public holidays. Open: "Teraz otwarte (do 17:00) — zadzwoń". Closed: "Teraz nieczynne —
-// otwieramy … o 9:00" plus a link to the form (or e-mail); the phone numbers stay visible.
-// Fills every [data-open] element (OpenStatus.astro) and sets `is-closed` on the mobile call bar.
+// public holidays and on the owner's extra days off (status.json, see site-status.ts). Open: "Teraz
+// otwarte (do 17:00) — zadzwoń". Closed: "Teraz nieczynne — otwieramy … o 9:00" plus a link to the
+// form; the phone numbers stay visible. Fills every [data-open] element (OpenStatus.astro) and sets
+// `is-closed` on the mobile call bar, once the days off have loaded (or failed to).
+import { siteStatus, type DayOff } from './site-status';
 
 const OPEN = 9 * 60;
 const CLOSE = 17 * 60;
 const WEEKDAYS = ['w niedzielę', 'w poniedziałek', 'we wtorek', 'w środę', 'w czwartek', 'w piątek', 'w sobotę'];
+const MONTHS = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
+let daysOff: DayOff[] = [];
 
 /** Current date and time in Wrocław, as a UTC date (only the getUTC* fields are used). */
 function wroclawNow(): Date {
@@ -38,18 +42,27 @@ function isHoliday(d: Date): boolean {
   return day === e + 1 * 864e5 || day === e + 60 * 864e5;
 }
 
-const isWorkday = (d: Date) => d.getUTCDay() >= 1 && d.getUTCDay() <= 5 && !isHoliday(d);
+/** One of the owner's extra days off (single days or ranges, YYYY-MM-DD). */
+function isDayOff(d: Date): boolean {
+  const day = d.toISOString().slice(0, 10);
+  return daysOff.some((r) => day >= r.od && day <= (r.do || r.od));
+}
 
-/** null while open, otherwise when it opens next ("dziś", "jutro", "w poniedziałek"). */
+const isWorkday = (d: Date) => d.getUTCDay() >= 1 && d.getUTCDay() <= 5 && !isHoliday(d) && !isDayOff(d);
+
+/** null while open, otherwise when it opens next ("dziś", "jutro", "w poniedziałek", "4 stycznia"). */
 function nextOpening(now: Date): string | null {
   const minutes = now.getUTCHours() * 60 + now.getUTCMinutes();
   if (isWorkday(now)) {
     if (minutes >= OPEN && minutes < CLOSE) return null;
     if (minutes < OPEN) return 'dziś';
   }
-  for (let k = 1; k < 14; k++) {
+  for (let k = 1; k < 120; k++) {
     const d = new Date(now.getTime() + k * 864e5);
-    if (isWorkday(d)) return k === 1 ? 'jutro' : WEEKDAYS[d.getUTCDay()];
+    if (!isWorkday(d)) continue;
+    if (k === 1) return 'jutro';
+    // A weekday name only within the coming week; after a longer break the date is clearer.
+    return k < 7 ? WEEKDAYS[d.getUTCDay()] : `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}`;
   }
   return 'wkrótce';
 }
@@ -67,5 +80,8 @@ function update() {
   document.getElementById('kk-callbar')?.classList.toggle('is-closed', next !== null);
 }
 
-update();
-setInterval(update, 60_000);
+siteStatus().then((status) => {
+  daysOff = status?.dniWolne ?? [];
+  update();
+  setInterval(update, 60_000);
+});

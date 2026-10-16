@@ -172,7 +172,7 @@ The owner went through an audit of the new site against the old one (39 findings
 - **Disinfection:** describe how it is done, not what it is for. Ultrasonic: mist from an ultrasonic device with the blower on (/cennik row and /klimatyzacja card). TUNAP: a spray lance at high pressure straight onto the evaporator, hence the most effective against fungi, mould and bacteria (new first section on /tunap, its meta description and price row, the /cennik row, and the cards on the homepage and /klimatyzacja).
 - **Dezynfekcja BG:** no "Zobacz cennik" button; the BG price sheet image is now a PriceGroup table (129 / 219 / 299 zł) on that page only, not on /cennik. "Dlaczego dezynfekcja BG?" is rewritten (the BG Poland marketing paragraph is gone): BG is used where the evaporator is hard to reach and TUNAP can't be done; Frigi-Clean foam goes into the evaporator housing through a tube, then Frigi-Fresh is sprayed into the fresh-air intake with the blower on. Facts from bgpoland.pl and bgprod.com.
 - **Galeria:** 10 photos for now; more will be added later.
-- **Komunikat:** `src/data/komunikat.ts` replaces the old site's `komunikat.html` (closures, heat-wave delays). Empty text hides it.
+- **Komunikat:** replaces the old site's `komunikat.html` (closures, heat-wave delays). Empty text hides it. Since 2026-10-17 it is typed in the panel (`/panel/`, `Komunikat.astro`), see the 2026-10-17 entry.
 - Kept as they are, by decision: the "Gwarancja na usługi" block and FAQ on /gwarancja, the T91/T99 split, the Webasto/Eberspächer "Nasze usługi" cards (minus "Pełna"), "liderem" on /o-firmie, the Instagram link, and the shortened controller texts (no ThermoConnect extras, no intro sentences).
 
 ### Brand sites, 2026-10-13
@@ -271,3 +271,12 @@ The owner went through an audit of the new site against the old one (39 findings
   with the installation prices and the numbered enquiry list as its intro (default slot) and without the
   fine print. "Napisz e-mail" and the second "Zadzwoń" button are gone; the status and call bar say
   "zostaw wiadomość" and point to `#contact-form`.
+
+### Owner requests, 2026-10-17
+
+- **Panel** (`/panel/`, README › Panel): the owner types the notice and adds extra days off. The notice shows
+  whenever it isn't empty, whatever the dates (owner); the days off feed the opening status like public
+  holidays. After a break of a week or more the status names the date ("otwieramy 26 października o 9:00").
+  The panel page uses the Szron form classes; its own small styles are scoped. `szron.css` is unchanged.
+- `Komunikat.astro` now holds the notice styles (they were scoped in index.astro and MicrositePage, which
+  no longer render the element); `start` keeps it left-aligned in the brand-site hero.

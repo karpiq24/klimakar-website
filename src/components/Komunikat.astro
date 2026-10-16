@@ -1,0 +1,53 @@
+---
+// Komunikat — the owner's notice at the top of the homepage and the brand-site hero (closures, longer
+// waits in a heat wave). Typed in the panel (/panel/) and read from status.json on the client, so it
+// shows without a rebuild; shown whenever the text isn't empty, whatever the dates (owner, 2026-10-17).
+// Replaces src/data/komunikat.ts (the old site's komunikat.html).
+import { Info } from 'lucide-astro';
+
+interface Props {
+  /** Left-aligned (brand-site hero); centred by default (homepage hero). */
+  start?: boolean;
+}
+
+const { start = false } = Astro.props;
+---
+
+<p class:list={['kk-frost kk-notice', { 'kk-notice--start': start }]} role="status" data-komunikat hidden>
+  <span class="kk-ico"><Info size={24} stroke-width={1.8} aria-hidden="true" /></span>
+  <span data-komunikat-text></span>
+</p>
+
+<script>
+  import { siteStatus } from '../scripts/site-status';
+
+  siteStatus().then((status) => {
+    if (!status?.komunikat) return;
+    document.querySelectorAll<HTMLElement>('[data-komunikat]').forEach((el) => {
+      el.querySelector('[data-komunikat-text]')!.textContent = status.komunikat;
+      el.hidden = false;
+    });
+  });
+</script>
+
+<style>
+  .kk-notice {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    max-width: 720px;
+    margin: 0 auto 28px;
+    border-radius: var(--radius-card-sm);
+    padding: 12px 20px 12px 12px;
+    background: var(--frost-card);
+    text-align: left;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .kk-notice--start {
+    margin: 0 0 28px;
+  }
+  .kk-notice .kk-ico {
+    flex: none;
+  }
+</style>

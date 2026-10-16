@@ -43,7 +43,7 @@ Static Astro 6 site in the **Szron** design, plus two one-page brand sites in `s
 
 ## Checks before committing
 
-- `npm run build` passes (17 pages); after changes to `sites/`, `src/data/` or shared components,
+- `npm run build` passes (18 pages, incl. /panel/); after changes to `sites/`, `src/data/` or shared components,
   `npm run build:all` too.
 - Look at changed pages at 1440px and 390px (and ~1024/1366 for anything in grids or bars).
   No text may overflow its column; long Polish words in display headings may need a soft
@@ -72,3 +72,6 @@ Static Astro 6 site in the **Szron** design, plus two one-page brand sites in `s
   (brand sites too). Uploading changes means copying the changed files of `dist/` (or `dist-<name>/`)
   there; only when the user asks. Build without `PUBLIC_NOINDEX`, never delete/mirror on the server,
   see README › Deployment.
+- The notice and extra days off are the owner's, edited in /panel/ and stored only in `www/status.json`
+  on the server (README › Panel). Never put a `status.json` in the build or upload one; never commit
+  `prywatne/` (the panel password).
