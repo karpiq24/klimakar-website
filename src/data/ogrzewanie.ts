@@ -76,7 +76,7 @@ const models: Record<'wodne' | 'powietrzne', HeaterModel[]> = {
         'Silnik: bezszczotkowy',
         'Korekta wysokości: automatyczna, do 3000 m n.p.m.',
         'Montaż: w pojeździe lub na zewnątrz, pod podwoziem',
-        'Sterowanie: panel EasyStart Pro, pilot EasyStart R+ TP7 lub aplikacja EasyStart Web',
+        'Sterowanie: panel EasyStart Pro, pilot EasyStart Remote lub Remote+ albo aplikacja EasyStart Web',
       ],
     },
   ],

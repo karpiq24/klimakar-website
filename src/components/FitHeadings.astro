@@ -1,0 +1,38 @@
+---
+/**
+ * Shrinks a display heading whose longest word doesn't fit its column.
+ * In-app browsers (Facebook, Instagram: Android WebView) scale all text by the phone's font-size
+ * setting, and CSS text-size-adjust can't turn that off. The cqi-sized headings leave only a few
+ * per cent of room for "Klimatyzacja", so they overflow there. Normal browsers never overflow,
+ * so this changes nothing for them.
+ */
+---
+
+<script>
+  const SELECTOR = 'h1, h2, h3, .kk-price-big, .kk-stat-n';
+
+  function fit() {
+    for (const el of document.querySelectorAll<HTMLElement>(SELECTOR)) {
+      el.style.fontSize = '';
+      if (!el.clientWidth || el.scrollWidth <= el.clientWidth + 1) continue;
+      // Divide the size we set, not the computed one: under text zoom the computed size may
+      // or may not include the zoom, so a second pass corrects the first if needed.
+      let size = parseFloat(getComputedStyle(el).fontSize);
+      for (let i = 0; i < 3 && el.scrollWidth > el.clientWidth + 1; i++) {
+        size = (size * el.clientWidth) / el.scrollWidth - 0.5;
+        el.style.fontSize = `${size}px`;
+      }
+    }
+  }
+
+  let width = window.innerWidth;
+  let timer: number | undefined;
+  window.addEventListener('resize', () => {
+    if (window.innerWidth === width) return; // mobile URL bar showing/hiding
+    width = window.innerWidth;
+    clearTimeout(timer);
+    timer = window.setTimeout(fit, 150);
+  });
+  fit();
+  document.fonts?.ready.then(fit);
+</script>

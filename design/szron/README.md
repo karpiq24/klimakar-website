@@ -162,7 +162,7 @@ The owner went through an audit of the new site against the old one (39 findings
 
 - **History:** 2008 is "Rozbudowa serwisu" (two lifts, heaters added to the offer); the Webasto and Eberspächer authorisation is its own year, **2009**, on the homepage YearTimeline and on /o-firmie. Its image `2009-autoryzacja.webp` is the two white brand logos on the Szron gradient (composed from `public/images/brand/`).
 - **Cennik:** "Robocizna — Standardowa roboczogodzina 250 zł" is back; the refrigerant section is labelled "samochody osobowe"; the ultrasonic disinfection row describes how it is done (mist from an ultrasonic device with the blower on), not its purpose; no "ceny orientacyjne", but "Ceny brutto" stays.
-- **Webasto:** Telestart T91 and ThermoCall are no longer sold. They come last, greyed out, with a "Produkt wycofany" chip (ProductCard `retired`). MultiControl has no "Wbudowany czujnik temperatury". ThermoConnect and EasyStart Web both list "Nie wymaga karty SIM" and the LED push button.
+- **Webasto:** Telestart T91 and ThermoCall are no longer sold. They come last, greyed out, with a "Produkt wycofany" chip (ProductCard `retired`). MultiControl has no "Wbudowany czujnik temperatury". ThermoConnect and EasyStart Web both list "Wbudowana karta eSIM" (owner, 2026-10-16; was "Nie wymaga karty SIM") and the LED push button.
 - **Klimatyzacja:** components are listed as replaced, never repaired; we repair only compressors and hoses.
 - **Ogrzewanie postojowe:** the air-heater tile says most repairs are done the same day so the van can get back on the road ("Serwis w trybie pilnym" and "Niezawodne" are gone).
 - **Kontakt:** only "w dzielnicy Krzyki"; there is no other street to enter from and no customer car park claim.
@@ -195,7 +195,7 @@ The owner went through an audit of the new site against the old one (39 findings
 ### Owner corrections, 2026-10-14
 
 - **Ogrzewanie postojowe:** the PageHero photo is `2009-autoryzacja.webp` (the same as 2009 in the history), not the workshop photo.
-- **Airtronic S3 D2L:** automatic altitude correction up to 3000 m n.p.m. (owner; the datasheet table says 4000 m).
+- **Airtronic S3 D2L:** automatic altitude correction up to 3000 m n.p.m. (owner; the datasheet table says 4000 m). Its controls list the EasyStart Remote or Remote+ remote; no "R+ TP7" (owner, 2026-10-16).
 - **Eberspächer controllers** (main site and brand site): EasyStart Pro no longer lists "Sterowanie maksymalnie dwoma urządzeniami grzewczymi". EasyStart Select and Timer show "Odczyt błędów urządzenia" instead of the feedback function; Remote+ lists it too; Remote keeps "Funkcja informacji zwrotnej". EasyStart Web: "Aplikacja dostępna w Google Play i App Store" replaces "Bezpłatna aplikacja na smartfony" (it needs a subscription).
 - **Mobile call bar:** it slides away while the homepage hero buttons or the brand-site hero's "Zadzwoń"
   button (`data-callbar-hide`) are on screen, so the first screen stays clean and doesn't show two blue

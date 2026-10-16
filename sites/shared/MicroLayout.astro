@@ -8,6 +8,7 @@ import MicroFooter from './MicroFooter.astro';
 import MobileCallBar from '../../src/components/MobileCallBar.astro';
 import ConsentHead from '../../src/components/ConsentHead.astro';
 import CookieConsent from '../../src/components/CookieConsent.astro';
+import FitHeadings from '../../src/components/FitHeadings.astro';
 import { mainSite } from '../../src/data/strony';
 import type { Brand } from './brand';
 
@@ -91,5 +92,6 @@ const jsonLd = {
       <MobileCallBar />
       <CookieConsent policyUrl={`${mainSite}/rodo/#cookies`} />
     </div>
+    <FitHeadings />
   </body>
 </html>
