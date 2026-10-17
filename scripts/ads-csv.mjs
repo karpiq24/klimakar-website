@@ -1,12 +1,17 @@
 // Writes Google Ads bulk-upload CSVs (Narzędzia › Działania zbiorcze › Przesłane pliki) from
-// ads/campaigns.yaml into ads/upload/. Upload them in file-name order. Everything is created as
+// private/ads/campaigns.yaml into private/ads/upload/. Upload them in file-name order. Everything is created as
 // "Add" with paused campaigns; for later edits in existing campaigns, change the rows in Ads instead.
 // Usage: npm run ads:csv [-- --season oct_mar|apr_sep]   (default: by today's month)
-import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
 import { parse } from 'yaml';
 
-const ads = parse(readFileSync('ads/campaigns.yaml', 'utf8'));
-const OUT = 'ads/upload';
+const FILE = 'private/ads/campaigns.yaml';
+if (!existsSync(FILE)) {
+  console.error(`${FILE} not found: clone the private repo into private/ (README › Private files).`);
+  process.exit(1);
+}
+const ads = parse(readFileSync(FILE, 'utf8'));
+const OUT = 'private/ads/upload';
 
 const seasonArg = process.argv.indexOf('--season');
 const month = new Date().getMonth() + 1;

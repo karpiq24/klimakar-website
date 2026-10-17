@@ -5,7 +5,7 @@ Website for **Klima-Kar**, a family car air-conditioning and parking-heater work
 an icy blue ground, the logo's blues doing all the colour work).
 
 - **Production:** <https://klima-kar.wroclaw.pl/> on OVH runs this site since **2026-10-15**
-  (the brand sites too). The old sites' code is in `archive/produkcja-2026-10-14.tar.gz`.
+  (the brand sites too). The old sites' code is in the private repo (see "Private files").
 - **Preview of this site:** <http://demo.klima-kar.pl/>.
 - **Brand sites** (one page each, same repo, same design): <https://webasto.wroclaw.pl/> and
   <https://eberspaecher.wroclaw.pl/>, built from `sites/`. Previews:
@@ -61,9 +61,8 @@ Everything about the design lives in `design/szron/`:
 ├── design/szron/                  # design system and handoff (reference)
 ├── sites/                         # the two one-page brand sites (see "Brand sites" below)
 ├── scripts/og-images.mjs         # link-preview cards (1200×630, text in the centred square): `npm run og`
-├── scripts/check-ads.mjs         # `npm run check:ads`: validates ads/campaigns.yaml
-├── ads/                           # Google Ads campaigns as data + change log (see ads/README.md)
-├── archive/produkcja-2026-10-14.tar.gz  # old sites' code from OVH (www/, webasto/, eberspaecher/, pl/)
+├── scripts/check-ads.mjs         # `npm run check:ads`: validates private/ads/campaigns.yaml
+├── private/                       # clone of the private repo, not tracked here (see "Private files")
 └── .github/workflows/deploy.yml   # GitHub Pages preview deploy
 ```
 
@@ -138,6 +137,17 @@ launch) Search Console files come from `sites/public/`. The brand sites link to
 klima-kar.wroclaw.pl's new URLs (`/klimatyzacja/`, `/defa/`, `/rodo/`), so launch them together with
 the main site or after it.
 
+## Private files
+
+This repo is public. The Google Ads campaigns (budgets, keywords, change log), the launch checklist
+`WDROZENIE.md` and the old sites' code (`archive/produkcja-2026-10-14.tar.gz`) are in the private repo
+[karpiq24/klimakar-private](https://github.com/karpiq24/klimakar-private). Clone it into `private/`
+(gitignored here); `npm run check:ads` and `npm run ads:csv` read `private/ads/campaigns.yaml`:
+
+```sh
+git clone https://github.com/karpiq24/klimakar-private.git private
+```
+
 ## Development
 
 ```bash
@@ -162,7 +172,7 @@ can't send on the demo. The workflow builds with `PUBLIC_NOINDEX=true`, so every
 
 ### Production: klima-kar.wroclaw.pl (OVH web hosting)
 
-Live since 2026-10-15; the launch checklist (Polish) is `WDROZENIE.md`. To publish changes, build
+Live since 2026-10-15; the launch checklist (Polish) is `private/WDROZENIE.md`. To publish changes, build
 without `PUBLIC_NOINDEX` and upload the changed files of `dist/` to `www/` on the OVH hosting (never
 with a delete/mirror option: `www/` also holds the Search Console file). The first launch went:
 

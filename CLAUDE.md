@@ -8,7 +8,7 @@ Static Astro 6 site in the **Szron** design, plus two one-page brand sites in `s
 
 - Since 2026-10-15 this site is live at <https://klima-kar.wroclaw.pl/>, so the repo is the source
   of truth for content. The old site's code (and the old brand sites') is in
-  `archive/produkcja-2026-10-14.tar.gz`. Owner corrections recorded below and in
+  `private/archive/produkcja-2026-10-14.tar.gz`. Owner corrections recorded below and in
   `design/szron/README.md` override it.
 - All copy is Polish, informal "Ty" in marketing text. Never invent copy, numbers or facts.
   Subpages keep their existing text, data and prices exactly; only markup changes.
@@ -49,14 +49,14 @@ Static Astro 6 site in the **Szron** design, plus two one-page brand sites in `s
   No text may overflow its column; long Polish words in display headings may need a soft
   hyphen (`{"Bezpieczeń\u00ADstwo"}`; a JS expression, since quoted attributes don't unescape).
 - No `/_blob/`, Barlow, `data-theme` or `kk-theme`; no "rok założenia" with 1989.
-- Google Ads texts are copied from the site (`ads/campaigns.yaml`, workflow in `ads/README.md`).
-  After changing copy, prices, address, hours, phone numbers or page URLs, run `npm run check:ads`,
-  update the affected ad texts and add the Ads change to `ads/CHANGES.md` › Pending. Never change
-  anything in Google Ads itself without the user's yes.
+- Google Ads texts are copied from the site (`private/ads/campaigns.yaml`, workflow in
+  `private/ads/README.md`). After changing copy, prices, address, hours, phone numbers or page URLs,
+  run `npm run check:ads`, update the affected ad texts and add the Ads change to
+  `private/ads/CHANGES.md` › Pending. Never change anything in Google Ads itself without the user's yes.
 
 ## Brand sites
 
-- Old sources: `archive/produkcja-2026-10-14.tar.gz`. `/mnt/klimakar/` is the live production
+- Old sources: `private/archive/produkcja-2026-10-14.tar.gz`. `/mnt/klimakar/` is the live production
   hosting now; never modify it unless the user asks for an upload.
 - Same rules as the main site: Szron classes only, copy from the old sites or the main site.
   Per-brand content goes in `sites/<name>/brand.ts`; anything shared with the main site in `src/data/`.
@@ -65,6 +65,9 @@ Static Astro 6 site in the **Szron** design, plus two one-page brand sites in `s
 
 ## Git and deploy
 
+- This repo is public. Ads (campaigns, budgets, change log), the launch checklist `WDROZENIE.md`
+  and the old-site archive live in the private repo `karpiq24/klimakar-private`, cloned into
+  `private/` (gitignored); commit and push changes there separately. Never copy them back here.
 - Pushing to `main` deploys the preview to http://demo.klima-kar.pl/, brand sites under `/strony/<name>/` (GitHub Pages, built with
   `PUBLIC_NOINDEX=true` so every page has `noindex`; PHP and the
   contact form don't run there).

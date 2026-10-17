@@ -1,10 +1,14 @@
-// Validates ads/campaigns.yaml and lists ad groups whose site pages changed since the last sync
+// Validates private/ads/campaigns.yaml and lists ad groups whose site pages changed since the last sync
 // with Google Ads. Usage: npm run check:ads [-- --since <git rev>]
 import { readFileSync, existsSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { parse } from 'yaml';
 
-const FILE = 'ads/campaigns.yaml';
+const FILE = 'private/ads/campaigns.yaml';
+if (!existsSync(FILE)) {
+  console.error(`${FILE} not found: clone the private repo into private/ (README › Private files).`);
+  process.exit(1);
+}
 const ads = parse(readFileSync(FILE, 'utf8'));
 const errors = [];
 const err = (where, msg) => errors.push(`${where}: ${msg}`);
