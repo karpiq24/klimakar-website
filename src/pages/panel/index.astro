@@ -21,7 +21,7 @@ import { Plus, Trash2 } from 'lucide-astro';
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <div class="kk-root kk-dots">
+    <div class="kk-root kk-dots pn-root">
       <div aria-hidden="true" class="kk-glow kk-glow--top-ice kk-drift"></div>
       <div aria-hidden="true" class="kk-glow kk-glow--top-brand kk-drift2"></div>
       <main class="kk-wrap pn">
@@ -174,6 +174,11 @@ import { Plus, Trash2 } from 'lucide-astro';
 </script>
 
 <style>
+  /* Little content: the dots and glows still fill the window instead of ending under the form. */
+  .pn-root {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
   .pn {
     position: relative;
     max-width: 760px;
