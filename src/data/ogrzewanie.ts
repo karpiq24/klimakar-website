@@ -17,8 +17,8 @@ export interface HeaterModel {
 // they can be compared; only the values differ. Owner 2026-10-13 (second round): the power is a
 // regulation range ("Regulacja mocy grzewczej"), weight dropped, controls as he listed them. Sources: webasto.com › Thermo Top Evo, Air Top Pro 25
 // (+ press release 2025); eberspaecher.com › Hydronic S3 Economy datasheet, Airtronic 3 technical
-// description 04.2024 and press release 2021; S3 D2L altitude correction up to 3000 m per the owner
-// (2026-10-14; the datasheet table says 4000 m). Photos: the same.
+// description 04.2024 and press release 2021; S3 D2L altitude correction up to 4000 m (owner, 2026-10-29;
+// earlier 3000 m per the owner). Photos: the same.
 const models: Record<'wodne' | 'powietrzne', HeaterModel[]> = {
   wodne: [
     {
@@ -74,7 +74,7 @@ const models: Record<'wodne' | 'powietrzne', HeaterModel[]> = {
         'Paliwo: olej napędowy lub HVO, wersja na benzynę: Airtronic S3 B2L',
         'Napięcie: 12 V lub 24 V',
         'Silnik: bezszczotkowy',
-        'Korekta wysokości: automatyczna, do 3000 m n.p.m.',
+        'Korekta wysokości: automatyczna, do 4000 m n.p.m.',
         'Montaż: w pojeździe lub na zewnątrz, pod podwoziem',
         'Sterowanie: panel EasyStart Pro, pilot EasyStart Remote+ albo aplikacja EasyStart Web',
       ],

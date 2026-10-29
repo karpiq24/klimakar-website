@@ -195,7 +195,7 @@ The owner went through an audit of the new site against the old one (39 findings
 ### Owner corrections, 2026-10-14
 
 - **Ogrzewanie postojowe:** the PageHero photo is `2009-autoryzacja.webp` (the same as 2009 in the history), not the workshop photo.
-- **Airtronic S3 D2L:** automatic altitude correction up to 3000 m n.p.m. (owner; the datasheet table says 4000 m). Its controls list the EasyStart Remote or Remote+ remote; no "R+ TP7" (owner, 2026-10-16).
+- **Airtronic S3 D2L:** automatic altitude correction up to 4000 m n.p.m. (owner, 2026-10-29; was 3000 m per the owner on 2026-10-14). Its controls list the EasyStart Remote or Remote+ remote; no "R+ TP7" (owner, 2026-10-16).
 - **Eberspächer controllers** (main site and brand site): EasyStart Pro no longer lists "Sterowanie maksymalnie dwoma urządzeniami grzewczymi". EasyStart Select and Timer show "Odczyt błędów urządzenia" instead of the feedback function; Remote+ lists it too; Remote keeps "Funkcja informacji zwrotnej". EasyStart Web: "Aplikacja dostępna w Google Play i App Store" replaces "Bezpłatna aplikacja na smartfony" (it needs a subscription).
 - **Mobile call bar:** it slides away while the homepage hero buttons or the brand-site hero's "Zadzwoń"
   button (`data-callbar-hide`) are on screen, so the first screen stays clean and doesn't show two blue
