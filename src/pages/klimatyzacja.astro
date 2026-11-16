@@ -29,11 +29,11 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
     description="Serwisujemy klimatyzację w pojazdach nowoczesnych, jak i klasycznych. Dzięki wieloletniemu doświadczeniu wiemy, że kluczem jest precyzyjna diagnostyka. Nie narażamy klientów na niepotrzebne koszty — rzetelnie analizujemy problem, co przekłada się na realną oszczędność czasu i pieniędzy."
     ctaLabel="Zobacz cennik →" ctaHref="/cennik/">
     <div class="kk-svc">
-      <ServiceCard variant="brand" title="Filtry kabinowe" chip="Od ręki"
+      <ServiceCard variant="brand" id="filtry-kabinowe" title="Filtry kabinowe" chip="Od ręki"
         text="Mamy na miejscu duży wybór filtrów kabinowych — wymienimy od ręki, bez czekania na dostawę.">
         <Columns4 {...icon} />
       </ServiceCard>
-      <ServiceCard title="Napełnianie i serwis układu" chip="od 250 zł" href="/cennik/"
+      <ServiceCard title="Napełnianie i serwis układu" chip="od 250 zł" href="/cennik/#klimatyzacja"
         text="Odzysk czynnika, wykonanie próżni, kontrola szczelności, napełnienie czystym czynnikiem R134a, R1234yf lub R744, a w układach na R12 zamiennikiem. Kontrola ciśnienia podczas pracy. Uzupełnienie oleju i barwnika UV (w układach R744 bez barwnika).">
         <Wind {...icon} />
       </ServiceCard>
@@ -41,7 +41,7 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
         text="Elektroniczne testy szczelności układu z użyciem wykrywacza nieszczelności i barwnika UV. Diagnostyka komputerowa. Diagnostyka kompresora na hamowni.">
         <Search {...icon} />
       </ServiceCard>
-      <ServiceCard variant="spotlight" title="R744 i auta elektryczne" chip="Doświadczenie w R744"
+      <ServiceCard variant="spotlight" id="r744" title="R744 i auta elektryczne" chip="Doświadczenie w R744"
         tags={['R744 · CO₂', 'Mercedes Klasy S', 'Pompy ciepła', 'Hybrydy i EV']}
         text="Klimatyzacja na CO₂ (R744) trafia do coraz większej liczby aut. Mamy specjalistyczny sprzęt do układów R744 i duże doświadczenie w ich serwisie. Obsługujemy też klimatyzację aut elektrycznych i hybrydowych: elektryczne sprężarki wysokiego napięcia i układy z pompą ciepła, z użyciem dedykowanych olejów dielektrycznych.">
         <Zap {...icon} />

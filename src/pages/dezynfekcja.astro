@@ -34,7 +34,7 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
     imageAlt="Dezynfekcja TUNAP: preparat podawany lancą natryskową na parownik"
     imagePosition="40% 50%"
     tag="Prosto na parownik"
-    actions={[{ label: 'Umów wizytę', href: '/kontakt/' }, { label: 'Zobacz cennik', href: '/cennik/' }]}
+    actions={[{ label: 'Umów wizytę', href: '/kontakt/' }, { label: 'Zobacz cennik', href: '/cennik/#dezynfekcja' }]}
   />
 
   <ContentSection eyebrow="Dezynfekcja klimatyzacji" title="Dlaczego warto odgrzybiać klimatyzację?">
@@ -43,7 +43,7 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
     <Fragment slot="callout">Firma TUNAP zaleca 1 do 2 razy w roku przeprowadzenie profesjonalnej dezynfekcji parownika oraz kanałów powietrznych.</Fragment>
   </ContentSection>
 
-  <section class="kk-wrap kk-section">
+  <section class="kk-wrap kk-section" id="metody">
     <SectionHeader eyebrow="Nasze metody" title="Metody dezynfekcji klimatyzacji"
       description="Polecamy dezynfekcję TUNAP: to najskuteczniejsza metoda usuwania grzybów, pleśni i bakterii z układu klimatyzacji." />
     <div class="kk-svc">
@@ -63,7 +63,7 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
     <p class="kk-fineprint" style="margin-top:20px">Oprócz dezynfekcji możemy dodatkowo wykonać ozonowanie.</p>
   </section>
 
-  <section class="kk-wrap kk-section">
+  <section class="kk-wrap kk-section" id="ceny">
     <SectionHeader eyebrow="Cennik" title="Ile kosztuje odgrzybianie klimatyzacji?">
       <span slot="aside" class="kk-chip"><span class="kk-dot"></span>Ceny aktualne na dzień <Today /></span>
     </SectionHeader>

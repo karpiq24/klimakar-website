@@ -15,9 +15,11 @@ interface Props {
   tags?: string[];
   image?: string;
   imageAlt?: string;
+  /** Anchor for links to this card (e.g. /klimatyzacja/#r744). */
+  id?: string;
 }
 
-const { variant = 'standard', title, text, href, chip, tags = [], image, imageAlt = '' } = Astro.props;
+const { variant = 'standard', title, text, href, chip, tags = [], image, imageAlt = '', id } = Astro.props;
 const Tag = href ? 'a' : 'div';
 const icoVariant = variant === 'brand' ? 'kk-ico--on-brand' : variant === 'spotlight' ? 'kk-ico--on-navy' : undefined;
 const chipClass = variant === 'brand' ? 'kk-chip--on-brand' : variant === 'spotlight' ? 'kk-chip--ice' : undefined;
@@ -31,7 +33,7 @@ const classes = {
 ---
 
 {variant === 'image' ? (
-  <Tag href={href} class={classes}>
+  <Tag href={href} class={classes} id={id}>
     <img src={image} alt={imageAlt}>
     <span>
       <span class="kk-ico"><slot /></span>
@@ -41,7 +43,7 @@ const classes = {
     </span>
   </Tag>
 ) : (
-  <Tag href={href} class={classes}>
+  <Tag href={href} class={classes} id={id}>
     {variant === 'brand' && <img src="/images/brand/mark-white.svg" alt="" aria-hidden="true" class="kk-svc-mark">}
     {variant === 'spotlight' && <><span aria-hidden="true" class="kk-spot-glow"></span><span aria-hidden="true" class="kk-spot-co2">CO<sub>2</sub></span></>}
     {chip ? (

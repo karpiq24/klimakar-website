@@ -38,6 +38,7 @@ const refrigerants = [
 
 const groups = [
   {
+    id: 'dezynfekcja',
     title: 'Dezynfekcja',
     link: { label: 'Metody dezynfekcji →', href: '/dezynfekcja/' },
     rows: [
@@ -46,6 +47,7 @@ const groups = [
     ],
   },
   {
+    id: 'diagnostyka',
     title: 'Diagnostyka usterek',
     rows: [
       { service: 'Diagnostyka komputerowa / Diagnostyka szczelności klimatyzacji', price: '250 zł' },
@@ -53,6 +55,7 @@ const groups = [
     ],
   },
   {
+    id: 'naprawy',
     title: 'Naprawy',
     note: 'Do podanych cen należy doliczyć demontaż/montaż i napełnienie',
     rows: [
@@ -63,12 +66,14 @@ const groups = [
     ],
   },
   {
+    id: 'robocizna',
     title: 'Robocizna',
     rows: [
       { service: 'Standardowa roboczogodzina', price: '250 zł' },
     ],
   },
   {
+    id: 'ogrzewanie-postojowe',
     title: 'Ogrzewanie postojowe',
     note: 'Montaż wyceniamy indywidualnie po podaniu danych pojazdu — orientacyjnie od 6.500 zł w przypadku ogrzewań powietrznych do busów, do kilkunastu tysięcy zł w przypadku skomplikowanych instalacji w autach osobowych.',
     rows: [
@@ -89,7 +94,7 @@ const groups = [
     lead="Przejrzyste ceny usług klimatyzacji samochodowej i ogrzewań postojowych."
   />
 
-  <section class="kk-wrap kk-section">
+  <section class="kk-wrap kk-section" id="klimatyzacja">
     <SectionHeader eyebrow="Klimatyzacja — samochody osobowe" title="Obsługa układu klimatyzacji">
       <span slot="aside" class="kk-chip"><span class="kk-dot"></span>Ceny aktualne na dzień <Today /></span>
     </SectionHeader>

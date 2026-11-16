@@ -62,7 +62,7 @@ const benefits = [
     image="/images/2009-autoryzacja.webp"
     imageAlt="Logo Webasto i Eberspächer"
     tag="Webasto · Eberspächer · DEFA"
-    actions={[{ label: 'Umów wizytę', href: '/kontakt/' }, { label: 'Zobacz cennik', href: '/cennik/' }]}
+    actions={[{ label: 'Umów wizytę', href: '/kontakt/' }, { label: 'Zobacz cennik', href: '/cennik/#ogrzewanie-postojowe' }]}
   />
 
   <PhotoPanel season="winter" eyebrow="Webasto · Eberspächer · DEFA" title="Ogrzewanie postojowe">
@@ -74,7 +74,7 @@ const benefits = [
     </div>
   </PhotoPanel>
 
-  <section class="kk-wrap kk-section">
+  <section class="kk-wrap kk-section" id="ogrzewanie">
     <SectionHeader eyebrow="Wodne czy powietrzne?" title="Które ogrzewanie dla Ciebie" />
     <div class="kk-g2 kk-types" style="gap:var(--svc-gap)">
       {types.map((t, i) => (
@@ -92,10 +92,10 @@ const benefits = [
     </div>
   </section>
 
-  <FeatureList season="winter" eyebrow="Ogrzewanie postojowe" title="Zalety ogrzewania postojowego" items={benefits}
+  <FeatureList season="winter" id="zalety" eyebrow="Ogrzewanie postojowe" title="Zalety ogrzewania postojowego" items={benefits}
     description="Dlaczego mamy godzić się na wsiadanie do zimnego i wilgotnego samochodu, jeśli możemy tego uniknąć, a jednocześnie przedłużyć żywotność silnika? Prawidłowo działające ogrzewanie postojowe Webasto albo Eberspächer to same korzyści dla pojazdu, jego właściciela oraz dla środowiska." />
 
-  <ContentSection eyebrow="Ogrzewanie postojowe" title="Jak działa ogrzewanie wodne?">
+  <ContentSection eyebrow="Ogrzewanie postojowe" title="Jak działa ogrzewanie wodne?" id="ogrzewanie-wodne">
     <p>Paliwowe, wodne ogrzewania postojowe (Webasto i Eberspächer) stosowane są w celu przygotowania samochodu do jazdy. Po włączeniu w ciągu kilkunastu do kilkudziesięciu minut nagrzeje się silnik, wnętrze pojazdu i rozmrożą się szyby.</p>
     <p>Ogrzewania wodne montowane są w obiegu płynu chłodzącego i stosowane są <strong>głównie w samochodach osobowych</strong>. Aktywuje się je w zależności od wybranego sterowania — pilotem, telefonem komórkowym lub nastawiając w zegarze godzinę uruchomienia albo odjazdu.</p>
     <p>Ciepło uzyskuje się poprzez spalanie paliwa pobieranego ze zbiornika. Płyn chłodzący nabiera temperatury i za pomocą pompy obiegowej przetłaczany jest do silnika oraz do nagrzewnicy. Pracujący wentylator wtłacza przez kratki nawiewowe podgrzane powietrze do wnętrza pojazdu.</p>
@@ -103,24 +103,24 @@ const benefits = [
     <Fragment slot="callout">Warto pamiętać o zasadzie „czas ogrzewania = czas jazdy", aby akumulator rozruchowy był zawsze doładowany.</Fragment>
   </ContentSection>
 
-  <ContentSection eyebrow="Ogrzewanie postojowe" title="Jak działa ogrzewanie powietrzne?">
+  <ContentSection eyebrow="Ogrzewanie postojowe" title="Jak działa ogrzewanie powietrzne?" id="ogrzewanie-powietrzne">
     <p>Paliwowe, powietrzne ogrzewania postojowe (Webasto i Eberspächer) montowane są niezależnie. Stosowane są <strong>głównie w samochodach dostawczych i pojazdach ciężarowych</strong> w celu utrzymywania nastawionej temperatury we wnętrzu pojazdu. Ciepło uzyskuje się poprzez spalanie paliwa pobieranego ze zbiornika.</p>
     <p>Agregat tego typu ogrzewa powietrze i tłoczy je za pomocą własnej dmuchawy. Konstrukcja urządzenia pozwala na ciągłą pracę. Świetnie nadaje się do spania w pojeździe.</p>
   </ContentSection>
 
-  <ContentSection eyebrow="Ogrzewanie postojowe" title="Koszty eksploatacji">
+  <ContentSection eyebrow="Ogrzewanie postojowe" title="Koszty eksploatacji" id="koszty-eksploatacji">
     <p>W przypadku ogrzewania wodnego jeden trzydziestominutowy cykl ogrzewania samochodu osobowego w zimowy poranek zużywa około 0,2 litra paliwa*. Warto zwrócić uwagę na fakt, że koszt eksploatacji częściowo się zwraca, ponieważ oszczędzamy na paliwie, którego większą ilość potrzebowałby nienagrzany silnik.</p>
     <p>Przykładowe ogrzewanie powietrzne Airtronic D2 o mocy 2 kW pobiera w zależności od warunków od 0,1 do 0,28 litra paliwa na godzinę pracy*. Gdy temperatura nie spada, urządzenie przechodzi w tryb czuwania — zużycie może być jeszcze niższe.</p>
     <div class="kk-fineprint">*Wartości orientacyjne. Rzeczywiste zużycie paliwa zależy od modelu urządzenia, jego mocy i warunków pracy.</div>
   </ContentSection>
 
-  <ContentSection eyebrow="Ogrzewanie postojowe" title="Koszty montażu">
+  <ContentSection eyebrow="Ogrzewanie postojowe" title="Koszty montażu" id="koszty-montazu">
     <p>Ze względu na różnice techniczne pomiędzy modelami do każdego pojazdu przewidziano inny zestaw montażowy. Cena różni się w zależności od modelu pojazdu, wybranej mocy agregatu, elementów sterujących i stopnia integracji z systemem wentylacji.</p>
     <p>Dostępnych rozwiązań jest bardzo wiele, ale możemy podać orientacyjny przedział od 6.500 zł w przypadku ogrzewań powietrznych do busów, do kilkunastu tysięcy zł w przypadku skomplikowanych instalacji w autach osobowych. Szczegółowej wyceny udzielamy po podaniu danych pojazdu (lista danych na stronie <a href="/kontakt/">Kontakt</a>).</p>
     <p>Diagnostyka ogrzewania postojowego Webasto lub Eberspächer — <strong>250 zł brutto</strong>.</p>
   </ContentSection>
 
-  <ContentSection eyebrow="Ogrzewanie postojowe" title="Rozbudowa dogrzewacza do ogrzewania postojowego">
+  <ContentSection eyebrow="Ogrzewanie postojowe" title="Rozbudowa dogrzewacza do ogrzewania postojowego" id="rozbudowa-dogrzewacza">
     <p>Wiele aut fabrycznie wyposażono w dogrzewacze silnika diesla — użytkownicy często nie wiedzą, że ich samochód ma dodatkowe ogrzewanie spalinowe. Dogrzewacz uruchamia się w niskich temperaturach, aby przyspieszyć osiągnięcie temperatury roboczej silnika.</p>
     <p>Takie dogrzewacze można przerobić na pełnoprawne ogrzewanie postojowe. Koszt rozbudowy jest znacznie niższy niż montaż ogrzewania od zera. Zainteresowanych prosimy o <a href="/kontakt/">kontakt</a>.</p>
   </ContentSection>

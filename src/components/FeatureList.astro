@@ -11,16 +11,18 @@ interface Props {
   /** Overrides the seasonal photo (e.g. a brand page that must not show another brand's car). */
   image?: string;
   imageAlt?: string;
+  /** Anchor for links to this section. */
+  id?: string;
 }
 
-const { eyebrow, title, items, season, description, image, imageAlt = '' } = Astro.props;
+const { eyebrow, title, items, season, description, image, imageAlt = '', id } = Astro.props;
 const seasonal = season === 'summer'
   ? { src: '/images/lato-1.webp', alt: 'Parking w upalny dzień — auto z działającą klimatyzacją', line: 'Latem chłodzimy.' }
   : { src: '/images/webastoauto.jpg', alt: 'Samochód z ogrzewaniem postojowym zimą', line: 'Zimą grzejemy.' };
 const photo = image ? { ...seasonal, src: image, alt: imageAlt } : seasonal;
 ---
 
-<section class="kk-wrap kk-section">
+<section class="kk-wrap kk-section" id={id}>
   <div class="kk-benefits">
     <div class="kk-benefits-photo">
       <div class="kk-frost kk-frame"><div class="kk-frame-photo"><img src={photo.src} alt={photo.alt} loading="lazy"></div></div>
