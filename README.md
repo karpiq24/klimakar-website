@@ -83,7 +83,6 @@ Everything about the design lives in `design/szron/`:
 | Eberspächer | `/eberspacher/` |
 | DEFA | `/defa/` |
 | O firmie | `/o-firmie/` |
-| Galeria | `/galeria/` |
 | Gwarancja | `/gwarancja/` |
 | Kontakt | `/kontakt/` |
 | RODO | `/rodo/` |
@@ -114,7 +113,7 @@ sites/
 - **Images** are imported (`import x from '../../public/images/…'`), so each build ships only the
   files it uses, and paths follow `base`.
 - **Contact:** the main site's `ContactForm` (owner, 2026-10-16), under the old sites' installation
-  prices and enquiry list (marka, model, rocznik, silnik, klimatyzacja). The build copies
+  prices and a one-sentence enquiry note (silnik, klimatyzacja; make/model/year have a form field). The build copies
   `public/contact.php` into `dist-<name>/`; the e-mail subject names the domain it came from.
 - **Measurement:** the same Google Tag Manager container and cookie banner as the main site
   (`src/components/ConsentHead.astro`, `CookieConsent.astro`), production builds only. The banner's policy

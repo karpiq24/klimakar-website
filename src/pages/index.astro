@@ -16,10 +16,10 @@ import { Columns4, ShieldCheck, Search, Zap, Wrench } from 'lucide-astro';
 import Komunikat from '../components/Komunikat.astro';
 
 const gallery = [
-  { src: '/images/galeria/lamb.JPG', alt: 'Serwis klimatyzacji w Lamborghini' },
   { src: '/images/galeria/merc.jpg', alt: 'Serwis klimatyzacji w Mercedesie' },
-  { src: '/images/galeria/k2.jpg', alt: 'Naprawa klimatyzacji samochodowej' },
-  { src: '/images/galeria/war.JPG', alt: 'Warsztat Klima-Kar we Wrocławiu' },
+  { src: '/images/galeria/lamb.JPG', alt: 'Lamborghini na podnośniku w warsztacie Klima-Kar' },
+  { src: '/images/us1.JPG', alt: 'Serwis klimatyzacji w klasycznym samochodzie' },
+  { src: '/images/manometry50p.webp', alt: 'Manometry do obsługi klimatyzacji samochodowej' },
 ];
 
 const years = [
@@ -115,10 +115,8 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
 
   <!-- GALLERY -->
   <section class="kk-wrap kk-section">
-    <SectionHeader eyebrow="Galeria" title="Nasze realizacje">
-      <a slot="aside" href="/galeria/" class="kk-link">Zobacz całą galerię →</a>
-    </SectionHeader>
-    <GalleryGrid images={gallery} href="/galeria/" />
+    <SectionHeader eyebrow="Galeria" title="Nasze realizacje" />
+    <GalleryGrid images={gallery} />
   </section>
 
   <!-- ABOUT -->

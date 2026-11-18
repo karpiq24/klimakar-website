@@ -171,7 +171,7 @@ The owner went through an audit of the new site against the old one (39 findings
 - **History:** /o-firmie 1993 shows `manometry50p.webp`.
 - **Disinfection:** describe how it is done, not what it is for. Ultrasonic: mist from an ultrasonic device with the blower on (/cennik row and /klimatyzacja card). TUNAP: a spray lance at high pressure straight onto the evaporator, hence the most effective against fungi, mould and bacteria (new first section on /tunap, its meta description and price row, the /cennik row, and the cards on the homepage and /klimatyzacja).
 - **Dezynfekcja BG:** no "Zobacz cennik" button; the BG price sheet image is now a PriceGroup table (129 / 219 / 299 zł) on that page only, not on /cennik. "Dlaczego dezynfekcja BG?" is rewritten (the BG Poland marketing paragraph is gone): BG is used where the evaporator is hard to reach and TUNAP can't be done; Frigi-Clean foam goes into the evaporator housing through a tube, then Frigi-Fresh is sprayed into the fresh-air intake with the blower on. Facts from bgpoland.pl and bgprod.com.
-- **Galeria:** 10 photos for now; more will be added later.
+- **Galeria:** 10 photos for now; more will be added later. Until then /galeria/ is switched off (owner, 2026-11-18): the source is `src/pages/_galeria.astro` (rename it back to restore, plus the footer link and the `/galeria/` redirect in `public/.htaccess`); the homepage "Nasze realizacje" tiles open the lightbox instead of linking there.
 - **Komunikat:** replaces the old site's `komunikat.html` (closures, heat-wave delays). Empty text hides it. Since 2026-10-17 it is typed in the panel (`/panel/`, `Komunikat.astro`), see the 2026-10-17 entry.
 - Kept as they are, by decision: the "Gwarancja na usługi" block and FAQ on /gwarancja, the T91/T99 split, the Webasto/Eberspächer "Nasze usługi" cards (minus "Pełna"), "liderem" on /o-firmie, the Instagram link, and the shortened controller texts (no ThermoConnect extras, no intro sentences).
 
@@ -268,7 +268,8 @@ The owner went through an audit of the new site against the old one (39 findings
   closes on a link tap.
 - `szron.css`: new `.kk-open`, `.kk-open-dot` (reuses `.kk-dot`) after the chip rules.
 - **Brand-site contact form** (owner): the Kontakt section's right card is the main site's `ContactForm`,
-  with the installation prices and the numbered enquiry list as its intro (default slot) and without the
+  with the installation prices and the enquiry note as its intro (the old numbered list, cut to one
+  sentence on 2026-11-18: make, model and year have a form field; engine and AC type go in the message) (default slot) and without the
   fine print. "Napisz e-mail" and the second "Zadzwoń" button are gone; the status and call bar say
   "zostaw wiadomość" and point to `#contact-form`.
 

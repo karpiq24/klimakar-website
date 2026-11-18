@@ -31,8 +31,6 @@ RewriteCond %{QUERY_STRING} (?:^|&)strona=eberspacher(?:&|$) [NC]
 RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/eberspacher/? [R=301,L]
 RewriteCond %{QUERY_STRING} (?:^|&)strona=defa(?:&|$) [NC]
 RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/defa/? [R=301,L]
-RewriteCond %{QUERY_STRING} (?:^|&)strona=galeria(?:&|$) [NC]
-RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/galeria/? [R=301,L]
 RewriteCond %{QUERY_STRING} (?:^|&)strona=kontakt(?:&|$) [NC]
 RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/kontakt/? [R=301,L]
 RewriteCond %{QUERY_STRING} (?:^|&)strona=rodo(?:&|$) [NC]
@@ -44,6 +42,10 @@ RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/cennik/? [R=301,L]
 RewriteCond %{QUERY_STRING} (?:^|&)strona= [NC]
 RewriteRule ^(?:index\.php)?$ https://klima-kar.wroclaw.pl/? [R=301,L]
 RewriteRule ^index\.php$ https://klima-kar.wroclaw.pl/ [R=301,L]
+
+# /galeria/ is switched off until it has more photos (owner, 2026-11-18; source kept as
+# src/pages/_galeria.astro). Temporary redirect, since the old page may still be on the server.
+RewriteRule ^galeria(?:/.*)?$ https://klima-kar.wroclaw.pl/ [R=302,L]
 
 # Old sitemap → new sitemap
 RewriteRule ^sitemap\.xml$ https://klima-kar.wroclaw.pl/sitemap-index.xml [R=301,L]

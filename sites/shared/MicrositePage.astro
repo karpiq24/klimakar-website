@@ -39,9 +39,6 @@ const years = [
   { n: '2009', l: `Autoryzowany Serwis ${brand.name}` },
 ];
 
-// The old sites' enquiry list, above the contact form (owner 2026-10-16: the form as on the main site).
-const enquiry = ['marka pojazdu', 'model', 'rocznik', 'rodzaj, pojemność i moc silnika', 'klimatyzacja manualna / automatyczna'];
-
 const ticker = brand.ticker;
 ---
 
@@ -189,10 +186,9 @@ const ticker = brand.ticker;
       <ContactForm fineprint={false}>
         <p class="kk-muted" style="margin:0">Ze względu na różnice techniczne pomiędzy modelami do każdego pojazdu przewidziano inny zestaw montażowy. Cena różni się w zależności od modelu pojazdu, wybranej mocy agregatu, elementów sterujących i stopnia integracji z systemem wentylacji.</p>
         <p class="kk-muted" style="margin:0">Dostępnych rozwiązań jest bardzo wiele, ale możemy podać orientacyjny przedział od 6.500 zł w przypadku ogrzewań powietrznych do busów, do kilkunastu tysięcy zł w przypadku skomplikowanych instalacji w autach osobowych. Szczegółowej wyceny udzielamy po podaniu danych pojazdu.</p>
-        <p class="mk-enquiry-h">Wysyłając zapytanie o montaż ogrzewania postojowego prosimy pamiętać o podaniu:</p>
-        <ol class="mk-enquiry">
-          {enquiry.map((e, i) => <li><span class="kk-check">{i + 1}</span><span>{e}</span></li>)}
-        </ol>
+        {/* The old sites' 5-point enquiry list, shortened to what the form has no field for
+            (owner, 2026-11-18): make, model and year have their own field. */}
+        <p class="mk-enquiry">Pytasz o montaż? Oprócz marki, modelu i rocznika podaj w dodatkowych informacjach rodzaj, pojemność i moc silnika oraz to, czy klimatyzacja jest manualna, czy automatyczna.</p>
       </ContactForm>
     </div>
   </section>
@@ -439,31 +435,12 @@ const ticker = brand.ticker;
     height: 100%;
     border: 0;
   }
-  .mk-enquiry-h {
-    margin: 6px 0 0;
-    font-weight: 600;
-    color: var(--navy);
-  }
   .mk-enquiry {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .mk-enquiry li {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    margin: 6px 0 0;
     border-radius: var(--radius-icon);
-    padding: 10px 14px 10px 10px;
+    padding: 12px 16px;
     background: var(--brand-tint);
     color: var(--text-strong);
-  }
-  .mk-enquiry .kk-check {
-    font-size: 13px;
-    font-weight: 700;
   }
 
   /* O nas is two columns down to 761px; below ~960px three year tiles don't fit side by side
