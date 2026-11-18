@@ -281,3 +281,20 @@ The owner went through an audit of the new site against the old one (39 findings
   The panel page uses the Szron form classes; its own small styles are scoped. `szron.css` is unchanged.
 - `Komunikat.astro` now holds the notice styles (they were scoped in index.astro and MicrositePage, which
   no longer render the element); `start` keeps it left-aligned in the brand-site hero.
+
+### Brand sites: design-council pass, 2026-11-18
+
+Layout only, from four rounds of a two-model design review (PR "Strony marek: hill climb"); copy, prices
+and facts unchanged, `szron.css` unchanged, all styles scoped in `sites/shared/` (the main site is untouched).
+- **Serwis bento:** Montaż spans two columns of the first row next to the long Rozbudowa card; the three
+  short cards share row 2 (desktop `order`, phones keep the source order). Its CTA is a frost button. Two
+  rows tall left a large empty blue field.
+- **Hero:** no snowflake disc on the photo; the tagline is brand blue at a smaller size; a 3:1 photo and
+  less top space keep the partner plate above a 900px fold; "Wyślij zapytanie" has a brand outline.
+- **Ticker without motion** (`prefers-reduced-motion`): the names in the body font in one row, centred rows
+  below 1360px, two columns on phones. With motion it still scrolls.
+- **Sterowanie:** retired controllers keep full text contrast (only the photo is faded; the chip is an
+  outline); cards end after their own list; the ThermoConnect photo fills its box.
+- **Phones:** one-column footer (domains no longer break), full-width hero buttons, heater types without the
+  outer frost card, years 1989 and 1999 side by side with 2009 below.
+- One-letter words (i, w, z …) don't end a line in the brand sites' own strings (`nbsp()` in MicrositePage).
