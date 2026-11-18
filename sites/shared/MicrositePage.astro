@@ -16,7 +16,6 @@ import { heaterTypes } from '../../src/data/ogrzewanie';
 import type { Brand } from './brand';
 import { withImages } from './brand';
 import flakeBlue from '../../public/images/brand/flake-blue.svg';
-import flakeWhite from '../../public/images/brand/flake-white.svg';
 import markWhite from '../../public/images/brand/mark-white.svg';
 import { CalendarCheck, CircleFadingArrowUp, Flame, MapPin, Stethoscope, Wrench } from 'lucide-astro';
 
@@ -67,7 +66,6 @@ const ticker = brand.ticker;
         <span class="mk-plate-logo"><img src={brand.logo} alt={brand.name} class={brand.logoClass}></span>
         <span class="mk-plate-text"><b class="kk-blue"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></b>Autoryzowany serwis od 2009 roku</span>
       </span>
-      <span class="kk-blue kk-pagehero-disc mk-hero-disc"><img src={flakeWhite.src} alt="" aria-hidden="true" class="kk-spin" style="width:34px;height:34px"></span>
     </div>
   </section>
 
@@ -114,10 +112,9 @@ const ticker = brand.ticker;
       <a href="#kontakt" class="kk-card kk-blue kk-svc-card kk-svc-card--brand mk-bento-lead">
         <img src={markWhite.src} alt="" aria-hidden="true" class="kk-svc-mark">
         <span class="kk-ico kk-ico--on-brand"><Flame {...icon} /></span>
-        <span class="mk-lead-spacer"></span>
         <h3 class="mk-lead-title">Montaż ogrzewania postojowego</h3>
-        <span class="kk-svc-text" style="position:relative">Profesjonalny montaż nowych ogrzewań postojowych {brand.name} dla pojazdów osobowych i dostawczych. Dobieramy odpowiedni zestaw montażowy do każdego modelu pojazdu.</span>
-        <span class="kk-more">Zapytaj o montaż →</span>
+        <span class="kk-svc-text mk-lead-text">Profesjonalny montaż nowych ogrzewań postojowych {brand.name} dla pojazdów osobowych i dostawczych. Dobieramy odpowiedni zestaw montażowy do każdego modelu pojazdu.</span>
+        <span class="kk-more mk-lead-more">Zapytaj o montaż →</span>
       </a>
       <div class="kk-frost kk-card kk-svc-card">
         <span class="kk-ico"><Wrench {...icon} /></span>
@@ -219,14 +216,15 @@ const ticker = brand.ticker;
     margin: 12px 0 28px;
     max-width: 520px;
   }
+  /* The company tagline sits beside the h1 and must not compete with it: smaller, navy, looser. */
   .mk-tagline {
     margin: 0;
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: clamp(20px, 2cqi, 28px);
-    line-height: 1.2;
-    letter-spacing: -0.025em;
-    color: var(--brand);
+    font-size: clamp(18px, 1.6cqi, 22px);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--navy);
     text-wrap: balance;
   }
   .mk-hero-media {
@@ -297,8 +295,8 @@ const ticker = brand.ticker;
     border-radius: var(--radius-pill);
     overflow: hidden;
     padding: 18px 0;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 48px, #000 calc(100% - 48px), transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 48px, #000 calc(100% - 48px), transparent);
   }
   .mk-ticker-track {
     display: flex;
@@ -329,9 +327,25 @@ const ticker = brand.ticker;
       transform: translateX(-50%);
     }
   }
+  /* Without motion: one set, centred and wrapped, so no name is cut off. */
   @media (prefers-reduced-motion: reduce) {
+    .mk-ticker {
+      -webkit-mask-image: none;
+      mask-image: none;
+      padding: 14px 24px;
+    }
     .mk-ticker-track {
       animation: none;
+      width: auto;
+      justify-content: center;
+    }
+    .mk-ticker-set {
+      flex-wrap: wrap;
+      justify-content: center;
+      row-gap: 6px;
+    }
+    .mk-ticker-set + .mk-ticker-set {
+      display: none;
     }
   }
 
@@ -371,17 +385,14 @@ const ticker = brand.ticker;
     line-height: 1.35;
   }
 
-  /* ---------- Serwis: bento, montaż leads across two rows ---------- */
+  /* ---------- Serwis: bento, montaż leads across two columns of the first row ----------
+     (two rows tall left a large empty blue field: the copy is short). */
   .mk-bento .mk-bento-lead {
-    grid-row: span 2;
-    min-height: 420px;
-  }
-  .mk-lead-spacer {
-    flex: 1;
+    grid-column: span 2;
   }
   .mk-lead-title {
     position: relative;
-    margin: 0;
+    margin: 12px 0 0;
     font-family: var(--font-display);
     font-weight: 600;
     font-size: clamp(26px, 2.6cqi, 36px);
@@ -389,11 +400,21 @@ const ticker = brand.ticker;
     letter-spacing: -0.03em;
     text-wrap: balance;
   }
+  .mk-lead-text {
+    position: relative;
+    font-size: 16px;
+    max-width: 480px;
+  }
+  .mk-lead-more {
+    position: relative;
+    margin-top: auto;
+    padding-top: 12px;
+  }
   .mk-bento-lead .kk-svc-mark {
-    width: 220px;
-    right: -46px;
-    bottom: auto;
-    top: -40px;
+    width: 280px;
+    right: -40px;
+    bottom: -56px;
+    top: auto;
   }
 
   /* ---------- Kontakt ---------- */
@@ -434,6 +455,14 @@ const ticker = brand.ticker;
     width: 100%;
     height: 100%;
     border: 0;
+  }
+  /* Retired controllers (ProductCard `retired`): the card fades the whole card on the main site; here
+     the text keeps full contrast and only the photo is greyed out and faded. */
+  #sterowanie :global(.kk-product--retired) {
+    opacity: 1;
+  }
+  #sterowanie :global(.kk-product--retired .kk-product-shot img) {
+    opacity: 0.55;
   }
   .mk-enquiry {
     margin: 6px 0 0;
@@ -499,21 +528,30 @@ const ticker = brand.ticker;
     .mk-plate-text b {
       display: none;
     }
-    .mk-hero-disc {
-      right: 10px;
-      top: 10px;
-      width: 54px;
-      height: 54px;
+    /* Call and enquiry as two equal full-width buttons. */
+    .mk-hero-side .kk-actions > .kk-btn {
+      flex: 1 1 100%;
     }
     .mk-about {
       grid-template-columns: minmax(0, 1fr);
     }
     .mk-bento .mk-bento-lead {
-      grid-row: auto;
-      min-height: 0;
+      grid-column: auto;
     }
-    .mk-lead-spacer {
-      display: none;
+    .mk-bento-lead .kk-svc-mark {
+      width: 200px;
+      bottom: -48px;
+    }
+    /* Heater types: the halves stack, so a line replaces the hidden flame knob, and the inner
+       padding is smaller so the model cards and lists keep a readable width. */
+    :global(#ogrzewanie .kk-half) {
+      padding-inline: 14px;
+    }
+    :global(#ogrzewanie .kk-knob + .kk-half) {
+      border-top: 1px solid var(--brand-line);
+      border-radius: 0;
+      margin-top: 8px;
+      padding-top: 30px;
     }
     .mk-ticker {
       padding: 14px 0;

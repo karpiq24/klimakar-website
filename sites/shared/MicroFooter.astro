@@ -71,4 +71,11 @@ const sites = strony
   .mk-nowrap {
     white-space: nowrap;
   }
+  /* Phones: one column, so the address and the domains get the full width instead of half. */
+  @container kk (max-width: 760px) {
+    .kk-foot {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 24px;
+    }
+  }
 </style>
