@@ -117,7 +117,7 @@ const nbsp = (text: string) => text.replace(/(^|\s)([aiouwzAIOUWZ]) /g, '$1$2\u0
         <span class="kk-ico kk-ico--on-brand"><Flame {...icon} /></span>
         <h3 class="mk-lead-title">Montaż ogrzewania postojowego</h3>
         <span class="kk-svc-text mk-lead-text">Profesjonalny montaż nowych ogrzewań postojowych {brand.name} dla pojazdów osobowych i dostawczych. Dobieramy odpowiedni zestaw montażowy do każdego modelu pojazdu.</span>
-        <span class="kk-more mk-lead-more">Zapytaj o montaż →</span>
+        <span class="kk-btn kk-btn--frost mk-lead-more">Zapytaj o montaż →</span>
       </a>
       <div class="kk-frost kk-card kk-svc-card">
         <span class="kk-ico"><Wrench {...icon} /></span>
@@ -219,15 +219,16 @@ const nbsp = (text: string) => text.replace(/(^|\s)([aiouwzAIOUWZ]) /g, '$1$2\u0
     margin: 12px 0 28px;
     max-width: 520px;
   }
-  /* The company tagline sits beside the h1 and must not compete with it: smaller, navy, looser. */
+  /* The company tagline sits beside the h1: brand blue marks it as the second level, the smaller
+     size and looser tracking keep it from competing with the h1. */
   .mk-tagline {
     margin: 0;
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: clamp(18px, 1.6cqi, 22px);
+    font-size: clamp(19px, 1.65cqi, 23px);
     line-height: 1.25;
     letter-spacing: -0.01em;
-    color: var(--navy);
+    color: var(--brand);
     text-wrap: balance;
   }
   .mk-hero-media {
@@ -335,7 +336,19 @@ const nbsp = (text: string) => text.replace(/(^|\s)([aiouwzAIOUWZ]) /g, '$1$2\u0
     .mk-ticker {
       -webkit-mask-image: none;
       mask-image: none;
-      padding: 14px 24px;
+      border-radius: var(--radius-card-sm);
+      padding: 16px 20px;
+    }
+    .mk-ticker-set {
+      column-gap: 28px;
+    }
+    .mk-ticker-item {
+      padding: 0;
+      font-size: clamp(16px, 1.6cqi, 22px);
+    }
+    /* Wrapped rows would end in a stray flake: the names alone, spaced. */
+    .mk-ticker-flake {
+      display: none;
     }
     .mk-ticker-track {
       animation: none;
@@ -363,6 +376,14 @@ const nbsp = (text: string) => text.replace(/(^|\s)([aiouwzAIOUWZ]) /g, '$1$2\u0
   }
   .mk-about-tag {
     white-space: normal;
+  }
+  /* The caption on the photo is a label, not a second heading: smaller and only as wide as its text. */
+  .mk-about :global(.kk-benefits-tag) {
+    right: auto;
+    padding: 12px 18px;
+  }
+  .mk-about :global(.kk-benefits-tag .kk-sh) {
+    font-size: clamp(18px, 1.7cqi, 24px);
   }
   .mk-years {
     display: grid;
@@ -405,10 +426,10 @@ const nbsp = (text: string) => text.replace(/(^|\s)([aiouwzAIOUWZ]) /g, '$1$2\u0
   }
   .mk-lead-title {
     position: relative;
-    margin: auto 0 0;
+    margin: 10px 0 0;
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: clamp(26px, 2.6cqi, 36px);
+    font-size: clamp(26px, 2.5cqi, 34px);
     line-height: 1.12;
     letter-spacing: -0.03em;
     text-wrap: balance;
@@ -420,8 +441,11 @@ const nbsp = (text: string) => text.replace(/(^|\s)([aiouwzAIOUWZ]) /g, '$1$2\u0
   }
   .mk-lead-more {
     position: relative;
-    margin-top: 0;
-    padding-top: 6px;
+    align-self: flex-start;
+    margin-top: auto;
+  }
+  .mk-bento-lead .kk-svc-text {
+    margin-bottom: 14px;
   }
   .mk-bento-lead .kk-svc-mark {
     width: 280px;
@@ -479,6 +503,24 @@ const nbsp = (text: string) => text.replace(/(^|\s)([aiouwzAIOUWZ]) /g, '$1$2\u0
     box-shadow: inset 0 0 0 1px var(--brand-field-line);
     color: var(--text-subtle);
     font-weight: 400;
+  }
+  :global(#ogrzewanie .kk-product-name),
+  #sterowanie :global(.kk-product-name) {
+    text-wrap: balance;
+  }
+  /* Photo box: the ThermoConnect photo (not a cut-out) fills it; the small ThermoCall screen is scaled up. */
+  #sterowanie :global(.kk-product-shot:has(img[src*='ThermoConnect'])) {
+    padding: 0;
+    overflow: hidden;
+  }
+  #sterowanie :global(.kk-product-shot img[src*='ThermoConnect']) {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+  }
+  #sterowanie :global(.kk-product-shot img[src*='/TC.']) {
+    height: 100%;
   }
   /* Shorter photo box and list gaps: rows with one long list left big empty card bottoms. */
   #sterowanie :global(.kk-product-shot) {
@@ -563,9 +605,27 @@ const nbsp = (text: string) => text.replace(/(^|\s)([aiouwzAIOUWZ]) /g, '$1$2\u0
     .mk-plate-text b {
       display: none;
     }
+    .mk-hero {
+      padding-top: 28px;
+    }
+    .mk-hero-media {
+      margin-top: 28px;
+    }
     .mk-hero-side .kk-lead {
-      margin-top: 8px;
+      margin: 8px 0 22px;
       font-size: 17px;
+    }
+    /* Years: 1989 and 1999 side by side, the highlighted 2009 across the full width. */
+    .mk-years {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .mk-year {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .mk-year:last-child {
+      grid-column: 1 / -1;
     }
     .mk-bento .mk-bento-long,
     .mk-bento .mk-bento-lead {
@@ -600,7 +660,7 @@ const nbsp = (text: string) => text.replace(/(^|\s)([aiouwzAIOUWZ]) /g, '$1$2\u0
       padding-top: 30px;
     }
     .mk-ticker {
-      padding: 14px 0;
+      padding-block: 14px;
     }
   }
 </style>
