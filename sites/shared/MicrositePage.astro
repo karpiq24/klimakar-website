@@ -143,7 +143,7 @@ const nbsp = (text: string) => text.replace(/(^|\s)([aiouwzAIOUWZ]) /g, '$1$2\u0
   </section>
 
   <!-- WODNE CZY POWIETRZNE -->
-  <HeaterTypes types={types} id="ogrzewanie" />
+  <div class="mk-types"><HeaterTypes types={types} id="ogrzewanie" /></div>
 
   <!-- SYSTEMY STEROWANIA -->
   <section class="kk-wrap kk-section" id="sterowanie">
@@ -508,7 +508,8 @@ const nbsp = (text: string) => text.replace(/(^|\s)([aiouwzAIOUWZ]) /g, '$1$2\u0
   }
   #sterowanie :global(.kk-product--retired .kk-product-chips .kk-chip:last-child) {
     background: transparent;
-    box-shadow: inset 0 0 0 1px currentColor;
+    outline: 1px solid currentColor;
+    outline-offset: -1px;
     color: var(--text-muted);
     font-weight: 400;
   }
@@ -516,7 +517,7 @@ const nbsp = (text: string) => text.replace(/(^|\s)([aiouwzAIOUWZ]) /g, '$1$2\u0
   #sterowanie :global(.kk-products) {
     align-items: start;
   }
-  :global(#ogrzewanie .kk-product-name),
+  .mk-types :global(#ogrzewanie .kk-product-name),
   #sterowanie :global(.kk-product-name) {
     text-wrap: balance;
   }
@@ -666,11 +667,9 @@ const nbsp = (text: string) => text.replace(/(^|\s)([aiouwzAIOUWZ]) /g, '$1$2\u0
       width: 200px;
       bottom: -48px;
     }
-    /* Heater types: the halves stack, so a line replaces the hidden flame knob, and the inner
-       padding is smaller so the model cards and lists keep a readable width. */
-    /* Heater types: no outer frost card around the stacked halves (a card in a card in a card
-       left the specs about 230px wide). */
-    :global(#ogrzewanie .kk-heater-types) {
+    /* Heater types: the halves stack without the outer frost card (a card in a card in a card left
+       the specs about 230px wide), and a line replaces the hidden flame knob. */
+    .mk-types :global(#ogrzewanie .kk-heater-types) {
       padding: 0;
       background: none;
       border: 0;
@@ -678,7 +677,7 @@ const nbsp = (text: string) => text.replace(/(^|\s)([aiouwzAIOUWZ]) /g, '$1$2\u0
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
     }
-    :global(#ogrzewanie .kk-half) {
+    .mk-types :global(#ogrzewanie .kk-half) {
       padding-inline: 0;
     }
     #kontakt .kk-contact {
@@ -687,7 +686,7 @@ const nbsp = (text: string) => text.replace(/(^|\s)([aiouwzAIOUWZ]) /g, '$1$2\u0
     .mk-contact-info {
       padding-inline: 10px;
     }
-    :global(#ogrzewanie .kk-knob + .kk-half) {
+    .mk-types :global(#ogrzewanie .kk-knob + .kk-half) {
       border-top: 1px solid var(--brand-line);
       border-radius: 0;
       margin-top: 8px;
@@ -712,8 +711,12 @@ const nbsp = (text: string) => text.replace(/(^|\s)([aiouwzAIOUWZ]) /g, '$1$2\u0
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 8px 16px;
       }
+      .mk-ticker {
+        padding-inline: 16px;
+      }
       .mk-ticker-item {
         font-size: 15px;
+        white-space: normal;
       }
     }
   }
