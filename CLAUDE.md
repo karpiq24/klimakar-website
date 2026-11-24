@@ -1,6 +1,6 @@
 # Klima-Kar website: notes for Claude
 
-Static Astro 6 site in the **Szron** design, plus two one-page brand sites in `sites/`
+Static Astro 7 site in the **Szron** design, plus two one-page brand sites in `sites/`
 (webasto.wroclaw.pl, eberspaecher.wroclaw.pl; see README › Brand sites). `README.md` covers the stack, structure and deploy;
 `design/szron/BRAND.md` is the brand book. Read it before changing a page.
 
