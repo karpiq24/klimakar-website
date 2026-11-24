@@ -127,6 +127,9 @@ All five steps are complete: 15 pages build, and each was checked at 1440px and 
   - the two page-background glows behind the header are classes (`.kk-glow--top-ice`, `.kk-glow--top-brand`,
     were inline styles in the layouts); on mobile they are smaller and fainter (owner, 2026-10-14: the
     760px ice glow turned the whole top of the phone screen blue). Desktop is unchanged.
+  - `.kk-frost` and `.kk-btn--frost` declare `-webkit-backdrop-filter` before `backdrop-filter`. Since Astro 7
+    (Vite 8, Lightning CSS minifier) the later declaration wins, so the old order dropped the unprefixed
+    `backdrop-filter` and Chrome and Firefox lost the frost blur.
 
 ## Changes after the migration (owner requests, 2026-10-12)
 
