@@ -130,6 +130,8 @@ All five steps are complete: 15 pages build, and each was checked at 1440px and 
   - `.kk-frost` and `.kk-btn--frost` declare `-webkit-backdrop-filter` before `backdrop-filter`. Since Astro 7
     (Vite 8, Lightning CSS minifier) the later declaration wins, so the old order dropped the unprefixed
     `backdrop-filter` and Chrome and Firefox lost the frost blur.
+    Astro builds client code for `esnext`, so the minifier also dropped the `-webkit-` copy; `css-target.mjs`
+    (Vite `build.cssTarget`, both Astro configs) keeps it for Safari and iOS before 18.
 
 ## Changes after the migration (owner requests, 2026-10-12)
 

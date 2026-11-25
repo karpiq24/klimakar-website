@@ -5,6 +5,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { copyFileSync } from 'node:fs';
+import { cssTarget } from '../css-target.mjs';
 
 export function microsite(name, domain) {
   return defineConfig({
@@ -15,6 +16,7 @@ export function microsite(name, domain) {
     outDir: `./dist-${name}`,
     cacheDir: `./node_modules/.astro-${name}`,
     output: 'static',
+    vite: { build: { cssTarget } },
     // The contact form posts to the main site's handler, copied next to each brand page.
     integrations: [sitemap(), {
       name: 'contact-php',

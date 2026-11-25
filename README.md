@@ -13,7 +13,7 @@ an icy blue ground, the logo's blues doing all the colour work).
 
 ## Tech stack
 
-- **[Astro](https://astro.build/) 6**: static output, clean directory URLs (`/cennik/index.html`).
+- **[Astro](https://astro.build/) 7**: static output, clean directory URLs (`/cennik/index.html`).
 - **Styling**: one stylesheet, `src/styles/szron.css` (Szron tokens as CSS variables plus every
   `kk-` component class). `src/styles/global.css` is only a document reset. No Tailwind, no dark mode.
 - **Fonts**: Onest (body) + Unbounded (display), from Google Fonts.
