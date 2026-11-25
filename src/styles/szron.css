@@ -423,7 +423,8 @@ textarea.kk-input{resize:vertical}
   .kk-cta .kk-btn,.kk-cta-tel{flex:1 1 100%;justify-content:center}
   .kk-price-cards,.kk-price-groups{grid-template-columns:minmax(0,1fr)}
   .kk-price-dots{display:none}
-  .kk-price-row{flex-direction:column;align-items:flex-start;gap:4px}
+  .kk-price-row{flex-wrap:wrap;gap:4px 12px}
+  .kk-price-group .kk-price-row{flex-direction:column;align-items:flex-start;gap:4px}
   .kk-price-value{text-align:left}
   .kk-benefits{grid-template-columns:minmax(0,1fr)}
   .kk-benefits-photo .kk-frame-photo{aspect-ratio:4/3}

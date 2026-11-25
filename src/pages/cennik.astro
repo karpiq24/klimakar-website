@@ -125,7 +125,7 @@ const storageFee = [
     <div class="kk-price-groups">
       {columns.map((col) => <div class="kk-price-col">{col.map((g) => <PriceGroup {...g} />)}</div>)}
     </div>
-    <div class="kk-fee" id="nieodebrany-pojazd">
+    <div class="kk-price-group kk-fee" id="nieodebrany-pojazd">
       <div>
         <h3 class="kk-price-title" style="margin:0 0 8px">Nieodebranie pojazdu</h3>
         <p class="kk-price-note" style="margin:0">W przypadku nieodebrania pojazdu po zakończeniu naprawy powyżej dwóch tygodni doliczamy opłatę za każdy dzień roboczy</p>
@@ -161,14 +161,13 @@ const storageFee = [
     gap: 16px;
     min-width: 0;
   }
+  /* Padding and radius come from .kk-price-group (also gives the rows their mobile stacking). */
   .kk-fee {
     margin-top: 16px;
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
     gap: 16px 40px;
     align-items: center;
-    padding: clamp(20px, 2.6cqi, 32px);
-    border-radius: var(--radius-card);
     border: 1px solid var(--brand-line);
     background: var(--brand-tint);
   }
