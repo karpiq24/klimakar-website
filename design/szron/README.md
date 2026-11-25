@@ -117,6 +117,7 @@ All five steps are complete: 15 pages build, and each was checked at 1440px and 
     YearTimeline has four since the 2009 authorisation got its own year); on mobile they form a 2×2 grid. Each `.kk-year` is a top-aligned flex column, so years line up when one label wraps to more lines (buttons centre their content by default).
   - mobile: `.kk-products` (ProductCard grid) stacks the cards in one column instead of the side-scrolling
     row (owner, 2026-10-13: no horizontal scroll anywhere).
+  - mobile: `.kk-price-group .kk-price-row` stacks the price under the service in every row (`flex-direction: column`); with `flex-wrap` the price stayed on the right when the row fitted and dropped to the left when it didn't, so rows zigzagged (owner, 2026-11-25). Other `.kk-price-row` uses (the /kontakt opening hours) keep `flex-wrap`.
   - `.kk-headbar` makes the header wrapper sticky (UX request, 2026-10-14); once scrolled (`is-stuck`) the
     pill uses `--frost-form`, a `--brand-line` border and the new `--shadow-sticky` token, so it stands
     out from the light ground and white cards (it blended in with the white frost edge), and the mobile menu scrolls if taller than
@@ -286,3 +287,11 @@ The owner went through an audit of the new site against the old one (39 findings
   The panel page uses the Szron form classes; its own small styles are scoped. `szron.css` is unchanged.
 - `Komunikat.astro` now holds the notice styles (they were scoped in index.astro and MicrositePage, which
   no longer render the element); `start` keeps it left-aligned in the brand-site hero.
+
+### Owner requests, 2026-11-25
+
+- /cennik: the price groups sit in two independent columns (Dezynfekcja, Diagnostyka usterek, Robocizna |
+  Naprawy, Ogrzewanie postojowe), so the tall "Naprawy" leaves no hole next to "Robocizna"; on mobile
+  they stack in that order (Robocizna now comes before Naprawy). Styles scoped.
+- /cennik: "Nieodebranie pojazdu" (30 / 60 zł netto za dzień roboczy after two weeks) is a full-width
+  `--brand-tint` band under the groups, apart from the gross service prices.

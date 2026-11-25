@@ -77,9 +77,22 @@ const groups = [
     title: 'Ogrzewanie postojowe',
     note: 'Montaż wyceniamy indywidualnie po podaniu danych pojazdu — orientacyjnie od 6.500 zł w przypadku ogrzewań powietrznych do busów, do kilkunastu tysięcy zł w przypadku skomplikowanych instalacji w autach osobowych.',
     rows: [
-      { service: 'Diagnostyka ogrzewania postojowego Webasto lub Eberspächer', price: '250 zł brutto' },
+      { service: 'Diagnostyka ogrzewania postojowego Webasto lub Eberspächer', price: '250 zł' },
     ],
   },
+];
+// Two independent columns, so a tall group (Naprawy) leaves no hole next to a short one (Robocizna).
+// Mobile stacks them in this order.
+const columns = [
+  groups.filter((g) => ['dezynfekcja', 'diagnostyka', 'robocizna'].includes(g.id)),
+  groups.filter((g) => ['naprawy', 'ogrzewanie-postojowe'].includes(g.id)),
+];
+
+// Owner, 2026-11-25: storage fee when a repaired vehicle is not collected within two weeks.
+// Net prices, unlike the rest of the list, so it sits apart, under the services.
+const storageFee = [
+  { service: 'Samochody osobowe', price: '30 zł netto', extra: 'za dzień roboczy' },
+  { service: 'Pojazdy dostawcze i większe', price: '60 zł netto', extra: 'za dzień roboczy' },
 ];
 ---
 
@@ -91,7 +104,7 @@ const groups = [
     crumbs={[{ label: 'Strona główna', href: '/' }, { label: 'Cennik' }]}
     eyebrow="Cennik"
     title={`Cennik usług ${pricesYear}`}
-    lead="Przejrzyste ceny usług klimatyzacji samochodowej i ogrzewań postojowych."
+    lead="Przejrzyste ceny brutto usług klimatyzacji samochodowej i ogrzewań postojowych."
   />
 
   <section class="kk-wrap kk-section" id="klimatyzacja">
@@ -110,9 +123,20 @@ const groups = [
       </div>
     </div>
     <div class="kk-price-groups">
-      {groups.map((g) => <div><PriceGroup {...g} /></div>)}
+      {columns.map((col) => <div class="kk-price-col">{col.map((g) => <PriceGroup {...g} />)}</div>)}
     </div>
-    <p class="kk-fineprint" style="margin-top:24px;text-align:center">Ceny brutto. Ceny aktualne na dzień <Today />.</p>
+    <div class="kk-price-group kk-fee" id="nieodebrany-pojazd">
+      <div>
+        <h3 class="kk-price-title" style="margin:0 0 8px">Nieodebranie pojazdu</h3>
+        <p class="kk-price-note" style="margin:0">W przypadku nieodebrania pojazdu po zakończeniu naprawy powyżej dwóch tygodni doliczamy opłatę za każdy dzień roboczy</p>
+      </div>
+      <div>
+        {storageFee.map((r) => (
+          <div class="kk-price-row"><span class="kk-price-item">{r.service}</span><span class="kk-price-dots" aria-hidden="true"></span><span class="kk-price-value">{r.price}<small>{r.extra}</small></span></div>
+        ))}
+      </div>
+    </div>
+    <p class="kk-fineprint" style="margin-top:24px;text-align:center">Ceny usług są cenami brutto, z wyjątkiem opłaty za nieodebranie pojazdu (netto). Ceny aktualne na dzień <Today />.</p>
   </section>
 
   <CTABanner title="Masz pytania o cennik?" subtitle="Zadzwoń: 71 337 14 50 lub 605 594 506" />
@@ -128,9 +152,24 @@ const groups = [
   .kk-scope {
     margin-top: 16px;
   }
-  /* An odd last group spans the full row instead of leaving a hole. */
-  .kk-price-groups > div:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
+  .kk-price-groups {
+    align-items: start;
+  }
+  .kk-price-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+  }
+  /* Padding and radius come from .kk-price-group (also gives the rows their mobile stacking). */
+  .kk-fee {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 16px 40px;
+    align-items: center;
+    border: 1px solid var(--brand-line);
+    background: var(--brand-tint);
   }
   .kk-scope-cols {
     display: grid;
@@ -164,7 +203,8 @@ const groups = [
     color: var(--navy);
   }
   @container kk (max-width: 760px) {
-    .kk-scope-cols {
+    .kk-scope-cols,
+    .kk-fee {
       grid-template-columns: minmax(0, 1fr);
     }
   }
