@@ -52,7 +52,7 @@ const sun = '<circle cx="24" cy="24" r="8"></circle><g class="kk-spin-fast" styl
   <div class="kk-frost kk-banner" id="kk-month" data-months={JSON.stringify(MONTHS)}>
     <span class="kk-blue kk-banner-icon">
       <img src="/images/brand/flake-white.svg" alt="" aria-hidden="true" class="kk-spin-fast" style="width:32px;height:32px" data-icon="zima" hidden={!winter}>
-      <svg viewBox="0 0 48 48" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true" data-icon="lato" hidden={winter} set:html={sun} />
+      <svg viewBox="0 0 48 48" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true" data-icon="lato" {...{ hidden: winter }} set:html={sun} />
     </span>
     <span>
       <span style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px"><span class="kk-banner-month" data-m="name">{name}</span><span class="kk-banner-msg" data-m="text">{text}</span></span>
