@@ -1,4 +1,4 @@
-# Klima-Kar website: notes for Claude
+# Klima-Kar website: notes for agents
 
 Static Astro 7 site in the **Szron** design, plus two one-page brand sites in `sites/`
 (webasto.wroclaw.pl, eberspaecher.wroclaw.pl; see README › Brand sites). `README.md` covers the stack, structure and deploy;
