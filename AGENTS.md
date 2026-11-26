@@ -41,11 +41,21 @@ Static Astro 7 site in the **Szron** design, plus two one-page brand sites in `s
 - Icons: `lucide-astro`, 24px, stroke 1.8. Interactive bits are small vanilla `<script>`s.
 - Gradient text (`kk-grad`) clips to its box; the class pads for descenders. Keep that.
 
+## Process
+
+1. Branch `agent/<topic>` from a fresh `origin/main`.
+2. Make the change; read this file, BRAND.md and the neighbouring pages first.
+3. `npm run verify` (skill `verify`) and look at the changed pages (sizes below).
+4. Independent review of the diff: the reviewer gets the diff and the goal, not your conclusions.
+5. PR in Polish per `.github/pull_request_template.md`, with how it was checked ("brak (powód)" is allowed).
+   A PR that touches a check (`.github/workflows/`, `scripts/check-*.mjs`, `verify`, the template) says so.
+   The owner merges; merging deploys nothing to production.
+
 ## Checks before committing
 
-- `npm run build` passes (17 pages, incl. /panel/; /galeria/ is switched off); after changes to `sites/`, `src/data/` or shared components,
-  `npm run build:all` too. The PR checks (`.github/workflows/pr-checks.yml`) run `npm run check:types` (astro check),
-  `npm run build:all` and `npm run check:links`; run them locally (in the container) before opening a PR.
+- `npm run verify` passes. It is exactly what the PR checks (`.github/workflows/pr-checks.yml`) run:
+  `check:php` (`php -l`), `check:types` (astro check), `build:all` (17 pages on the main site, incl. /panel/;
+  /galeria/ is switched off) and `check:links`. How to run it and what each check proves: skill `verify`.
 - Look at changed pages at 1440px and 390px (and ~1024/1366 for anything in grids or bars).
   No text may overflow its column; long Polish words in display headings may need a soft
   hyphen (`{"Bezpieczeń\u00ADstwo"}`; a JS expression, since quoted attributes don't unescape).

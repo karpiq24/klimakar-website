@@ -4,7 +4,7 @@
 
 
 ## Jak sprawdzone
-<!-- Konkretnie: komenda i wynik (np. `npm run build:all`, `npm run check:links`, `npm run check:types`),
+<!-- Konkretnie: komenda i wynik (`npm run verify` = CI; `npm run check:ads` przy zmianie treści),
      strony obejrzane przy 1440 px i 390 px, adres podglądu. „brak (powód)” jest dozwolone. -->
 
 

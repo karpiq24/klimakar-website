@@ -28,9 +28,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Type check (astro check)
-        run: npm run check:types
-      - name: Build main site and brand sites
-        run: npm run build:all
-      - name: Check internal links
-        run: npm run check:links
+      # Same command as locally (AGENTS.md › Process): php -l, astro check, build:all, internal links.
+      # PHP CLI is preinstalled on ubuntu-latest. `check:ads` is not run here: it reads
+      # private/ads/campaigns.yaml from the private repo, which this public repo's CI must not access.
+      - name: Verify (npm run verify)
+        run: npm run verify
