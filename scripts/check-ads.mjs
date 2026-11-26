@@ -16,7 +16,7 @@ const err = (where, msg) => errors.push(`${where}: ${msg}`);
 // Google Ads limits.
 const LIMITS = { headline: 30, description: 90, sitelink: 25, sitelinkLine: 35, callout: 25, snippet: 25, keyword: 80 };
 
-// Site copy rules (CLAUDE.md, design/szron/README.md) that apply to ad text too.
+// Site copy rules (AGENTS.md, design/szron/README.md) that apply to ad text too.
 const BANNED = [
   [/!/, 'no exclamation marks'],
   [/1989/, 'Klima-Kar started in 1999'],
