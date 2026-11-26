@@ -62,10 +62,11 @@ Everything about the design lives in `design/szron/`:
 ├── sites/                         # the two one-page brand sites (see "Brand sites" below)
 ├── scripts/og-images.mjs         # link-preview cards (1200×630, text in the centred square): `npm run og`
 ├── scripts/check-ads.mjs         # `npm run check:ads`: validates private/ads/campaigns.yaml
+├── scripts/check-php.mjs         # `npm run check:php`: `php -l` on every PHP file (needs the PHP CLI)
 ├── scripts/check-links.mjs       # `npm run check:links`: internal links and #anchors in dist/, dist-webasto/, dist-eberspaecher/
 ├── private/                       # clone of the private repo, not tracked here (see "Private files")
 ├── .github/workflows/deploy.yml   # GitHub Pages preview deploy (push to main)
-├── .github/workflows/pr-checks.yml # PR checks: astro check, build:all, check:links (deploys nothing)
+├── .github/workflows/pr-checks.yml # PR checks: `npm run verify` = check:php, astro check, build:all, check:links (deploys nothing)
 └── .github/pull_request_template.md # PR description template (Polish; "Jak sprawdzone" required)
 ```
 

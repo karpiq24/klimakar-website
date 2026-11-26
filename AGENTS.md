@@ -48,7 +48,8 @@ Static Astro 7 site in the **Szron** design, plus two one-page brand sites in `s
 3. `npm run verify` (skill `verify`) and look at the changed pages (sizes below).
 4. Independent review of the diff: the reviewer gets the diff and the goal, not your conclusions.
 5. PR in Polish per `.github/pull_request_template.md`, with how it was checked ("brak (powód)" is allowed).
-   A PR that touches a check (`.github/workflows/`, `scripts/check-*.mjs`, `verify`, the template) says so.
+   A PR that touches a check (`.github/workflows/`, `scripts/check-*.mjs`,
+   the `verify`/`check:*` scripts in `package.json`, skill `verify`, the template) says so.
    The owner merges; merging deploys nothing to production.
 
 ## Checks before committing

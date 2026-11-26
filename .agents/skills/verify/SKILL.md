@@ -28,12 +28,14 @@ docker run --rm -v "$PWD":/w -w /w node:22-bookworm-slim sh -c '
   chown -R '"$(id -u):$(id -g)"' node_modules .astro dist* 2>/dev/null; exit $s'
 ```
 
-To lint PHP alone without installing it: `docker run --rm -v "$PWD":/w -w /w php:8.3-cli php -l public/contact.php`.
+To lint PHP alone without installing it (`php -l` takes one file per call):
+`docker run --rm -v "$PWD":/w -w /w php:8.3-cli sh -c 'for f in public/contact.php public/panel/api.php; do php -l "$f" || exit 1; done'`.
 
 ## Look at the change
 
-A build passing is not enough for page changes. Serve the build (`npm run preview` in the container,
-or the branch preview where one exists) and open the changed pages at 1440px and 390px (also ~1024/1366 for grids and bars). Check:
+A build passing is not enough for page changes. Serve the built folder (`dist/`, or
+`dist-<brand>/` for a brand site) with any static server reachable from your browser, or use the branch
+preview where one exists (`npm run preview` serves only `dist/` and binds to localhost), and open the changed pages at 1440px and 390px (also ~1024/1366 for grids and bars). Check:
 
 - no text overflows its column; Szron look (`kk-` classes) unchanged elsewhere;
 - copy, prices and facts exactly as before unless the task changed them;

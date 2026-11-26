@@ -33,7 +33,8 @@ for (const file of files) {
   const res = spawnSync('php', ['-l', file], { encoding: 'utf8' });
   if (res.status !== 0) {
     failed++;
-    process.stderr.write(res.stdout + res.stderr);
+    const why = res.error ? res.error.message : res.signal ? `killed by ${res.signal}` : '';
+    process.stderr.write(`${res.stdout ?? ''}${res.stderr ?? ''}${why ? `${file}: ${why}\n` : ''}`);
   }
 }
 console.log(`${version.stdout.split('\n')[0]}: ${files.length - failed}/${files.length} PHP files OK`);

@@ -13,7 +13,7 @@
 
 
 ## Zmiana pliku bramki
-<!-- Jeśli PR rusza kontrole (`.github/workflows/`, `scripts/check-*.mjs`, ten szablon), napisz to wprost; zmiana nie ocenia samej siebie. Jeśli nie — „nie dotyczy”. -->
+<!-- Jeśli PR rusza kontrole (`.github/workflows/`, `scripts/check-*.mjs`, skrypty `verify`/`check:*` w `package.json`, skill `.agents/skills/verify`, ten szablon), napisz to wprost; zmiana nie ocenia samej siebie. Jeśli nie — „nie dotyczy”. -->
 
 
 Refs #
