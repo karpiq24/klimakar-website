@@ -21,6 +21,7 @@ function* htmlFiles(dir) {
 // Maps a URL path (already decoded, without query/fragment) to a file inside root, or null.
 function resolveFile(root, urlPath) {
   const rel = urlPath.replace(/^\/+/, '');
+  if (posix.normalize(rel || '.').startsWith('..')) return null; // outside the site root
   const candidates = urlPath.endsWith('/') || rel === '' ? [join(root, rel, 'index.html')] : [join(root, rel), join(root, rel, 'index.html')];
   return candidates.find((p) => existsSync(p) && statSync(p).isFile()) ?? null;
 }
@@ -66,14 +67,16 @@ for (const root of dirs) {
   }
   for (const file of htmlFiles(root)) {
     pagesChecked++;
-    const pageUrl = '/' + posix.relative(root, file).split(/[\\/]/).join('/').replace(/index\.html$/, '');
+    const pageUrl = '/' + posix.relative(root, file).split(/[\\/]/).join('/').replace(/(^|\/)index\.html$/, '$1');
     const html = markupOnly(readFileSync(file, 'utf8'));
     for (const raw of references(html)) {
-      const ref = raw.replace(/&amp;/g, '&');
+      const ref = raw.replace(/&amp;/g, '&').trim();
       if (/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(ref)) continue; // external or special scheme
       linksChecked++;
-      const [beforeHash, fragment] = ref.split('#', 2);
-      const urlPath = decode(decodeURI, beforeHash.split('?')[0], file, errors);
+      const hashAt = ref.indexOf('#');
+      const beforeHash = hashAt === -1 ? ref : ref.slice(0, hashAt);
+      const fragment = hashAt === -1 ? '' : ref.slice(hashAt + 1);
+      const urlPath = decode(decodeURIComponent, beforeHash.split('?')[0], file, errors);
       if (urlPath === null) continue;
       const absolute = urlPath === '' ? pageUrl : urlPath.startsWith('/') ? urlPath : posix.join(posix.dirname(pageUrl + 'x'), urlPath) + (urlPath.endsWith('/') ? '/' : '');
       const target = resolveFile(root, absolute);
