@@ -25,22 +25,38 @@ function resolveFile(root, urlPath) {
   return candidates.find((p) => existsSync(p) && statSync(p).isFile()) ?? null;
 }
 
+// Comments and script bodies are not markup: strings in them must not count as links or anchors.
+const markupOnly = (html) => html.replace(/<!--[\s\S]*?-->/g, '').replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+// Attribute value, quoted or not, with optional spaces around "=".
+const attr = (names) => new RegExp(`\\s(?:${names})\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s"'>]+))`, 'gi');
+
 const idCache = new Map();
 function idsOf(file) {
   if (!idCache.has(file)) {
-    const html = readFileSync(file, 'utf8');
-    idCache.set(file, new Set([...html.matchAll(/\s(?:id|name)=(?:"([^"]*)"|'([^']*)'|([^\s>]+))/g)].map((m) => m[1] ?? m[2] ?? m[3])));
+    const html = markupOnly(readFileSync(file, 'utf8'));
+    const ids = [...html.matchAll(attr('id'))].map((m) => m[1] ?? m[2] ?? m[3]);
+    const anchorNames = [...html.matchAll(/<a\b[^>]*>/gi)].flatMap((tag) => [...tag[0].matchAll(attr('name'))].map((m) => m[1] ?? m[2] ?? m[3]));
+    idCache.set(file, new Set([...ids, ...anchorNames]));
   }
   return idCache.get(file);
 }
 
 function references(html) {
   const refs = [];
-  for (const m of html.matchAll(/\s(href|src|poster|data-src)=(?:"([^"]*)"|'([^']*)')/g)) refs.push(m[2] ?? m[3]);
-  for (const m of html.matchAll(/\ssrcset=(?:"([^"]*)"|'([^']*)')/g)) {
-    for (const part of (m[1] ?? m[2]).split(',')) refs.push(part.trim().split(/\s+/)[0]);
+  for (const m of html.matchAll(attr('href|src|poster|data-src'))) refs.push(m[1] ?? m[2] ?? m[3]);
+  for (const m of html.matchAll(attr('srcset'))) {
+    for (const part of (m[1] ?? m[2] ?? m[3]).split(',')) refs.push(part.trim().split(/\s+/)[0]);
   }
   return refs.filter(Boolean);
+}
+
+function decode(fn, value, where, errs) {
+  try {
+    return fn(value);
+  } catch {
+    errs.push(`${where}: malformed percent-encoding in "${value}"`);
+    return null;
+  }
 }
 
 for (const root of dirs) {
@@ -51,20 +67,23 @@ for (const root of dirs) {
   for (const file of htmlFiles(root)) {
     pagesChecked++;
     const pageUrl = '/' + posix.relative(root, file).split(/[\\/]/).join('/').replace(/index\.html$/, '');
-    const html = readFileSync(file, 'utf8');
+    const html = markupOnly(readFileSync(file, 'utf8'));
     for (const raw of references(html)) {
       const ref = raw.replace(/&amp;/g, '&');
       if (/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(ref)) continue; // external or special scheme
       linksChecked++;
       const [beforeHash, fragment] = ref.split('#', 2);
-      const urlPath = decodeURI(beforeHash.split('?')[0]);
+      const urlPath = decode(decodeURI, beforeHash.split('?')[0], file, errors);
+      if (urlPath === null) continue;
       const absolute = urlPath === '' ? pageUrl : urlPath.startsWith('/') ? urlPath : posix.join(posix.dirname(pageUrl + 'x'), urlPath) + (urlPath.endsWith('/') ? '/' : '');
       const target = resolveFile(root, absolute);
       if (!target) {
         errors.push(`${file}: broken link "${raw}" (no file for ${absolute})`);
         continue;
       }
-      if (fragment && target.endsWith('.html') && !idsOf(target).has(decodeURIComponent(fragment))) {
+      const id = fragment ? decode(decodeURIComponent, fragment, file, errors) : null;
+      // "#" and "#top" always scroll to the top of the page (HTML spec), so they need no element.
+      if (id && id.toLowerCase() !== 'top' && target.endsWith('.html') && !idsOf(target).has(id)) {
         errors.push(`${file}: broken anchor "${raw}" (no #${fragment} in ${target})`);
       }
     }
