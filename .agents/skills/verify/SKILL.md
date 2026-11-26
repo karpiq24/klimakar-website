@@ -25,7 +25,7 @@ There is no `compose.dev.yml`; don't run npm on the host. The node image has no 
 docker run --rm -v "$PWD":/w -w /w node:22-bookworm-slim sh -c '
   apt-get update -qq && apt-get install -y -qq php-cli >/dev/null &&
   npm ci --no-audit --no-fund && npm run verify; s=$?
-  chown -R '"$(id -u):$(id -g)"' node_modules .astro dist dist-*; exit $s'
+  chown -R '"$(id -u):$(id -g)"' node_modules .astro dist* 2>/dev/null; exit $s'
 ```
 
 To lint PHP alone without installing it: `docker run --rm -v "$PWD":/w -w /w php:8.3-cli php -l public/contact.php`.
