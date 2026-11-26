@@ -19,9 +19,11 @@
     "build:demo": "npm run build && MICROSITE_BASE=/strony/webasto/ npm run build:webasto && MICROSITE_BASE=/strony/eberspaecher/ npm run build:eberspaecher && rm -rf dist/strony && mkdir -p dist/strony/webasto dist/strony/eberspaecher && cp -a dist-webasto/. dist/strony/webasto/ && cp -a dist-eberspaecher/. dist/strony/eberspaecher/ && cp demo/status-demo.json dist/",
     "check:types": "astro check",
     "check:links": "node scripts/check-links.mjs",
+    "check:php": "node scripts/check-php.mjs",
     "check:ads": "node scripts/check-ads.mjs",
     "ads:csv": "node scripts/ads-csv.mjs",
-    "panel:haslo": "node scripts/panel-haslo.mjs"
+    "panel:haslo": "node scripts/panel-haslo.mjs",
+    "verify": "npm run check:php && npm run check:types && npm run build:all && npm run check:links"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.6",

@@ -4,7 +4,7 @@
 
 
 ## Jak sprawdzone
-<!-- Konkretnie: komenda i wynik (np. `npm run build:all`, `npm run check:links`, `npm run check:types`),
+<!-- Konkretnie: komenda i wynik (`npm run verify` = CI; `npm run check:ads` przy zmianie treści),
      strony obejrzane przy 1440 px i 390 px, adres podglądu. „brak (powód)” jest dozwolone. -->
 
 
@@ -13,7 +13,7 @@
 
 
 ## Zmiana pliku bramki
-<!-- Jeśli PR rusza kontrole (`.github/workflows/`, `scripts/check-*.mjs`, ten szablon), napisz to wprost; zmiana nie ocenia samej siebie. Jeśli nie — „nie dotyczy”. -->
+<!-- Jeśli PR rusza kontrole (`.github/workflows/`, `scripts/check-*.mjs`, skrypty `verify`/`check:*` w `package.json`, skill `.agents/skills/verify`, ten szablon), napisz to wprost; zmiana nie ocenia samej siebie. Jeśli nie — „nie dotyczy”. -->
 
 
 Refs #
