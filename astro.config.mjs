@@ -3,7 +3,6 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { cssTarget } from './css-target.mjs';
 
-// https://astro.build/config
 export default defineConfig({
   site: 'https://klima-kar.wroclaw.pl',
   output: 'static',
@@ -11,6 +10,6 @@ export default defineConfig({
     format: 'directory',
   },
   vite: { build: { cssTarget } },
-  // The owner's panel stays out of the sitemap (and is noindex; not in robots.txt, which would advertise it).
+  // WHY: a robots.txt entry would advertise /panel/ to crawlers, so it is hidden only by noindex and this filter.
   integrations: [sitemap({ filter: (page) => !page.includes('/panel/') })],
 });

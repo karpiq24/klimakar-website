@@ -1,7 +1,5 @@
-// Writes Google Ads bulk-upload CSVs (Narzędzia › Działania zbiorcze › Przesłane pliki) from
-// private/ads/campaigns.yaml into private/ads/upload/. Upload them in file-name order. Everything is created as
-// "Add" with paused campaigns; for later edits in existing campaigns, change the rows in Ads instead.
-// Usage: npm run ads:csv [-- --season oct_mar|apr_sep]   (default: by today's month)
+// WHY: Ads bulk upload (Narzędzia › Działania zbiorcze › Przesłane pliki) applies the files in file-name order and
+// every row is "Add" with paused campaigns; later edits to existing campaigns are made in Ads itself.
 import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
 import { parse } from 'yaml';
 
@@ -18,8 +16,8 @@ const month = new Date().getMonth() + 1;
 const season = seasonArg > 0 ? process.argv[seasonArg + 1] : month >= 4 && month <= 9 ? 'apr_sep' : 'oct_mar';
 if (!['oct_mar', 'apr_sep'].includes(season)) throw new Error(`unknown season "${season}"`);
 
-// Ads location targets use the English geo names.
-function location(text) {
+// WHY: Google Ads location targets accept only English geo names.
+function englishLocation(text) {
   const radius = /^Wrocław \+ (\d+) km$/.exec(text);
   if (radius) return `${radius[1]} | km | Wroclaw, Lower Silesian Voivodeship, Poland`;
   if (text === 'cała Polska') return 'Poland';
@@ -54,7 +52,7 @@ function negatives(campaign, lists) {
 const shared = ads.shared?.headlines ?? [];
 for (const c of ads.campaigns) {
   files['1-kampanie.csv'].push(['Campaign', 'Add', 'Paused', c.name, 'Search', 'Google search',
-    c.budget[season].toFixed(2), 'Daily', 'Maximize clicks', 'pl', location(c.location), 'No']);
+    c.budget[season].toFixed(2), 'Daily', 'Maximize clicks', 'pl', englishLocation(c.location), 'No']);
   const brand = c.name === 'Marka';
   negatives(c.name, [c.negatives, ads.negatives_account, brand ? null : ads.negatives_non_brand]);
 
@@ -74,7 +72,6 @@ for (const c of ads.campaigns) {
   }
 }
 
-// The same rows in one file (Ads reads each row by its Row Type), for a single upload.
 const columns = [...new Set(Object.values(files).flatMap((rows) => rows[0]))];
 files['0-wszystko.csv'] = [columns, ...Object.values(files).flatMap(([head, ...rows]) =>
   rows.map((r) => columns.map((col) => (head.includes(col) ? r[head.indexOf(col)] : ''))))];

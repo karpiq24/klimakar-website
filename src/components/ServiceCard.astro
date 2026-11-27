@@ -1,11 +1,4 @@
 ---
-// ServiceCard — one service in the kk-svc grid. Variants:
-//   standard  — frost card (most services)
-//   brand     — solid brand card with the tilted white K mark (one "available now" offer per grid)
-//   spotlight — navy gradient, two columns wide, outlined CO₂ and fact tags (the differentiator)
-//   image     — frost card led by a real workshop photo
-// The icon (Lucide, stroke 1.8) goes in the default slot. `chip` shows a status or price next to it.
-// With `href` the whole card is a link and ends in a visible "Dowiedz się więcej →".
 interface Props {
   variant?: 'standard' | 'brand' | 'spotlight' | 'image';
   title: string;
@@ -15,7 +8,6 @@ interface Props {
   tags?: string[];
   image?: string;
   imageAlt?: string;
-  /** Anchor for links to this card (e.g. /klimatyzacja/#r744). */
   id?: string;
 }
 

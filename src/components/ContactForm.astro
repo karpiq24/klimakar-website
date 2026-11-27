@@ -1,11 +1,4 @@
 ---
-// ContactForm — the enquiry form on the 0.92 frost-form surface. Posts JSON to /contact.php;
-// field names (name, email, phone, contact, car, vin, message, website honeypot) match public/contact.php.
-// Phone is optional unless the customer prefers a phone call.
-// Spam (see the top of contact.php): the `website` honeypot sits off-screen (bots skip display:none
-// fields), and the form sends a time token it fetches from contact.php on first focus.
-// The brand sites pass their own intro (installation prices, enquiry list) in the default slot and
-// drop the fine print, which repeats that list. contact.php sits next to the page (BASE_URL).
 interface Props {
   fineprint?: boolean;
 }
@@ -45,7 +38,6 @@ const { fineprint = true } = Astro.props;
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const toast = document.getElementById('contact-toast') as HTMLDivElement;
 
-  // The result stays under the submit button (a fixed corner toast hid behind the floating header).
   function showToast(message: string, success: boolean) {
     toast.textContent = message;
     toast.dataset.state = success ? 'ok' : 'error';
@@ -57,7 +49,6 @@ const { fineprint = true } = Astro.props;
   const phoneMark = form.querySelector<HTMLElement>('#cf-phone-mark')!;
   const contactChoice = () => form.querySelector<HTMLInputElement>('input[name="contact"]:checked')?.value ?? 'email';
 
-  // Preferring a phone call makes the phone number required.
   function syncPhoneRequired() {
     phone.required = contactChoice() === 'telefon';
     phoneMark.textContent = phone.required ? '*' : '(opcjonalnie)';
@@ -75,7 +66,7 @@ const { fineprint = true } = Astro.props;
 
   const fields = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('.kk-input')];
 
-  // Time token from contact.php, fetched once the visitor starts on the form.
+  const SERVER_MIN_TOKEN_AGE_MS = 3200;
   const endpoint = `${import.meta.env.BASE_URL.replace(/\/?$/, '/')}contact.php`;
   let token: Promise<string> | undefined;
   let tokenAt = 0;
@@ -120,9 +111,8 @@ const { fineprint = true } = Astro.props;
     submitBtn.textContent = 'Wysyłanie...';
 
     try {
-      // The server ignores tokens younger than 3 s (bots); a very quick person waits out the rest.
       const fresh = await getToken();
-      await new Promise((resolve) => setTimeout(resolve, Math.max(0, 3200 - (Date.now() - tokenAt))));
+      await new Promise((resolve) => setTimeout(resolve, Math.max(0, SERVER_MIN_TOKEN_AGE_MS - (Date.now() - tokenAt))));
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -131,7 +121,6 @@ const { fineprint = true } = Astro.props;
       const result = await response.json();
 
       if (result.success) {
-        // Conversion for GTM (Google Ads, GA4); only after contact.php confirms the e-mail went out.
         (window as typeof window & { dataLayer?: unknown[] }).dataLayer?.push({ event: 'form_submit_success', form_id: 'kontakt' });
         showToast(result.message || 'Dziękujemy! Skontaktujemy się wkrótce.', true);
         form.reset();

@@ -1,11 +1,4 @@
 ---
-// MobileCallBar — below 760px a "Zadzwoń do serwisu" bar stays at the bottom of the screen.
-// One tap starts a call. The page gets matching bottom padding so the footer isn't covered.
-// While an element marked `data-callbar-hide` is on screen (the homepage hero buttons, the brand-site
-// hero's "Zadzwoń" button), the bar slides away: the first screen stays clean and there aren't two
-// blue call buttons at once. Near the contact card and CTABanner it stays (owner). Without JS it always shows.
-// Outside opening hours (src/scripts/open-status.ts sets `is-closed`) the bar leads with the message
-// link (form, or e-mail on the brand sites) and keeps the number next to it (owner, 2026-10-16).
 interface Props {
   msgHref?: string;
   msgLabel?: string;
@@ -110,7 +103,6 @@ const mail = '<rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m2
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((e) => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target)));
       bar.classList.toggle('is-away', seen.size > 0);
-      // No slide on the first check, so the bar doesn't flash away on load.
       requestAnimationFrame(() => bar.classList.add('is-ready'));
     });
     twins.forEach((t) => observer.observe(t));

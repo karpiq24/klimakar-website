@@ -35,7 +35,8 @@ Static Astro 7 site in the **Szron** design, plus two one-page brand sites in `s
 - Build pages from the components in `src/components/`. Subpages are always
   Header › PageHero › content › CTABanner › Footer (see BRAND.md › Subpages).
 - `src/styles/szron.css` is a patched copy of `design/szron/szron.css`. When you change it,
-  add the change to the list in `design/szron/README.md`.
+  add the change to the list in `design/szron/README.md` (frozen at its size in `.docs-baseline.json`:
+  shorten an older entry to make room).
 - Post-migration owner decisions that differ from the design files are listed in
   `design/szron/README.md` › "Changes after the migration". Don't revert them.
 - Icons: `lucide-astro`, 24px, stroke 1.8. Interactive bits are small vanilla `<script>`s.
@@ -54,6 +55,15 @@ Static Astro 7 site in the **Szron** design, plus two one-page brand sites in `s
   `private/ads/README.md`). After changing copy, prices, address, hours, phone numbers or page URLs,
   run `npm run check:ads`, update the affected ad texts and add the Ads change to
   `private/ads/CHANGES.md` › Pending. Never change anything in Google Ads itself without the user's yes.
+
+- Comments (`.github/scripts/check_comments.py`, enforced in CI): only tool directives, licence headers,
+  `TODO(#N)`, `WHY: <non-obvious external reason>` (`// WHY:`, `/* WHY: */`, `<!-- WHY: -->`) and JSDoc
+  on exports. Everything else goes into names, types and tests. `.comment-baseline.json` stays `{}`.
+- Docs (`.github/scripts/docs_check.py`, enforced): every `.md` <= 15 000 B; larger ones are frozen in
+  `.docs-baseline.json` and may only shrink. Plans, reports and work status go to GitHub Issues, never to
+  `SPEC.md`, `TODO.md`, `*_REPORT.md` and the like; ordinary commits don't add prose to existing `.md`.
+- `.github/scripts/*.py` are vendored from `klima-kar/platform-ci` (SHA in each header): never edit them
+  here; CI runs the base-branch copy.
 
 ## Brand sites
 

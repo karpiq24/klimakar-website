@@ -1,8 +1,3 @@
-// Live opening status (owner, 2026-10-16): Mon–Fri 9:00–17:00, Wrocław time, closed on Polish
-// public holidays and on the owner's extra days off (status.json, see site-status.ts). Open: "Teraz
-// otwarte (do 17:00) — zadzwoń". Closed: "Teraz nieczynne — otwieramy … o 9:00" plus a link to the
-// form; the phone numbers stay visible. Fills every [data-open] element (OpenStatus.astro) and sets
-// `is-closed` on the mobile call bar, once the days off have loaded (or failed to).
 import { siteStatus, type DayOff } from './site-status';
 
 const OPEN = 9 * 60;
@@ -11,7 +6,7 @@ const WEEKDAYS = ['w niedzielę', 'w poniedziałek', 'we wtorek', 'w środę', '
 const MONTHS = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
 let daysOff: DayOff[] = [];
 
-/** Current date and time in Wrocław, as a UTC date (only the getUTC* fields are used). */
+// WHY: JS Date has no time-zone arithmetic, so Wrocław wall-clock time is stored as a UTC date; read only getUTC*.
 function wroclawNow(): Date {
   const parts = new Intl.DateTimeFormat('en-GB', {
     timeZone: 'Europe/Warsaw', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hourCycle: 'h23',
@@ -20,7 +15,6 @@ function wroclawNow(): Date {
   return new Date(Date.UTC(n('year'), n('month') - 1, n('day'), n('hour'), n('minute')));
 }
 
-/** Easter Sunday (anonymous Gregorian algorithm). */
 function easter(y: number): Date {
   const a = y % 19, b = Math.floor(y / 100), c = y % 100;
   const d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3);
@@ -33,7 +27,6 @@ function easter(y: number): Date {
   return new Date(Date.UTC(y, month - 1, day));
 }
 
-/** Polish public holidays on weekdays that matter: fixed dates, Easter Monday, Corpus Christi. */
 function isHoliday(d: Date): boolean {
   const md = `${d.getUTCMonth() + 1}-${d.getUTCDate()}`;
   if (['1-1', '1-6', '5-1', '5-3', '8-15', '11-1', '11-11', '12-24', '12-25', '12-26'].includes(md)) return true;
@@ -42,7 +35,6 @@ function isHoliday(d: Date): boolean {
   return day === e + 1 * 864e5 || day === e + 60 * 864e5;
 }
 
-/** One of the owner's extra days off (single days or ranges, YYYY-MM-DD). */
 function isDayOff(d: Date): boolean {
   const day = d.toISOString().slice(0, 10);
   return daysOff.some((r) => day >= r.od && day <= (r.do || r.od));
@@ -50,7 +42,6 @@ function isDayOff(d: Date): boolean {
 
 const isWorkday = (d: Date) => d.getUTCDay() >= 1 && d.getUTCDay() <= 5 && !isHoliday(d) && !isDayOff(d);
 
-/** null while open, otherwise when it opens next ("dziś", "jutro", "w poniedziałek", "4 stycznia"). */
 function nextOpening(now: Date): string | null {
   const minutes = now.getUTCHours() * 60 + now.getUTCMinutes();
   if (isWorkday(now)) {
@@ -61,7 +52,6 @@ function nextOpening(now: Date): string | null {
     const d = new Date(now.getTime() + k * 864e5);
     if (!isWorkday(d)) continue;
     if (k === 1) return 'jutro';
-    // A weekday name only within the coming week; after a longer break the date is clearer.
     return k < 7 ? WEEKDAYS[d.getUTCDay()] : `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}`;
   }
   return 'wkrótce';

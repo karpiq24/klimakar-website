@@ -1,8 +1,5 @@
-// Makes the panel password file (public/panel/api.php): `npm run panel:haslo` generates a random
-// password, `npm run panel:haslo -- "<hasło>"` uses your own. Writes, into prywatne/ (git-ignored):
-//   klimakar-panel.php  → upload to the FTP root, NEXT TO www/ (not into it); only the hash is inside
-//   panel-haslo.txt     → the password, for the owner; don't upload it
-// A new password replaces the old one as soon as the new klimakar-panel.php is uploaded.
+// WHY: klimakar-panel.php goes to the FTP root next to www/ (not into it), so the web server never serves the hash;
+// panel-haslo.txt is for the owner only and is never uploaded.
 import { pbkdf2Sync, randomBytes, randomInt } from 'node:crypto';
 import { mkdirSync, writeFileSync } from 'node:fs';
 

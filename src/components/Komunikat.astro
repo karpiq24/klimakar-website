@@ -1,12 +1,7 @@
 ---
-// Komunikat — the owner's notice at the top of the homepage and the brand-site hero (closures, longer
-// waits in a heat wave). Typed in the panel (/panel/) and read from status.json on the client, so it
-// shows without a rebuild; shown whenever the text isn't empty, whatever the dates (owner, 2026-10-17).
-// Replaces src/data/komunikat.ts (the old site's komunikat.html).
 import { Info } from 'lucide-astro';
 
 interface Props {
-  /** Left-aligned (brand-site hero); centred by default (homepage hero). */
   start?: boolean;
 }
 

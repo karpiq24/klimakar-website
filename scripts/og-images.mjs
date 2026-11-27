@@ -1,7 +1,3 @@
-// Link-preview images (Open Graph, 1200×630) for the main site and the two brand sites.
-// Renders a small Szron HTML card per site in headless Chrome, then saves it as JPEG with sharp.
-// Run from the repo root after changing a card: `npm run og` (needs network for Google Fonts).
-// Chrome: set CHROME=/path/to/chrome, otherwise the Playwright headless shell or google-chrome is used.
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, mkdtempSync, readdirSync, writeFileSync } from 'node:fs';
 import { homedir, tmpdir } from 'node:os';
@@ -26,14 +22,13 @@ function findChrome() {
   return 'google-chrome';
 }
 
-// Facebook shows link images at 1.91:1 in posts, but crops them to a centred square elsewhere (comments,
-// some feed layouts). So every card keeps its text, logo and badge inside the centred 630×630 square
-// (SAFE, with margin), and only decorative photos sit in the side bands that a square crop cuts off.
+// WHY: Facebook shows link images at 1.91:1 in posts but crops them to a centred square elsewhere, so text, logo
+// and badge stay inside the centred 630×630 square and only decorative photos use the side bands.
 // Facebook caches images by URL: after changing the main card, give it a new file name (-v3, …) and update
-// the default in src/layouts/BaseLayout.astro. The brand cards get a new hashed URL from Astro by themselves.
+// the default in src/layouts/BaseLayout.astro; the brand cards get a new hashed URL from Astro by themselves.
 const W = 1200;
 const H = 630;
-const SAFE = 560; // width of the text column, centred; fits a 1:1 crop (630px) with 35px to spare per side
+const SQUARE_CROP_SAFE_PX = 560;
 
 const flake = `<img src="${file('public/images/brand/flake-blue.svg')}" alt="">`;
 const side = (where, src, position = '50% 50%') => `
@@ -80,7 +75,7 @@ const page = (card) => `<!DOCTYPE html>
 <style>
   html, body { margin: 0; width: ${W}px; height: ${H}px; overflow: hidden; }
   .og { box-sizing: border-box; width: ${W}px; height: ${H}px; display: flex; align-items: center; justify-content: center; }
-  .og-text { position: relative; width: ${SAFE}px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .og-text { position: relative; width: ${SQUARE_CROP_SAFE_PX}px; display: flex; flex-direction: column; align-items: center; text-align: center; }
   .og-logo { height: 54px; margin-bottom: 30px; }
   .og-h1 { font-size: 54px; }
   .og-h1--brand { font-size: 72px; }

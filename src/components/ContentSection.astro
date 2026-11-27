@@ -1,13 +1,8 @@
 ---
-// ContentSection (variant A) — long text on one frost panel: sticky eyebrow + h2 on the left,
-// paragraphs on the right, and an optional callout (slot "callout") for one sentence the page contains.
-// An optional IconTile (slot "icon") can lead the heading column.
-// Lists inside use <ul class="kk-checklist">.
 interface Props {
   eyebrow: string;
   title: string;
   as?: 'h2' | 'h3';
-  /** Anchor for links to this section (e.g. /rodo/#cookies). */
   id?: string;
 }
 

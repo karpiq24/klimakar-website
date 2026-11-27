@@ -1,9 +1,3 @@
-// Parking-heater controllers ("Systemy sterowania") for the Webasto and Eberspächer pages.
-// Shared by the main site (/webasto/, /eberspacher/) and the brand sites in sites/, so a change
-// here updates every page that lists them. Images are paths under public/.
-// A feature may contain `{dzisiaj}`, rendered as today's date (see ProductCard).
-// Retired products (no longer sold, still serviced) go last and render greyed out.
-
 export interface ControlSystem {
   name: string;
   type: string;

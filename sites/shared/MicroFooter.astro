@@ -1,7 +1,4 @@
 ---
-// Brand-site footer: the Footer frost card with the page's sections, links to the main site and
-// contact details. Owner 2026-10-13: a brand site links only to the main site, never to the other
-// brand's site.
 import type { Brand } from './brand';
 import { sections } from './brand';
 import { strony, mainSite } from '../../src/data/strony';
@@ -13,7 +10,6 @@ interface Props {
 }
 
 const { brand } = Astro.props;
-// Domains wrap only before ".wroclaw.pl" (not at the hyphen in "klima-kar"); a narrow column can't fit them.
 const sites = strony
   .filter((s) => s.key === 'main' || s.key === brand.key)
   .map((s) => ({ ...s, here: s.key === brand.key, name: s.label.split('.')[0], tld: s.label.slice(s.label.indexOf('.')) }));

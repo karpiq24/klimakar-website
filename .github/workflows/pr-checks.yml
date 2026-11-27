@@ -61,3 +61,35 @@ jobs:
           if git cat-file -e "$base:$f" 2>/dev/null; then git show "$base:$f" > "$RUNNER_TEMP/agents_check.py"; else cp "$f" "$RUNNER_TEMP/agents_check.py"; fi
           python3 "$RUNNER_TEMP/agents_check.py" --self-test
           python3 "$RUNNER_TEMP/agents_check.py" . --base "$base" --github
+
+  # Comment policy and docs budget (infra#681), enforce mode, "who touches, fixes" (--base). Vendored copies of
+  # platform-ci's check_comments.py and docs_check.py, run from the base branch like agents_check.py above.
+  guards:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: comments and docs budget (scripts from the base branch)
+        if: github.event_name == 'pull_request'
+        env:
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          if [ "$(git rev-parse -q --verify 'HEAD^2' || true)" = "$PR_HEAD" ]; then base='HEAD^1'; else base=$PR_BASE; fi
+          git cat-file -e "$base^{commit}"
+          rc=0
+          for name in check_comments docs_check; do
+            f=.github/scripts/$name.py
+            # the first PR adding the copy has none on the base - it runs its own (gate file, the reviewer checks it)
+            if git cat-file -e "$base:$f" 2>/dev/null; then git show "$base:$f" > "$RUNNER_TEMP/$name.py"; else cp "$f" "$RUNNER_TEMP/$name.py"; fi
+            if python3 "$RUNNER_TEMP/$name.py" --self-test; then
+              python3 "$RUNNER_TEMP/$name.py" . --base "$base" --mode enforce --github || rc=1
+            else
+              rc=1
+            fi
+          done
+          exit "$rc"
