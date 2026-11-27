@@ -1,6 +1,4 @@
 ---
-// Header — floating frosted pill, sticky at the top, with a highlight that slides between links
-// (src/scripts/header.ts). Below 760px: a burger (the phone is in the bottom call bar) opening the frosted mobile menu.
 const navLinks = [
   { label: 'Strona główna', href: '/', match: ['/'] },
   { label: 'Klimatyzacja', href: '/klimatyzacja/', match: ['/klimatyzacja/', '/konserwacja/', '/dezynfekcja/', '/tunap/', '/dezynfekcja-bg/'] },
@@ -44,7 +42,6 @@ const current = (link: (typeof navLinks)[number]) => (link.match.includes(path) 
     menu.hidden = !open;
     burger.setAttribute('aria-expanded', String(open));
   });
-  // Links within the page (e.g. "Umów wizytę" → #kontakt on the homepage) close the menu.
   menu?.addEventListener('click', (e) => {
     if (!(e.target as Element).closest('a') || !burger) return;
     menu.hidden = true;

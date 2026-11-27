@@ -1,24 +1,16 @@
-// "Które ogrzewanie dla Ciebie": water (wet) vs air (dry) heaters, with the matching kind of customer
-// and the heater models we fit. Shared by /ogrzewanie-postojowe/ and the brand sites in sites/.
-
 export type HeaterBrand = 'webasto' | 'eberspaecher';
 
 export interface HeaterModel {
   brand: HeaterBrand;
   name: string;
-  /** Path under public/ (manufacturer press packshot). */
   image: string;
   features: string[];
 }
 
-// Owner request 2026-10-13: Thermo Top Evo and Hydronic S3 for water, Air Top Pro 25 and
-// Airtronic S3 D2L for air, shown as example models ("Przykładowy model"). Owner feedback: models of
-// one type are listed with the same rows ("Label: value"), in the same order and the same words, so
-// they can be compared; only the values differ. Owner 2026-10-13 (second round): the power is a
-// regulation range ("Regulacja mocy grzewczej"), weight dropped, controls as he listed them. Sources: webasto.com › Thermo Top Evo, Air Top Pro 25
-// (+ press release 2025); eberspaecher.com › Hydronic S3 Economy datasheet, Airtronic 3 technical
-// description 04.2024 and press release 2021; S3 D2L altitude correction up to 4000 m (owner, 2026-10-29;
-// earlier 3000 m per the owner). Photos: the same.
+// WHY: owner 2026-10-13: models of one type use the same rows ("Label: value") in the same order and words so
+// they can be compared; power as the regulation range; S3 D2L altitude correction up to 4000 m (owner, 2026-10-29).
+// Sources: webasto.com › Thermo Top Evo, Air Top Pro 25 (+ press release 2025); eberspaecher.com › Hydronic S3
+// Economy datasheet, Airtronic 3 technical description 04.2024 and press release 2021. Photos: the same.
 const models: Record<'wodne' | 'powietrzne', HeaterModel[]> = {
   wodne: [
     {

@@ -1,10 +1,6 @@
 ---
-// HeaterModels — the heater models we fit for one heater type (src/data/ogrzewanie.ts), as upright
-// ProductCards (photo above the features) inside a "Które ogrzewanie dla Ciebie" card, chipped
-// "Przykładowy model" (owner: we fit various models) with the spec rows' labels in bold.
-// With several models (main site) a Webasto | Eberspächer pill switch shows one at a time; every
-// switch on the page follows the last choice. The models share one grid cell and inactive ones are
-// only invisible, so the card keeps its height when switching. Without JS the first model shows.
+// WHY: inactive models are only invisible in a shared grid cell, so the card keeps its height when switching;
+// "Przykładowy model" because the workshop fits various models (owner).
 import ProductCard from './ProductCard.astro';
 
 interface Props {
@@ -39,7 +35,6 @@ const tabs = models.length > 1;
 )}
 
 <script>
-  // Selecting a brand in one switch selects it in all of them.
   const select = (brand: string, focus?: HTMLElement) => {
     document.querySelectorAll<HTMLElement>('[data-heater-models]').forEach((box) => {
       if (!box.querySelector(`.kk-models-panel[data-heater-brand="${brand}"]`)) return;

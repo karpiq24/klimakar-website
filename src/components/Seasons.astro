@@ -1,8 +1,5 @@
 ---
-// Seasons — SeasonModule (two linked halves joined by a snowflake knob) + MonthBanner.
-// The month, its tip, CTA, bar segments, the tinted half and the "Teraz" chip are set on the
-// client from MONTHS, so a static build never freezes the month. Build-time month is the fallback.
-// CTAs that invite a visit ("Umów …") lead to /kontakt/; the others to the service page (owner, 2026-10-16).
+// WHY: the month is set on the client from MONTHS so a static build never freezes it.
 const MONTHS = [
   ['Styczeń', 'zima', 'Zimny start to obciążenie dla silnika — ogrzewanie postojowe nagrzeje go, zanim przekręcisz kluczyk.', 'Ogrzewanie postojowe', '/ogrzewanie-postojowe/'],
   ['Luty', 'zima', 'Ogrzewanie nie startuje albo dymi? Zdiagnozujemy i naprawimy Webasto i Eberspächer.', 'Umów naprawę ogrzewania', '/kontakt/'],
@@ -77,7 +74,6 @@ const sun = '<circle cx="24" cy="24" r="8"></circle><g class="kk-spin-fast" styl
     set('name', name);
     set('text', text);
     set('cta', `${cta} →`);
-    // With the contact section on the page (homepage), "Umów …" scrolls to it, as in ContactSection.
     const onPage = href === '/kontakt/' && document.getElementById('kontakt');
     banner.querySelector<HTMLAnchorElement>('[data-m="cta"]')?.setAttribute('href', onPage ? '#kontakt' : href);
     banner.querySelectorAll<HTMLElement>('.kk-seg').forEach((seg, k) => {

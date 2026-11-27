@@ -1,10 +1,4 @@
-// Sticky header behaviour, shared by Header.astro and the brand sites' MicroHeader.astro.
-// - `.kk-headbar` gets `is-stuck` once the page scrolls, so the pill turns more opaque over content.
-// - On mobile (≤ 760px) it also gets `is-hidden` while scrolling down and comes back on scroll up,
-//   so the header and the bottom call bar don't both take space from the content.
-// - `.kk-nav` gets a floating highlight (`.kk-nav-pill`): it sits under the current link
-//   (aria-current, also when a scroll spy changes it) and slides to the link under the pointer or focus.
-// Without JS the header still sticks and the current link keeps its own white background.
+// WHY: on mobile the header hides while scrolling down, so it and the bottom call bar don't both take space.
 
 export function initHeader(headbar: HTMLElement | null) {
   if (!headbar) return;
@@ -15,7 +9,7 @@ export function initHeader(headbar: HTMLElement | null) {
   const onScroll = () => {
     const y = window.scrollY;
     headbar.classList.toggle('is-stuck', y > 4);
-    // Ignore small jitters (momentum scrolling, the address bar resizing the viewport).
+    // WHY: ignore small jitters (momentum scrolling, the address bar resizing the viewport).
     if (Math.abs(y - lastY) < 8) return;
     const down = y > lastY;
     lastY = y;
@@ -43,7 +37,6 @@ export function initHeader(headbar: HTMLElement | null) {
       pill.classList.remove('is-on');
       return;
     }
-    // Coming from hidden: jump to the link and fade in instead of sliding from the old spot.
     const jump = !pill.classList.contains('is-on');
     if (jump) pill.style.transition = 'opacity .25s';
     pill.style.width = `${target.offsetWidth}px`;
@@ -65,7 +58,7 @@ export function initHeader(headbar: HTMLElement | null) {
     if (!nav.contains(e.relatedTarget as Node | null)) { hovered = null; place(); }
   });
   new MutationObserver(place).observe(nav, { subtree: true, attributeFilter: ['aria-current'] });
-  // Link widths change when the web font arrives or the nav wraps.
+  // WHY: link widths change when the web font arrives or the nav wraps.
   new ResizeObserver(place).observe(nav);
   place();
 }

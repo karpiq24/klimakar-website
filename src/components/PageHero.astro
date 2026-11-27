@@ -1,9 +1,6 @@
 ---
-// PageHero (variant A) — opens every subpage: breadcrumbs, eyebrow, h1, lead and buttons,
-// with a 5:4 photo in a frost frame, a spinning-snowflake disc and a floating fact tag.
-// Without an image the text spans the full width (max 760px). `openStatus` adds the live
-// OpenStatus line under the buttons (on /kontakt, so "Teraz nieczynne … zostaw wiadomość" is in
-// view without scrolling; owner, 2026-11-18).
+// WHY: `openStatus` on /kontakt keeps "Teraz nieczynne … zostaw wiadomość" in view without scrolling
+// (owner, 2026-11-18).
 import OpenStatus from './OpenStatus.astro';
 
 interface Crumb {

@@ -1,13 +1,6 @@
 ---
-// CookieConsent — the cookie banner for Google Tag Manager (GA4 and Google Ads conversions).
-// BaseLayout sets Consent Mode v2 to "denied" in <head> and replays a saved choice before GTM loads;
-// this banner asks once, saves the choice under localStorage `kk-consent` ({ v: 1, analytics, ads, t })
-// and sends gtag('consent', 'update') plus a `consent_update` dataLayer event for GTM triggers.
-// "Odrzuć" is the neutral frost button (owner, 2026-10-14) but keeps the same size and position as
-// "Akceptuj", so rejecting stays as easy as accepting (EU rules). Any element with
-// `data-consent-open` (footer link, /rodo/) shows the banner again so the choice can be changed.
-// The banner shows on the demo too, so the owner can see it, but GTM loads only in production builds
-// (ConsentHead.astro). The brand sites have no /rodo/, so they pass the main site's policy URL.
+// WHY: "Odrzuć" is the neutral frost button (owner, 2026-10-14) but keeps the size and position of "Akceptuj",
+// so rejecting stays as easy as accepting (EU rules).
 interface Props {
   policyUrl?: string;
 }
@@ -28,7 +21,7 @@ const { policyUrl = '/rodo/#cookies' } = Astro.props;
   type Gtag = (...args: unknown[]) => void;
   const w = window as typeof window & { gtag?: Gtag; dataLayer?: unknown[] };
   const KEY = 'kk-consent';
-  const VERSION = 1; // raise it when the banner text or the tools change, so everyone is asked again
+  const VERSION = 1; // WHY: raise it when the banner text or the tools change, so everyone is asked again
   const banner = document.getElementById('kk-consent');
 
   function saved(): boolean {
@@ -40,7 +33,6 @@ const { policyUrl = '/rodo/#cookies' } = Astro.props;
     }
   }
 
-  // After a withdrawn consent, remove the cookies GA4 and Google Ads already set on this domain.
   function clearGoogleCookies() {
     const domain = location.hostname.replace(/^www\./, '');
     document.cookie
@@ -57,7 +49,7 @@ const { policyUrl = '/rodo/#cookies' } = Astro.props;
     try {
       localStorage.setItem(KEY, JSON.stringify({ v: VERSION, analytics: granted, ads: granted, t: Date.now() }));
     } catch {
-      // Storage blocked: the choice holds for this page view only.
+      // WHY: storage blocked: the choice holds for this page view only.
     }
     const value = granted ? 'granted' : 'denied';
     if (typeof w.gtag === 'function') {

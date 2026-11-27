@@ -1,43 +1,34 @@
-// What a brand site needs. sites/<name>/brand.ts fills it in, MicrositePage renders it.
-// Copy comes from the old one-page sites (/mnt/klimakar/<name>/index.php) and the main site's
-// /webasto/, /eberspacher/ and /ogrzewanie-postojowe/ pages. Don't invent copy.
+// WHY: copy comes from the old one-page sites and the main site's /webasto/, /eberspacher/ and
+// /ogrzewanie-postojowe/ pages; never invent copy.
 import type { ControlSystem } from '../../src/data/sterowanie';
 
 export interface Img {
   src: string;
   alt: string;
-  /** CSS object-position for the crop. */
   position?: string;
 }
 
 export interface Brand {
   key: 'webasto' | 'eberspaecher';
-  /** Display name, e.g. "Eberspächer". */
   name: string;
   domain: string;
-  /** image: link-preview card (assets/og.jpg, rendered by scripts/og-images.mjs). */
   seo: { title: string; description: string; image: string };
-  /** Colour logo (public/images/brand/<name>.svg) and its LogoStrip height class. */
   logo: string;
   logoClass: 'kk-lw' | 'kk-le';
   hero: Img;
-  /** Photo beside "O nas" and the line on its frost tag. */
   about: Img & { tag: string };
-  /** Model and controller names for the ticker under the hero. */
   ticker: string[];
   services: {
     repairs: string;
     diagnostics: string;
   };
   heaters: {
-    /** Phone app for water heaters, e.g. "Webasto ThermoConnect". */
     app: string;
   };
   controls: {
     description: string;
     items: (ControlSystem & { imageSrc: string })[];
   };
-  /** Imported photos of this brand's heater models in src/data/ogrzewanie.ts, keyed by path. */
   heaterImages: Record<string, { src: string }>;
 }
 

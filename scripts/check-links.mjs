@@ -1,7 +1,3 @@
-// Checks internal links in the built sites: every root-relative or relative href/src/srcset in the
-// HTML must resolve to a file in the same dist directory, and every #fragment to an id on the target page.
-// Usage: npm run check:links [-- dist dist-webasto ...]   (default: dist dist-webasto dist-eberspaecher)
-// External (http/https), mailto:, tel: and data: links are not checked.
 import { readFileSync, existsSync, statSync, readdirSync } from 'node:fs';
 import { join, posix } from 'node:path';
 
@@ -18,17 +14,15 @@ function* htmlFiles(dir) {
   }
 }
 
-// Maps a URL path (already decoded, without query/fragment) to a file inside root, or null.
 function resolveFile(root, urlPath) {
   const rel = urlPath.replace(/^\/+/, '');
-  if (posix.normalize(rel || '.').startsWith('..')) return null; // outside the site root
+  if (posix.normalize(rel || '.').startsWith('..')) return null;
   const candidates = urlPath.endsWith('/') || rel === '' ? [join(root, rel, 'index.html')] : [join(root, rel), join(root, rel, 'index.html')];
   return candidates.find((p) => existsSync(p) && statSync(p).isFile()) ?? null;
 }
 
-// Comments and script bodies are not markup: strings in them must not count as links or anchors.
+// WHY: strings in comments and script bodies are not links or anchors.
 const markupOnly = (html) => html.replace(/<!--[\s\S]*?-->/g, '').replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
-// Attribute value, quoted or not, with optional spaces around "=".
 const attr = (names) => new RegExp(`\\s(?:${names})\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s"'>]+))`, 'gi');
 
 const idCache = new Map();
@@ -71,7 +65,7 @@ for (const root of dirs) {
     const html = markupOnly(readFileSync(file, 'utf8'));
     for (const raw of references(html)) {
       const ref = raw.replace(/&amp;/g, '&').trim();
-      if (/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(ref)) continue; // external or special scheme
+      if (/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(ref)) continue;
       linksChecked++;
       const hashAt = ref.indexOf('#');
       const beforeHash = hashAt === -1 ? ref : ref.slice(0, hashAt);
@@ -85,7 +79,7 @@ for (const root of dirs) {
         continue;
       }
       const id = fragment ? decode(decodeURIComponent, fragment, file, errors) : null;
-      // "#" and "#top" always scroll to the top of the page (HTML spec), so they need no element.
+      // WHY: "#" and "#top" always scroll to the top of the page (HTML spec), so they need no element.
       if (id && id.toLowerCase() !== 'top' && target.endsWith('.html') && !idsOf(target).has(id)) {
         errors.push(`${file}: broken anchor "${raw}" (no #${fragment} in ${target})`);
       }

@@ -1,6 +1,4 @@
 ---
-// Layout for the one-page brand sites: same <head> rules as src/layouts/BaseLayout.astro (SEO,
-// Open Graph, fonts, JSON-LD, consent + GTM), with the brand's own domain as canonical URL.
 import '../../src/styles/global.css';
 import '../../src/styles/szron.css';
 import MicroHeader from './MicroHeader.astro';
@@ -19,9 +17,9 @@ interface Props {
 const { brand } = Astro.props;
 const siteUrl = `https://${brand.domain}/`;
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
-// The demo build sets PUBLIC_NOINDEX=true (see .github/workflows/deploy.yml); production must not.
+// WHY: only the demo build sets PUBLIC_NOINDEX=true (.github/workflows/deploy.yml); production must not.
 const noindex = import.meta.env.PUBLIC_NOINDEX === 'true';
-// Preview images must be absolute URLs; on the demo (under /strony/<name>/) they come from the demo.
+// WHY: link-preview images must be absolute URLs; on the demo (under /strony/<name>/) they come from the demo.
 const imageUrl = new URL(brand.seo.image, noindex ? 'https://demo.klima-kar.pl' : siteUrl).href;
 
 const jsonLd = {
@@ -50,13 +48,11 @@ const jsonLd = {
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <ConsentHead />
 
-    <!-- SEO -->
     <title>{brand.seo.title}</title>
     <meta name="description" content={brand.seo.description} />
     <link rel="canonical" href={siteUrl} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-    <!-- Open Graph -->
     <meta property="og:title" content={brand.seo.title} />
     <meta property="og:description" content={brand.seo.description} />
     <meta property="og:locale" content="pl_PL" />
@@ -70,7 +66,6 @@ const jsonLd = {
     <meta property="og:image:alt" content={`Autoryzowany Serwis ${brand.name} Wrocław — Klima-Kar`} />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Google Fonts: Onest (body) + Unbounded (display) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

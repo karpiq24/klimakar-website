@@ -1,8 +1,5 @@
 ---
-// /panel/ — the owner's panel for the notice and the extra days off (owner, 2026-10-17). A static page that
-// talks to public/panel/api.php; the result is www/status.json, read by all three sites. Not in the
-// sitemap, noindex (not in robots.txt, which would only advertise it); no GTM, header or footer. Works only on the production
-// server (PHP); on the demo it says so.
+// WHY: noindex and not in robots.txt, which would only advertise it; works only on the production server (PHP).
 import '../../styles/global.css';
 import '../../styles/szron.css';
 import { Plus, Trash2 } from 'lucide-astro';

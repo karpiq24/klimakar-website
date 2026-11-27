@@ -1,6 +1,4 @@
 ---
-// Brand-site header: the Header pill with Klima-Kar + partner logo and in-page links.
-// A scroll spy marks the section on screen. Below 760px: a burger (the phone is in the bottom call bar), as on the main site.
 import type { Brand } from './brand';
 import { sections } from './brand';
 import logoColor from '../../public/images/brand/logo-color.svg';
@@ -11,7 +9,7 @@ interface Props {
 
 const { brand } = Astro.props;
 const headerSections = sections.filter((s) => !s.footerOnly);
-// Intrinsic sizes (SVG viewBox ratio at the desktop height) so the header doesn't shift on load.
+// WHY: intrinsic sizes (SVG viewBox ratio at the desktop height) so the header doesn't shift on load.
 const logoSize = { webasto: { width: 90, height: 19 }, eberspaecher: { width: 100, height: 29 } };
 ---
 
@@ -49,11 +47,8 @@ const logoSize = { webasto: { width: 90, height: 19 }, eberspaecher: { width: 10
     burger.setAttribute('aria-expanded', String(open));
   };
   burger?.addEventListener('click', () => setMenu(!!menu?.hidden));
-  // In-page links close the mobile menu.
   menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
 
-  // Scroll spy: the link of the section crossing the upper third of the screen gets aria-current.
-  // Past the last tracked section (Klima-Kar cards, footer) nothing is marked.
   const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-spy]')];
   const targets = [...new Set(links.map((a) => a.dataset.spy!))]
     .map((id) => document.getElementById(id))

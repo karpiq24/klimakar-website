@@ -1,10 +1,6 @@
 ---
-// The one-page brand site (webasto.wroclaw.pl, eberspaecher.wroclaw.pl), in page order:
-// Hero (h1 + wide winter photo with the partner plate) › model ticker › O nas › Serwis (bento) ›
-// Wodne czy powietrzne (HeaterTypes) › Systemy sterowania › Kontakt + Jak dojechać?
-// Owner 2026-10-13: no links to the other brand, DEFA or air conditioning on the page; the
-// cross-links between the three sites stay in the footer only.
-// Copy: the old one-page sites, plus the main site's heating pages. See sites/shared/brand.ts.
+// WHY: owner 2026-10-13: no links to the other brand, DEFA or air conditioning on the page; the cross-links
+// between the three sites stay in the footer only.
 import MicroLayout from './MicroLayout.astro';
 import SectionHeader from '../../src/components/SectionHeader.astro';
 import ProductCard from '../../src/components/ProductCard.astro';
@@ -27,7 +23,6 @@ interface Props {
 const { brand } = Astro.props;
 const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
 
-// Only this brand's models; their photos are the ones brand.ts imported.
 const types = heaterTypes(brand.heaters.app, [brand.key]).map((t) => ({
   ...t,
   models: withImages(t.models, brand.heaterImages).map((m) => ({ ...m, image: m.imageSrc })),
@@ -43,7 +38,6 @@ const ticker = brand.ticker;
 ---
 
 <MicroLayout brand={brand}>
-  <!-- HERO -->
   <section class="kk-wrap mk-hero" id="top">
     <Komunikat start />
     <div class="mk-hero-head">
@@ -71,7 +65,6 @@ const ticker = brand.ticker;
     </div>
   </section>
 
-  <!-- TICKER: model and controller names, a decorative repeat of the sections below -->
   <div class="kk-wrap mk-ticker-wrap" aria-hidden="true">
     <div class="kk-frost mk-ticker">
       <div class="mk-ticker-track">
@@ -84,7 +77,6 @@ const ticker = brand.ticker;
     </div>
   </div>
 
-  <!-- O NAS -->
   <section class="kk-wrap kk-section" id="o-nas">
     <div class="kk-benefits mk-about">
       <div class="kk-benefits-photo">
@@ -107,7 +99,6 @@ const ticker = brand.ticker;
     </div>
   </section>
 
-  <!-- SERWIS -->
   <section class="kk-wrap kk-section" id="serwis">
     <SectionHeader eyebrow="Ogrzewanie postojowe" title={`Serwis ${brand.name}`} description="Montujemy ogrzewania postojowe. Wykonujemy zarówno naprawy gwarancyjne, jak i pogwarancyjne." />
     <div class="kk-svc mk-bento">
@@ -142,10 +133,8 @@ const ticker = brand.ticker;
     </div>
   </section>
 
-  <!-- WODNE CZY POWIETRZNE -->
   <HeaterTypes types={types} id="ogrzewanie" />
 
-  <!-- SYSTEMY STEROWANIA -->
   <section class="kk-wrap kk-section" id="sterowanie">
     <SectionHeader eyebrow={brand.name} title={`Systemy sterowania ${brand.name}`} description={brand.controls.description} />
     <div class="kk-products">
@@ -155,7 +144,6 @@ const ticker = brand.ticker;
     </div>
   </section>
 
-  <!-- KONTAKT + JAK DOJECHAĆ? -->
   <section class="kk-wrap kk-section--lg" id="kontakt" style="position:relative">
     <div aria-hidden="true" class="kk-glow kk-glow--brand kk-drift"></div>
     <div aria-hidden="true" class="kk-glow kk-glow--ice kk-drift2"></div>
@@ -186,8 +174,7 @@ const ticker = brand.ticker;
       <ContactForm fineprint={false}>
         <p class="kk-muted" style="margin:0">Ze względu na różnice techniczne pomiędzy modelami do każdego pojazdu przewidziano inny zestaw montażowy. Cena różni się w zależności od modelu pojazdu, wybranej mocy agregatu, elementów sterujących i stopnia integracji z systemem wentylacji.</p>
         <p class="kk-muted" style="margin:0">Dostępnych rozwiązań jest bardzo wiele, ale możemy podać orientacyjny przedział od 6.500 zł w przypadku ogrzewań powietrznych do busów, do kilkunastu tysięcy zł w przypadku skomplikowanych instalacji w autach osobowych. Szczegółowej wyceny udzielamy po podaniu danych pojazdu.</p>
-        {/* The old sites' 5-point enquiry list, shortened to what the form has no field for
-            (owner, 2026-11-18): make, model and year have their own field. */}
+        {/* WHY: owner 2026-11-18: the old sites' 5-point enquiry list, shortened to what the form has no field for. */}
         <p class="mk-enquiry">Pytasz o montaż? Oprócz marki, modelu i rocznika podaj w dodatkowych informacjach rodzaj, pojemność i moc silnika oraz to, czy klimatyzacja jest manualna, czy automatyczna.</p>
       </ContactForm>
     </div>

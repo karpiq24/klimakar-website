@@ -1,6 +1,4 @@
 ---
-// YearTimeline — frost-framed 4:3 photo crossfading between eras, driven by one button per year.
-// Advances every 4.5s; a click selects a year and restarts the timer. Off under reduced motion.
 interface Props {
   years: { year: string; label: string; src: string; alt: string; position?: string }[];
 }
@@ -33,7 +31,7 @@ const { years } = Astro.props;
         b.classList.remove('on');
         b.setAttribute('aria-pressed', String(i === k));
         if (i === k) {
-          void b.offsetWidth; // restart the progress-bar animation
+          void b.offsetWidth; // WHY: forces a reflow so the progress-bar animation restarts
           b.classList.add('on');
         }
       });

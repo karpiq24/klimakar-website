@@ -1,9 +1,6 @@
 ---
-// ConsentHead — goes first in <head> on the main site (BaseLayout) and the brand sites (MicroLayout).
-// Consent Mode v2 starts with everything denied, a choice saved by CookieConsent.astro (localStorage
-// `kk-consent`, one per domain) is replayed, and then Google Tag Manager loads (GTM-WCWVTWN: GA4 and
-// Google Ads conversions). Only in production builds: not in `astro dev` and not on the demo
-// (PUBLIC_NOINDEX=true), where test clicks on the phone numbers would count as Ads conversions.
+// WHY: GTM loads only in production builds: on the demo (PUBLIC_NOINDEX=true) test clicks on the phone numbers
+// would count as Ads conversions. Consent Mode v2 starts denied and replays the choice saved by CookieConsent.astro.
 const gtm = import.meta.env.PROD && import.meta.env.PUBLIC_NOINDEX !== 'true';
 ---
 

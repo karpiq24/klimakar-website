@@ -7,11 +7,11 @@ import PriceGroup from '../components/PriceGroup.astro';
 import CTABanner from '../components/CTABanner.astro';
 import Today from '../components/Today.astro';
 
-// "Ceny aktualne na dzień …" always shows today's date (owner's decision, 2026-10-13): the prices on
-// this page are the ones in force, so when they change, change them here first.
+// WHY: "Ceny aktualne na dzień …" always shows today's date (owner, 2026-10-13): these are the prices in force,
+// so when they change, change them here first.
 const pricesYear = new Date().getFullYear();
 
-// "Zakres obsługi układu klimatyzacji", word for word from the old site's cennik.
+// WHY: word for word from the old site's cennik.
 const scope = [
   'odzysk czynnika',
   'wykonanie próżni',
@@ -81,15 +81,13 @@ const groups = [
     ],
   },
 ];
-// Two independent columns, so a tall group (Naprawy) leaves no hole next to a short one (Robocizna).
-// Mobile stacks them in this order.
+// WHY: two independent columns, so a tall group (Naprawy) leaves no hole next to a short one (Robocizna).
 const columns = [
   groups.filter((g) => ['dezynfekcja', 'diagnostyka', 'robocizna'].includes(g.id)),
   groups.filter((g) => ['naprawy', 'ogrzewanie-postojowe'].includes(g.id)),
 ];
 
-// Owner, 2026-11-25: storage fee when a repaired vehicle is not collected within two weeks.
-// Net prices, unlike the rest of the list, so it sits apart, under the services.
+// WHY: owner 2026-11-25: net prices, unlike the rest of the list, so the storage fee sits apart.
 const storageFee = [
   { service: 'Samochody osobowe', price: '30 zł netto', extra: 'za dzień roboczy' },
   { service: 'Pojazdy dostawcze i większe', price: '60 zł netto', extra: 'za dzień roboczy' },
@@ -143,7 +141,6 @@ const storageFee = [
 </BaseLayout>
 
 <script>
-  // The hero year follows today's date too (the build year is the fallback).
   const heroTitle = document.querySelector('.kk-pagehero-title');
   if (heroTitle) heroTitle.textContent = `Cennik usług ${new Date().getFullYear()}`;
 </script>

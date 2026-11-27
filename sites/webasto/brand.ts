@@ -1,4 +1,3 @@
-// webasto.wroclaw.pl — content for MicrositePage (see sites/shared/brand.ts).
 import type { Brand } from '../shared/brand';
 import { withImages } from '../shared/brand';
 import { webastoControls } from '../../src/data/sterowanie';

@@ -1,0 +1,4 @@
+{
+  "exclude": ["migrations/", "node_modules/", "dist/", "build/", ".venv/", "vendor/", "static/", "\\.min\\.js$", ".github/scripts/", "design/"],
+  "jsdoc_export_dirs": ["src/", "sites/", "scripts/"]
+}

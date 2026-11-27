@@ -1,7 +1,6 @@
 ---
-// Today — today's date (dd.mm.yyyy) or year, set in the browser so the static build never freezes it.
-// The build date is the fallback when JavaScript is off. Used for "Ceny aktualne na dzień …".
-// The script follows the span with no whitespace, which would otherwise show before a following full stop.
+// WHY: set in the browser so the static build never freezes the date. The script follows the span with no
+// whitespace, which would otherwise show before a following full stop.
 interface Props {
   format?: 'date' | 'year';
 }

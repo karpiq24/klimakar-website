@@ -1,4 +1,3 @@
-// robots.txt for the brand sites; each re-exports it from sites/<name>/pages/robots.txt.ts.
 import type { APIRoute } from 'astro';
 
 export const GET: APIRoute = ({ site }) =>

@@ -1,13 +1,9 @@
 ---
-// PriceGroup (PriceTable variant C, tier 2) — a frost card of services with dotted leaders to the price.
-// Prices are copied exactly; never round or rephrase them.
 interface Props {
   title: string;
   note?: string;
-  /** Optional link in the head, to the page that describes these services. */
   link?: { label: string; href: string };
   rows: { service: string; price: string; extra?: string }[];
-  /** Anchor for links to this group (e.g. /cennik/#dezynfekcja). */
   id?: string;
 }
 

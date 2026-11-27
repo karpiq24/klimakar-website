@@ -1,5 +1,5 @@
 ---
-// Homepage — port of design/szron/homepage.dc.html (approved Szron design, markup and copy verbatim).
+// WHY: markup and copy verbatim from the approved design/szron/homepage.dc.html.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Badge from '../components/Badge.astro';
 import Seasons from '../components/Seasons.astro';
@@ -36,7 +36,6 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
   title="Klima-Kar — klimatyzacja samochodowa i ogrzewanie postojowe Wrocław"
   description="Profesjonalny serwis klimatyzacji samochodowej oraz ogrzewań postojowych Webasto, Eberspächer i DEFA we Wrocławiu. Firma rodzinna z tradycją od 1989 roku."
 >
-  <!-- HERO -->
   <section class="kk-wrap kk-hero">
     <Komunikat />
     <Badge>Działamy od 1999 roku · Wrocław</Badge>
@@ -49,13 +48,10 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
     </div>
   </section>
 
-  <!-- SEASONS + MONTH BANNER -->
   <Seasons />
 
-  <!-- LOGO STRIP -->
   <LogoStrip />
 
-  <!-- SERVICES -->
   <PhotoPanel
     season="summer"
     eyebrow="Usługi"
@@ -89,7 +85,6 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
     </div>
   </PhotoPanel>
 
-  <!-- PARTNERS -->
   <PhotoPanel
     season="winter"
     eyebrow="Webasto · Eberspächer · DEFA"
@@ -108,18 +103,15 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
     </div>
   </PhotoPanel>
 
-  <!-- HOW WE WORK -->
   <ProcessSteps>
     <a href="/jak-pracujemy/" class="kk-link">Zasady przyjmowania zleceń →</a>
   </ProcessSteps>
 
-  <!-- GALLERY -->
   <section class="kk-wrap kk-section">
     <SectionHeader eyebrow="Galeria" title="Nasze realizacje" />
     <GalleryGrid images={gallery} />
   </section>
 
-  <!-- ABOUT -->
   <section class="kk-wrap kk-section--lg kk-about">
     <div class="kk-about-media">
       <YearTimeline years={years} />
@@ -136,7 +128,6 @@ const icon = { size: 24, 'stroke-width': 1.8, 'aria-hidden': 'true' };
     </div>
   </section>
 
-  <!-- CONTACT -->
   <ContactSection />
 </BaseLayout>
 

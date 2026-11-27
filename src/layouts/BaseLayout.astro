@@ -12,17 +12,15 @@ interface Props {
   title: string;
   description: string;
   canonicalPath?: string;
-  /** Link-preview image (1200×630), path under public/. Rendered by scripts/og-images.mjs. */
   image?: string;
 }
 
 const { title, description, canonicalPath, image = '/images/og/klima-kar-v2.jpg' } = Astro.props;
 const siteUrl = 'https://klima-kar.wroclaw.pl';
 const canonicalUrl = canonicalPath ? `${siteUrl}${canonicalPath}` : `${siteUrl}${Astro.url.pathname}`;
-// The demo build (GitHub Pages, see .github/workflows/deploy.yml) sets PUBLIC_NOINDEX=true so the preview
-// stays out of Google. The production build for OVH must be made without it.
+// WHY: only the demo build sets PUBLIC_NOINDEX=true; the production build for OVH must be made without it.
 const noindex = import.meta.env.PUBLIC_NOINDEX === 'true';
-// Preview images must be absolute URLs; on the demo they come from the demo, so shared demo links show them too.
+// WHY: link-preview images must be absolute URLs; on the demo they come from the demo, so shared demo links show them.
 const imageUrl = new URL(image, noindex ? 'https://demo.klima-kar.pl' : siteUrl).href;
 ---
 
@@ -35,13 +33,11 @@ const imageUrl = new URL(image, noindex ? 'https://demo.klima-kar.pl' : siteUrl)
 
     <ConsentHead />
 
-    <!-- SEO -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-    <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:locale" content="pl_PL" />
@@ -55,7 +51,6 @@ const imageUrl = new URL(image, noindex ? 'https://demo.klima-kar.pl' : siteUrl)
     <meta property="og:image:alt" content="Klima-Kar — klimatyzacja i ogrzewanie Twojego auta, Wrocław" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Google Fonts: Onest (body) + Unbounded (display) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -63,7 +58,6 @@ const imageUrl = new URL(image, noindex ? 'https://demo.klima-kar.pl' : siteUrl)
       rel="stylesheet"
     />
 
-    <!-- JSON-LD Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify({"@context":"https://schema.org","@type":"AutoRepair","name":"Klima-Kar","description":"Profesjonalny serwis klimatyzacji samochodowej oraz ogrzewań postojowych Webasto, Eberspächer i DEFA we Wrocławiu.","url":"https://klima-kar.wroclaw.pl","telephone":["+48713371450","+48605594506"],"email":"serwis@klima-kar.pl","address":{"@type":"PostalAddress","streetAddress":"ul. Grota-Roweckiego 129","addressLocality":"Wrocław","postalCode":"52-214","addressCountry":"PL"},"geo":{"@type":"GeoCoordinates","latitude":51.05556,"longitude":17.03197},"openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"17:00"},"image":"https://klima-kar.wroclaw.pl/images/logo.svg","priceRange":"$$","areaServed":{"@type":"City","name":"Wrocław"},"hasOfferCatalog":{"@type":"OfferCatalog","name":"Usługi","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Klimatyzacja samochodowa"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Ogrzewanie postojowe Webasto"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Ogrzewanie postojowe Eberspächer"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Ogrzewanie postojowe DEFA"}}]}})} />
 
   </head>

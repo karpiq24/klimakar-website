@@ -1,5 +1,3 @@
-// Validates private/ads/campaigns.yaml and lists ad groups whose site pages changed since the last sync
-// with Google Ads. Usage: npm run check:ads [-- --since <git rev>]
 import { readFileSync, existsSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { parse } from 'yaml';
@@ -13,10 +11,9 @@ const ads = parse(readFileSync(FILE, 'utf8'));
 const errors = [];
 const err = (where, msg) => errors.push(`${where}: ${msg}`);
 
-// Google Ads limits.
 const LIMITS = { headline: 30, description: 90, sitelink: 25, sitelinkLine: 35, callout: 25, snippet: 25, keyword: 80 };
 
-// Site copy rules (AGENTS.md, design/szron/README.md) that apply to ad text too.
+// WHY: the site copy rules (AGENTS.md) apply to ad text too.
 const BANNED = [
   [/!/, 'no exclamation marks'],
   [/1989/, 'Klima-Kar started in 1999'],
@@ -97,7 +94,6 @@ for (const s of ads.sitelinks ?? []) {
 for (const c of ads.callouts ?? []) checkText('callout', c, LIMITS.callout);
 for (const sn of ads.structured_snippets ?? []) for (const v of sn.values) checkText(`snippet ${sn.header}`, v, LIMITS.snippet);
 
-// What changed on the site since the campaigns were last synced with Ads.
 const sinceArg = process.argv.indexOf('--since');
 const since = sinceArg > 0 ? process.argv[sinceArg + 1] : ads.synced_commit;
 let changed = null;
