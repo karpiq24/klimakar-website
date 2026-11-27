@@ -25,7 +25,7 @@ function findChrome() {
 // WHY: Facebook shows link images at 1.91:1 in posts but crops them to a centred square elsewhere, so text, logo
 // and badge stay inside the centred 630×630 square and only decorative photos use the side bands.
 // Facebook caches images by URL: after changing the main card, give it a new file name (-v3, …) and update
-// the default in src/layouts/BaseLayout.astro.
+// the default in src/layouts/BaseLayout.astro; the brand cards get a new hashed URL from Astro by themselves.
 const W = 1200;
 const H = 630;
 const SAFE = 560; // WHY: fits a 1:1 crop (630px) with 35px to spare per side

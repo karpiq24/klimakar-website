@@ -43,7 +43,7 @@ export function initHeader(headbar: HTMLElement | null) {
     pill.style.height = `${target.offsetHeight}px`;
     pill.style.transform = `translate(${target.offsetLeft}px, ${target.offsetTop}px)`;
     if (jump) {
-      void pill.offsetWidth;
+      void pill.offsetWidth; // WHY: forces a reflow so the jump happens before the transition is restored
       pill.style.transition = '';
     }
     pill.classList.add('is-on');
