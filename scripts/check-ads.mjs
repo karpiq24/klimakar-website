@@ -13,7 +13,6 @@ const err = (where, msg) => errors.push(`${where}: ${msg}`);
 
 const LIMITS = { headline: 30, description: 90, sitelink: 25, sitelinkLine: 35, callout: 25, snippet: 25, keyword: 80 };
 
-// WHY: the site copy rules (AGENTS.md) apply to ad text too.
 const BANNED = [
   [/!/, 'no exclamation marks'],
   [/1989/, 'Klima-Kar started in 1999'],

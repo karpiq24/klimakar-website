@@ -6,7 +6,7 @@ const WEEKDAYS = ['w niedzielę', 'w poniedziałek', 'we wtorek', 'w środę', '
 const MONTHS = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
 let daysOff: DayOff[] = [];
 
-// WHY: a Wrocław wall-clock time stored as a UTC date; read only the getUTC* fields.
+// WHY: JS Date has no time-zone arithmetic, so Wrocław wall-clock time is stored as a UTC date; read only getUTC*.
 function wroclawNow(): Date {
   const parts = new Intl.DateTimeFormat('en-GB', {
     timeZone: 'Europe/Warsaw', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hourCycle: 'h23',
@@ -52,7 +52,6 @@ function nextOpening(now: Date): string | null {
     const d = new Date(now.getTime() + k * 864e5);
     if (!isWorkday(d)) continue;
     if (k === 1) return 'jutro';
-    // WHY: a weekday name only within the coming week; after a longer break the date is clearer.
     return k < 7 ? WEEKDAYS[d.getUTCDay()] : `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}`;
   }
   return 'wkrótce';

@@ -10,6 +10,6 @@ export default defineConfig({
     format: 'directory',
   },
   vite: { build: { cssTarget } },
-  // WHY: /panel/ is noindex and kept out of robots.txt, which would advertise it; the sitemap must skip it too.
+  // WHY: a robots.txt entry would advertise /panel/ to crawlers, so it is hidden only by noindex and this filter.
   integrations: [sitemap({ filter: (page) => !page.includes('/panel/') })],
 });

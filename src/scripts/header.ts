@@ -1,4 +1,5 @@
-// WHY: on mobile the header hides while scrolling down, so it and the bottom call bar don't both take space.
+const SCROLL_JITTER_PX = 8;
+const forceReflow = (el: HTMLElement) => void el.offsetWidth;
 
 export function initHeader(headbar: HTMLElement | null) {
   if (!headbar) return;
@@ -9,8 +10,7 @@ export function initHeader(headbar: HTMLElement | null) {
   const onScroll = () => {
     const y = window.scrollY;
     headbar.classList.toggle('is-stuck', y > 4);
-    // WHY: ignore small jitters (momentum scrolling, the address bar resizing the viewport).
-    if (Math.abs(y - lastY) < 8) return;
+    if (Math.abs(y - lastY) < SCROLL_JITTER_PX) return;
     const down = y > lastY;
     lastY = y;
     const menuOpen = burger?.getAttribute('aria-expanded') === 'true';
@@ -43,7 +43,7 @@ export function initHeader(headbar: HTMLElement | null) {
     pill.style.height = `${target.offsetHeight}px`;
     pill.style.transform = `translate(${target.offsetLeft}px, ${target.offsetTop}px)`;
     if (jump) {
-      void pill.offsetWidth; // WHY: forces a reflow so the jump happens before the transition is restored
+      forceReflow(pill);
       pill.style.transition = '';
     }
     pill.classList.add('is-on');
@@ -58,7 +58,6 @@ export function initHeader(headbar: HTMLElement | null) {
     if (!nav.contains(e.relatedTarget as Node | null)) { hovered = null; place(); }
   });
   new MutationObserver(place).observe(nav, { subtree: true, attributeFilter: ['aria-current'] });
-  // WHY: link widths change when the web font arrives or the nav wraps.
   new ResizeObserver(place).observe(nav);
   place();
 }

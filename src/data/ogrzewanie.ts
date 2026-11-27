@@ -7,10 +7,6 @@ export interface HeaterModel {
   features: string[];
 }
 
-// WHY: owner 2026-10-13: models of one type use the same rows ("Label: value") in the same order and words so
-// they can be compared; power as the regulation range; S3 D2L altitude correction up to 4000 m (owner, 2026-10-29).
-// Sources: webasto.com › Thermo Top Evo, Air Top Pro 25 (+ press release 2025); eberspaecher.com › Hydronic S3
-// Economy datasheet, Airtronic 3 technical description 04.2024 and press release 2021. Photos: the same.
 const models: Record<'wodne' | 'powietrzne', HeaterModel[]> = {
   wodne: [
     {

@@ -1,6 +1,4 @@
 ---
-// WHY: the bar slides away while a `data-callbar-hide` element is on screen so there are never two blue call
-// buttons at once; near the contact card and CTABanner it stays (owner, 2026-10-14).
 interface Props {
   msgHref?: string;
   msgLabel?: string;
@@ -105,7 +103,6 @@ const mail = '<rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m2
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((e) => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target)));
       bar.classList.toggle('is-away', seen.size > 0);
-      // WHY: no slide on the first check, so the bar doesn't flash away on load.
       requestAnimationFrame(() => bar.classList.add('is-ready'));
     });
     twins.forEach((t) => observer.observe(t));

@@ -1,6 +1,5 @@
 ---
-// WHY: "Odrzuć" is the neutral frost button (owner, 2026-10-14) but keeps the size and position of "Akceptuj",
-// so rejecting stays as easy as accepting (EU rules).
+// WHY: EU consent rules require rejecting to be as easy as accepting, so "Odrzuć" matches "Akceptuj" in size and position.
 interface Props {
   policyUrl?: string;
 }
@@ -21,13 +20,13 @@ const { policyUrl = '/rodo/#cookies' } = Astro.props;
   type Gtag = (...args: unknown[]) => void;
   const w = window as typeof window & { gtag?: Gtag; dataLayer?: unknown[] };
   const KEY = 'kk-consent';
-  const VERSION = 1; // WHY: raise it when the banner text or the tools change, so everyone is asked again
+  const CONSENT_PROMPT_VERSION = 1;
   const banner = document.getElementById('kk-consent');
 
   function saved(): boolean {
     try {
       const choice = JSON.parse(localStorage.getItem(KEY) ?? 'null');
-      return !!choice && choice.v === VERSION;
+      return !!choice && choice.v === CONSENT_PROMPT_VERSION;
     } catch {
       return false;
     }
@@ -47,9 +46,9 @@ const { policyUrl = '/rodo/#cookies' } = Astro.props;
 
   function choose(granted: boolean) {
     try {
-      localStorage.setItem(KEY, JSON.stringify({ v: VERSION, analytics: granted, ads: granted, t: Date.now() }));
+      localStorage.setItem(KEY, JSON.stringify({ v: CONSENT_PROMPT_VERSION, analytics: granted, ads: granted, t: Date.now() }));
     } catch {
-      // WHY: storage blocked: the choice holds for this page view only.
+      // WHY: browsers may block storage (private mode); the choice then holds for this page view only.
     }
     const value = granted ? 'granted' : 'denied';
     if (typeof w.gtag === 'function') {

@@ -1,5 +1,3 @@
-// WHY: retired products (no longer sold, still serviced) go last; they render greyed out.
-
 export interface ControlSystem {
   name: string;
   type: string;

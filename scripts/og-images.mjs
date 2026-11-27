@@ -28,7 +28,7 @@ function findChrome() {
 // the default in src/layouts/BaseLayout.astro; the brand cards get a new hashed URL from Astro by themselves.
 const W = 1200;
 const H = 630;
-const SAFE = 560; // WHY: fits a 1:1 crop (630px) with 35px to spare per side
+const SQUARE_CROP_SAFE_PX = 560;
 
 const flake = `<img src="${file('public/images/brand/flake-blue.svg')}" alt="">`;
 const side = (where, src, position = '50% 50%') => `
@@ -75,7 +75,7 @@ const page = (card) => `<!DOCTYPE html>
 <style>
   html, body { margin: 0; width: ${W}px; height: ${H}px; overflow: hidden; }
   .og { box-sizing: border-box; width: ${W}px; height: ${H}px; display: flex; align-items: center; justify-content: center; }
-  .og-text { position: relative; width: ${SAFE}px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .og-text { position: relative; width: ${SQUARE_CROP_SAFE_PX}px; display: flex; flex-direction: column; align-items: center; text-align: center; }
   .og-logo { height: 54px; margin-bottom: 30px; }
   .og-h1 { font-size: 54px; }
   .og-h1--brand { font-size: 72px; }

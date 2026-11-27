@@ -1,6 +1,3 @@
-// WHY: status.json lives only on the production server, written by /panel/, never part of a build; the brand
-// sites read it cross-origin (.htaccess allows it); the demo build reads /status-demo.json instead. Without it: no notice, public holidays only.
-
 export interface DayOff {
   od: string;
   do?: string;

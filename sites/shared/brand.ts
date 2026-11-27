@@ -1,5 +1,3 @@
-// WHY: copy comes from the old one-page sites and the main site's /webasto/, /eberspacher/ and
-// /ogrzewanie-postojowe/ pages; never invent copy.
 import type { ControlSystem } from '../../src/data/sterowanie';
 
 export interface Img {

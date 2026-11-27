@@ -22,11 +22,11 @@
     }
   }
 
-  let width = window.innerWidth;
+  let lastViewportWidth = window.innerWidth;
   let timer: number | undefined;
   window.addEventListener('resize', () => {
-    if (window.innerWidth === width) return; // WHY: the mobile URL bar showing/hiding
-    width = window.innerWidth;
+    if (window.innerWidth === lastViewportWidth) return;
+    lastViewportWidth = window.innerWidth;
     clearTimeout(timer);
     timer = window.setTimeout(fit, 150);
   });

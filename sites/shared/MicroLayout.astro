@@ -17,9 +17,7 @@ interface Props {
 const { brand } = Astro.props;
 const siteUrl = `https://${brand.domain}/`;
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
-// WHY: only the demo build sets PUBLIC_NOINDEX=true (.github/workflows/deploy.yml); production must not.
 const noindex = import.meta.env.PUBLIC_NOINDEX === 'true';
-// WHY: link-preview images must be absolute URLs; on the demo (under /strony/<name>/) they come from the demo.
 const imageUrl = new URL(brand.seo.image, noindex ? 'https://demo.klima-kar.pl' : siteUrl).href;
 
 const jsonLd = {

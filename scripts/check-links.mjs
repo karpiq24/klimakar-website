@@ -21,7 +21,6 @@ function resolveFile(root, urlPath) {
   return candidates.find((p) => existsSync(p) && statSync(p).isFile()) ?? null;
 }
 
-// WHY: strings in comments and script bodies are not links or anchors.
 const markupOnly = (html) => html.replace(/<!--[\s\S]*?-->/g, '').replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 const attr = (names) => new RegExp(`\\s(?:${names})\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s"'>]+))`, 'gi');
 
@@ -79,8 +78,8 @@ for (const root of dirs) {
         continue;
       }
       const id = fragment ? decode(decodeURIComponent, fragment, file, errors) : null;
-      // WHY: "#" and "#top" always scroll to the top of the page (HTML spec), so they need no element.
-      if (id && id.toLowerCase() !== 'top' && target.endsWith('.html') && !idsOf(target).has(id)) {
+      const scrollsToTop = !id || id.toLowerCase() === 'top';
+      if (!scrollsToTop && target.endsWith('.html') && !idsOf(target).has(id)) {
         errors.push(`${file}: broken anchor "${raw}" (no #${fragment} in ${target})`);
       }
     }

@@ -18,9 +18,7 @@ interface Props {
 const { title, description, canonicalPath, image = '/images/og/klima-kar-v2.jpg' } = Astro.props;
 const siteUrl = 'https://klima-kar.wroclaw.pl';
 const canonicalUrl = canonicalPath ? `${siteUrl}${canonicalPath}` : `${siteUrl}${Astro.url.pathname}`;
-// WHY: only the demo build sets PUBLIC_NOINDEX=true; the production build for OVH must be made without it.
 const noindex = import.meta.env.PUBLIC_NOINDEX === 'true';
-// WHY: link-preview images must be absolute URLs; on the demo they come from the demo, so shared demo links show them.
 const imageUrl = new URL(image, noindex ? 'https://demo.klima-kar.pl' : siteUrl).href;
 ---
 

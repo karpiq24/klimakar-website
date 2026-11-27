@@ -1,10 +1,9 @@
 ---
-// WHY: GTM loads only in production builds: on the demo (PUBLIC_NOINDEX=true) test clicks on the phone numbers
-// would count as Ads conversions. Consent Mode v2 starts denied and replays the choice saved by CookieConsent.astro.
-const gtm = import.meta.env.PROD && import.meta.env.PUBLIC_NOINDEX !== 'true';
+// WHY: on the demo, test clicks on the phone numbers would count as Google Ads conversions.
+const loadsGtm = import.meta.env.PROD && import.meta.env.PUBLIC_NOINDEX !== 'true';
 ---
 
-{gtm && (
+{loadsGtm && (
   <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
