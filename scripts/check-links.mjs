@@ -78,8 +78,8 @@ for (const root of dirs) {
         continue;
       }
       const id = fragment ? decode(decodeURIComponent, fragment, file, errors) : null;
-      const scrollsToTop = !id || id.toLowerCase() === 'top';
-      if (!scrollsToTop && target.endsWith('.html') && !idsOf(target).has(id)) {
+      const scrollsToTop = id?.toLowerCase() === 'top';
+      if (id && !scrollsToTop && target.endsWith('.html') && !idsOf(target).has(id)) {
         errors.push(`${file}: broken anchor "${raw}" (no #${fragment} in ${target})`);
       }
     }
